@@ -34,10 +34,10 @@
 </header>
 
 <nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80">
-    <div class="max-w-6xl mx-auto flex gap-8 text-center overflow-x-auto">
-        <a href="index.html" class="nav-link text-yellow-500 border-b-2 border-yellow-500 pb-1 whitespace-nowrap">1RM Calculator</a>
-        <a href="athlete-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors whitespace-nowrap">Performance Logs</a>
-        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors whitespace-nowrap">Functional Age</a>
+    <div class="max-w-6xl mx-auto flex gap-8">
+        <a href="index.html" class="nav-link text-yellow-500 border-b-2 border-yellow-500 pb-1">1RM Calculator</a>
+        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Functional Age</a>
+        <a href="athlete-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Performance Log</a>
     </div>
 </nav>
 
@@ -79,12 +79,15 @@
                     <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Reps Performed</label>
                     <input type="number" id="reps" oninput="calculate1RM()" placeholder="0" class="input-field">
                 </div>
+                <button onclick="resetLab()" class="text-[9px] text-neutral-600 hover:text-yellow-500 uppercase font-bold tracking-widest pt-2">Clear Calculator</button>
             </div>
         </section>
 
         <section class="glass-card p-8 rounded-3xl min-h-[400px] flex flex-col text-left">
             <span class="text-[10px] text-neutral-500 uppercase tracking-widest border-b border-neutral-900 pb-4 mb-8">Calculated Load</span>
+            
             <div id="placeholder" class="text-neutral-600 italic text-sm py-10">Enter data to generate strength model...</div>
+
             <div id="results-area" class="hidden">
                 <div class="mb-10">
                     <span class="text-[9px] text-neutral-600 uppercase tracking-widest block mb-1">Estimated One-Rep Max</span>
@@ -93,25 +96,28 @@
                         <span class="text-xl font-bold text-neutral-700 unit-label">LBS</span>
                     </div>
                 </div>
+
                 <div id="safety-box" class="p-6 bg-yellow-500/5 border border-yellow-500/20 rounded-2xl mb-8">
                     <p class="text-[9px] font-bold text-yellow-500 uppercase mb-3 tracking-widest italic">Safety Protocol Advice:</p>
                     <p id="safety-text" class="text-xs text-neutral-400 leading-relaxed italic"></p>
                 </div>
+                
                 <a href="functional-age.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-yellow-500 transition-all shadow-xl">Analyze Strength Age →</a>
             </div>
         </section>
     </div>
 
     <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
-        <h2 class="text-2xl font-black italic uppercase mb-8 safety-yellow">Why 1RM Matters for Athletes Over 50</h2>
+        <h2 class="text-2xl font-black italic uppercase mb-8 safety-yellow">Intelligent Strength Assessment for Athletes 50+</h2>
+        
         <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
             <div class="space-y-6">
-                <p><strong class="text-white">Combating Sarcopenia:</strong> As we pass the age of 50, muscle mass begins to decline at an accelerated rate. This calculator uses submaximal loads to predict your peak force capacity, allowing you to train with enough intensity to trigger muscle protein synthesis without the injury risk of true 1-rep max testing.</p>
-                <p><strong class="text-white">The Central Nervous System (CNS):</strong> Recovery times for masters athletes are longer. By modeling your strength from 5-rep or 8-rep sets, you can stay within your "Safety Floor" while still hitting the numbers required for neurological adaptation.</p>
+                <p><strong class="text-white">The Science of 1RM Estimation:</strong> For the masters athlete, testing a true 1-rep max (1RM) often carries a risk-to-reward ratio that is simply too high. Our laboratory uses the <strong class="text-white">Brzycki Algorithm</strong>, a clinically validated formula that allows you to calculate your maximal force capacity using submaximal loads (ideally between 3-8 repetitions).</p>
+                <p><strong class="text-white">Combating Sarcopenia:</strong> Age-related muscle loss, or sarcopenia, can be mitigated through progressive overload. By accurately tracking your 1RM, you can program your working sets at the specific intensities (70-85%) required to maintain lean body mass and bone mineral density.</p>
             </div>
             <div class="space-y-6">
-                <p><strong class="text-white">Relative Strength Benchmarks:</strong> In the Streak Lab, we focus on power-to-weight ratios. A heavy deadlift isn't just a number—it's a clinical marker for longevity. High relative strength in the lower body is consistently linked to lower all-cause mortality and higher functional independence.</p>
-                <p><strong class="text-white">Protocol Selection:</strong> Whether you are performing a Bench Press, Back Squat, or Deadlift, this tool applies the Brzycki algorithm, tailored for the unique physiological needs of the 50+ demographic.</p>
+                <p><strong class="text-white">Gender-Specific Benchmarking:</strong> Physiological strength ceilings differ between male and female athletes. By selecting your gender profile, you ensure that your data is ready to be analyzed against the correct longevity standards in the next stage of our diagnostic suite.</p>
+                <p><strong class="text-white">CNS Preservation:</strong> High-intensity training is taxing on the Central Nervous System. This tool helps you find your "top end" without the systemic fatigue associated with maximal attempts, ensuring you can stay consistent with your training streak week after week.</p>
             </div>
         </div>
     </section>
@@ -136,8 +142,8 @@
     function setGender(g) {
         currentGender = g;
         localStorage.setItem('athleteGender', g);
-        document.getElementById('gen-male').className = g === 'male' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500 hover:text-white';
-        document.getElementById('gen-female').className = g === 'female' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500 hover:text-white';
+        document.getElementById('gen-male').className = g === 'male' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active shadow-sm' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500 hover:text-white';
+        document.getElementById('gen-female').className = g === 'female' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active shadow-sm' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500 hover:text-white';
         calculate1RM();
     }
 
@@ -150,8 +156,8 @@
         currentUnit = u;
         localStorage.setItem('athleteUnit', u);
         document.querySelectorAll('.unit-label').forEach(el => el.innerText = u);
-        document.getElementById('unit-lbs').className = u==='LBS' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active shadow-sm' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500';
-        document.getElementById('unit-kg').className = u==='KG' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active shadow-sm' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500';
+        document.getElementById('unit-lbs').className = u==='LBS' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active shadow-sm' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500 hover:text-white';
+        document.getElementById('unit-kg').className = u==='KG' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active shadow-sm' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500 hover:text-white';
         calculate1RM();
     }
 
@@ -172,14 +178,23 @@
             document.getElementById('result-val').innerText = Math.round(oneRM);
             
             let advice = "";
-            if (r > 10) advice = "For athletes 50+, accuracy is higher on sets of 5-8 reps.";
-            else if (lift === 'deadlift' && r < 3) advice = "Caution: Low-rep deadlifts tax the CNS. Stick to submaximal modeling.";
-            else advice = "Model established. Train at 70-80% of this for optimal growth.";
+            if (r > 10) advice = "For athletes 50+, accuracy is higher on sets of 5-8 reps. High-rep sets may lead to technical breakdown.";
+            else if (lift === 'deadlift' && r < 3) advice = "Caution: Low-rep deadlifts tax the CNS heavily. Stick to submaximal modeling for spinal longevity.";
+            else if (lift === 'db_press') advice = "Stability focus: If the dumbbells are shaking, the load is too high for your current rotator cuff capacity.";
+            else advice = "Model established. Program your primary strength work at 75-80% of this figure.";
             document.getElementById('safety-text').innerText = advice;
         } else {
             resArea.classList.add('hidden');
             placeHolder.classList.remove('hidden');
         }
+    }
+
+    function resetLab() {
+        document.getElementById('weight').value = '';
+        document.getElementById('reps').value = '';
+        localStorage.removeItem('athleteWeight');
+        localStorage.removeItem('athleteReps');
+        calculate1RM();
     }
 </script>
 </body>
