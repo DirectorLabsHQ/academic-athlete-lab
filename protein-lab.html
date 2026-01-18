@@ -3,8 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Protein Requirement Model (50+) | Academic Athlete Lab</title>
-    <meta name="description" content="Calculate longevity-adjusted protein requirements and TDEE for masters athletes. Adapt intake to account for age-related anabolic resistance.">
+    <meta name="description" content="Calculate longevity-adjusted protein requirements and TDEE for masters athletes. Adapt intake to account for age-related anabolic resistance and muscle preservation.">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Masters Athlete Protein Model",
+      "operatingSystem": "All",
+      "applicationCategory": "HealthApplication",
+      "description": "Metabolic fueling model for athletes over 50, adjusting protein intake for anabolic resistance and lean mass preservation.",
+      "author": {
+        "@type": "Organization",
+        "name": "Academic Athlete Lab"
+      }
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@900&display=swap');
@@ -78,7 +95,9 @@
                     </div>
                 </div>
                 <div id="age-warning" class="hidden p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-xl">
-                    <p class="text-[9px] text-yellow-500 uppercase font-bold tracking-widest">Note: Model calibrated for 50+ athletes. Predictive accuracy decreases for younger users.</p>
+                    <p class="text-[9px] text-yellow-500 uppercase font-bold tracking-widest leading-relaxed">
+                        Note: Model calibrated for 50+ athletes. Classification confidence decreases for younger users.
+                    </p>
                 </div>
             </div>
         </section>
@@ -95,7 +114,9 @@
                 <div class="p-6 bg-purple-500/5 border border-purple-500/20 rounded-2xl">
                     <p class="text-[9px] font-bold text-purple-500 uppercase mb-3 tracking-widest italic">Optimal Distribution Frame:</p>
                     <p id="dist-advice" class="text-xs text-neutral-400 leading-relaxed italic"></p>
-                    <p class="text-[9px] text-neutral-500 mt-3 italic border-t border-neutral-800 pt-3 uppercase tracking-tighter">Pair with FFMI Lab to contextualize protein needs relative to lean mass.</p>
+                    <p class="text-[9px] text-neutral-500 mt-3 italic border-t border-neutral-800 pt-3 uppercase tracking-tighter">
+                        Pair with FFMI Lab to contextualize protein needs relative to lean mass.
+                    </p>
                 </div>
                 <p class="text-[10px] text-neutral-600 mt-6 uppercase tracking-[0.2em]">Estimated TDEE: <span id="tdee-val" class="text-white">--</span> Calories</p>
             </div>
@@ -107,18 +128,25 @@
         <h2 class="text-2xl font-black italic uppercase mb-8 safety-purple">Nutrition & Functional Reserve</h2>
         <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
             <div class="space-y-6">
-                <p><strong class="text-white">The Protein Floor:</strong> For athletes over 50, the "Anabolic Threshold" increases. While younger lifters can trigger muscle growth with lower doses, masters athletes often require <strong class="text-white">35-40g per meal</strong> to offset age-related anabolic resistance.</p>
+                <p><strong class="text-white">The Protein Floor:</strong> For athletes over 50, the "Anabolic Threshold" increases. While younger lifters can trigger muscle protein synthesis with lower doses, masters athletes often require <strong class="text-white">35-40g per meal</strong> to account for age-related anabolic resistance.</p>
                 <p><strong class="text-white">Systemic Relationship:</strong> Protein requirements scale directly with <strong class="text-white">Lean Mass (FFMI)</strong> and training load. Athletes with lower FFMI or declining strength may require intake at the higher end of the range to preserve muscle tissue.</p>
             </div>
             <div class="space-y-6">
                 <p><strong class="text-white">Metabolic Calibration:</strong> Total Daily Energy Expenditure (TDEE) shifts as biological age increases. This model uses the Mifflin-St Jeor equation to calibrate fuel while maintaining the high-protein environment necessary to support structural reserve.</p>
+                
                 <div class="p-6 bg-neutral-900/50 rounded-2xl border border-neutral-800">
-                    <p class="text-[9px] font-bold uppercase tracking-[0.2em] mb-2 text-neutral-500">Methodology Note:</p>
-                    <p class="text-[10px] italic">Targets modeled on 1.6g/kg to 2.2g/kg ranges. Consult a nutrition professional for individualized medical prescriptions.</p>
+                    <p class="text-[9px] font-bold uppercase tracking-[0.2em] mb-2 text-neutral-500">Methodology & Citations:</p>
+                    <p class="text-[10px] italic mb-2">Based on the Mifflin-St Jeor equation and research on anabolic resistance in masters athletes.</p>
+                    <div class="flex gap-4">
+                        <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" class="text-[9px] safety-purple underline uppercase font-bold tracking-widest">ISSN Research</a>
+                        <a href="https://examine.com/nutrition/protein-intake-calculator/" target="_blank" class="text-[9px] safety-purple underline uppercase font-bold tracking-widest">Clinical Data</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+    
+    
 
     <footer class="mt-24 text-center text-[9px] text-neutral-600 uppercase tracking-[0.3em] pb-12">
         Educational model only. Not medical or dietary advice.
@@ -148,42 +176,4 @@
     }
 
     function calculateMacros() {
-        const w = parseFloat(document.getElementById('weight').value);
-        const h = parseFloat(document.getElementById('height').value);
-        const age = parseFloat(document.getElementById('age').value);
-        const activity = parseFloat(document.getElementById('activity').value);
-        const warning = document.getElementById('age-warning');
-        
-        if (age > 0 && age < 40) warning.classList.remove('hidden');
-        else warning.classList.add('hidden');
-
-        if(w <= 0 || h <= 0 || !age) {
-            document.getElementById('macro-result').classList.add('hidden');
-            document.getElementById('macro-placeholder').classList.remove('hidden');
-            return;
-        }
-
-        let weightKg = currentUnit === 'LBS' ? w * 0.453592 : w;
-        localStorage.setItem('athleteHeight', h);
-
-        let pLow = Math.round(weightKg * 1.6);
-        let pHigh = Math.round(weightKg * 2.2);
-        
-        let bmr = currentGender === 'male' 
-            ? (10 * weightKg) + (6.25 * h) - (5 * age) + 5 
-            : (10 * weightKg) + (6.25 * h) - (5 * age) - 161;
-        let tdee = Math.round(bmr * activity);
-
-        document.getElementById('macro-result').classList.remove('hidden');
-        document.getElementById('macro-placeholder').classList.add('hidden');
-        
-        document.getElementById('protein-range').innerText = `${pLow}-${pHigh}`;
-        document.getElementById('tdee-val').innerText = tdee.toLocaleString();
-
-        let mealLow = Math.round(pLow / 4);
-        let mealHigh = Math.round(pHigh / 4);
-        document.getElementById('dist-advice').innerText = `To offset anabolic resistance, aim for 4 servings of ~${mealLow}-${mealHigh}g protein spaced every 3-5 hours.`;
-    }
-</script>
-</body>
-</html>
+        const w = parseFloat(document.getElementById('weight').
