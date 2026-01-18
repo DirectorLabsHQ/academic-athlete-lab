@@ -14,7 +14,7 @@
         .toggle-active { background-color: #fde047 !important; color: #000 !important; border-color: #fde047 !important; }
         .progress-bar { height: 6px; background: #262626; border-radius: 3px; margin-top: 10px; overflow: hidden; }
         .progress-fill { height: 100%; background: #fde047; transition: width 1s cubic-bezier(0.17,0.67,0.83,0.67); }
-        .tooltip:hover .tooltip-text { visibility: visible; opacity: 1; }
+        .text-glow { text-shadow: 0 0 20px rgba(253, 224, 71, 0.2); }
     </style>
 </head>
 <body class="min-h-screen flex flex-col font-sans">
@@ -23,8 +23,8 @@
     <div class="max-w-5xl mx-auto flex justify-between items-center">
         <h1 class="text-xl font-black tracking-tighter text-yellow-400 italic uppercase">ACADEMIC<span class="text-white">ATHLETE</span>LAB</h1>
         <div class="flex bg-neutral-800 rounded-lg p-1">
-            <button id="unit-lbs" onclick="setUnit('LBS')" aria-label="Switch to Pounds" class="px-4 py-1.5 text-[10px] font-bold rounded-md border border-transparent transition-all">LBS</button>
-            <button id="unit-kg" onclick="setUnit('KG')" aria-label="Switch to Kilograms" class="px-4 py-1.5 text-[10px] font-bold rounded-md border border-transparent transition-all">KG</button>
+            <button id="unit-lbs" onclick="setUnit('LBS')" aria-label="Switch to Pounds" class="px-4 py-1.5 text-[10px] font-bold rounded-md border border-transparent transition-all hover:border-neutral-600 focus:outline-none">LBS</button>
+            <button id="unit-kg" onclick="setUnit('KG')" aria-label="Switch to Kilograms" class="px-4 py-1.5 text-[10px] font-bold rounded-md border border-transparent transition-all hover:border-neutral-600 focus:outline-none">KG</button>
         </div>
     </div>
 </header>
@@ -38,8 +38,8 @@
                 <div class="relative flex items-center group cursor-help">
                     <svg class="w-4 h-4 text-neutral-600 hover:text-yellow-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     <div class="absolute bottom-6 left-0 w-64 p-3 bg-neutral-800 border border-neutral-700 text-[11px] rounded shadow-2xl invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all z-50">
-                        <strong>Scientific Formula:</strong><br>
-                        $1RM = \frac{Weight}{1.0278 - (0.0278 \times Reps)}$
+                        <strong>The Brzycki Formula:</strong><br>
+                        1RM = Weight / (1.0278 - (0.0278 × Reps))
                     </div>
                 </div>
             </div>
@@ -51,17 +51,17 @@
 
     <div class="grid lg:grid-cols-2 gap-6 lg:gap-10">
         <div class="card-bg p-6 md:p-10 rounded-xl safety-border shadow-2xl">
-            <h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-500 mb-8 border-b border-neutral-800 pb-2 italic">Training Load</h3>
+            <h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-500 mb-8 border-b border-neutral-800 pb-2">Training Metrics</h3>
             <div class="space-y-8">
                 <div>
-                    <label class="block text-xs font-bold uppercase text-neutral-400 mb-3 italic tracking-wide">Effective Weight (<span class="unit-label">LBS</span>)</label>
-                    <input type="number" id="weight" oninput="calculate1RM()" min="0" max="2000" placeholder="0.0" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg p-5 outline-none text-white font-mono focus:border-yellow-400 transition-all text-2xl shadow-inner">
+                    <label class="block text-xs font-bold uppercase text-neutral-400 mb-3 italic tracking-wide">Load Resistance (<span class="unit-label">LBS</span>)</label>
+                    <input type="number" id="weight" oninput="calculate1RM()" min="0" max="2500" placeholder="0.0" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg p-5 outline-none text-white font-mono focus:border-yellow-400 transition-all text-2xl shadow-inner">
                 </div>
                 <div>
                     <label class="block text-xs font-bold uppercase text-neutral-400 mb-3 italic tracking-wide">Reps to Fatigue</label>
                     <input type="number" id="reps" oninput="calculate1RM()" min="0" max="50" placeholder="0" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg p-5 outline-none text-white font-mono focus:border-yellow-400 transition-all text-2xl shadow-inner">
                     <div id="rep-warning" class="mt-4 hidden animate-pulse">
-                        <span class="text-[10px] bg-yellow-400/10 text-yellow-400 px-3 py-1.5 rounded border border-yellow-400/20 font-bold uppercase italic">⚠ Accuracy Clamped at 10 Reps</span>
+                        <span class="text-[10px] bg-yellow-400/10 text-yellow-400 px-3 py-1.5 rounded border border-yellow-400/20 font-bold uppercase italic tracking-tighter">⚠ Accuracy Clamped at 10 Reps</span>
                     </div>
                 </div>
             </div>
@@ -72,8 +72,8 @@
 
             <div id="results" class="hidden w-full animate-fade-in" aria-live="polite">
                 <div class="flex justify-between items-center mb-6 border-b border-neutral-800 pb-3">
-                    <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-500">Predicted 1RM</span>
-                    <button onclick="togglePrecision()" aria-label="Toggle Decimals" class="text-[9px] font-bold text-neutral-400 border border-neutral-800 px-3 py-1.5 rounded-md hover:border-neutral-600 focus:outline-none transition-all">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-500 font-mono">1RM Projection</span>
+                    <button onclick="togglePrecision()" class="text-[9px] font-bold text-neutral-400 border border-neutral-800 px-3 py-1.5 rounded-md hover:border-neutral-600 transition-all">
                         MODE: <span id="precision-text">WHOLE</span>
                     </button>
                 </div>
@@ -84,28 +84,49 @@
                 </div>
                 
                 <div class="mt-12 space-y-6">
-                    <div class="text-left group relative">
+                    <div class="text-left">
                         <div class="flex justify-between items-end">
-                            <p class="text-[9px] text-neutral-500 uppercase font-black italic">90% Intensity (Strength)</p>
+                            <p class="text-[9px] text-neutral-500 uppercase font-black italic">Strength (90%)</p>
                             <p id="p90" class="text-lg font-bold text-white tracking-tight">--</p>
                         </div>
                         <div class="progress-bar"><div id="bar-90" class="progress-fill" style="width:0%"></div></div>
                     </div>
-                    <div class="text-left group relative">
+                    <div class="text-left">
                         <div class="flex justify-between items-end">
-                            <p class="text-[9px] text-neutral-500 uppercase font-black italic">80% Intensity (Hypertrophy)</p>
+                            <p class="text-[9px] text-neutral-500 uppercase font-black italic">Hypertrophy (80%)</p>
                             <p id="p80" class="text-lg font-bold text-white tracking-tight">--</p>
                         </div>
                         <div class="progress-bar"><div id="bar-80" class="progress-fill" style="width:0%"></div></div>
                     </div>
-                    <div class="text-left group relative">
+                    <div class="text-left">
                         <div class="flex justify-between items-end">
-                            <p class="text-[9px] text-neutral-500 uppercase font-black italic">70% Intensity (Endurance)</p>
+                            <p class="text-[9px] text-neutral-500 uppercase font-black italic">Endurance (70%)</p>
                             <p id="p70" class="text-lg font-bold text-white tracking-tight">--</p>
                         </div>
                         <div class="progress-bar"><div id="bar-70" class="progress-fill" style="width:0%"></div></div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-16 border-t border-neutral-800 pt-10 pb-10">
+        <h3 class="text-xs font-bold uppercase tracking-[0.3em] text-yellow-400 mb-8 italic text-center">Laboratory Protocols</h3>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-neutral-900/40 p-6 rounded-xl border border-neutral-800">
+                <div class="text-yellow-400 font-black text-xl mb-3 italic">01.</div>
+                <h4 class="text-sm font-bold text-white mb-2 uppercase">Input Standards</h4>
+                <p class="text-neutral-500 text-xs leading-relaxed italic">Enter the load and repetitions performed to technical failure. For peak scientific accuracy, utilize a resistance that limits performance to 2–8 reps.</p>
+            </div>
+            <div class="bg-neutral-900/40 p-6 rounded-xl border border-neutral-800">
+                <div class="text-yellow-400 font-black text-xl mb-3 italic">02.</div>
+                <h4 class="text-sm font-bold text-white mb-2 uppercase">Analysis</h4>
+                <p class="text-neutral-500 text-xs leading-relaxed italic">The 1RM projection represents your absolute theoretical maximum. Training weights are derived from this baseline to target specific biological adaptations.</p>
+            </div>
+            <div class="bg-neutral-900/40 p-6 rounded-xl border border-neutral-800">
+                <div class="text-yellow-400 font-black text-xl mb-3 italic">03.</div>
+                <h4 class="text-sm font-bold text-white mb-2 uppercase">Application</h4>
+                <p class="text-neutral-500 text-xs leading-relaxed italic"><strong>Strength:</strong> 90%+ for 1-3 reps.<br><strong>Hypertrophy:</strong> 75-85% for 6-12 reps.<br><strong>Endurance:</strong> 60-70% for 15+ reps.</p>
             </div>
         </div>
     </div>
@@ -178,10 +199,11 @@ function calculate1RM(){
 
     results.classList.remove('hidden'); placeholder.classList.add('hidden');
 
+    // Correct scientific Brzycki logic
     const oneRepMax = weight / (1.0278 - (0.0278 * reps));
     const format = (num) => highPrecision ? num.toFixed(1) : Math.round(num);
+    
     animateNumber(oneRepMax, document.getElementById('max-display'));
-
     document.getElementById('p90').innerText = format(oneRepMax*0.9);
     document.getElementById('p80').innerText = format(oneRepMax*0.8);
     document.getElementById('p70').innerText = format(oneRepMax*0.7);
