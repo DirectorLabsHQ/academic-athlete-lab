@@ -43,14 +43,14 @@
 
 <main class="max-w-5xl mx-auto p-6 md:p-12 w-full">
     <header class="mb-12">
-        <div class="inline-block bg-purple text-black px-4 py-1 font-black italic text-2xl uppercase mb-4">Metabolic Fueling Lab</div>
-        <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase">Anabolic Resistance Model v1.5</p>
+        <div class="inline-block bg-purple text-black px-4 py-1 font-black italic text-2xl uppercase mb-4 text-left">Metabolic Fueling Lab</div>
+        <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase text-left">Anabolic Resistance Model v1.5</p>
     </header>
 
     <div class="grid lg:grid-cols-2 gap-10">
-        <section class="glass-card p-8 rounded-3xl border-l-4 border-purple-500">
+        <section class="glass-card p-8 rounded-3xl border-l-4 border-purple-500 text-left">
             <h3 class="text-xs font-bold uppercase safety-purple mb-6 tracking-widest">Metabolic Inputs</h3>
-            <div class="space-y-6 text-left">
+            <div class="space-y-6">
                 <div>
                     <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Gender Profile</label>
                     <div class="flex bg-black border border-neutral-800 rounded-xl p-1">
@@ -88,37 +88,53 @@
             </div>
         </section>
 
-        <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px]">
-            <div id="macro-result" class="hidden text-left">
+        <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px] text-left">
+            <div id="macro-result" class="hidden">
                 <div class="mb-8">
-                    <span class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2">Daily Protein Intake:</span>
+                    <span class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2">Daily Protein Target:</span>
                     <div class="flex items-baseline gap-2">
                         <div id="protein-range" class="text-6xl font-black safety-purple tracking-tighter">--</div>
                         <span class="text-xl font-bold text-neutral-700 uppercase italic">Grams</span>
                     </div>
                 </div>
                 <div class="p-6 bg-purple-500/5 border border-purple-500/20 rounded-2xl">
-                    <p class="text-[9px] font-bold text-purple-500 uppercase mb-3 tracking-widest italic">Optimal Distribution:</p>
+                    <p class="text-[9px] font-bold text-purple-500 uppercase mb-3 tracking-widest italic">Anabolic Threshold Advice:</p>
                     <p id="dist-advice" class="text-xs text-neutral-400 leading-relaxed italic"></p>
                 </div>
                 <p class="text-[10px] text-neutral-600 mt-6 uppercase tracking-[0.2em]">Est. TDEE: <span id="tdee-val" class="text-white">--</span> Calories</p>
             </div>
-            <div id="macro-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest">Awaiting Data...</div>
+            <div id="macro-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest">Awaiting Metabolic Data...</div>
         </section>
     </div>
 
-    <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
-        <h2 class="text-2xl font-black italic uppercase mb-8 safety-purple">The Anabolic Resistance Window</h2>
-        
-        <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed mt-6">
-            <div class="space-y-6">
-                <p><strong class="text-white">The Challenge:</strong> As we pass age 50, the body becomes "deaf" to low doses of protein. This is <strong class="text-purple-400">Anabolic Resistance</strong>. While a 20-year-old might trigger muscle growth with 15g of protein, a masters athlete often requires 35–40g per meal to hit the "Leucine Threshold."</p>
+    <section class="mt-16 bg-neutral-900/40 p-10 rounded-3xl border border-neutral-800 text-left">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-xl font-black italic uppercase mb-6 safety-purple tracking-tighter">The Structural Defense Strategy</h3>
+            
+            
+
+            <div class="grid md:grid-cols-3 gap-8 mt-8 text-neutral-400 text-sm leading-relaxed">
+                <div class="space-y-4">
+                    <h4 class="text-white uppercase tracking-widest text-[10px] font-bold">01. Halt Sarcopenia</h4>
+                    <p>Post-50, muscle loss accelerates to ~1% annually. Protein isn't just for "gains"; it is the essential raw material required to prevent age-related muscle wasting and maintain physical independence.</p>
+                </div>
+                <div class="space-y-4">
+                    <h4 class="text-white uppercase tracking-widest text-[10px] font-bold">02. Glycemic Sink</h4>
+                    <p>Muscle is your primary site for glucose disposal. By using protein to protect your lean mass, you maintain your "metabolic sink," keeping insulin sensitivity high and systemic inflammation low.</p>
+                </div>
+                <div class="space-y-4">
+                    <h4 class="text-white uppercase tracking-widest text-[10px] font-bold">03. Skeletal Integrity</h4>
+                    <p>Protein makes up 50% of bone volume. For the masters athlete, hitting high protein targets is as critical as calcium for bone mineral density and fracture prevention during high-impact training.</p>
+                </div>
             </div>
-            <div class="space-y-6">
-                <p><strong class="text-white">The Strategy:</strong> Do not graze on protein. "Pulse" it. By hitting 3–5 high-protein meals daily rather than small amounts throughout the day, you force the muscle to respond and maintain lean mass despite the aging process.</p>
-            </div>
+            
+            <p class="text-[8px] text-neutral-700 mt-8 uppercase tracking-[0.3em] italic">Source: Clinical models for Anabolic Resistance in Aging Populations (2025).</p>
         </div>
     </section>
+
+    <footer class="mt-24 text-center text-[9px] text-neutral-600 uppercase tracking-[0.3em] pb-12">
+        Academic Model Only. Not Medical Advice.
+    </footer>
 </main>
 
 <script>
@@ -169,19 +185,22 @@
         bmr = (currentGender === 'male') ? bmr + 5 : bmr - 161;
         
         let tdee = Math.round(bmr * activity);
-        let pLow = Math.round(weightKg * 1.8); // Higher floor for 50+
+        
+        // Masters-Specific Protein Logic (1.8g - 2.2g per kg)
+        let pLow = Math.round(weightKg * 1.8); 
         let pHigh = Math.round(weightKg * 2.2);
 
-        // Sync to LocalStorage for the Log
+        // SYNC TO STREAK LAB
         localStorage.setItem('athleteWeight', w);
         localStorage.setItem('athleteHeight', h);
         localStorage.setItem('athleteAge', age);
+        localStorage.setItem('athleteProteinGoal', `${pLow}-${pHigh}`);
 
         document.getElementById('macro-result').classList.remove('hidden');
         document.getElementById('macro-placeholder').classList.add('hidden');
         document.getElementById('protein-range').innerText = `${pLow}-${pHigh}`;
         document.getElementById('tdee-val').innerText = tdee.toLocaleString();
-        document.getElementById('dist-advice').innerText = `Aim for 4 servings of ~${Math.round(pLow/4)}-${Math.round(pHigh/4)}g protein to hit the Leucine Threshold.`;
+        document.getElementById('dist-advice').innerText = `To overcome anabolic resistance, prioritize 4 meals of ~${Math.round(pLow/4)}-${Math.round(pHigh/4)}g protein. Avoid grazing.`;
     }
 </script>
 </body>
