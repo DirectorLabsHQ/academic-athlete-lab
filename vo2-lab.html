@@ -5,23 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>VO2 Max Stratification (50+) | Academic Athlete Lab</title>
-    <meta name="description" content="Calculate and stratify your VO2 Max. Benchmark cardiovascular fitness against longevity standards and population percentiles for athletes over 50.">
+    <meta name="description" content="Calculate and stratify your VO2 Max. Benchmark cardiovascular fitness against longevity standards.">
     
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "VO2 Max Stratification Tool",
-      "operatingSystem": "All",
-      "applicationCategory": "HealthApplication",
-      "description": "Clinical stratification model for VO2 Max in masters athletes over 50.",
-      "author": {
-        "@type": "Organization",
-        "name": "Academic Athlete Lab"
-      }
-    }
-    </script>
-
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@900&display=swap');
@@ -40,9 +25,6 @@
 <header class="p-6 border-b border-neutral-900 bg-black">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
         <h1 class="text-xl font-black tracking-tighter safety-red italic uppercase">ACADEMIC<span class="text-white">ATHLETE</span>LAB</h1>
-        <div class="flex bg-neutral-900 rounded-lg p-1 invisible">
-            <button class="px-4 py-1.5 text-[10px] font-bold">LBS</button>
-        </div>
     </div>
 </header>
 
@@ -84,61 +66,41 @@
                         <input type="number" id="vo2-score" oninput="calculateVO2()" class="input-field" placeholder="e.g. 35">
                     </div>
                 </div>
-                <div id="age-warning" class="hidden p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-xl">
-                    <p class="text-[9px] text-yellow-500 uppercase font-bold tracking-widest leading-relaxed">
-                        Model calibrated for ages 50–59. Classification confidence decreases outside target range.
-                    </p>
-                </div>
-                <div class="space-y-1">
-                    <p class="text-[9px] text-neutral-600 italic uppercase tracking-wider leading-relaxed">
-                        Source score from wearable (Apple Watch, Garmin) or Cooper test.
-                    </p>
-                    <p class="text-[9px] text-neutral-700 italic uppercase tracking-wider leading-relaxed">
-                        Field estimates may overstate lab-measured VO2 Max by 5–15%.
-                    </p>
-                </div>
             </div>
         </section>
 
         <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px] text-left">
             <div id="vo2-result" class="hidden">
-                <span class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2">Fitness Category:</span>
+                <span class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2">Cardiovascular Tier:</span>
                 <div id="vo2-category" class="text-5xl font-black safety-red tracking-tighter mb-1 leading-none">--</div>
                 <div id="vo2-percentile" class="text-[10px] font-bold text-white uppercase tracking-[0.2em] mb-8 opacity-70">--</div>
-                
                 <div class="p-6 bg-red-600/5 border border-red-600/20 rounded-2xl">
-                    <p class="text-[9px] font-bold text-red-500 uppercase mb-2 tracking-widest italic">Longevity Context:</p>
                     <p id="vo2-advice" class="text-xs text-neutral-400 leading-relaxed italic"></p>
                 </div>
             </div>
-            <div id="vo2-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest">Awaiting Cardiovascular Metrics...</div>
+            <div id="vo2-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest">Awaiting Aerobic Data...</div>
         </section>
     </div>
 
-    <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
-        <h2 class="text-2xl font-black italic uppercase mb-8 safety-red">VO2 Max: The Longevity Ceiling</h2>
-        <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
-            <div class="space-y-6">
-                <p><strong class="text-white">Aerobic Engine:</strong> VO2 Max measures your peak oxygen utilization. For athletes over 50, this value determines your "functional independence window." A higher capacity makes high-intensity resistance training safer and more productive.</p>
-                <p><strong class="text-white">Mortality Correlation:</strong> Clinical data shows that moving from the bottom 20% to the middle of the population is associated with a dramatic reduction in all-cause mortality risk. Reach "Elite Reserve" for maximum lifespan extension.</p>
-            </div>
-            <div class="space-y-6">
-                <p><strong class="text-white">Stratification Logic:</strong> We use age-adjusted population norms to categorize your score. This allows you to see how your current aerobic engine compares to other trained individuals in your specific demographic.</p>
-                
-                <div class="p-6 bg-neutral-900/50 rounded-2xl border border-neutral-800">
-                    <p class="text-[9px] font-bold uppercase tracking-[0.2em] mb-2 text-neutral-500">Methodology & Citations:</p>
-                    <p class="text-[10px] italic mb-2">Benchmarks based on the Cooper Institute and longitudinal mortality studies.</p>
-                    <div class="flex gap-4">
-                        <a href="https://www.cooperinstitute.org/" target="_blank" class="text-[9px] safety-red underline uppercase font-bold tracking-widest">Cooper Institute</a>
-                        <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" class="text-[9px] safety-red underline uppercase font-bold tracking-widest">PubMed Research</a>
-                    </div>
+    <section class="mt-16 bg-neutral-900/40 p-10 rounded-3xl border border-neutral-800 text-left">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-xl font-black italic uppercase mb-6 safety-red tracking-tighter">The Longevity Ceiling</h3>
+            
+            
+
+            <div class="grid md:grid-cols-2 gap-10 mt-8 text-neutral-400 text-sm leading-relaxed">
+                <div class="space-y-4">
+                    <p><strong class="text-white uppercase tracking-widest text-[10px]">The Predictive Power:</strong> VO2 Max is perhaps the strongest predictor of how long you will live. Clinical studies show that moving from the bottom 25% to the top 25% of your age group can result in a <span class="text-red-400">5x reduction in all-cause mortality risk</span>.</p>
+                </div>
+                <div class="space-y-4">
+                    <p><strong class="text-white uppercase tracking-widest text-[10px]">The Functional Window:</strong> Think of VO2 Max as your "physiological wealth." You lose about 10% per decade after 30. By maximizing this number at 50, you ensure that even 30 years from now, you will still have the capacity to perform daily tasks without hitting your physical limit.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <footer class="mt-24 text-center text-[9px] text-neutral-600 uppercase tracking-[0.3em] pb-12">
-        Educational model only. Not medical advice.
+        Academic Model Only. Not Medical Advice.
     </footer>
 </main>
 
@@ -148,7 +110,9 @@
     function initPage() {
         setGender(currentGender);
         const savedAge = localStorage.getItem('athleteAge');
+        const savedVO2 = localStorage.getItem('athleteVO2');
         if(savedAge) document.getElementById('age').value = savedAge;
+        if(savedVO2) document.getElementById('vo2-score').value = savedVO2;
         calculateVO2();
     }
 
@@ -163,37 +127,32 @@
     function calculateVO2() {
         const age = parseFloat(document.getElementById('age').value);
         const vo2 = parseFloat(document.getElementById('vo2-score').value);
-        const warning = document.getElementById('age-warning');
 
-        if (age > 0 && (age < 45 || age > 65)) warning.classList.remove('hidden');
-        else warning.classList.add('hidden');
-
-        if(!age || !vo2) {
-            document.getElementById('vo2-result').classList.add('hidden');
-            document.getElementById('vo2-placeholder').classList.remove('hidden');
-            return;
-        }
-
-        localStorage.setItem('athleteAge', age);
-        document.getElementById('vo2-result').classList.remove('hidden');
-        document.getElementById('vo2-placeholder').classList.add('hidden');
+        if(!age || !vo2) return;
 
         let category = "";
         let percentile = "";
         let advice = "";
 
         if(currentGender === 'male') {
-            if(vo2 < 25) { category = "Low"; percentile = "Bottom 20% for age"; advice = "Cardiovascular health is a critical priority. Focus on Zone 2 base building to move out of the high-risk mortality tier."; }
-            else if(vo2 < 34) { category = "Below Average"; percentile = "30th–45th Percentile"; advice = "Improvement needed. Structured aerobic intervals can significantly enhance your longevity profile."; }
-            else if(vo2 < 44) { category = "Good / High"; percentile = "60th–75th Percentile"; advice = "Strong Baseline. You have a robust aerobic engine that supports metabolic health and recovery."; }
-            else { category = "Elite Reserve"; percentile = "Top 10% for age"; advice = "Exceptional. You are maintaining a cardiovascular profile that offers maximum protection against age-related decline."; }
+            if(vo2 < 25) { category = "Low"; percentile = "Bottom 20%"; advice = "Urgent: Focus on Zone 2 base building."; }
+            else if(vo2 < 34) { category = "Below Average"; percentile = "30th–45th Percentile"; advice = "Improvement needed for long-term health."; }
+            else if(vo2 < 44) { category = "Good"; percentile = "60th–75th Percentile"; advice = "Strong engine. Maintain with HIIT once weekly."; }
+            else { category = "Elite Reserve"; percentile = "Top 10% for age"; advice = "Maximum protection against cardiovascular decline."; }
         } else {
-            if(vo2 < 21) { category = "Low"; percentile = "Bottom 20% for age"; advice = "Priority: Cardiovascular conditioning. Moving into higher percentiles is the most impactful change you can make for lifespan."; }
-            else if(vo2 < 29) { category = "Below Average"; percentile = "30th–45th Percentile"; advice = "Building. Consistent aerobic work will help transition your engine into the protective 'Good' tier."; }
-            else if(vo2 < 37) { category = "Good / High"; percentile = "60th–75th Percentile"; advice = "Excellent. You are in a high-performing tier for functional longevity."; }
-            else { category = "Elite Reserve"; percentile = "Top 10% for age"; advice = "Top Tier. Your aerobic capacity represents a massive functional reserve for the decades ahead."; }
+            if(vo2 < 21) { category = "Low"; percentile = "Bottom 20%"; advice = "Priority: Aerobic conditioning."; }
+            else if(vo2 < 29) { category = "Below Average"; percentile = "30th–45th Percentile"; advice = "Building stage. Focus on consistency."; }
+            else if(vo2 < 37) { category = "Good"; percentile = "60th–75th Percentile"; advice = "Excellent cardiovascular health."; }
+            else { category = "Elite Reserve"; percentile = "Top 10% for age"; advice = "Exceptional aerobic reserve."; }
         }
 
+        // --- THE LOG FIX: Save to LocalStorage ---
+        localStorage.setItem('athleteAge', age);
+        localStorage.setItem('athleteVO2', vo2);
+        localStorage.setItem('athleteVO2Cat', category);
+
+        document.getElementById('vo2-result').classList.remove('hidden');
+        document.getElementById('vo2-placeholder').classList.add('hidden');
         document.getElementById('vo2-category').innerText = category;
         document.getElementById('vo2-percentile').innerText = percentile;
         document.getElementById('vo2-advice').innerText = advice;
