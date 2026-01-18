@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VO2 Max Stratification (50+) | Academic Athlete Lab</title>
+    <meta name="description" content="Calculate and stratify your VO2 Max. Benchmark cardiovascular fitness against longevity standards and population percentiles for athletes over 50.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@900&display=swap');
+        body { background-color: #050505; color: #fff; font-family: 'Space Mono', monospace; -webkit-font-smoothing: antialiased; }
+        .safety-red { color: #ef4444; }
+        .bg-red { background-color: #ef4444; }
+        .glass-card { background: #111; border: 1px solid #222; }
+        .input-field { background: #000; border: 1px solid #333; color: #ef4444; outline: none; transition: all 0.2s; font-size: 1.1rem; width: 100%; padding: 1rem; border-radius: 0.75rem; }
+        .input-field:focus { border-color: #ef4444; background: #0a0a0a; }
+        .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
+        .toggle-active { background-color: #ef4444 !important; color: #000 !important; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col" onload="initPage()">
+
+<header class="p-6 border-b border-neutral-900 bg-black">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <h1 class="text-xl font-black tracking-tighter safety-red italic uppercase">ACADEMIC<span class="text-white">ATHLETE</span>LAB</h1>
+        <div class="flex bg-neutral-900 rounded-lg p-1 invisible">
+            <button class="px-4 py-1.5 text-[10px] font-bold">LBS</button>
+        </div>
+    </div>
+</header>
+
+<nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto">
+    <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap">
+        <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM Lab</a>
+        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Age Lab</a>
+        <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">FFMI Lab</a>
+        <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Protein Lab</a>
+        <a href="vo2-lab.html" class="nav-link text-red-500 border-b-2 border-red-500 pb-1">VO2 Lab</a>
+        <a href="athlete-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Log</a>
+    </div>
+</nav>
+
+<main class="max-w-5xl mx-auto p-6 md:p-12 w-full">
+    <header class="mb-12">
+        <div class="inline-block bg-red text-black px-4 py-1 font-black italic text-2xl uppercase mb-4 text-left">Aerobic Capacity Lab</div>
+        <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase text-left">Aerobic Capacity Stratification v1.5</p>
+    </header>
+
+    <div class="grid lg:grid-cols-2 gap-10">
+        <section class="glass-card p-8 rounded-3xl border-l-4 border-red-600 text-left">
+            <h3 class="text-xs font-bold uppercase safety-red mb-6 tracking-widest">Performance Data</h3>
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Gender Profile</label>
+                    <div class="flex bg-black border border-neutral-800 rounded-xl p-1">
+                        <button id="gen-male" onclick="setGender('male')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">MALE</button>
+                        <button id="gen-female" onclick="setGender('female')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">FEMALE</button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Age</label>
+                        <input type="number" id="age" oninput="calculateVO2()" class="input-field" placeholder="55">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">VO2 Max Score</label>
+                        <input type="number" id="vo2-score" oninput="calculateVO2()" class="input-field" placeholder="e.g. 35">
+                    </div>
+                </div>
+                <div id="age-warning" class="hidden p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-xl">
+                    <p class="text-[9px] text-yellow-500 uppercase font-bold tracking-widest leading-relaxed">
+                        Model calibrated for ages 50–59. Classification confidence decreases outside target range.
+                    </p>
+                </div>
+                <div class="space-y-1">
+                    <p class="text-[9px] text-neutral-600 italic uppercase tracking-wider leading-relaxed">
+                        Source score from wearable (Apple Watch, Garmin) or Cooper test.
+                    </p>
+                    <p class="text-[9px] text-neutral-700 italic uppercase tracking-wider leading-relaxed">
+                        Field estimates may overstate lab-measured VO2 Max by 5–15%.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px] text-left">
+            <div id="vo2-result" class="hidden">
+                <span class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2">Fitness Category:</span>
+                <div id="vo2-category" class="text-5xl font-black safety-red tracking-tighter mb-1 leading-none">--</div>
+                <div id="vo2-percentile" class="text-[10px] font-bold text-white uppercase tracking-[0.2em] mb-8 opacity-70">--</div>
+                
+                <div class="p-6 bg-red-600/5 border border-red-600/20 rounded-2xl">
+                    <p class="text-[9px] font-bold text-red-500 uppercase mb-2 tracking-widest italic">Longevity Context:</p>
+                    <p id="vo2-advice" class="text-xs text-neutral-400 leading-relaxed italic"></p>
+                </div>
+            </div>
+            <div id="vo2-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest">Awaiting Cardiovascular Metrics...</div>
+        </section>
+    </div>
+
+    <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
+        <h2 class="text-2xl font-black italic uppercase mb-8 safety-red">VO2 Max: The Longevity Ceiling</h2>
+        <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
+            <div class="space-y-6">
+                <p><strong class="text-white">Aerobic Engine:</strong> VO2 Max measures your peak oxygen utilization. For athletes over 50, this value determines your "functional independence window." A higher capacity makes high-intensity resistance training safer and more productive.</p>
+                <p><strong class="text-white">Mortality Correlation:</strong> Clinical data shows that moving from the bottom 20% to the middle of the population is associated with a dramatic reduction in all-cause mortality risk.</p>
+            </div>
+            <div class="space-y-6">
+                <p><strong class="text-white">Stratification Logic:</strong> We use age-adjusted population norms to categorize your score. This allows you to see how your current aerobic engine compares to other trained individuals in your specific demographic.</p>
+                <div class="p-6 bg-neutral-900/50 rounded-2xl border border-neutral-800">
+                    <p class="text-[9px] font-bold uppercase tracking-[0.2em] mb-2 text-neutral-500">Methodology Note:</p>
+                    <p class="text-[10px] italic">Benchmarks adapted from fitness-mortality hazard ratio research. Accuracy depends on the quality of input data and testing modality.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="mt-24 text-center text-[9px] text-neutral-600 uppercase tracking-[0.3em] pb-12">
+        Educational model only. Not medical advice.
+    </footer>
+</main>
+
+<script>
+    let currentGender = localStorage.getItem('athleteGender') || 'male';
+
+    function initPage() {
+        setGender(currentGender);
+        const savedAge = localStorage.getItem('athleteAge');
+        if(savedAge) document.getElementById('age').value = savedAge;
+        calculateVO2();
+    }
+
+    function setGender(g) {
+        currentGender = g;
+        localStorage.setItem('athleteGender', g);
+        document.getElementById('gen-male').className = g === 'male' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
+        document.getElementById('gen-female').className = g === 'female' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
+        calculateVO2();
+    }
+
+    function calculateVO2() {
+        const age = parseFloat(document.getElementById('age').value);
+        const vo2 = parseFloat(document.getElementById('vo2-score').value);
+        const warning = document.getElementById('age-warning');
+
+        if (age > 0 && (age < 45 || age > 65)) warning.classList.remove('hidden');
+        else warning.classList.add('hidden');
+
+        if(!age || !vo2) {
+            document.getElementById('vo2-result').classList.add('hidden');
+            document.getElementById('vo2-placeholder').classList.remove('hidden');
+            return;
+        }
+
+        localStorage.setItem('athleteAge', age);
+        document.getElementById('vo2-result').classList.remove('hidden');
+        document.getElementById('vo2-placeholder').classList.add('hidden');
+
+        let category = "";
+        let percentile = "";
+        let advice = "";
+
+        if(currentGender === 'male') {
+            if(vo2 < 25) { category = "Low"; percentile = "Bottom 20% for age"; advice = "Cardiovascular health is a critical priority. Focus on Zone 2 base building to move out of the high-risk mortality tier."; }
+            else if(vo2 < 34) { category = "Below Average"; percentile = "30th–45th Percentile"; advice = "Improvement needed. Structured aerobic intervals can significantly enhance your longevity profile."; }
+            else if(vo2 < 44) { category = "Good / High"; percentile = "60th–75th Percentile"; advice = "Strong Baseline. You have a robust aerobic engine that supports metabolic health and recovery."; }
+            else { category = "Elite Reserve"; percentile = "Top 10% for age"; advice = "Exceptional. You are maintaining a cardiovascular profile that offers maximum protection against age-related decline."; }
+        } else {
+            if(vo2 < 21) { category = "Low"; percentile = "Bottom 20% for age"; advice = "Priority: Cardiovascular conditioning. Moving into higher percentiles is the most impactful change you can make for lifespan."; }
+            else if(vo2 < 29) { category = "Below Average"; percentile = "30th–45th Percentile"; advice = "Building. Consistent aerobic work will help transition your engine into the protective 'Good' tier."; }
+            else if(vo2 < 37) { category = "Good / High"; percentile = "60th–75th Percentile"; advice = "Excellent. You are in a high-performing tier for functional longevity."; }
+            else { category = "Elite Reserve"; percentile = "Top 10% for age"; advice = "Top Tier. Your aerobic capacity represents a massive functional reserve for the decades ahead."; }
+        }
+
+        document.getElementById('vo2-category').innerText = category;
+        document.getElementById('vo2-percentile').innerText = percentile;
+        document.getElementById('vo2-advice').innerText = advice;
+    }
+</script>
+</body>
+</html>
