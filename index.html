@@ -53,8 +53,15 @@
             <h2 class="text-xs font-bold uppercase tracking-widest safety-yellow mb-6 text-left">Input Recent Set</h2>
             <div class="space-y-6 text-left">
                 <div>
+                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Gender Profile</label>
+                    <div class="flex bg-black border border-neutral-800 rounded-xl p-1">
+                        <button id="gen-male" onclick="setGender('male')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">MALE</button>
+                        <button id="gen-female" onclick="setGender('female')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">FEMALE</button>
+                    </div>
+                </div>
+                <div>
                     <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Movement Type</label>
-                    <select id="lift-choice" onchange="calculate1RM()" class="input-field cursor-pointer">
+                    <select id="lift-choice" onchange="updateLift()" class="input-field cursor-pointer">
                         <option value="bench">Bench Press</option>
                         <option value="squat">Back Squat</option>
                         <option value="deadlift" selected>Deadlift</option>
@@ -100,6 +107,7 @@
 
 <script>
     let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
+    let currentGender = localStorage.getItem('athleteGender') || 'male';
     const KG_RATIO = 2.20462;
 
     function initPage() {
@@ -110,6 +118,20 @@
         if(savedR) document.getElementById('reps').value = savedR;
         if(savedL) document.getElementById('lift-choice').value = savedL;
         setUnit(currentUnit);
+        setGender(currentGender);
+    }
+
+    function setGender(g) {
+        currentGender = g;
+        localStorage.setItem('athleteGender', g);
+        document.getElementById('gen-male').className = g === 'male' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500 hover:text-white';
+        document.getElementById('gen-female').className = g === 'female' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500 hover:text-white';
+        calculate1RM();
+    }
+
+    function updateLift() {
+        localStorage.setItem('athleteLift', document.getElementById('lift-choice').value);
+        calculate1RM();
     }
 
     function setUnit(u) {
@@ -122,8 +144,8 @@
         currentUnit = u;
         localStorage.setItem('athleteUnit', u);
         document.querySelectorAll('.unit-label').forEach(el => el.innerText = u);
-        document.getElementById('unit-lbs').className = u==='LBS' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active shadow-sm' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500 hover:text-white';
-        document.getElementById('unit-kg').className = u==='KG' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active shadow-sm' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500 hover:text-white';
+        document.getElementById('unit-lbs').className = u==='LBS' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active shadow-sm' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500';
+        document.getElementById('unit-kg').className = u==='KG' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active shadow-sm' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500';
         calculate1RM();
     }
 
@@ -136,25 +158,20 @@
 
         localStorage.setItem('athleteWeight', w || '');
         localStorage.setItem('athleteReps', r || '');
-        localStorage.setItem('athleteLift', lift);
 
         if (w > 0 && r > 0) {
             resArea.classList.remove('hidden');
             placeHolder.classList.add('hidden');
-            
-            // Brzycki Formula
             const oneRM = w / (1.0278 - (0.0278 * r));
             document.getElementById('result-val').innerText = Math.round(oneRM);
             
             let advice = "";
             if (r > 10) {
-                advice = "Accuracy decreases at high reps. For 50+ athletes, sets of 5-8 provide a more precise strength model while sparing the CNS.";
+                advice = "Accuracy decreases at high reps. For 50+ athletes, sets of 5-8 provide the most precise model.";
             } else if (lift === 'deadlift' && r < 3) {
-                advice = "Safety Note: Heavy deadlift singles increase shear force on spinal discs. Stick to submaximal modeling for longevity.";
-            } else if (lift === 'db_press') {
-                advice = "Shoulder Stability Focus: Use a load where you maintain full control. Shaking dumbbells indicate rotator cuff fatigue.";
+                advice = "Heavy deadlift singles increase spinal shear force. Submaximal sets are safer for longevity.";
             } else {
-                advice = "1RM Modeled. To build muscle safely, program your working sets between 70% and 80% of this number.";
+                advice = "1RM Modeled. Program working sets at 70-80% of this for hypertrophy.";
             }
             document.getElementById('safety-text').innerText = advice;
         } else {
