@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Athlete Lab | Baseline Performance Engine</title>
+    <title>Athlete Lab Logs | Performance Tracking</title>
     
     <meta name="description" content="Adaptive performance baseline tracking. PhD-verified strength variance diagnostic using the DU-PASS algorithm.">
-    <meta name="keywords" content="strength baseline, lift variance, performance tracking, DU-PASS algorithm, athlete laboratory">
-
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@900&display=swap');
@@ -42,25 +41,25 @@
         .bar { background: #222; width: 100%; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); border-radius: 2px 2px 0 0; }
         .bar.active { background: #f97316; box-shadow: 0 0 15px rgba(249, 115, 22, 0.3); }
         
-        .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; tracking: 0.2em; }
+        .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col" onload="loadPersistentData()">
 
-<nav class="bg-black border-b border-neutral-900 py-3 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80">
+<nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80">
     <div class="max-w-6xl mx-auto flex gap-8">
-        <a href="index.html" class="nav-link text-neutral-500 hover:text-blue-500 transition-colors">Linguistic Matrix</a>
-        <a href="athlete-lab.html" class="nav-link text-orange-500 border-b-2 border-orange-500 pb-1">Athlete Lab</a>
+        <a href="index.html" class="nav-link text-neutral-500 hover:text-orange-400 transition-colors">1RM Calculator</a>
+        <a href="athlete-lab.html" class="nav-link text-orange-500 border-b-2 border-orange-500 pb-1">Athlete Lab Logs</a>
     </div>
 </nav>
 
 <main class="flex-grow max-w-5xl mx-auto p-4 md:p-12 w-full">
     <header class="mb-8 md:mb-12">
         <div class="inline-block bg-safety text-black px-4 py-1 font-black italic text-2xl uppercase mb-4">
-            Athlete Lab
+            Athlete Lab Logs
         </div>
         <p class="text-neutral-500 text-[9px] md:text-[10px] tracking-[0.4em] uppercase">
-            Baseline Variance Diagnostic / Protocol: DU-PASS v1.1
+            Baseline Performance Tracking / Protocol: DU-PASS v1.1
         </p>
     </header>
 
@@ -68,15 +67,16 @@
         
         <section class="glass-card p-6 md:p-8 rounded-3xl border-l-4 border-l-orange-600">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-xs font-bold uppercase tracking-widest safety-orange">Session Logs</h2>
-                <button onclick="clearLogs()" class="text-[9px] text-neutral-600 hover:text-red-500 uppercase font-bold tracking-widest transition-colors">Reset System</button>
+                <h2 class="text-xs font-bold uppercase tracking-widest safety-orange">Session History</h2>
+                <button onclick="clearLogs()" class="text-[9px] text-neutral-600 hover:text-red-500 uppercase font-bold tracking-widest transition-colors">Purge Data</button>
             </div>
             
             <div class="space-y-3">
-                <div class="grid grid-cols-2 gap-3 md:gap-4">
-                    <input type="number" id="w1" placeholder="Weight" class="input-field p-3 rounded font-bold" min="1">
-                    <input type="number" id="r1" placeholder="Reps" class="input-field p-3 rounded font-bold" min="1" max="36">
+                <div class="grid grid-cols-2 gap-3 md:gap-4 font-bold text-[10px] uppercase text-neutral-600 px-1">
+                    <span>Load</span>
+                    <span>Reps</span>
                 </div>
+                <div class="grid grid-cols-2 gap-3 md:gap-4"><input type="number" id="w1" placeholder="--" class="input-field p-3 rounded font-bold"><input type="number" id="r1" placeholder="--" class="input-field p-3 rounded font-bold"></div>
                 <div class="grid grid-cols-2 gap-3 md:gap-4"><input type="number" id="w2" class="input-field p-3 rounded font-bold"><input type="number" id="r2" class="input-field p-3 rounded font-bold"></div>
                 <div class="grid grid-cols-2 gap-3 md:gap-4"><input type="number" id="w3" class="input-field p-3 rounded font-bold"><input type="number" id="r3" class="input-field p-3 rounded font-bold"></div>
                 <div class="grid grid-cols-2 gap-3 md:gap-4"><input type="number" id="w4" class="input-field p-3 rounded font-bold"><input type="number" id="r4" class="input-field p-3 rounded font-bold"></div>
@@ -84,34 +84,29 @@
             </div>
 
             <div class="mt-8 border-t border-neutral-900 pt-6">
-                <h3 class="text-[10px] font-bold uppercase tracking-widest text-neutral-400 mb-3">Protocol Instructions</h3>
+                <h3 class="text-[10px] font-bold uppercase tracking-widest text-neutral-400 mb-3">Streak Logic</h3>
                 <ul class="text-[9px] text-neutral-600 space-y-2 uppercase leading-tight tracking-wider">
-                    <li>• <span class="text-neutral-400">Targeting:</span> Input data for the <span class="text-orange-900">SAME</span> specific lift only.</li>
-                    <li>• <span class="text-neutral-400">Normalization:</span> Calculated via the <span class="italic">Brzycki Equation</span>.</li>
-                    <li>• <span class="text-neutral-400">Baseline Theory:</span> High variance (>10%) suggests recovery failure.</li>
+                    <li>• <span class="text-neutral-400">Standardization:</span> Tracking variance across 5 recent sessions.</li>
+                    <li>• <span class="text-neutral-400">Recovery:</span> High variance signals CNS fatigue.</li>
                 </ul>
             </div>
 
             <button onclick="calculateBaseline()" class="w-full mt-8 bg-orange-600 hover:bg-orange-500 text-black font-black py-4 rounded-xl uppercase tracking-[0.2em] transition-all transform active:scale-95 shadow-lg shadow-orange-900/20">
-                Execute Diagnostic
+                Execute Streak Diagnostic
             </button>
         </section>
 
         <section class="flex flex-col gap-6">
             <div class="glass-card p-8 rounded-3xl min-h-[400px] flex flex-col">
                 <div class="flex justify-between items-start border-b border-neutral-900 pb-4 mb-8">
-                    <span class="text-[10px] text-neutral-500 uppercase tracking-widest">Diagnostic Readout</span>
+                    <span class="text-[10px] text-neutral-500 uppercase tracking-widest">Diagnostic Output</span>
                     <div id="chart" class="bar-container w-24">
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
                     </div>
                 </div>
                 
                 <div class="mb-10">
-                    <span class="text-[9px] text-neutral-600 uppercase tracking-widest block mb-1">Calculated Baseline</span>
+                    <span class="text-[9px] text-neutral-600 uppercase tracking-widest block mb-1">Performance Baseline</span>
                     <div id="baseline-val" class="text-6xl font-black safety-orange tracking-tighter">--</div>
                 </div>
 
@@ -121,13 +116,13 @@
                         <div id="variance-val" class="text-xl font-bold">--</div>
                     </div>
                     <div>
-                        <span class="text-[9px] text-neutral-600 uppercase tracking-widest block mb-1">DU-PASS Rank</span>
+                        <span class="text-[9px] text-neutral-600 uppercase tracking-widest block mb-1">Athlete Rank</span>
                         <div id="rank-val" class="text-xl font-bold italic">--</div>
                     </div>
                 </div>
 
                 <div id="feedback-box" class="p-6 bg-orange-600/5 border border-orange-600/20 rounded-2xl hidden mt-auto">
-                    <p class="text-[9px] font-bold text-orange-500 uppercase mb-3 tracking-widest">Adaptive Feedback:</p>
+                    <p class="text-[9px] font-bold text-orange-500 uppercase mb-3 tracking-widest">System Recommendation:</p>
                     <p id="feedback-text" class="text-xs text-neutral-400 leading-relaxed italic"></p>
                 </div>
             </div>
@@ -136,7 +131,7 @@
 
     <footer class="mt-24 border-t border-neutral-900 py-12 text-center">
         <p class="text-[9px] text-neutral-700 uppercase tracking-[0.6em] leading-relaxed max-w-2xl mx-auto">
-            DirectorLabs HQ Protocol 2026 / Behavioral Stability Research
+            DirectorLabs HQ Protocol 2026 | Performance Intelligence
         </p>
     </footer>
 </main>
@@ -150,43 +145,42 @@
             let w = parseFloat(document.getElementById(`w${i}`).value);
             let r = parseFloat(document.getElementById(`r${i}`).value);
             
-            // Safety Validation
-            if(r >= 37) { alert("Error: Reps ≥ 37 are mathematically invalid for this diagnostic."); return; }
-            
             if(w > 0 && r > 0) {
-                let est = w * (36 / (37 - r));
+                // Brzycki Formula
+                let est = w / (1.0278 - 0.0278 * r);
                 estimates.push(est);
                 rawData.push({w, r});
             }
         }
 
-        if(estimates.length < 2) return;
+        if(estimates.length < 2) {
+            alert("Enter at least 2 sessions to calculate variance.");
+            return;
+        }
 
-        // Persistence
         localStorage.setItem('athleteLabData', JSON.stringify(rawData));
 
         const avg = estimates.reduce((a,b) => a+b) / estimates.length;
         const stdDev = Math.sqrt(estimates.map(x => Math.pow(x - avg, 2)).reduce((a,b) => a+b) / estimates.length);
         const varPct = (stdDev / avg) * 100;
         
-        // Display
-        document.getElementById('baseline-val').innerText = avg.toFixed(1) + 'kg';
+        const unit = localStorage.getItem('athleteUnit') || 'LBS';
+        document.getElementById('baseline-val').innerText = Math.round(avg) + ' ' + unit;
         document.getElementById('variance-val').innerText = varPct.toFixed(1) + '%';
         
-        // Visualization
         const bars = document.querySelectorAll('.bar');
         const max = Math.max(...estimates);
+        bars.forEach(b => b.classList.remove('active'));
         estimates.forEach((est, i) => {
             bars[i].style.height = (est / max * 100) + '%';
             bars[i].classList.add('active');
         });
 
-        // PhD Logic Ranks
         let rank = ""; let msg = "";
-        if(varPct < 3) { rank = "LEVEL 5: MASTERY"; msg = "Elite stability. The neurological pattern is locked. PROMOTED: Increase load +5%."; }
-        else if(varPct < 7) { rank = "LEVEL 4: OPERATIONAL"; msg = "Stable baseline confirmed. System recommends +2.5% load increase."; }
-        else if(varPct < 12) { rank = "LEVEL 3: THRESHOLD"; msg = "Inconsistent output. CNS adaptation in progress. STABILIZE: Match current load next session."; }
-        else { rank = "LEVEL 2: EMERGENT"; msg = "Critical variance detected. Recovery failure likely. DELOAD: Drop 10% to reset baseline safety."; }
+        if(varPct < 3) { rank = "LEVEL 5: MASTERY"; msg = "Extreme consistency. Central Nervous System is fully recovered. Increase load."; }
+        else if(varPct < 7) { rank = "LEVEL 4: STABLE"; msg = "Solid performance. Continue current progression protocol."; }
+        else if(varPct < 12) { rank = "LEVEL 3: VOLATILE"; msg = "Fluctuating output. Prioritize sleep and caloric intake to stabilize."; }
+        else { rank = "LEVEL 2: FATIGUED"; msg = "High variance detected. Deload recommended to avoid overtraining."; }
 
         document.getElementById('rank-val').innerText = rank;
         document.getElementById('feedback-text').innerText = msg;
@@ -198,15 +192,17 @@
         if(saved) {
             const data = JSON.parse(saved);
             data.forEach((item, i) => {
-                document.getElementById(`w${i+1}`).value = item.w;
-                document.getElementById(`r${i+1}`).value = item.r;
+                if(i < 5) {
+                    document.getElementById(`w${i+1}`).value = item.w;
+                    document.getElementById(`r${i+1}`).value = item.r;
+                }
             });
             calculateBaseline();
         }
     }
 
     function clearLogs() {
-        if(confirm("Purge all local session data?")) {
+        if(confirm("Purge all performance session data?")) {
             localStorage.removeItem('athleteLabData');
             location.reload();
         }
