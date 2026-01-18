@@ -1,47 +1,121 @@
-function calculateBioAge() {
-    const chronAge = parseInt(document.getElementById('chron-age').value);
-    const bw = parseFloat(document.getElementById('bodyweight').value);
-    const max = parseFloat(document.getElementById('one-rm').value);
-    
-    if(!bw || !max) { alert("Please enter weight and max."); return; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functional Age | Academic Athlete Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@900&display=swap');
+        body { background-color: #050505; color: #fff; font-family: 'Space Mono', monospace; -webkit-font-smoothing: antialiased; }
+        .glass-card { background: #111; border: 1px solid #222; }
+        .safety-cyan { color: #22d3ee; }
+        .bg-cyan { background-color: #22d3ee; }
+        .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col" onload="syncData()">
 
-    const ratio = (max / bw).toFixed(2);
-    let bioAge;
-    
-    // Core Logic
-    if (ratio >= 1.0) {
-        bioAge = chronAge - ((ratio - 1.0) * 20);
-    } else {
-        bioAge = chronAge + ((1.0 - ratio) * 15);
+<nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80">
+    <div class="max-w-6xl mx-auto flex gap-8">
+        <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM Calculator</a>
+        <a href="athlete-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Athlete Lab Logs</a>
+        <a href="functional-age.html" class="nav-link text-cyan-400 border-b-2 border-cyan-400 pb-1">Functional Age</a>
+    </div>
+</nav>
+
+<main class="max-w-4xl mx-auto p-6 md:p-12 w-full">
+    <header class="mb-12">
+        <div class="inline-block bg-cyan text-black px-4 py-1 font-black italic text-2xl uppercase mb-4">
+            Biological Age Diagnostic
+        </div>
+        <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase">Longevity Benchmarking v1.1</p>
+    </header>
+
+    <div class="grid md:grid-cols-2 gap-8 items-start">
+        <section class="glass-card p-8 rounded-3xl border-l-4 border-cyan-500">
+            <h3 class="text-xs font-bold uppercase safety-cyan mb-6 tracking-widest text-left">Athlete Profile</h3>
+            <div class="space-y-6 text-left">
+                <div>
+                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Chronological Age</label>
+                    <input type="number" id="chron-age" value="55" class="bg-black border border-neutral-800 w-full p-4 rounded-xl text-cyan-400 font-bold outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Bodyweight</label>
+                    <input type="number" id="bodyweight" placeholder="Weight" class="bg-black border border-neutral-800 w-full p-4 rounded-xl text-cyan-400 font-bold outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Compound 1RM</label>
+                    <input type="number" id="one-rm" placeholder="Strongest Lift" class="bg-black border border-neutral-800 w-full p-4 rounded-xl text-cyan-400 font-bold outline-none focus:border-cyan-400">
+                </div>
+                <button onclick="calculateBioAge()" class="w-full bg-cyan-500 hover:bg-cyan-400 text-black font-black py-4 rounded-xl uppercase tracking-widest transition-all">Execute Diagnostic</button>
+            </div>
+        </section>
+
+        <section class="glass-card p-8 rounded-3xl flex flex-col justify-center text-center min-h-[400px]">
+            <div id="age-display" class="hidden text-left">
+                <span class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2">Strength Age:</span>
+                <div id="bio-age-val" class="text-8xl font-black safety-cyan tracking-tighter mb-4 text-center">--</div>
+                <div id="age-status" class="mb-4"></div>
+                
+                <div class="mt-8 pt-8 border-t border-neutral-900">
+                    <p id="bio-feedback" class="text-sm text-neutral-400 italic leading-relaxed"></p>
+                </div>
+            </div>
+            <div id="age-placeholder" class="text-neutral-600 italic">Enter profile data to determine biological standing...</div>
+        </section>
+    </div>
+</main>
+
+<script>
+    function syncData() {
+        const savedW = localStorage.getItem('athleteWeight');
+        const savedR = localStorage.getItem('athleteReps');
+        if(savedW && savedR) {
+            const oneRM = savedW / (1.0278 - (0.0278 * savedR));
+            document.getElementById('one-rm').value = Math.round(oneRM);
+        }
     }
 
-    bioAge = Math.max(30, Math.round(bioAge));
+    function calculateBioAge() {
+        const chronAge = parseInt(document.getElementById('chron-age').value);
+        const bw = parseFloat(document.getElementById('bodyweight').value);
+        const max = parseFloat(document.getElementById('one-rm').value);
+        
+        if(!bw || !max) { alert("Please enter weight and 1RM."); return; }
 
-    document.getElementById('age-display').classList.remove('hidden');
-    document.getElementById('age-placeholder').classList.add('hidden');
-    document.getElementById('bio-age-val').innerText = bioAge + (bioAge === 30 ? "+" : "");
+        const ratio = (max / bw).toFixed(2);
+        let bioAge;
+        
+        if (ratio >= 1.0) {
+            bioAge = chronAge - ((ratio - 1.0) * 20);
+        } else {
+            bioAge = chronAge + ((1.0 - ratio) * 15);
+        }
 
-    // The Exceptional Enhancement: Contextual Benchmark
-    // Providing a range based on common longevity research for the 50-65 demographic
-    const benchmarkMin = 0.82;
-    const benchmarkMax = 0.95;
-    
-    let status = "";
-    let feedback = "";
-    let comparisonLine = `<p class="text-[10px] text-neutral-500 mt-2 tracking-wide uppercase">
-        Avg. Age ${chronAge} Relative Strength Benchmark: <span class="text-white">${benchmarkMin}–${benchmarkMax}</span> | Your Ratio: <span class="text-cyan-400">${ratio}</span>
-    </p>`;
+        bioAge = Math.max(30, Math.round(bioAge));
+        document.getElementById('age-display').classList.remove('hidden');
+        document.getElementById('age-placeholder').classList.add('hidden');
+        document.getElementById('bio-age-val').innerText = bioAge + (bioAge === 30 ? "+" : "");
 
-    if(bioAge < chronAge) {
-        status = "Status: Biological Outperformer";
-        feedback = "Your power-to-weight ratio is significantly higher than your age group average. Research consistently links higher relative strength with significantly lower all-cause mortality risk.";
-    } else {
-        status = "Status: At-Risk Baseline";
-        feedback = "Your strength-to-weight ratio suggests age-related muscle loss (Sarcopenia) may be progressing. Targeting the ${benchmarkMax} ratio is a high-priority longevity goal.";
+        const benchmarkMin = 0.85;
+        const benchmarkMax = 0.95;
+        
+        let statusText = bioAge < chronAge ? "Status: Biological Outperformer" : "Status: At-Risk Baseline";
+        let statusColor = bioAge < chronAge ? "text-green-400" : "text-yellow-500";
+        
+        let comparisonLine = `
+            <div class="${statusColor} text-xs font-bold uppercase tracking-widest mb-2">${statusText}</div>
+            <p class="text-[10px] text-neutral-500 mt-2 tracking-wide uppercase leading-loose">
+                Avg. Age ${chronAge} Strength Ratio Benchmark: <span class="text-white">${benchmarkMin}–${benchmarkMax}</span><br>
+                Your Current Ratio: <span class="text-cyan-400 font-bold">${ratio}</span>
+            </p>`;
+
+        document.getElementById('age-status').innerHTML = comparisonLine;
+        document.getElementById('bio-feedback').innerText = bioAge < chronAge ? 
+            "Research consistently links higher relative strength with significantly lower all-cause mortality risk." : 
+            "Your ratio suggests sarcopenia risk. Targeting a " + benchmarkMax + " ratio is a high-priority longevity goal.";
     }
-
-    // Injecting the new comparison line into the display
-    document.getElementById('age-status').innerHTML = status + comparisonLine;
-    document.getElementById('age-status').className = bioAge < chronAge ? "mt-4 text-xs font-bold uppercase tracking-widest text-green-400" : "mt-4 text-xs font-bold uppercase tracking-widest text-yellow-500";
-    document.getElementById('bio-feedback').innerText = feedback;
-}
+</script>
+</body>
+</html>
