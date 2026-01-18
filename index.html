@@ -1,173 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academic ESL Hub | PhD-Verified Score Matrix</title>
-    
-    <meta name="description" content="Professional score conversion for IELTS, TOEFL, TOEIC, and OPIc. Developed by University Research Fellows for precise CEFR linguistic mapping.">
-    <meta name="keywords" content="IELTS to TOEFL, OPIc to IELTS, TOEIC to CEFR, English score converter, Academic ESL research">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Mono&display=swap');
-        body { background-color: #050505; color: #e5e5e5; font-family: 'Inter', sans-serif; }
-        .card-bg { background: #111; border: 1px solid #222; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .card-bg:focus-within { border-color: #3b82f6; box-shadow: 0 0 25px rgba(59, 130, 246, 0.15); }
-        .tooltip { visibility: hidden; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
-        .group:hover .tooltip { visibility: visible; opacity: 1; }
-        .nav-link { font-family: 'Space Mono', monospace; transition: all 0.2s; }
-        
-        @keyframes countUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-value { animation: countUp 0.5s ease-out forwards; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Academic Athlete Lab | Strength Intelligence</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+body { background-color: #0a0a0a; color: #e5e5e5; }
+.safety-border { border-left: 4px solid #fde047; }
+.card-bg { background: #171717; border: 1px solid #262626; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+.toggle-active { background-color: #fde047 !important; color: #000 !important; border-color: #fde047 !important; }
+.progress-bar { height: 6px; background: #262626; border-radius: 3px; margin-top: 10px; overflow: hidden; }
+.progress-fill { height: 100%; background: #fde047; transition: width 1s cubic-bezier(0.17,0.67,0.83,0.67); }
+.tooltip:hover .tooltip-text { visibility: visible; opacity: 1; }
+</style>
 </head>
-<body class="min-h-screen flex flex-col antialiased">
+<body class="min-h-screen flex flex-col font-sans">
 
-<nav class="bg-black border-b border-neutral-900 py-3 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80">
-    <div class="max-w-6xl mx-auto flex gap-8 text-[10px] font-black uppercase tracking-[0.2em]">
-        <a href="index.html" class="nav-link text-blue-500 border-b-2 border-blue-500 pb-1">Linguistic Matrix</a>
-        <a href="athlete-lab.html" class="nav-link text-neutral-500 hover:text-orange-500 transition-colors">Athlete Lab</a>
-        <span class="nav-link text-neutral-800 cursor-not-allowed hidden sm:block">Streak Lab (Beta)</span>
-    </div>
-</nav>
-
-<main class="flex-grow max-w-5xl mx-auto p-6 md:p-12 w-full">
-    <div class="mb-12">
-        <h2 class="text-5xl font-black text-white tracking-tighter mb-4 uppercase italic">Score Matrix</h2>
-        <p class="text-neutral-400 text-sm max-w-2xl leading-relaxed">
-            A research-backed diagnostic for high-stakes English assessments. This tool utilizes <span class="text-blue-500">Precise Threshold Mapping</span> to align international standards.
-        </p>
-    </div>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-10">
-        <div class="card-bg p-5 rounded-3xl group relative">
-            <div class="flex justify-between items-center mb-3">
-                <label for="ielts" class="text-[10px] font-black text-neutral-500 uppercase tracking-widest">IELTS Band</label>
-                <span class="text-neutral-700 hover:text-blue-500 cursor-help transition-colors">ⓘ
-                    <div class="tooltip absolute z-50 bottom-full left-0 w-48 p-2 bg-neutral-900 border border-neutral-800 text-[9px] rounded-lg mb-2 normal-case font-medium leading-tight text-white">
-                        Standardized 0–9.0 scale. Widely used for UK/AU/NZ and Canadian immigration.
-                    </div>
-                </span>
-            </div>
-            <input type="number" id="ielts" min="1" max="9" step="0.5" oninput="preciseSync('ielts')" placeholder="0.0" 
-                   class="w-full bg-transparent text-3xl font-bold text-white outline-none placeholder:text-neutral-800">
-        </div>
-
-        <div class="card-bg p-5 rounded-3xl group relative">
-            <div class="flex justify-between items-center mb-3">
-                <label for="toefl" class="text-[10px] font-black text-neutral-500 uppercase tracking-widest">TOEFL iBT</label>
-                <span class="text-neutral-700 hover:text-blue-500 cursor-help transition-colors">ⓘ
-                    <div class="tooltip absolute z-50 bottom-full left-0 w-48 p-2 bg-neutral-900 border border-neutral-800 text-[9px] rounded-lg mb-2 normal-case font-medium text-white">
-                        Standardized 0–120 scale. Primarily required for US academic institutions.
-                    </div>
-                </span>
-            </div>
-            <input type="number" id="toefl" min="0" max="120" oninput="preciseSync('toefl')" placeholder="0" 
-                   class="w-full bg-transparent text-3xl font-bold text-white outline-none placeholder:text-neutral-800">
-        </div>
-
-        <div class="card-bg p-5 rounded-3xl group relative">
-            <div class="flex justify-between items-center mb-3">
-                <label for="toeic" class="text-[10px] font-black text-neutral-500 uppercase tracking-widest">TOEIC L&R</label>
-                <span class="text-neutral-700 hover:text-blue-500 cursor-help transition-colors">ⓘ
-                    <div class="tooltip absolute z-50 bottom-full left-0 w-48 p-2 bg-neutral-900 border border-neutral-800 text-[9px] rounded-lg mb-2 normal-case font-medium text-white">
-                        Standardized 10–990 scale. Crucial for corporate recruitment in Korea/Japan.
-                    </div>
-                </span>
-            </div>
-            <input type="number" id="toeic" min="10" max="990" oninput="preciseSync('toeic')" placeholder="0" 
-                   class="w-full bg-transparent text-3xl font-bold text-white outline-none placeholder:text-neutral-800">
-        </div>
-
-        <div class="card-bg p-5 rounded-3xl group relative">
-            <div class="flex justify-between items-center mb-3">
-                <label for="opic" class="text-[10px] font-black text-neutral-500 uppercase tracking-widest">OPIc Level</label>
-                <span class="text-neutral-700 hover:text-blue-500 cursor-help transition-colors">ⓘ
-                    <div class="tooltip absolute z-50 bottom-full left-0 w-48 p-2 bg-neutral-900 border border-neutral-800 text-[9px] rounded-lg mb-2 normal-case font-medium text-white">
-                        Oral Proficiency Interview by Computer. High-stakes for Samsung/LG employees.
-                    </div>
-                </span>
-            </div>
-            <select id="opic" onchange="preciseSync('opic')" class="w-full bg-transparent text-xl font-bold text-white outline-none h-[45px]">
-                <option value="" class="bg-black italic text-neutral-600">Level</option>
-                <option value="AL" class="bg-black">AL</option>
-                <option value="IH" class="bg-black">IH</option>
-                <option value="IM3" class="bg-black">IM3</option>
-                <option value="IM2" class="bg-black">IM2</option>
-                <option value="IM1" class="bg-black">IM1</option>
-                <option value="IL" class="bg-black">IL</option>
-            </select>
+<header class="p-6 border-b border-neutral-800 bg-neutral-900/50">
+    <div class="max-w-5xl mx-auto flex justify-between items-center">
+        <h1 class="text-xl font-black tracking-tighter text-yellow-400 italic uppercase">ACADEMIC<span class="text-white">ATHLETE</span>LAB</h1>
+        <div class="flex bg-neutral-800 rounded-lg p-1">
+            <button id="unit-lbs" onclick="setUnit('LBS')" aria-label="Switch to Pounds" class="px-4 py-1.5 text-[10px] font-bold rounded-md border border-transparent transition-all hover:border-neutral-600 focus:outline-none focus:ring-2 focus:ring-yellow-400">LBS</button>
+            <button id="unit-kg" onclick="setUnit('KG')" aria-label="Switch to Kilograms" class="px-4 py-1.5 text-[10px] font-bold rounded-md border border-transparent transition-all hover:border-neutral-600 focus:outline-none focus:ring-2 focus:ring-yellow-400">KG</button>
         </div>
     </div>
+</header>
 
-    <div id="resultsCard" class="card-bg p-10 rounded-[2.5rem] border-l-8 border-l-blue-600 flex flex-col md:flex-row items-center gap-12 opacity-30 transition-all duration-700 grayscale">
-        <div class="text-center md:text-left">
-            <p class="text-[10px] font-black text-blue-500 uppercase tracking-[0.4em] mb-4">CEFR Mastery Tier</p>
-            <div id="cefr" class="text-8xl font-black text-white tracking-tighter leading-none" aria-live="polite">--</div>
+<main class="flex-grow max-w-5xl mx-auto p-4 md:p-8 w-full">
+    <div class="mb-10 flex flex-col md:flex-row md:justify-between md:items-end gap-4">
+        <div>
+            <h2 class="text-3xl font-bold mb-2 text-white uppercase tracking-tight">Strength Diagnostic</h2>
+            <div class="flex items-center gap-2 text-neutral-500 italic text-sm">
+                <span>Brzycki Matrix Modeling</span>
+                <div class="relative flex items-center group cursor-help">
+                    <svg class="w-4 h-4 text-neutral-600 hover:text-yellow-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <div class="absolute bottom-6 left-0 w-64 p-3 bg-neutral-800 border border-neutral-700 text-[11px] rounded shadow-2xl invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all z-50">
+                        <strong>The Brzycki Formula:</strong> 1RM = Weight / (1.0278 - 0.0278 × Reps). Used for 2–10 reps for precise projections.
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="flex-grow">
-            <h4 class="text-white font-bold mb-2 uppercase text-xs tracking-widest">Linguistic Profile</h4>
-            <p id="cefr-desc" class="text-neutral-500 text-sm leading-relaxed italic">
-                Awaiting input to generate your academic performance diagnostic.
-            </p>
-        </div>
+        <button onclick="resetLab()" class="text-[10px] font-bold text-neutral-500 hover:text-yellow-400 border border-neutral-800 px-4 py-2 rounded-lg transition-all uppercase tracking-widest active:scale-95">
+            Reset Diagnostic
+        </button>
     </div>
 
-    <footer class="mt-24 border-t border-white/5 py-12">
-        <div class="grid md:grid-cols-2 gap-16">
-            <div>
-                <p class="text-[10px] font-black text-neutral-600 uppercase tracking-widest mb-4">DirectorLabs HQ / PhD Standards</p>
-                <p class="text-neutral-500 text-[11px] leading-relaxed">
-                    This matrix is maintained by a <span class="text-neutral-300">University Department Head (PhD)</span>. Based on 27 years of research in <strong>Adaptive Learning Systems</strong> and the <strong>Flipped Classroom</strong>. This tool provides standardized equivalencies for academic placement.
-                </p>
-            </div>
-            <div class="flex justify-between items-center opacity-40">
-                <button onclick="window.location.reload()" class="text-[10px] font-bold text-neutral-500 border border-neutral-800 px-6 py-2 rounded-full hover:text-white transition-all">Clear Session</button>
-                <span class="text-[9px] text-neutral-800 uppercase tracking-widest">ISO Protocol 2026</span>
+    <div class="grid lg:grid-cols-2 gap-6 lg:gap-10">
+        <!-- Inputs -->
+        <div class="card-bg p-6 md:p-10 rounded-xl safety-border shadow-2xl">
+            <h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-500 mb-8 border-b border-neutral-800 pb-2">Training Load</h3>
+            <div class="space-y-8">
+                <div>
+                    <label class="block text-xs font-bold uppercase text-neutral-400 mb-3 italic">Effective Weight (<span class="unit-label">LBS</span>)</label>
+                    <input type="number" id="weight" oninput="calculate1RM()" min="0" max="2000" placeholder="0.0" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg p-5 outline-none text-white font-mono focus:border-yellow-400 transition-all text-2xl">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-neutral-400 mb-3 italic">Reps to Fatigue</label>
+                    <input type="number" id="reps" oninput="calculate1RM()" min="0" max="50" placeholder="0" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg p-5 outline-none text-white font-mono focus:border-yellow-400 transition-all text-2xl">
+                    <div id="rep-warning" class="mt-4 hidden animate-pulse">
+                        <span class="text-[10px] bg-yellow-400/10 text-yellow-400 px-3 py-1.5 rounded border border-yellow-400/20 font-bold uppercase italic">⚠ Prediction Clamped at 10 Reps</span>
+                    </div>
+                </div>
             </div>
         </div>
-    </footer>
+
+        <!-- Results -->
+        <div class="card-bg p-6 md:p-10 rounded-xl flex flex-col justify-center items-center text-center relative overflow-hidden">
+            <div id="placeholder" class="text-neutral-600 text-sm italic">Synchronizing metrics...</div>
+
+            <div id="results" class="hidden w-full animate-fade-in" aria-live="polite">
+                <div class="flex justify-between items-center mb-6 border-b border-neutral-800 pb-3">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-500">Predicted 1RM</span>
+                    <button onclick="togglePrecision()" aria-label="Toggle Decimals" class="text-[9px] font-bold text-neutral-400 border border-neutral-800 px-3 py-1.5 rounded-md hover:border-neutral-600 focus:outline-none focus:ring-1 focus:ring-yellow-400">
+                        MODE: <span id="precision-text">WHOLE</span>
+                    </button>
+                </div>
+                
+                <div class="flex items-baseline justify-center gap-3">
+                    <div id="max-display" class="text-7xl md:text-9xl font-black text-yellow-400 tracking-tighter">0</div>
+                    <span class="text-2xl font-bold text-neutral-700 unit-label">LBS</span>
+                </div>
+                
+                <div class="mt-12 space-y-6">
+                    <!-- 90% -->
+                    <div class="text-left tooltip">
+                        <div class="flex justify-between items-end">
+                            <p class="text-[9px] text-neutral-500 uppercase font-black italic">90% Efficiency</p>
+                            <p id="p90" class="text-lg font-bold text-white tracking-tight">--</p>
+                        </div>
+                        <div class="progress-bar"><div id="bar-90" class="progress-fill" style="width:0%"></div></div>
+                        <div class="tooltip-text absolute left-0 w-60 mt-1 p-2 text-[10px] bg-neutral-800 border border-neutral-700 rounded shadow-lg opacity-0 invisible transition-all">Suggested heavy training load: ~90% of 1RM, for 3–6 reps</div>
+                    </div>
+                    <!-- 80% -->
+                    <div class="text-left tooltip">
+                        <div class="flex justify-between items-end">
+                            <p class="text-[9px] text-neutral-500 uppercase font-black italic">80% Efficiency</p>
+                            <p id="p80" class="text-lg font-bold text-white tracking-tight">--</p>
+                        </div>
+                        <div class="progress-bar"><div id="bar-80" class="progress-fill" style="width:0%"></div></div>
+                        <div class="tooltip-text absolute left-0 w-60 mt-1 p-2 text-[10px] bg-neutral-800 border border-neutral-700 rounded shadow-lg opacity-0 invisible transition-all">Moderate load: ~80% of 1RM, 6–10 reps for hypertrophy focus</div>
+                    </div>
+                    <!-- 70% -->
+                    <div class="text-left tooltip">
+                        <div class="flex justify-between items-end">
+                            <p class="text-[9px] text-neutral-500 uppercase font-black italic">70% Efficiency</p>
+                            <p id="p70" class="text-lg font-bold text-white tracking-tight">--</p>
+                        </div>
+                        <div class="progress-bar"><div id="bar-70" class="progress-fill" style="width:0%"></div></div>
+                        <div class="tooltip-text absolute left-0 w-60 mt-1 p-2 text-[10px] bg-neutral-800 border border-neutral-700 rounded shadow-lg opacity-0 invisible transition-all">Light load: ~70% of 1RM, 10+ reps for endurance or warmup</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 
+<footer class="p-8 text-center text-neutral-700 text-[10px] tracking-[0.4em] uppercase mt-auto">
+    &copy; 2026 ACADEMIC ATHLETE LAB | <span class="text-yellow-600 font-bold">DIRECTORLABS HQ</span>
+</footer>
+
 <script>
-    const data = [
-        { cefr: "C2", ielts: 8.5, toefl: 115, toeic: 945, opic: "AL", desc: "Native-like precision. Can differentiate finer shades of meaning even in complex situations." },
-        { cefr: "C1", ielts: 7.5, toefl: 102, toeic: 940, opic: "AL", desc: "Advanced operational proficiency. Can use language flexibly for social, academic and professional purposes." },
-        { cefr: "B2", ielts: 6.5, toefl: 79,  toeic: 785, opic: "IH", desc: "Independent user. Can interact with a degree of fluency that makes regular interaction with native speakers possible." },
-        { cefr: "B1", ielts: 5.0, toefl: 46,  toeic: 550, opic: "IM3", desc: "Intermediate user. Can deal with most situations likely to arise while traveling or in a work environment." },
-        { cefr: "A2", ielts: 4.0, toefl: 32,  toeic: 225, opic: "IL", desc: "Basic user. Can communicate in simple and routine tasks requiring a simple and direct exchange of information." }
-    ];
+let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
+let highPrecision = false;
+const KG_RATIO = 2.20462;
 
-    function preciseSync(sourceId) {
-        const input = document.getElementById(sourceId);
-        const card = document.getElementById('resultsCard');
-        const cefrText = document.getElementById('cefr');
-        let val = (sourceId === 'opic') ? input.value : parseFloat(input.value);
+// Load saved inputs
+window.onload = () => {
+    const savedWeight = localStorage.getItem('athleteWeight');
+    const savedReps = localStorage.getItem('athleteReps');
+    if(savedWeight) document.getElementById('weight').value = savedWeight;
+    if(savedReps) document.getElementById('reps').value = savedReps;
+    setUnit(currentUnit);
+};
 
-        if (!val && val !== 0 && sourceId !== 'opic') {
-            card.classList.add('opacity-30', 'grayscale');
-            cefrText.innerText = '--';
-            return;
-        }
-
-        let bestMatch = data[0];
-        if (sourceId === 'opic') {
-            bestMatch = data.find(d => d.opic === val) || data[data.length-1];
-        } else {
-            bestMatch = data.find(d => val >= d[sourceId]) || data[data.length-1];
-        }
-
-        ['ielts', 'toefl', 'toeic', 'opic'].forEach(id => {
-            if (id !== sourceId) document.getElementById(id).value = bestMatch[id];
-        });
-
-        card.classList.remove('opacity-30', 'grayscale');
-        cefrText.innerText = bestMatch.cefr;
-        cefrText.classList.add('animate-value');
-        setTimeout(() => cefrText.classList.remove('animate-value'), 500);
-        document.getElementById('cefr-desc').innerText = bestMatch.desc;
+function setUnit(newUnit) {
+    const weightInput = document.getElementById('weight');
+    let val = parseFloat(weightInput.value);
+    if(val){
+        weightInput.value = (newUnit === 'KG') ? (val / KG_RATIO).toFixed(1) : (val * KG_RATIO).toFixed(1);
     }
+    currentUnit = newUnit;
+    localStorage.setItem('athleteUnit', newUnit);
+    document.querySelectorAll('.unit-label').forEach(el => el.innerText = newUnit);
+    document.getElementById('unit-lbs').classList.toggle('toggle-active', newUnit==='LBS');
+    document.getElementById('unit-kg').classList.toggle('toggle-active', newUnit==='KG');
+    calculate1RM();
+}
+
+function togglePrecision() {
+    highPrecision = !highPrecision;
+    document.getElementById('precision-text').innerText = highPrecision ? "DECIMAL" : "WHOLE";
+    calculate1RM();
+}
+
+function animateNumber(target, element){
+    let start = parseFloat(element.innerText) || 0;
+    let duration = 400;
+    let startTime = null;
+    function step(timestamp){
+        if(!startTime) startTime = timestamp;
+        let progress = Math.min((timestamp - startTime)/duration, 1);
+        let current = start + progress*(target - start);
+        element.innerText = highPrecision ? current.toFixed(1) : Math.round(current);
+        if(progress < 1) window.requestAnimationFrame(step);
+    }
+    window.requestAnimationFrame(step);
+}
+
+function calculate1RM(){
+    let weight = parseFloat(document.getElementById('weight').value);
+    let reps = parseFloat(document.getElementById('reps').value);
+    const results = document.getElementById('results');
+    const placeholder = document.getElementById('placeholder');
+    const warning = document.getElementById('rep-warning');
+
+    // Save inputs
+    localStorage.setItem('athleteWeight', weight || '');
+    localStorage.setItem('athleteReps', reps || '');
+
+    if(reps > 10){ warning.classList.remove('hidden'); reps=10; } else { warning.classList.add('hidden'); }
+    if(!weight || !reps || reps<=0 || weight<=0){ results.classList.add('hidden'); placeholder.classList.remove('hidden'); return; }
+
+    results.classList.remove('hidden'); placeholder.classList.add('hidden');
+
+    const oneRepMax = weight / (1.0278 - 0.0278*reps);
+    const format = (num) => highPrecision ? num.toFixed(1) : Math.round(num);
+    animateNumber(oneRepMax, document.getElementById('max-display'));
+
+    document.getElementById('p90').innerText = format(oneRepMax*0.9);
+    document.getElementById('p80').innerText = format(oneRepMax*0.8);
+    document.getElementById('p70').innerText = format(oneRepMax*0.7);
+
+    // Dynamic progress bar width relative to 1RM
+    const maxWidth = 100;
+    document.getElementById('bar-90').style.width = (90).toFixed(1)+'%';
+    document.getElementById('bar-80').style.width = (80).toFixed(1)+'%';
+    document.getElementById('bar-70').style.width = (70).toFixed(1)+'%';
+}
+
+function resetLab(){
+    document.getElementById('weight').value = '';
+    document.getElementById('reps').value = '';
+    localStorage.removeItem('athleteWeight');
+    localStorage.removeItem('athleteReps');
+    document.getElementById('max-display').innerText = '0';
+    resetLabUI();
+}
+
+function resetLabUI(){
+    document.getElementById('results').classList.add('hidden');
+    document.getElementById('placeholder').classList.remove('hidden');
+}
 </script>
 </body>
 </html>
