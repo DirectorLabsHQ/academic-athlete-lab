@@ -3,8 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>VO2 Max Stratification (50+) | Academic Athlete Lab</title>
     <meta name="description" content="Calculate and stratify your VO2 Max. Benchmark cardiovascular fitness against longevity standards and population percentiles for athletes over 50.">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "VO2 Max Stratification Tool",
+      "operatingSystem": "All",
+      "applicationCategory": "HealthApplication",
+      "description": "Clinical stratification model for VO2 Max in masters athletes over 50.",
+      "author": {
+        "@type": "Organization",
+        "name": "Academic Athlete Lab"
+      }
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@900&display=swap');
@@ -103,13 +120,18 @@
         <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
             <div class="space-y-6">
                 <p><strong class="text-white">Aerobic Engine:</strong> VO2 Max measures your peak oxygen utilization. For athletes over 50, this value determines your "functional independence window." A higher capacity makes high-intensity resistance training safer and more productive.</p>
-                <p><strong class="text-white">Mortality Correlation:</strong> Clinical data shows that moving from the bottom 20% to the middle of the population is associated with a dramatic reduction in all-cause mortality risk.</p>
+                <p><strong class="text-white">Mortality Correlation:</strong> Clinical data shows that moving from the bottom 20% to the middle of the population is associated with a dramatic reduction in all-cause mortality risk. Reach "Elite Reserve" for maximum lifespan extension.</p>
             </div>
             <div class="space-y-6">
                 <p><strong class="text-white">Stratification Logic:</strong> We use age-adjusted population norms to categorize your score. This allows you to see how your current aerobic engine compares to other trained individuals in your specific demographic.</p>
+                
                 <div class="p-6 bg-neutral-900/50 rounded-2xl border border-neutral-800">
-                    <p class="text-[9px] font-bold uppercase tracking-[0.2em] mb-2 text-neutral-500">Methodology Note:</p>
-                    <p class="text-[10px] italic">Benchmarks adapted from fitness-mortality hazard ratio research. Accuracy depends on the quality of input data and testing modality.</p>
+                    <p class="text-[9px] font-bold uppercase tracking-[0.2em] mb-2 text-neutral-500">Methodology & Citations:</p>
+                    <p class="text-[10px] italic mb-2">Benchmarks based on the Cooper Institute and longitudinal mortality studies.</p>
+                    <div class="flex gap-4">
+                        <a href="https://www.cooperinstitute.org/" target="_blank" class="text-[9px] safety-red underline uppercase font-bold tracking-widest">Cooper Institute</a>
+                        <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" class="text-[9px] safety-red underline uppercase font-bold tracking-widest">PubMed Research</a>
+                    </div>
                 </div>
             </div>
         </div>
