@@ -4,43 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Athlete Lab Logs | Performance Tracking</title>
-    
-    <meta name="description" content="Adaptive performance baseline tracking. PhD-verified strength variance diagnostic using the DU-PASS algorithm.">
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@900&display=swap');
-        
-        body { 
-            background-color: #050505; 
-            color: #fff; 
-            font-family: 'Space Mono', monospace; 
-            -webkit-font-smoothing: antialiased;
-        }
-
+        body { background-color: #050505; color: #fff; font-family: 'Space Mono', monospace; -webkit-font-smoothing: antialiased; }
         .safety-orange { color: #f97316; }
         .bg-safety { background-color: #f97316; }
         .glass-card { background: #111; border: 1px solid #222; }
-        
-        .input-field {
-            background: #000;
-            border: 1px solid #333;
-            color: #f97316;
-            outline: none;
-            transition: all 0.2s;
-            font-size: 1.1rem;
-        }
-
-        .input-field:focus {
-            border-color: #f97316;
-            background: #0a0a0a;
-        }
-
-        /* Sparkline Visualization */
+        .input-field { background: #000; border: 1px solid #333; color: #f97316; outline: none; transition: all 0.2s; font-size: 1.1rem; }
+        .input-field:focus { border-color: #f97316; background: #0a0a0a; }
         .bar-container { display: flex; align-items: flex-end; gap: 4px; height: 60px; }
         .bar { background: #222; width: 100%; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); border-radius: 2px 2px 0 0; }
         .bar.active { background: #f97316; box-shadow: 0 0 15px rgba(249, 115, 22, 0.3); }
-        
         .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
     </style>
 </head>
@@ -55,16 +30,15 @@
 
 <main class="flex-grow max-w-5xl mx-auto p-4 md:p-12 w-full">
     <header class="mb-8 md:mb-12">
-        <div class="inline-block bg-safety text-black px-4 py-1 font-black italic text-2xl uppercase mb-4">
+        <div class="inline-block bg-safety text-black px-4 py-1 font-black italic text-2xl uppercase mb-4 text-left">
             Athlete Lab Logs
         </div>
-        <p class="text-neutral-500 text-[9px] md:text-[10px] tracking-[0.4em] uppercase">
+        <p class="text-neutral-500 text-[9px] md:text-[10px] tracking-[0.4em] uppercase text-left">
             Baseline Performance Tracking / Protocol: DU-PASS v1.1
         </p>
     </header>
 
     <div class="grid lg:grid-cols-2 gap-6 md:gap-10 items-start">
-        
         <section class="glass-card p-6 md:p-8 rounded-3xl border-l-4 border-l-orange-600">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-xs font-bold uppercase tracking-widest safety-orange">Session History</h2>
@@ -72,7 +46,7 @@
             </div>
             
             <div class="space-y-3">
-                <div class="grid grid-cols-2 gap-3 md:gap-4 font-bold text-[10px] uppercase text-neutral-600 px-1">
+                <div class="grid grid-cols-2 gap-3 md:gap-4 font-bold text-[10px] uppercase text-neutral-600 px-1 text-left">
                     <span>Load</span>
                     <span>Reps</span>
                 </div>
@@ -83,21 +57,13 @@
                 <div class="grid grid-cols-2 gap-3 md:gap-4"><input type="number" id="w5" class="input-field p-3 rounded font-bold"><input type="number" id="r5" class="input-field p-3 rounded font-bold"></div>
             </div>
 
-            <div class="mt-8 border-t border-neutral-900 pt-6">
-                <h3 class="text-[10px] font-bold uppercase tracking-widest text-neutral-400 mb-3">Streak Logic</h3>
-                <ul class="text-[9px] text-neutral-600 space-y-2 uppercase leading-tight tracking-wider">
-                    <li>• <span class="text-neutral-400">Standardization:</span> Tracking variance across 5 recent sessions.</li>
-                    <li>• <span class="text-neutral-400">Recovery:</span> High variance signals CNS fatigue.</li>
-                </ul>
-            </div>
-
             <button onclick="calculateBaseline()" class="w-full mt-8 bg-orange-600 hover:bg-orange-500 text-black font-black py-4 rounded-xl uppercase tracking-[0.2em] transition-all transform active:scale-95 shadow-lg shadow-orange-900/20">
                 Execute Streak Diagnostic
             </button>
         </section>
 
         <section class="flex flex-col gap-6">
-            <div class="glass-card p-8 rounded-3xl min-h-[400px] flex flex-col">
+            <div class="glass-card p-8 rounded-3xl min-h-[400px] flex flex-col text-left">
                 <div class="flex justify-between items-start border-b border-neutral-900 pb-4 mb-8">
                     <span class="text-[10px] text-neutral-500 uppercase tracking-widest">Diagnostic Output</span>
                     <div id="chart" class="bar-container w-24">
@@ -129,6 +95,25 @@
         </section>
     </div>
 
+    <section class="mt-12 border-t border-neutral-900 pt-12 text-left">
+        <div class="grid md:grid-cols-2 gap-12">
+            <div>
+                <h3 class="text-orange-500 font-black uppercase tracking-widest text-sm mb-4 italic">Understanding Variance</h3>
+                <div class="space-y-4 text-sm text-neutral-400 leading-relaxed">
+                    <p><strong class="text-white">Consistency is King:</strong> The <span class="text-orange-400 font-bold">Variance Index</span> measures how much your performance fluctuates. A lower percentage means your Central Nervous System (CNS) is adapting well.</p>
+                    <p><strong class="text-white">The DU-PASS Method:</strong> We track your last 5 working sets to establish a "Performance Baseline." This is more accurate than a single 1RM because it accounts for daily fatigue.</p>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-orange-500 font-black uppercase tracking-widest text-sm mb-4 italic">How to Log</h3>
+                <div class="space-y-4 text-sm text-neutral-400 leading-relaxed">
+                    <p><strong class="text-white">Standardize:</strong> Log your top set for each workout. If you Bench Press twice a week, log those two sessions consecutively.</p>
+                    <p><strong class="text-white">CNS Feedback:</strong> If your Variance jumps above <span class="text-orange-400 font-bold">12%</span>, your body is screaming for a deload week, even if you feel "fine."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer class="mt-24 border-t border-neutral-900 py-12 text-center">
         <p class="text-[9px] text-neutral-700 uppercase tracking-[0.6em] leading-relaxed max-w-2xl mx-auto">
             DirectorLabs HQ Protocol 2026 | Performance Intelligence
@@ -140,48 +125,40 @@
     function calculateBaseline() {
         let estimates = [];
         let rawData = [];
-        
         for(let i=1; i<=5; i++) {
             let w = parseFloat(document.getElementById(`w${i}`).value);
             let r = parseFloat(document.getElementById(`r${i}`).value);
-            
             if(w > 0 && r > 0) {
-                // Brzycki Formula
                 let est = w / (1.0278 - 0.0278 * r);
                 estimates.push(est);
                 rawData.push({w, r});
             }
         }
-
         if(estimates.length < 2) {
             alert("Enter at least 2 sessions to calculate variance.");
             return;
         }
-
         localStorage.setItem('athleteLabData', JSON.stringify(rawData));
-
         const avg = estimates.reduce((a,b) => a+b) / estimates.length;
         const stdDev = Math.sqrt(estimates.map(x => Math.pow(x - avg, 2)).reduce((a,b) => a+b) / estimates.length);
         const varPct = (stdDev / avg) * 100;
-        
         const unit = localStorage.getItem('athleteUnit') || 'LBS';
         document.getElementById('baseline-val').innerText = Math.round(avg) + ' ' + unit;
         document.getElementById('variance-val').innerText = varPct.toFixed(1) + '%';
-        
         const bars = document.querySelectorAll('.bar');
         const max = Math.max(...estimates);
         bars.forEach(b => b.classList.remove('active'));
         estimates.forEach((est, i) => {
-            bars[i].style.height = (est / max * 100) + '%';
-            bars[i].classList.add('active');
+            if(bars[i]) {
+                bars[i].style.height = (est / max * 100) + '%';
+                bars[i].classList.add('active');
+            }
         });
-
         let rank = ""; let msg = "";
-        if(varPct < 3) { rank = "LEVEL 5: MASTERY"; msg = "Extreme consistency. Central Nervous System is fully recovered. Increase load."; }
-        else if(varPct < 7) { rank = "LEVEL 4: STABLE"; msg = "Solid performance. Continue current progression protocol."; }
-        else if(varPct < 12) { rank = "LEVEL 3: VOLATILE"; msg = "Fluctuating output. Prioritize sleep and caloric intake to stabilize."; }
-        else { rank = "LEVEL 2: FATIGUED"; msg = "High variance detected. Deload recommended to avoid overtraining."; }
-
+        if(varPct < 3) { rank = "LEVEL 5: MASTERY"; msg = "Extreme consistency. CNS is recovered. Increase load."; }
+        else if(varPct < 7) { rank = "LEVEL 4: STABLE"; msg = "Solid performance. Continue current progression."; }
+        else if(varPct < 12) { rank = "LEVEL 3: VOLATILE"; msg = "Fluctuating output. Prioritize sleep and calories."; }
+        else { rank = "LEVEL 2: FATIGUED"; msg = "High variance. Deload recommended to avoid injury."; }
         document.getElementById('rank-val').innerText = rank;
         document.getElementById('feedback-text').innerText = msg;
         document.getElementById('feedback-box').classList.remove('hidden');
@@ -208,6 +185,5 @@
         }
     }
 </script>
-
 </body>
 </html>
