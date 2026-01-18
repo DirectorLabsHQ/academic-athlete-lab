@@ -3,201 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Athlete Lab Logs | 50+ Performance Intelligence</title>
+    <title>Performance Log | Academic Athlete Lab</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@900&display=swap');
         body { background-color: #050505; color: #fff; font-family: 'Space Mono', monospace; -webkit-font-smoothing: antialiased; }
-        .safety-orange { color: #f97316; }
-        .bg-safety { background-color: #f97316; }
+        .safety-green { color: #4ade80; }
+        .bg-green { background-color: #4ade80; }
         .glass-card { background: #111; border: 1px solid #222; }
-        .input-field { background: #000; border: 1px solid #333; color: #f97316; outline: none; transition: all 0.2s; font-size: 1.1rem; }
-        .input-field:focus { border-color: #f97316; background: #0a0a0a; }
-        .bar-container { display: flex; align-items: flex-end; gap: 4px; height: 60px; }
-        .bar { background: #222; width: 100%; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); border-radius: 2px 2px 0 0; }
-        .bar.active { background: #f97316; box-shadow: 0 0 15px rgba(249, 115, 22, 0.3); }
         .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
+        .toggle-active { background-color: #4ade80 !important; color: #000 !important; }
+        select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234ade80'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1rem; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col" onload="loadPersistentData()">
+<body class="min-h-screen flex flex-col" onload="initPage()">
+
+<header class="p-6 border-b border-neutral-900 bg-black">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <h1 class="text-xl font-black tracking-tighter safety-green italic uppercase">ACADEMIC<span class="text-white">ATHLETE</span>LAB</h1>
+        <div class="flex bg-neutral-900 rounded-lg p-1">
+            <button id="unit-lbs" onclick="setUnit('LBS')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all">LBS</button>
+            <button id="unit-kg" onclick="setUnit('KG')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all">KG</button>
+        </div>
+    </div>
+</header>
 
 <nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80">
     <div class="max-w-6xl mx-auto flex gap-8">
         <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM Calculator</a>
-        <a href="athlete-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Athlete Lab Logs</a>
         <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Functional Age</a>
+        <a href="athlete-lab.html" class="nav-link text-green-400 border-b-2 border-green-400 pb-1">Performance Log</a>
     </div>
 </nav>
 
-<main class="flex-grow max-w-5xl mx-auto p-4 md:p-12 w-full">
-    <header class="mb-8 md:mb-12">
-        <div class="inline-block bg-safety text-black px-4 py-1 font-black italic text-2xl uppercase mb-4 text-left">
-            Athlete Lab Logs
+<main class="max-w-5xl mx-auto p-6 md:p-12 w-full">
+    <header class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div>
+            <div class="inline-block bg-green text-black px-4 py-1 font-black italic text-2xl uppercase mb-4">Performance Log</div>
+            <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase">Strength Streak Tracking v1.5</p>
         </div>
-        <p class="text-neutral-500 text-[9px] md:text-[10px] tracking-[0.4em] uppercase text-left">
-            50+ Baseline Performance Tracking / Protocol: DU-PASS v1.1
-        </p>
+        
+        <div class="glass-card px-6 py-4 rounded-2xl border-l-2 border-green-500">
+            <span class="text-[9px] text-neutral-500 uppercase font-bold block mb-1">Active Profile</span>
+            <div class="flex gap-4 items-baseline">
+                <span id="display-gender" class="text-xs font-bold safety-green uppercase">--</span>
+                <span id="display-lift" class="text-xs font-bold text-white uppercase">--</span>
+            </div>
+        </div>
     </header>
 
-    <div class="grid lg:grid-cols-2 gap-6 md:gap-10 items-start">
-        <section class="glass-card p-6 md:p-8 rounded-3xl border-l-4 border-l-orange-600">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-xs font-bold uppercase tracking-widest safety-orange">Session History</h2>
-                <button onclick="clearLogs()" class="text-[9px] text-neutral-600 hover:text-red-500 uppercase font-bold tracking-widest transition-colors">Purge Data</button>
-            </div>
-            
-            <div class="space-y-3">
-                <div class="grid grid-cols-2 gap-3 md:gap-4 font-bold text-[10px] uppercase text-neutral-600 px-1 text-left">
-                    <span>Load</span>
-                    <span>Reps</span>
+    <div class="grid lg:grid-cols-3 gap-8">
+        <section class="lg:col-span-1 space-y-6">
+            <div class="glass-card p-6 rounded-3xl text-left">
+                <h3 class="text-[10px] font-bold uppercase text-neutral-500 mb-6 tracking-widest">New Lab Entry</h3>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-[9px] uppercase text-neutral-600 font-bold mb-2">Select Movement</label>
+                        <select id="log-lift" class="w-full bg-black border border-neutral-800 p-3 rounded-xl text-xs text-green-400 font-bold outline-none">
+                            <option value="bench">Bench Press</option>
+                            <option value="squat">Back Squat</option>
+                            <option value="deadlift" selected>Deadlift</option>
+                            <option value="db_press">DB Shoulder Press</option>
+                        </select>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[9px] uppercase text-neutral-600 font-bold mb-2">Weight (<span class="unit-label">LBS</span>)</label>
+                            <input type="number" id="log-weight" class="w-full bg-black border border-neutral-800 p-3 rounded-xl text-sm text-white outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[9px] uppercase text-neutral-600 font-bold mb-2">Reps</label>
+                            <input type="number" id="log-reps" class="w-full bg-black border border-neutral-800 p-3 rounded-xl text-sm text-white outline-none">
+                        </div>
+                    </div>
+                    <button onclick="saveLog()" class="w-full bg-green text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-green-400 transition-all">Commit to Log</button>
                 </div>
-                <div class="grid grid-cols-2 gap-3 md:gap-4"><input type="number" id="w1" placeholder="--" class="input-field p-3 rounded font-bold"><input type="number" id="r1" placeholder="--" class="input-field p-3 rounded font-bold"></div>
-                <div class="grid grid-cols-2 gap-3 md:gap-4"><input type="number" id="w2" class="input-field p-3 rounded font-bold"><input type="number" id="r2" class="input-field p-3 rounded font-bold"></div>
-                <div class="grid grid-cols-2 gap-3 md:gap-4"><input type="number" id="w3" class="input-field p-3 rounded font-bold"><input type="number" id="r3" class="input-field p-3 rounded font-bold"></div>
-                <div class="grid grid-cols-2 gap-3 md:gap-4"><input type="number" id="w4" class="input-field p-3 rounded font-bold"><input type="number" id="r4" class="input-field p-3 rounded font-bold"></div>
-                <div class="grid grid-cols-2 gap-3 md:gap-4"><input type="number" id="w5" class="input-field p-3 rounded font-bold"><input type="number" id="r5" class="input-field p-3 rounded font-bold"></div>
             </div>
-
-            <button onclick="calculateBaseline()" class="w-full mt-8 bg-orange-600 hover:bg-orange-500 text-black font-black py-4 rounded-xl uppercase tracking-[0.2em] transition-all transform active:scale-95 shadow-lg shadow-orange-900/20">
-                Execute Streak Diagnostic
-            </button>
         </section>
 
-        <section class="flex flex-col gap-6">
-            <div class="glass-card p-8 rounded-3xl min-h-[400px] flex flex-col text-left">
-                <div class="flex justify-between items-start border-b border-neutral-900 pb-4 mb-8">
-                    <span class="text-[10px] text-neutral-500 uppercase tracking-widest">Diagnostic Output</span>
-                    <div id="chart" class="bar-container w-24">
-                        <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
-                    </div>
+        <section class="lg:col-span-2">
+            <div class="glass-card rounded-3xl overflow-hidden">
+                <div class="p-6 border-b border-neutral-900 flex justify-between items-center">
+                    <h3 class="text-[10px] font-bold uppercase text-neutral-500 tracking-widest text-left">Recent Performance Data</h3>
+                    <button onclick="clearLogs()" class="text-[9px] text-neutral-600 hover:text-red-500 font-bold uppercase">Reset History</button>
                 </div>
-                
-                <div class="mb-10">
-                    <span class="text-[9px] text-neutral-600 uppercase tracking-widest block mb-1">Performance Baseline</span>
-                    <div id="baseline-val" class="text-6xl font-black safety-orange tracking-tighter">--</div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="text-[9px] uppercase text-neutral-600 border-b border-neutral-900">
+                                <th class="p-6">Date</th>
+                                <th class="p-6">Movement</th>
+                                <th class="p-6 text-center">Load</th>
+                                <th class="p-6 text-center">Est. 1RM</th>
+                                <th class="p-6 text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="log-body" class="text-xs text-neutral-300">
+                            </tbody>
+                    </table>
                 </div>
-
-                <div class="grid grid-cols-2 gap-8 mb-10">
-                    <div>
-                        <span class="text-[9px] text-neutral-600 uppercase tracking-widest block mb-1">Variance Index</span>
-                        <div id="variance-val" class="text-xl font-bold">--</div>
-                    </div>
-                    <div>
-                        <span class="text-[9px] text-neutral-600 uppercase tracking-widest block mb-1">Athlete Rank</span>
-                        <div id="rank-val" class="text-xl font-bold italic">--</div>
-                    </div>
-                </div>
-
-                <div id="feedback-box" class="p-6 bg-orange-600/5 border border-orange-600/20 rounded-2xl hidden mt-auto">
-                    <p class="text-[9px] font-bold text-orange-500 uppercase mb-3 tracking-widest">50+ Protocol Recommendation:</p>
-                    <p id="feedback-text" class="text-xs text-neutral-400 leading-relaxed italic"></p>
-                </div>
+                <div id="empty-state" class="p-20 text-center text-neutral-700 italic text-sm">No laboratory data recorded yet.</div>
             </div>
         </section>
     </div>
-
-    <section class="mt-12 border-t border-neutral-900 pt-12 text-left">
-        <div class="grid md:grid-cols-2 gap-12">
-            <div>
-                <h3 class="text-orange-500 font-black uppercase tracking-widest text-sm mb-4 italic">Longevity Performance</h3>
-                <div class="space-y-4 text-sm text-neutral-400 leading-relaxed">
-                    <p><strong class="text-white">Why Variance Matters at 50+:</strong> For the mature athlete, consistency is a proxy for safety. A high <span class="text-orange-400 font-bold">Variance Index</span> often precedes injury by signaling that the nervous system is trailing the muscular output.</p>
-                    <p><strong class="text-white">Predictive Recovery:</strong> Use the streak lab to identify your personal recovery window. Most athletes 50+ find their lowest variance occurs with 48–72 hours between heavy sessions.</p>
-                </div>
-            </div>
-            <div>
-                <h3 class="text-orange-500 font-black uppercase tracking-widest text-sm mb-4 italic">Diagnostic Logic</h3>
-                <div class="space-y-4 text-sm text-neutral-400 leading-relaxed">
-                    <p><strong class="text-white">Eccentric Control:</strong> If your variance is high, prioritize the lowering phase of your lifts. This builds tendon strength without the neurological tax of explosive lifting.</p>
-                    <p><strong class="text-white">Auto-Regulation:</strong> This lab is designed to tell you when to push and when to protect. A "Level 2" rank is a command to deload, not a sign of failure.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="mt-24 border-t border-neutral-900 py-12 text-center">
-        <p class="text-[9px] text-neutral-700 uppercase tracking-[0.6em] leading-relaxed max-w-2xl mx-auto">
-            DirectorLabs HQ Protocol 2026 | Longevity Intelligence
-        </p>
-    </footer>
 </main>
 
 <script>
-    function calculateBaseline() {
-        let estimates = [];
-        let rawData = [];
-        for(let i=1; i<=5; i++) {
-            let w = parseFloat(document.getElementById(`w${i}`).value);
-            let r = parseFloat(document.getElementById(`r${i}`).value);
-            if(w > 0 && r > 0) {
-                let est = w / (1.0278 - 0.0278 * r);
-                estimates.push(est);
-                rawData.push({w, r});
-            }
-        }
-        if(estimates.length < 2) {
-            alert("Enter at least 2 sessions to calculate variance.");
-            return;
-        }
-        localStorage.setItem('athleteLabData', JSON.stringify(rawData));
-        const avg = estimates.reduce((a,b) => a+b) / estimates.length;
-        const stdDev = Math.sqrt(estimates.map(x => Math.pow(x - avg, 2)).reduce((a,b) => a+b) / estimates.length);
-        const varPct = (stdDev / avg) * 100;
-        const unit = localStorage.getItem('athleteUnit') || 'LBS';
-        document.getElementById('baseline-val').innerText = Math.round(avg) + ' ' + unit;
-        document.getElementById('variance-val').innerText = varPct.toFixed(1) + '%';
-        const bars = document.querySelectorAll('.bar');
-        const max = Math.max(...estimates);
-        bars.forEach(b => b.classList.remove('active'));
-        estimates.forEach((est, i) => {
-            if(bars[i]) {
-                bars[i].style.height = (est / max * 100) + '%';
-                bars[i].classList.add('active');
-            }
-        });
+    let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
+    let currentGender = localStorage.getItem('athleteGender') || 'male';
+    let logs = JSON.parse(localStorage.getItem('athleteLogs')) || [];
 
-        let rank = ""; let msg = "";
-        // 50+ Optimized Logic
-        if(varPct < 4) { 
-            rank = "LEVEL 5: PEAK STABILITY"; 
-            msg = "Superior CNS recovery. Movement patterns are locked. You are cleared for a minor load increase (1-2%), but prioritize joint warmth."; 
+    function initPage() {
+        setUnit(currentUnit);
+        document.getElementById('display-gender').innerText = currentGender;
+        const savedLift = localStorage.getItem('athleteLift');
+        if(savedLift) {
+            document.getElementById('log-lift').value = savedLift;
+            document.getElementById('display-lift').innerText = savedLift;
         }
-        else if(varPct < 8) { 
-            rank = "LEVEL 4: FUNCTIONAL"; 
-            msg = "Stable performance. Maintain current volume. Focus on eccentric control to protect connective tissue."; 
-        }
-        else if(varPct < 13) { 
-            rank = "LEVEL 3: RECOVERY LAG"; 
-            msg = "Significant variance. For the 50+ athlete, this signals systemic fatigue. Add an extra 24h rest before the next session."; 
-        }
-        else { 
-            rank = "LEVEL 2: SYSTEMIC STRESS"; 
-            msg = "CRITICAL: High variance increases injury risk. 50+ Protocol suggests a 50% volume deload week to allow joints to recover."; 
-        }
-
-        document.getElementById('rank-val').innerText = rank;
-        document.getElementById('feedback-text').innerText = msg;
-        document.getElementById('feedback-box').classList.remove('hidden');
+        renderLogs();
     }
 
-    function loadPersistentData() {
-        const saved = localStorage.getItem('athleteLabData');
-        if(saved) {
-            const data = JSON.parse(saved);
-            data.forEach((item, i) => {
-                if(i < 5) {
-                    document.getElementById(`w${i+1}`).value = item.w;
-                    document.getElementById(`r${i+1}`).value = item.r;
-                }
-            });
-            calculateBaseline();
+    function setUnit(u) {
+        currentUnit = u;
+        localStorage.setItem('athleteUnit', u);
+        document.querySelectorAll('.unit-label').forEach(el => el.innerText = u);
+        document.getElementById('unit-lbs').className = u==='LBS' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500';
+        document.getElementById('unit-kg').className = u==='KG' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500';
+        renderLogs();
+    }
+
+    function saveLog() {
+        const lift = document.getElementById('log-lift').value;
+        const weight = parseFloat(document.getElementById('log-weight').value);
+        const reps = parseInt(document.getElementById('log-reps').value);
+
+        if(!weight || !reps) return;
+
+        const oneRM = weight / (1.0278 - (0.0278 * reps));
+        const entry = {
+            id: Date.now(),
+            date: new Date().toLocaleDateString(),
+            lift: lift,
+            weight: weight,
+            reps: reps,
+            oneRM: Math.round(oneRM),
+            unit: currentUnit
+        };
+
+        logs.unshift(entry);
+        localStorage.setItem('athleteLogs', JSON.stringify(logs));
+        renderLogs();
+        
+        // Reset inputs
+        document.getElementById('log-weight').value = '';
+        document.getElementById('log-reps').value = '';
+    }
+
+    function renderLogs() {
+        const body = document.getElementById('log-body');
+        const empty = document.getElementById('empty-state');
+        body.innerHTML = '';
+        
+        if(logs.length === 0) {
+            empty.classList.remove('hidden');
+            return;
         }
+        
+        empty.classList.add('hidden');
+        logs.forEach(log => {
+            const row = document.createElement('tr');
+            row.className = "border-b border-neutral-900 hover:bg-neutral-900/30 transition-colors";
+            row.innerHTML = `
+                <td class="p-6 text-neutral-500">${log.date}</td>
+                <td class="p-6 font-bold uppercase safety-green">${log.lift}</td>
+                <td class="p-6 text-center">${log.weight}${log.unit} x ${log.reps}</td>
+                <td class="p-6 text-center font-bold text-white">${log.oneRM}${log.unit}</td>
+                <td class="p-6 text-right">
+                    <button onclick="deleteLog(${log.id})" class="text-neutral-700 hover:text-red-500 font-bold">REMOVE</button>
+                </td>
+            `;
+            body.appendChild(row);
+        });
+    }
+
+    function deleteLog(id) {
+        logs = logs.filter(l => l.id !== id);
+        localStorage.setItem('athleteLogs', JSON.stringify(logs));
+        renderLogs();
     }
 
     function clearLogs() {
-        if(confirm("Purge all performance session data?")) {
-            localStorage.removeItem('athleteLabData');
-            location.reload();
+        if(confirm("Permanently delete all laboratory data?")) {
+            logs = [];
+            localStorage.removeItem('athleteLogs');
+            renderLogs();
         }
     }
 </script>
