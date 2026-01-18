@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1RM Strength Lab | Academic Athlete</title>
+    <title>1RM Calculator for Masters Athletes | Academic Athlete Lab</title>
+    <meta name="description" content="Calculate your 1RM safely using submaximal strength modeling. Designed specifically for athletes 50+ to track performance and combat sarcopenia.">
+    <meta name="keywords" content="1RM calculator, masters athletes, strength training over 50, sarcopenia prevention, relative strength standards">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@900&display=swap');
@@ -31,10 +34,10 @@
 </header>
 
 <nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80">
-    <div class="max-w-6xl mx-auto flex gap-8">
-        <a href="index.html" class="nav-link text-yellow-500 border-b-2 border-yellow-500 pb-1">1RM Calculator</a>
-        <a href="athlete-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Athlete Lab Logs</a>
-        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Functional Age</a>
+    <div class="max-w-6xl mx-auto flex gap-8 text-center overflow-x-auto">
+        <a href="index.html" class="nav-link text-yellow-500 border-b-2 border-yellow-500 pb-1 whitespace-nowrap">1RM Calculator</a>
+        <a href="athlete-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors whitespace-nowrap">Performance Logs</a>
+        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors whitespace-nowrap">Functional Age</a>
     </div>
 </nav>
 
@@ -76,15 +79,12 @@
                     <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Reps Performed</label>
                     <input type="number" id="reps" oninput="calculate1RM()" placeholder="0" class="input-field">
                 </div>
-                <button onclick="resetLab()" class="text-[9px] text-neutral-600 hover:text-yellow-500 uppercase font-bold tracking-widest pt-2">Clear Calculator</button>
             </div>
         </section>
 
         <section class="glass-card p-8 rounded-3xl min-h-[400px] flex flex-col text-left">
             <span class="text-[10px] text-neutral-500 uppercase tracking-widest border-b border-neutral-900 pb-4 mb-8">Calculated Load</span>
-            
-            <div id="placeholder" class="text-neutral-600 italic text-sm py-10">Enter weight and reps to generate strength model...</div>
-
+            <div id="placeholder" class="text-neutral-600 italic text-sm py-10">Enter data to generate strength model...</div>
             <div id="results-area" class="hidden">
                 <div class="mb-10">
                     <span class="text-[9px] text-neutral-600 uppercase tracking-widest block mb-1">Estimated One-Rep Max</span>
@@ -93,16 +93,28 @@
                         <span class="text-xl font-bold text-neutral-700 unit-label">LBS</span>
                     </div>
                 </div>
-
                 <div id="safety-box" class="p-6 bg-yellow-500/5 border border-yellow-500/20 rounded-2xl mb-8">
                     <p class="text-[9px] font-bold text-yellow-500 uppercase mb-3 tracking-widest italic">Safety Protocol Advice:</p>
                     <p id="safety-text" class="text-xs text-neutral-400 leading-relaxed italic"></p>
                 </div>
-                
                 <a href="functional-age.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-yellow-500 transition-all shadow-xl">Analyze Strength Age →</a>
             </div>
         </section>
     </div>
+
+    <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
+        <h2 class="text-2xl font-black italic uppercase mb-8 safety-yellow">Why 1RM Matters for Athletes Over 50</h2>
+        <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
+            <div class="space-y-6">
+                <p><strong class="text-white">Combating Sarcopenia:</strong> As we pass the age of 50, muscle mass begins to decline at an accelerated rate. This calculator uses submaximal loads to predict your peak force capacity, allowing you to train with enough intensity to trigger muscle protein synthesis without the injury risk of true 1-rep max testing.</p>
+                <p><strong class="text-white">The Central Nervous System (CNS):</strong> Recovery times for masters athletes are longer. By modeling your strength from 5-rep or 8-rep sets, you can stay within your "Safety Floor" while still hitting the numbers required for neurological adaptation.</p>
+            </div>
+            <div class="space-y-6">
+                <p><strong class="text-white">Relative Strength Benchmarks:</strong> In the Streak Lab, we focus on power-to-weight ratios. A heavy deadlift isn't just a number—it's a clinical marker for longevity. High relative strength in the lower body is consistently linked to lower all-cause mortality and higher functional independence.</p>
+                <p><strong class="text-white">Protocol Selection:</strong> Whether you are performing a Bench Press, Back Squat, or Deadlift, this tool applies the Brzycki algorithm, tailored for the unique physiological needs of the 50+ demographic.</p>
+            </div>
+        </div>
+    </section>
 </main>
 
 <script>
@@ -135,12 +147,6 @@
     }
 
     function setUnit(u) {
-        const weightInput = document.getElementById('weight');
-        let val = parseFloat(weightInput.value);
-        if(val){
-            if(currentUnit === 'LBS' && u === 'KG') weightInput.value = (val / KG_RATIO).toFixed(1);
-            if(currentUnit === 'KG' && u === 'LBS') weightInput.value = (val * KG_RATIO).toFixed(1);
-        }
         currentUnit = u;
         localStorage.setItem('athleteUnit', u);
         document.querySelectorAll('.unit-label').forEach(el => el.innerText = u);
@@ -166,26 +172,14 @@
             document.getElementById('result-val').innerText = Math.round(oneRM);
             
             let advice = "";
-            if (r > 10) {
-                advice = "Accuracy decreases at high reps. For 50+ athletes, sets of 5-8 provide the most precise model.";
-            } else if (lift === 'deadlift' && r < 3) {
-                advice = "Heavy deadlift singles increase spinal shear force. Submaximal sets are safer for longevity.";
-            } else {
-                advice = "1RM Modeled. Program working sets at 70-80% of this for hypertrophy.";
-            }
+            if (r > 10) advice = "For athletes 50+, accuracy is higher on sets of 5-8 reps.";
+            else if (lift === 'deadlift' && r < 3) advice = "Caution: Low-rep deadlifts tax the CNS. Stick to submaximal modeling.";
+            else advice = "Model established. Train at 70-80% of this for optimal growth.";
             document.getElementById('safety-text').innerText = advice;
         } else {
             resArea.classList.add('hidden');
             placeHolder.classList.remove('hidden');
         }
-    }
-
-    function resetLab() {
-        document.getElementById('weight').value = '';
-        document.getElementById('reps').value = '';
-        localStorage.removeItem('athleteWeight');
-        localStorage.removeItem('athleteReps');
-        calculate1RM();
     }
 </script>
 </body>
