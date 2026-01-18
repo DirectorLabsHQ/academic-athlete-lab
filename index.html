@@ -6,7 +6,7 @@
 <title>Academic Athlete Lab | Strength Intelligence</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-body { background-color: #0a0a0a; color: #e5e5e5; }
+body { background-color: #0a0a0a; color: #e5e5e5; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
 .safety-border { border-left: 4px solid #fde047; }
 .card-bg { background: #171717; border: 1px solid #262626; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -17,7 +17,7 @@ body { background-color: #0a0a0a; color: #e5e5e5; }
 .tooltip:hover .tooltip-text { visibility: visible; opacity: 1; }
 </style>
 </head>
-<body class="min-h-screen flex flex-col font-sans">
+<body class="min-h-screen flex flex-col">
 
 <header class="p-6 border-b border-neutral-800 bg-neutral-900/50">
     <div class="max-w-5xl mx-auto flex justify-between items-center">
@@ -29,6 +29,13 @@ body { background-color: #0a0a0a; color: #e5e5e5; }
     </div>
 </header>
 
+<nav class="bg-black border-b border-neutral-900 py-3">
+    <div class="max-w-5xl mx-auto px-6 flex gap-8">
+        <a href="index.html" class="text-[10px] font-black uppercase tracking-[0.2em] text-yellow-400 border-b border-yellow-400 pb-1">Diagnostic</a>
+        <a href="athlete-lab.html" class="text-[10px] font-black uppercase tracking-[0.2em] text-neutral-500 hover:text-white transition-colors">Athlete Lab Logs</a>
+    </div>
+</nav>
+
 <main class="flex-grow max-w-5xl mx-auto p-4 md:p-8 w-full">
     <div class="mb-10 flex flex-col md:flex-row md:justify-between md:items-end gap-4">
         <div>
@@ -37,7 +44,7 @@ body { background-color: #0a0a0a; color: #e5e5e5; }
                 <span>Brzycki Matrix Modeling</span>
                 <div class="relative flex items-center group cursor-help">
                     <svg class="w-4 h-4 text-neutral-600 hover:text-yellow-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <div class="absolute bottom-6 left-0 w-64 p-3 bg-neutral-800 border border-neutral-700 text-[11px] rounded shadow-2xl invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all z-50">
+                    <div class="absolute bottom-6 left-0 w-64 p-3 bg-neutral-800 border border-neutral-700 text-[11px] rounded shadow-2xl invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all z-50 font-sans italic-none">
                         <strong>The Brzycki Formula:</strong> 1RM = Weight / (1.0278 - 0.0278 × Reps). Used for 2–10 reps for precise projections.
                     </div>
                 </div>
@@ -49,7 +56,6 @@ body { background-color: #0a0a0a; color: #e5e5e5; }
     </div>
 
     <div class="grid lg:grid-cols-2 gap-6 lg:gap-10">
-        <!-- Inputs -->
         <div class="card-bg p-6 md:p-10 rounded-xl safety-border shadow-2xl">
             <h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-500 mb-8 border-b border-neutral-800 pb-2">Training Load</h3>
             <div class="space-y-8">
@@ -67,7 +73,6 @@ body { background-color: #0a0a0a; color: #e5e5e5; }
             </div>
         </div>
 
-        <!-- Results -->
         <div class="card-bg p-6 md:p-10 rounded-xl flex flex-col justify-center items-center text-center relative overflow-hidden">
             <div id="placeholder" class="text-neutral-600 text-sm italic">Synchronizing metrics...</div>
 
@@ -85,32 +90,26 @@ body { background-color: #0a0a0a; color: #e5e5e5; }
                 </div>
                 
                 <div class="mt-12 space-y-6">
-                    <!-- 90% -->
-                    <div class="text-left tooltip">
+                    <div class="text-left">
                         <div class="flex justify-between items-end">
                             <p class="text-[9px] text-neutral-500 uppercase font-black italic">90% Efficiency</p>
                             <p id="p90" class="text-lg font-bold text-white tracking-tight">--</p>
                         </div>
                         <div class="progress-bar"><div id="bar-90" class="progress-fill" style="width:0%"></div></div>
-                        <div class="tooltip-text absolute left-0 w-60 mt-1 p-2 text-[10px] bg-neutral-800 border border-neutral-700 rounded shadow-lg opacity-0 invisible transition-all">Suggested heavy training load: ~90% of 1RM, for 3–6 reps</div>
                     </div>
-                    <!-- 80% -->
-                    <div class="text-left tooltip">
+                    <div class="text-left">
                         <div class="flex justify-between items-end">
                             <p class="text-[9px] text-neutral-500 uppercase font-black italic">80% Efficiency</p>
                             <p id="p80" class="text-lg font-bold text-white tracking-tight">--</p>
                         </div>
                         <div class="progress-bar"><div id="bar-80" class="progress-fill" style="width:0%"></div></div>
-                        <div class="tooltip-text absolute left-0 w-60 mt-1 p-2 text-[10px] bg-neutral-800 border border-neutral-700 rounded shadow-lg opacity-0 invisible transition-all">Moderate load: ~80% of 1RM, 6–10 reps for hypertrophy focus</div>
                     </div>
-                    <!-- 70% -->
-                    <div class="text-left tooltip">
+                    <div class="text-left">
                         <div class="flex justify-between items-end">
                             <p class="text-[9px] text-neutral-500 uppercase font-black italic">70% Efficiency</p>
                             <p id="p70" class="text-lg font-bold text-white tracking-tight">--</p>
                         </div>
                         <div class="progress-bar"><div id="bar-70" class="progress-fill" style="width:0%"></div></div>
-                        <div class="tooltip-text absolute left-0 w-60 mt-1 p-2 text-[10px] bg-neutral-800 border border-neutral-700 rounded shadow-lg opacity-0 invisible transition-all">Light load: ~70% of 1RM, 10+ reps for endurance or warmup</div>
                     </div>
                 </div>
             </div>
@@ -127,7 +126,6 @@ let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
 let highPrecision = false;
 const KG_RATIO = 2.20462;
 
-// Load saved inputs
 window.onload = () => {
     const savedWeight = localStorage.getItem('athleteWeight');
     const savedReps = localStorage.getItem('athleteReps');
@@ -140,7 +138,8 @@ function setUnit(newUnit) {
     const weightInput = document.getElementById('weight');
     let val = parseFloat(weightInput.value);
     if(val){
-        weightInput.value = (newUnit === 'KG') ? (val / KG_RATIO).toFixed(1) : (val * KG_RATIO).toFixed(1);
+        if(currentUnit === 'LBS' && newUnit === 'KG') weightInput.value = (val / KG_RATIO).toFixed(1);
+        if(currentUnit === 'KG' && newUnit === 'LBS') weightInput.value = (val * KG_RATIO).toFixed(1);
     }
     currentUnit = newUnit;
     localStorage.setItem('athleteUnit', newUnit);
@@ -177,7 +176,6 @@ function calculate1RM(){
     const placeholder = document.getElementById('placeholder');
     const warning = document.getElementById('rep-warning');
 
-    // Save inputs
     localStorage.setItem('athleteWeight', weight || '');
     localStorage.setItem('athleteReps', reps || '');
 
@@ -188,17 +186,15 @@ function calculate1RM(){
 
     const oneRepMax = weight / (1.0278 - 0.0278*reps);
     const format = (num) => highPrecision ? num.toFixed(1) : Math.round(num);
+    
     animateNumber(oneRepMax, document.getElementById('max-display'));
-
     document.getElementById('p90').innerText = format(oneRepMax*0.9);
     document.getElementById('p80').innerText = format(oneRepMax*0.8);
     document.getElementById('p70').innerText = format(oneRepMax*0.7);
 
-    // Dynamic progress bar width relative to 1RM
-    const maxWidth = 100;
-    document.getElementById('bar-90').style.width = (90).toFixed(1)+'%';
-    document.getElementById('bar-80').style.width = (80).toFixed(1)+'%';
-    document.getElementById('bar-70').style.width = (70).toFixed(1)+'%';
+    document.getElementById('bar-90').style.width = '90%';
+    document.getElementById('bar-80').style.width = '80%';
+    document.getElementById('bar-70').style.width = '70%';
 }
 
 function resetLab(){
@@ -207,10 +203,6 @@ function resetLab(){
     localStorage.removeItem('athleteWeight');
     localStorage.removeItem('athleteReps');
     document.getElementById('max-display').innerText = '0';
-    resetLabUI();
-}
-
-function resetLabUI(){
     document.getElementById('results').classList.add('hidden');
     document.getElementById('placeholder').classList.remove('hidden');
 }
