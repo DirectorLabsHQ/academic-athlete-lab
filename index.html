@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Academic Athlete Lab | Strength Intelligence</title>
+<title>1RM Calculator | Academic Athlete Lab</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
 body { background-color: #0a0a0a; color: #e5e5e5; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
@@ -14,7 +14,6 @@ body { background-color: #0a0a0a; color: #e5e5e5; font-family: ui-sans-serif, sy
 .toggle-active { background-color: #fde047 !important; color: #000 !important; border-color: #fde047 !important; }
 .progress-bar { height: 6px; background: #262626; border-radius: 3px; margin-top: 10px; overflow: hidden; }
 .progress-fill { height: 100%; background: #fde047; transition: width 1s cubic-bezier(0.17,0.67,0.83,0.67); }
-.tooltip:hover .tooltip-text { visibility: visible; opacity: 1; }
 </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -23,15 +22,15 @@ body { background-color: #0a0a0a; color: #e5e5e5; font-family: ui-sans-serif, sy
     <div class="max-w-5xl mx-auto flex justify-between items-center">
         <h1 class="text-xl font-black tracking-tighter text-yellow-400 italic uppercase">ACADEMIC<span class="text-white">ATHLETE</span>LAB</h1>
         <div class="flex bg-neutral-800 rounded-lg p-1">
-            <button id="unit-lbs" onclick="setUnit('LBS')" aria-label="Switch to Pounds" class="px-4 py-1.5 text-[10px] font-bold rounded-md border border-transparent transition-all hover:border-neutral-600 focus:outline-none focus:ring-2 focus:ring-yellow-400">LBS</button>
-            <button id="unit-kg" onclick="setUnit('KG')" aria-label="Switch to Kilograms" class="px-4 py-1.5 text-[10px] font-bold rounded-md border border-transparent transition-all hover:border-neutral-600 focus:outline-none focus:ring-2 focus:ring-yellow-400">KG</button>
+            <button id="unit-lbs" onclick="setUnit('LBS')" class="px-4 py-1.5 text-[10px] font-bold rounded-md border border-transparent transition-all hover:border-neutral-600 focus:outline-none">LBS</button>
+            <button id="unit-kg" onclick="setUnit('KG')" class="px-4 py-1.5 text-[10px] font-bold rounded-md border border-transparent transition-all hover:border-neutral-600 focus:outline-none">KG</button>
         </div>
     </div>
 </header>
 
 <nav class="bg-black border-b border-neutral-900 py-3">
     <div class="max-w-5xl mx-auto px-6 flex gap-8">
-        <a href="index.html" class="text-[10px] font-black uppercase tracking-[0.2em] text-yellow-400 border-b border-yellow-400 pb-1">Diagnostic</a>
+        <a href="index.html" class="text-[10px] font-black uppercase tracking-[0.2em] text-yellow-400 border-b border-yellow-400 pb-1">1RM Calculator</a>
         <a href="athlete-lab.html" class="text-[10px] font-black uppercase tracking-[0.2em] text-neutral-500 hover:text-white transition-colors">Athlete Lab Logs</a>
     </div>
 </nav>
@@ -39,20 +38,10 @@ body { background-color: #0a0a0a; color: #e5e5e5; font-family: ui-sans-serif, sy
 <main class="flex-grow max-w-5xl mx-auto p-4 md:p-8 w-full">
     <div class="mb-10 flex flex-col md:flex-row md:justify-between md:items-end gap-4">
         <div>
-            <h2 class="text-3xl font-bold mb-2 text-white uppercase tracking-tight">Strength Diagnostic</h2>
-            <div class="flex items-center gap-2 text-neutral-500 italic text-sm">
-                <span>Brzycki Matrix Modeling</span>
-                <div class="relative flex items-center group cursor-help">
-                    <svg class="w-4 h-4 text-neutral-600 hover:text-yellow-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <div class="absolute bottom-6 left-0 w-64 p-3 bg-neutral-800 border border-neutral-700 text-[11px] rounded shadow-2xl invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all z-50 font-sans italic-none">
-                        <strong>The Brzycki Formula:</strong> 1RM = Weight / (1.0278 - 0.0278 × Reps). Used for 2–10 reps for precise projections.
-                    </div>
-                </div>
-            </div>
+            <h2 class="text-3xl font-bold mb-2 text-white uppercase tracking-tight">1-Rep Max Calculator</h2>
+            <p class="text-neutral-500 italic text-sm">Brzycki Strength Modeling</p>
         </div>
-        <button onclick="resetLab()" class="text-[10px] font-bold text-neutral-500 hover:text-yellow-400 border border-neutral-800 px-4 py-2 rounded-lg transition-all uppercase tracking-widest active:scale-95">
-            Reset Diagnostic
-        </button>
+        <button onclick="resetLab()" class="text-[10px] font-bold text-neutral-500 hover:text-yellow-400 border border-neutral-800 px-4 py-2 rounded-lg transition-all uppercase tracking-widest active:scale-95">Reset Calculator</button>
     </div>
 
     <div class="grid lg:grid-cols-2 gap-6 lg:gap-10">
@@ -61,34 +50,25 @@ body { background-color: #0a0a0a; color: #e5e5e5; font-family: ui-sans-serif, sy
             <div class="space-y-8">
                 <div>
                     <label class="block text-xs font-bold uppercase text-neutral-400 mb-3 italic">Effective Weight (<span class="unit-label">LBS</span>)</label>
-                    <input type="number" id="weight" oninput="calculate1RM()" min="0" max="2000" placeholder="0.0" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg p-5 outline-none text-white font-mono focus:border-yellow-400 transition-all text-2xl">
+                    <input type="number" id="weight" oninput="calculate1RM()" placeholder="0.0" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg p-5 outline-none text-white font-mono focus:border-yellow-400 transition-all text-2xl">
                 </div>
                 <div>
                     <label class="block text-xs font-bold uppercase text-neutral-400 mb-3 italic">Reps to Fatigue</label>
-                    <input type="number" id="reps" oninput="calculate1RM()" min="0" max="50" placeholder="0" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg p-5 outline-none text-white font-mono focus:border-yellow-400 transition-all text-2xl">
-                    <div id="rep-warning" class="mt-4 hidden animate-pulse">
-                        <span class="text-[10px] bg-yellow-400/10 text-yellow-400 px-3 py-1.5 rounded border border-yellow-400/20 font-bold uppercase italic">⚠ Prediction Clamped at 10 Reps</span>
-                    </div>
+                    <input type="number" id="reps" oninput="calculate1RM()" placeholder="0" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg p-5 outline-none text-white font-mono focus:border-yellow-400 transition-all text-2xl">
                 </div>
             </div>
         </div>
 
         <div class="card-bg p-6 md:p-10 rounded-xl flex flex-col justify-center items-center text-center relative overflow-hidden">
-            <div id="placeholder" class="text-neutral-600 text-sm italic">Synchronizing metrics...</div>
-
-            <div id="results" class="hidden w-full animate-fade-in" aria-live="polite">
+            <div id="placeholder" class="text-neutral-600 text-sm italic">Enter load to calculate...</div>
+            <div id="results" class="hidden w-full animate-fade-in">
                 <div class="flex justify-between items-center mb-6 border-b border-neutral-800 pb-3">
-                    <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-500">Predicted 1RM</span>
-                    <button onclick="togglePrecision()" aria-label="Toggle Decimals" class="text-[9px] font-bold text-neutral-400 border border-neutral-800 px-3 py-1.5 rounded-md hover:border-neutral-600 focus:outline-none focus:ring-1 focus:ring-yellow-400">
-                        MODE: <span id="precision-text">WHOLE</span>
-                    </button>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-500">Predicted Max</span>
                 </div>
-                
                 <div class="flex items-baseline justify-center gap-3">
                     <div id="max-display" class="text-7xl md:text-9xl font-black text-yellow-400 tracking-tighter">0</div>
                     <span class="text-2xl font-bold text-neutral-700 unit-label">LBS</span>
                 </div>
-                
                 <div class="mt-12 space-y-6">
                     <div class="text-left">
                         <div class="flex justify-between items-end">
@@ -104,13 +84,6 @@ body { background-color: #0a0a0a; color: #e5e5e5; font-family: ui-sans-serif, sy
                         </div>
                         <div class="progress-bar"><div id="bar-80" class="progress-fill" style="width:0%"></div></div>
                     </div>
-                    <div class="text-left">
-                        <div class="flex justify-between items-end">
-                            <p class="text-[9px] text-neutral-500 uppercase font-black italic">70% Efficiency</p>
-                            <p id="p70" class="text-lg font-bold text-white tracking-tight">--</p>
-                        </div>
-                        <div class="progress-bar"><div id="bar-70" class="progress-fill" style="width:0%"></div></div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -123,7 +96,6 @@ body { background-color: #0a0a0a; color: #e5e5e5; font-family: ui-sans-serif, sy
 
 <script>
 let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
-let highPrecision = false;
 const KG_RATIO = 2.20462;
 
 window.onload = () => {
@@ -149,52 +121,30 @@ function setUnit(newUnit) {
     calculate1RM();
 }
 
-function togglePrecision() {
-    highPrecision = !highPrecision;
-    document.getElementById('precision-text').innerText = highPrecision ? "DECIMAL" : "WHOLE";
-    calculate1RM();
-}
-
-function animateNumber(target, element){
-    let start = parseFloat(element.innerText) || 0;
-    let duration = 400;
-    let startTime = null;
-    function step(timestamp){
-        if(!startTime) startTime = timestamp;
-        let progress = Math.min((timestamp - startTime)/duration, 1);
-        let current = start + progress*(target - start);
-        element.innerText = highPrecision ? current.toFixed(1) : Math.round(current);
-        if(progress < 1) window.requestAnimationFrame(step);
-    }
-    window.requestAnimationFrame(step);
-}
-
 function calculate1RM(){
     let weight = parseFloat(document.getElementById('weight').value);
     let reps = parseFloat(document.getElementById('reps').value);
     const results = document.getElementById('results');
     const placeholder = document.getElementById('placeholder');
-    const warning = document.getElementById('rep-warning');
 
     localStorage.setItem('athleteWeight', weight || '');
     localStorage.setItem('athleteReps', reps || '');
 
-    if(reps > 10){ warning.classList.remove('hidden'); reps=10; } else { warning.classList.add('hidden'); }
-    if(!weight || !reps || reps<=0 || weight<=0){ results.classList.add('hidden'); placeholder.classList.remove('hidden'); return; }
+    if(!weight || !reps || reps<=0 || weight<=0){ 
+        results.classList.add('hidden'); 
+        placeholder.classList.remove('hidden'); 
+        return; 
+    }
 
-    results.classList.remove('hidden'); placeholder.classList.add('hidden');
+    results.classList.remove('hidden'); 
+    placeholder.classList.add('hidden');
 
     const oneRepMax = weight / (1.0278 - 0.0278*reps);
-    const format = (num) => highPrecision ? num.toFixed(1) : Math.round(num);
-    
-    animateNumber(oneRepMax, document.getElementById('max-display'));
-    document.getElementById('p90').innerText = format(oneRepMax*0.9);
-    document.getElementById('p80').innerText = format(oneRepMax*0.8);
-    document.getElementById('p70').innerText = format(oneRepMax*0.7);
-
+    document.getElementById('max-display').innerText = Math.round(oneRepMax);
+    document.getElementById('p90').innerText = Math.round(oneRepMax*0.9);
+    document.getElementById('p80').innerText = Math.round(oneRepMax*0.8);
     document.getElementById('bar-90').style.width = '90%';
     document.getElementById('bar-80').style.width = '80%';
-    document.getElementById('bar-70').style.width = '70%';
 }
 
 function resetLab(){
@@ -202,7 +152,6 @@ function resetLab(){
     document.getElementById('reps').value = '';
     localStorage.removeItem('athleteWeight');
     localStorage.removeItem('athleteReps');
-    document.getElementById('max-display').innerText = '0';
     document.getElementById('results').classList.add('hidden');
     document.getElementById('placeholder').classList.remove('hidden');
 }
