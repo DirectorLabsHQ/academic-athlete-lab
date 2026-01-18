@@ -3,27 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FFMI Calculator (50+) | Muscle Mass & Sarcopenia Risk</title>
-    <meta name="description" content="Calculate Fat-Free Mass Index (FFMI) for athletes 50+. Track muscle mass density and monitor sarcopenia risk with clinical accuracy.">
-    
+    <title>FFMI Stratification (50+) | Academic Athlete Lab</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@900&display=swap');
         body { background-color: #050505; color: #fff; font-family: 'Space Mono', monospace; -webkit-font-smoothing: antialiased; }
-        .safety-orange { color: #fb923c; }
-        .bg-orange { background-color: #fb923c; }
+        .safety-blue { color: #3b82f6; }
+        .bg-blue { background-color: #3b82f6; }
         .glass-card { background: #111; border: 1px solid #222; }
-        .input-field { background: #000; border: 1px solid #333; color: #fb923c; outline: none; transition: all 0.2s; font-size: 1.1rem; width: 100%; padding: 1rem; border-radius: 0.75rem; }
-        .input-field:focus { border-color: #fb923c; background: #0a0a0a; }
+        .input-field { background: #000; border: 1px solid #333; color: #3b82f6; outline: none; transition: all 0.2s; font-size: 1.1rem; width: 100%; padding: 1rem; border-radius: 0.75rem; }
+        .input-field:focus { border-color: #3b82f6; background: #0a0a0a; }
         .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
-        .toggle-active { background-color: #fb923c !important; color: #000 !important; }
+        .toggle-active { background-color: #3b82f6 !important; color: #000 !important; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col" onload="initPage()">
 
 <header class="p-6 border-b border-neutral-900 bg-black">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
-        <h1 class="text-xl font-black tracking-tighter safety-orange italic uppercase">ACADEMIC<span class="text-white">ATHLETE</span>LAB</h1>
+        <h1 class="text-xl font-black tracking-tighter safety-blue italic uppercase">ACADEMIC<span class="text-white">ATHLETE</span>LAB</h1>
         <div class="flex bg-neutral-900 rounded-lg p-1">
             <button id="unit-lbs" onclick="setUnit('LBS')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all">LBS</button>
             <button id="unit-kg" onclick="setUnit('KG')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all">KG</button>
@@ -35,7 +33,7 @@
     <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap">
         <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM Lab</a>
         <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Age Lab</a>
-        <a href="ffmi-lab.html" class="nav-link text-orange-400 border-b-2 border-orange-400 pb-1">FFMI Lab</a>
+        <a href="ffmi-lab.html" class="nav-link text-blue-500 border-b-2 border-blue-500 pb-1">FFMI Lab</a>
         <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Protein Lab</a>
         <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">VO2 Lab</a>
         <a href="athlete-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Log</a>
@@ -44,63 +42,51 @@
 
 <main class="max-w-5xl mx-auto p-6 md:p-12 w-full">
     <header class="mb-12">
-        <div class="inline-block bg-orange text-black px-4 py-1 font-black italic text-2xl uppercase mb-4 text-left">FFMI Muscle Diagnostic</div>
-        <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase text-left">Structural Reserve Assessment v1.5</p>
+        <div class="inline-block bg-blue text-black px-4 py-1 font-black italic text-2xl uppercase mb-4 text-left">Muscle Mass Lab</div>
+        <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase text-left">Fat-Free Mass Index v1.2</p>
     </header>
 
     <div class="grid lg:grid-cols-2 gap-10">
-        <section class="glass-card p-8 rounded-3xl border-l-4 border-orange-500 text-left">
-            <h3 class="text-xs font-bold uppercase safety-orange mb-6 tracking-widest">Body Composition</h3>
+        <section class="glass-card p-8 rounded-3xl border-l-4 border-blue-600 text-left">
+            <h3 class="text-xs font-bold uppercase safety-blue mb-6 tracking-widest">Structural Inputs</h3>
             <div class="space-y-6">
-                <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Gender Profile</label>
-                    <div class="flex bg-black border border-neutral-800 rounded-xl p-1">
-                        <button id="gen-male" onclick="setGender('male')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">MALE</button>
-                        <button id="gen-female" onclick="setGender('female')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">FEMALE</button>
-                    </div>
-                </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Weight (<span class="unit-label">LBS</span>)</label>
-                        <input type="number" id="weight" oninput="calculateFFMI()" class="input-field" placeholder="0">
+                        <input type="number" id="weight" oninput="calculateFFMI()" class="input-field" placeholder="185">
                     </div>
                     <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Height (CM)</label>
-                        <input type="number" id="height" oninput="calculateFFMI()" class="input-field" placeholder="175">
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Body Fat %</label>
+                        <input type="number" id="bf" oninput="calculateFFMI()" class="input-field" placeholder="18">
                     </div>
                 </div>
                 <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Body Fat %</label>
-                    <input type="number" id="bodyfat" oninput="calculateFFMI()" class="input-field" placeholder="e.g. 20">
-                    <p class="text-[9px] text-neutral-600 mt-2 italic uppercase tracking-wider">Estimate via DEXA, Smart Scale, or Visual Estimate.</p>
+                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Height (CM)</label>
+                    <input type="number" id="height" oninput="calculateFFMI()" class="input-field" placeholder="178">
                 </div>
             </div>
         </section>
 
-        <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px] text-left relative overflow-hidden">
+        <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px] text-left">
             <div id="ffmi-result" class="hidden">
                 <span class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2">Normalized FFMI:</span>
-                <div id="ffmi-val" class="text-8xl font-black safety-orange tracking-tighter mb-4 text-center">--</div>
-                <div id="ffmi-status" class="mb-4"></div>
-                <p id="ffmi-advice" class="text-sm text-neutral-400 italic leading-relaxed pt-4 border-t border-neutral-900"></p>
+                <div id="ffmi-val" class="text-6xl font-black safety-blue tracking-tighter mb-4">--</div>
+                <div class="p-6 bg-blue-600/5 border border-blue-600/20 rounded-2xl">
+                    <p class="text-[9px] font-bold text-blue-500 uppercase mb-2 tracking-widest italic">Status Check:</p>
+                    <p id="ffmi-category" class="text-xs text-neutral-400 leading-relaxed italic"></p>
+                </div>
             </div>
-            <div id="ffmi-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest">Awaiting Composition Inputs...</div>
+            <div id="ffmi-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest">Awaiting Structural Metrics...</div>
         </section>
     </div>
 
-    <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
-        <h2 class="text-2xl font-black italic uppercase mb-8 safety-orange">FFMI: The Sarcopenia Shield</h2>
-        <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
-            <div class="space-y-6">
-                <p><strong class="text-white">Beyond BMI:</strong> BMI is a height-to-weight ratio that often misclassifies muscular masters athletes as "overweight." <strong class="text-white">Fat-Free Mass Index (FFMI)</strong> isolates your muscle mass, providing a clearer picture of your structural reserve.</p>
-                <p><strong class="text-white">The Muscle Factor:</strong> After 50, muscle loss becomes a primary clinical concern. Maintaining a normalized FFMI above 19 (males) or 16 (females) is strongly associated with better metabolic health and functional independence.</p>
-            </div>
-            <div class="space-y-6">
-                <p><strong class="text-white">Normalized Formula:</strong> We use the clinical standard: <code class="text-orange-400">FFMI + 6.1 × (1.8 − height in meters)</code>. This ensures that athletes of all heights can accurately compare their muscle density against population norms.</p>
-                <div class="p-6 bg-neutral-900/50 rounded-2xl border border-neutral-800">
-                    <p class="text-[9px] font-bold uppercase tracking-[0.2em] mb-2 text-neutral-500">Methodology Note:</p>
-                    <p class="text-[10px] italic">Thresholds adapted from FFMI population norms and aging research (Kouri et al.). This tool is for performance tracking and does not replace medical diagnostics.</p>
-                </div>
+    <section class="mt-16 bg-neutral-900/40 p-10 rounded-3xl border border-neutral-800 text-left">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-xl font-black italic uppercase mb-6 safety-blue tracking-tighter">Why FFMI Matters for 50+ Athletes</h3>
+            
+            <div class="grid md:grid-cols-2 gap-10 mt-8 text-neutral-400 text-sm leading-relaxed">
+                <p><strong class="text-white">The Quality Marker:</strong> BMI is flawed because it doesn't distinguish between fat and muscle. FFMI (Fat-Free Mass Index) is the gold standard for masters athletes because it isolates your <strong class="text-blue-400">Lean Muscle Reserve</strong>—your primary defense against metabolic decline.</p>
+                <p><strong class="text-white">Longevity Proxy:</strong> Muscle is an endocrine organ. Higher levels of lean mass are directly correlated with improved survivability from acute illness and better functional mobility in later decades.</p>
             </div>
         </div>
     </section>
@@ -108,24 +94,13 @@
 
 <script>
     let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
-    let currentGender = localStorage.getItem('athleteGender') || 'male';
 
     function initPage() {
         setUnit(currentUnit);
-        setGender(currentGender);
-        // Pre-fill weight if available from 1RM lab
         const savedW = localStorage.getItem('athleteWeight');
-        if(savedW && !document.getElementById('weight').value) {
-            document.getElementById('weight').value = savedW;
-        }
-        calculateFFMI();
-    }
-
-    function setGender(g) {
-        currentGender = g;
-        localStorage.setItem('athleteGender', g);
-        document.getElementById('gen-male').className = g === 'male' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500 hover:text-white transition-colors';
-        document.getElementById('gen-female').className = g === 'female' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500 hover:text-white transition-colors';
+        const savedH = localStorage.getItem('athleteHeight');
+        if(savedW) document.getElementById('weight').value = savedW;
+        if(savedH) document.getElementById('height').value = savedH;
         calculateFFMI();
     }
 
@@ -140,40 +115,36 @@
 
     function calculateFFMI() {
         const w = parseFloat(document.getElementById('weight').value);
-        const h = parseFloat(document.getElementById('height').value);
-        const bf = parseFloat(document.getElementById('bodyfat').value);
-        
-        if(w <= 0 || h <= 0 || bf < 0) {
-            document.getElementById('ffmi-result').classList.add('hidden');
-            document.getElementById('ffmi-placeholder').classList.remove('hidden');
-            return;
-        }
+        const bf = parseFloat(document.getElementById('bf').value);
+        const hCm = parseFloat(document.getElementById('height').value);
+
+        if(!w || !bf || !hCm) return;
 
         let weightKg = currentUnit === 'LBS' ? w * 0.453592 : w;
-        let heightM = h / 100;
+        let heightM = hCm / 100;
         let lbm = weightKg * (1 - (bf / 100));
         let ffmi = lbm / (heightM * heightM);
+        
+        // Normalization adjustment for height
         let normalizedFFMI = ffmi + 6.1 * (1.8 - heightM);
+        let finalScore = normalizedFFMI.toFixed(1);
+
+        let category = "";
+        if(finalScore < 18) category = "Below Average - Priority: Resistance training and protein.";
+        else if(finalScore < 20) category = "Average - Solid structural foundation.";
+        else if(finalScore < 22) category = "Above Average - High metabolic reserve.";
+        else category = "Superior - Elite structural profile for age 50+.";
+
+        // --- THE LOG FIX: Save to LocalStorage ---
+        localStorage.setItem('athleteFFMI', finalScore);
+        localStorage.setItem('athleteFFMICat', category.split(' - ')[0]); // Save just the status
+        localStorage.setItem('athleteWeight', w);
+        localStorage.setItem('athleteHeight', hCm);
 
         document.getElementById('ffmi-result').classList.remove('hidden');
         document.getElementById('ffmi-placeholder').classList.add('hidden');
-        document.getElementById('ffmi-val').innerText = normalizedFFMI.toFixed(1);
-
-        let status = "";
-        let advice = "";
-        
-        if (currentGender === 'male') {
-            if (normalizedFFMI < 18) { status = "Below Baseline (At Risk)"; advice = "High priority: Resistance training and adequate protein intake are recommended to build functional structural reserve."; }
-            else if (normalizedFFMI < 20) { status = "Average Master Athlete"; advice = "Good baseline. Focus on maintaining muscle density through consistent stimulus and recovery."; }
-            else { status = "High Functional Reserve"; advice = "Exceptional muscle density for your demographic. This provides a robust metabolic shield against aging."; }
-        } else {
-            if (normalizedFFMI < 15) { status = "Below Baseline (At Risk)"; advice = "Prioritize strength work. Muscle mass is a primary driver of bone density and metabolic health for women 50+."; }
-            else if (normalizedFFMI < 17) { status = "Average Master Athlete"; advice = "Solid functional mass. Maintain consistent training to preserve this skeletal support."; }
-            else { status = "High Functional Reserve"; advice = "Exceptional lean mass. You are in the top tier for structural longevity."; }
-        }
-
-        document.getElementById('ffmi-status').innerHTML = `<div class="text-xs font-bold uppercase tracking-widest safety-orange text-center">${status}</div>`;
-        document.getElementById('ffmi-advice').innerText = advice;
+        document.getElementById('ffmi-val').innerText = finalScore;
+        document.getElementById('ffmi-category').innerText = category;
     }
 </script>
 </body>
