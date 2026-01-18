@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>VO2 Max Stratification (50+) | Academic Athlete Lab</title>
-    <meta name="description" content="Calculate and stratify your VO2 Max. Benchmark cardiovascular fitness against longevity standards.">
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@900&display=swap');
@@ -22,7 +19,7 @@
 </head>
 <body class="min-h-screen flex flex-col" onload="initPage()">
 
-<header class="p-6 border-b border-neutral-900 bg-black">
+<header class="p-6 border-b border-neutral-900 bg-black text-left">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
         <h1 class="text-xl font-black tracking-tighter safety-red italic uppercase">ACADEMIC<span class="text-white">ATHLETE</span>LAB</h1>
     </div>
@@ -40,9 +37,9 @@
 </nav>
 
 <main class="max-w-5xl mx-auto p-6 md:p-12 w-full">
-    <header class="mb-12">
-        <div class="inline-block bg-red text-black px-4 py-1 font-black italic text-2xl uppercase mb-4 text-left">Aerobic Capacity Lab</div>
-        <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase text-left">Aerobic Capacity Stratification v1.5</p>
+    <header class="mb-12 text-left">
+        <div class="inline-block bg-red text-black px-4 py-1 font-black italic text-2xl uppercase mb-4">Aerobic Capacity Lab</div>
+        <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase">Longevity Ceiling Model v1.5</p>
     </header>
 
     <div class="grid lg:grid-cols-2 gap-10">
@@ -63,7 +60,7 @@
                     </div>
                     <div>
                         <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">VO2 Max Score</label>
-                        <input type="number" id="vo2-score" oninput="calculateVO2()" class="input-field" placeholder="e.g. 35">
+                        <input type="number" id="vo2-score" oninput="calculateVO2()" class="input-field" placeholder="0">
                     </div>
                 </div>
             </div>
@@ -82,26 +79,47 @@
         </section>
     </div>
 
+    <section class="mt-12 glass-card p-8 rounded-3xl border-l-4 border-white/20 text-left">
+        <div class="mb-6">
+            <h3 class="text-xs font-bold uppercase text-white mb-2 tracking-widest">Field Test: Rockport Walk Model</h3>
+            <p class="text-[9px] text-neutral-500 uppercase italic">Don't know your score? Perform a 1-mile brisk walk and enter data below.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div>
+                <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">1-Mile Time (Min:Sec)</label>
+                <div class="flex gap-2">
+                    <input type="number" id="walk-min" class="input-field" placeholder="Min">
+                    <input type="number" id="walk-sec" class="input-field" placeholder="Sec">
+                </div>
+            </div>
+            <div>
+                <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Finish Heart Rate</label>
+                <input type="number" id="walk-hr" class="input-field" placeholder="BPM">
+            </div>
+            <div class="flex items-end">
+                <button onclick="calculateRockport()" class="w-full py-4 bg-white text-black font-black italic uppercase text-[10px] rounded-xl hover:bg-red-500 hover:text-white transition-all">Estimate VO2</button>
+            </div>
+        </div>
+        <div id="rockport-result" class="hidden mt-6 p-4 bg-white/5 border border-white/10 rounded-xl">
+            <p class="text-[10px] text-neutral-400 uppercase tracking-widest">Estimated Score: <span id="rockport-score" class="text-white font-bold ml-2">--</span></p>
+            <button onclick="applyRockport()" class="text-[9px] text-red-500 font-bold uppercase mt-2 underline">Apply to Performance Model ↑</button>
+        </div>
+    </section>
+
     <section class="mt-16 bg-neutral-900/40 p-10 rounded-3xl border border-neutral-800 text-left">
         <div class="max-w-4xl mx-auto">
             <h3 class="text-xl font-black italic uppercase mb-6 safety-red tracking-tighter">The Longevity Ceiling</h3>
             
-            
-
             <div class="grid md:grid-cols-2 gap-10 mt-8 text-neutral-400 text-sm leading-relaxed">
-                <div class="space-y-4">
-                    <p><strong class="text-white uppercase tracking-widest text-[10px]">The Predictive Power:</strong> VO2 Max is perhaps the strongest predictor of how long you will live. Clinical studies show that moving from the bottom 25% to the top 25% of your age group can result in a <span class="text-red-400">5x reduction in all-cause mortality risk</span>.</p>
+                <div>
+                    <p><strong class="text-white uppercase tracking-widest text-[10px]">The Predictive Power:</strong> VO2 Max is the strongest predictor of lifespan. Moving from the bottom 25% to the top 25% of your age group can result in a <span class="text-red-400">5x reduction in all-cause mortality risk</span>.</p>
                 </div>
-                <div class="space-y-4">
-                    <p><strong class="text-white uppercase tracking-widest text-[10px]">The Functional Window:</strong> Think of VO2 Max as your "physiological wealth." You lose about 10% per decade after 30. By maximizing this number at 50, you ensure that even 30 years from now, you will still have the capacity to perform daily tasks without hitting your physical limit.</p>
+                <div>
+                    <p><strong class="text-white uppercase tracking-widest text-[10px]">Biological Wealth:</strong> You lose ~10% capacity per decade. High VO2 Max at 50 ensures you maintain the "functional headroom" to stay active and independent through your 80s and 90s.</p>
                 </div>
             </div>
         </div>
     </section>
-
-    <footer class="mt-24 text-center text-[9px] text-neutral-600 uppercase tracking-[0.3em] pb-12">
-        Academic Model Only. Not Medical Advice.
-    </footer>
 </main>
 
 <script>
@@ -127,7 +145,6 @@
     function calculateVO2() {
         const age = parseFloat(document.getElementById('age').value);
         const vo2 = parseFloat(document.getElementById('vo2-score').value);
-
         if(!age || !vo2) return;
 
         let category = "";
@@ -146,7 +163,6 @@
             else { category = "Elite Reserve"; percentile = "Top 10% for age"; advice = "Exceptional aerobic reserve."; }
         }
 
-        // --- THE LOG FIX: Save to LocalStorage ---
         localStorage.setItem('athleteAge', age);
         localStorage.setItem('athleteVO2', vo2);
         localStorage.setItem('athleteVO2Cat', category);
@@ -156,6 +172,33 @@
         document.getElementById('vo2-category').innerText = category;
         document.getElementById('vo2-percentile').innerText = percentile;
         document.getElementById('vo2-advice').innerText = advice;
+    }
+
+    function calculateRockport() {
+        const weight = parseFloat(localStorage.getItem('athleteWeight')) || 180;
+        const age = parseFloat(document.getElementById('age').value);
+        const gender = (currentGender === 'male') ? 1 : 0;
+        const min = parseFloat(document.getElementById('walk-min').value);
+        const sec = parseFloat(document.getElementById('walk-sec').value);
+        const hr = parseFloat(document.getElementById('walk-hr').value);
+
+        if (!min || !hr || !age) { alert("Complete Age, Walk Time, and HR."); return; }
+
+        const timeDec = min + (sec / 60);
+        const weightLbs = (localStorage.getItem('athleteUnit') === 'KG') ? weight * 2.20462 : weight;
+        
+        // Rockport Formula
+        let vo2 = 132.853 - (0.0769 * weightLbs) - (0.3877 * age) + (6.315 * gender) - (3.2649 * timeDec) - (0.1565 * hr);
+        
+        document.getElementById('rockport-result').classList.remove('hidden');
+        document.getElementById('rockport-score').innerText = vo2.toFixed(1);
+        window.tempVO2 = vo2.toFixed(1);
+    }
+
+    function applyRockport() {
+        document.getElementById('vo2-score').value = window.tempVO2;
+        calculateVO2();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 </script>
 </body>
