@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Athlete Lab Logs | Performance Tracking</title>
+    <title>Athlete Lab Logs | 50+ Performance Intelligence</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@900&display=swap');
@@ -34,7 +34,7 @@
             Athlete Lab Logs
         </div>
         <p class="text-neutral-500 text-[9px] md:text-[10px] tracking-[0.4em] uppercase text-left">
-            Baseline Performance Tracking / Protocol: DU-PASS v1.1
+            50+ Baseline Performance Tracking / Protocol: DU-PASS v1.1
         </p>
     </header>
 
@@ -88,7 +88,7 @@
                 </div>
 
                 <div id="feedback-box" class="p-6 bg-orange-600/5 border border-orange-600/20 rounded-2xl hidden mt-auto">
-                    <p class="text-[9px] font-bold text-orange-500 uppercase mb-3 tracking-widest">System Recommendation:</p>
+                    <p class="text-[9px] font-bold text-orange-500 uppercase mb-3 tracking-widest">50+ Protocol Recommendation:</p>
                     <p id="feedback-text" class="text-xs text-neutral-400 leading-relaxed italic"></p>
                 </div>
             </div>
@@ -98,17 +98,17 @@
     <section class="mt-12 border-t border-neutral-900 pt-12 text-left">
         <div class="grid md:grid-cols-2 gap-12">
             <div>
-                <h3 class="text-orange-500 font-black uppercase tracking-widest text-sm mb-4 italic">Understanding Variance</h3>
+                <h3 class="text-orange-500 font-black uppercase tracking-widest text-sm mb-4 italic">Longevity Performance</h3>
                 <div class="space-y-4 text-sm text-neutral-400 leading-relaxed">
-                    <p><strong class="text-white">Consistency is King:</strong> The <span class="text-orange-400 font-bold">Variance Index</span> measures how much your performance fluctuates. A lower percentage means your Central Nervous System (CNS) is adapting well.</p>
-                    <p><strong class="text-white">The DU-PASS Method:</strong> We track your last 5 working sets to establish a "Performance Baseline." This is more accurate than a single 1RM because it accounts for daily fatigue.</p>
+                    <p><strong class="text-white">Why Variance Matters at 50+:</strong> For the mature athlete, consistency is a proxy for safety. A high <span class="text-orange-400 font-bold">Variance Index</span> often precedes injury by signaling that the nervous system is trailing the muscular output.</p>
+                    <p><strong class="text-white">Predictive Recovery:</strong> Use the streak lab to identify your personal recovery window. Most athletes 50+ find their lowest variance occurs with 48–72 hours between heavy sessions.</p>
                 </div>
             </div>
             <div>
-                <h3 class="text-orange-500 font-black uppercase tracking-widest text-sm mb-4 italic">How to Log</h3>
+                <h3 class="text-orange-500 font-black uppercase tracking-widest text-sm mb-4 italic">Diagnostic Logic</h3>
                 <div class="space-y-4 text-sm text-neutral-400 leading-relaxed">
-                    <p><strong class="text-white">Standardize:</strong> Log your top set for each workout. If you Bench Press twice a week, log those two sessions consecutively.</p>
-                    <p><strong class="text-white">CNS Feedback:</strong> If your Variance jumps above <span class="text-orange-400 font-bold">12%</span>, your body is screaming for a deload week, even if you feel "fine."</p>
+                    <p><strong class="text-white">Eccentric Control:</strong> If your variance is high, prioritize the lowering phase of your lifts. This builds tendon strength without the neurological tax of explosive lifting.</p>
+                    <p><strong class="text-white">Auto-Regulation:</strong> This lab is designed to tell you when to push and when to protect. A "Level 2" rank is a command to deload, not a sign of failure.</p>
                 </div>
             </div>
         </div>
@@ -116,7 +116,7 @@
 
     <footer class="mt-24 border-t border-neutral-900 py-12 text-center">
         <p class="text-[9px] text-neutral-700 uppercase tracking-[0.6em] leading-relaxed max-w-2xl mx-auto">
-            DirectorLabs HQ Protocol 2026 | Performance Intelligence
+            DirectorLabs HQ Protocol 2026 | Longevity Intelligence
         </p>
     </footer>
 </main>
@@ -154,11 +154,26 @@
                 bars[i].classList.add('active');
             }
         });
+
         let rank = ""; let msg = "";
-        if(varPct < 3) { rank = "LEVEL 5: MASTERY"; msg = "Extreme consistency. CNS is recovered. Increase load."; }
-        else if(varPct < 7) { rank = "LEVEL 4: STABLE"; msg = "Solid performance. Continue current progression."; }
-        else if(varPct < 12) { rank = "LEVEL 3: VOLATILE"; msg = "Fluctuating output. Prioritize sleep and calories."; }
-        else { rank = "LEVEL 2: FATIGUED"; msg = "High variance. Deload recommended to avoid injury."; }
+        // 50+ Optimized Logic
+        if(varPct < 4) { 
+            rank = "LEVEL 5: PEAK STABILITY"; 
+            msg = "Superior CNS recovery. Movement patterns are locked. You are cleared for a minor load increase (1-2%), but prioritize joint warmth."; 
+        }
+        else if(varPct < 8) { 
+            rank = "LEVEL 4: FUNCTIONAL"; 
+            msg = "Stable performance. Maintain current volume. Focus on eccentric control to protect connective tissue."; 
+        }
+        else if(varPct < 13) { 
+            rank = "LEVEL 3: RECOVERY LAG"; 
+            msg = "Significant variance. For the 50+ athlete, this signals systemic fatigue. Add an extra 24h rest before the next session."; 
+        }
+        else { 
+            rank = "LEVEL 2: SYSTEMIC STRESS"; 
+            msg = "CRITICAL: High variance increases injury risk. 50+ Protocol suggests a 50% volume deload week to allow joints to recover."; 
+        }
+
         document.getElementById('rank-val').innerText = rank;
         document.getElementById('feedback-text').innerText = msg;
         document.getElementById('feedback-box').classList.remove('hidden');
