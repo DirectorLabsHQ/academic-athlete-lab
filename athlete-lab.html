@@ -4,21 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Athlete Lab | Baseline Performance Engine</title>
+    
+    <meta name="description" content="Adaptive performance baseline tracking. PhD-verified strength variance diagnostic using the DU-PASS algorithm.">
+    <meta name="keywords" content="strength baseline, lift variance, performance tracking, DU-PASS algorithm, athlete laboratory">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@900&display=swap');
-        body { background-color: #050505; color: #fff; font-family: 'Space Mono', monospace; -webkit-font-smoothing: antialiased; }
+        
+        body { 
+            background-color: #050505; 
+            color: #fff; 
+            font-family: 'Space Mono', monospace; 
+            -webkit-font-smoothing: antialiased;
+        }
+
         .safety-orange { color: #f97316; }
         .bg-safety { background-color: #f97316; }
         .glass-card { background: #111; border: 1px solid #222; }
-        .input-field { background: #000; border: 1px solid #333; color: #f97316; outline: none; transition: all 0.2s; font-size: 1.1rem; }
-        .input-field:focus { border-color: #f97316; background: #0a0a0a; }
-        .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; tracking: 0.2em; }
         
+        .input-field {
+            background: #000;
+            border: 1px solid #333;
+            color: #f97316;
+            outline: none;
+            transition: all 0.2s;
+            font-size: 1.1rem;
+        }
+
+        .input-field:focus {
+            border-color: #f97316;
+            background: #0a0a0a;
+        }
+
         /* Sparkline Visualization */
         .bar-container { display: flex; align-items: flex-end; gap: 4px; height: 60px; }
-        .bar { background: #333; width: 100%; transition: all 0.5s ease; border-radius: 2px 2px 0 0; }
-        .bar.active { background: #f97316; box-shadow: 0 0 10px rgba(249, 115, 22, 0.4); }
+        .bar { background: #222; width: 100%; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); border-radius: 2px 2px 0 0; }
+        .bar.active { background: #f97316; box-shadow: 0 0 15px rgba(249, 115, 22, 0.3); }
+        
+        .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; tracking: 0.2em; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col" onload="loadPersistentData()">
@@ -32,8 +56,12 @@
 
 <main class="flex-grow max-w-5xl mx-auto p-4 md:p-12 w-full">
     <header class="mb-8 md:mb-12">
-        <div class="inline-block bg-safety text-black px-4 py-1 font-black italic text-2xl uppercase mb-4">Athlete Lab</div>
-        <p class="text-neutral-500 text-[9px] md:text-[10px] tracking-[0.4em] uppercase">Baseline Variance Diagnostic / Protocol: DU-PASS v1.1</p>
+        <div class="inline-block bg-safety text-black px-4 py-1 font-black italic text-2xl uppercase mb-4">
+            Athlete Lab
+        </div>
+        <p class="text-neutral-500 text-[9px] md:text-[10px] tracking-[0.4em] uppercase">
+            Baseline Variance Diagnostic / Protocol: DU-PASS v1.1
+        </p>
     </header>
 
     <div class="grid lg:grid-cols-2 gap-6 md:gap-10 items-start">
@@ -41,35 +69,44 @@
         <section class="glass-card p-6 md:p-8 rounded-3xl border-l-4 border-l-orange-600">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-xs font-bold uppercase tracking-widest safety-orange">Session Logs</h2>
-                <button onclick="clearLogs()" class="text-[9px] text-neutral-600 hover:text-red-500 uppercase font-bold tracking-widest">Clear Storage</button>
+                <button onclick="clearLogs()" class="text-[9px] text-neutral-600 hover:text-red-500 uppercase font-bold tracking-widest transition-colors">Reset System</button>
             </div>
             
             <div class="space-y-3">
                 <div class="grid grid-cols-2 gap-3 md:gap-4">
-                    <input type="number" id="w1" placeholder="Wt" class="input-field p-3 rounded" min="1">
-                    <input type="number" id="r1" placeholder="Reps" class="input-field p-3 rounded" min="1" max="36">
+                    <input type="number" id="w1" placeholder="Weight" class="input-field p-3 rounded font-bold" min="1">
+                    <input type="number" id="r1" placeholder="Reps" class="input-field p-3 rounded font-bold" min="1" max="36">
                 </div>
-                <div class="grid grid-cols-2 gap-3 md:gap-4"><input type="number" id="w2" class="input-field p-3 rounded"><input type="number" id="r2" class="input-field p-3 rounded"></div>
-                <div class="grid grid-cols-2 gap-3 md:gap-4"><input type="number" id="w3" class="input-field p-3 rounded"><input type="number" id="r3" class="input-field p-3 rounded"></div>
-                <div class="grid grid-cols-2 gap-3 md:gap-4"><input type="number" id="w4" class="input-field p-3 rounded"><input type="number" id="r4" class="input-field p-3 rounded"></div>
-                <div class="grid grid-cols-2 gap-3 md:gap-4"><input type="number" id="w5" class="input-field p-3 rounded"><input type="number" id="r5" class="input-field p-3 rounded"></div>
+                <div class="grid grid-cols-2 gap-3 md:gap-4"><input type="number" id="w2" class="input-field p-3 rounded font-bold"><input type="number" id="r2" class="input-field p-3 rounded font-bold"></div>
+                <div class="grid grid-cols-2 gap-3 md:gap-4"><input type="number" id="w3" class="input-field p-3 rounded font-bold"><input type="number" id="r3" class="input-field p-3 rounded font-bold"></div>
+                <div class="grid grid-cols-2 gap-3 md:gap-4"><input type="number" id="w4" class="input-field p-3 rounded font-bold"><input type="number" id="r4" class="input-field p-3 rounded font-bold"></div>
+                <div class="grid grid-cols-2 gap-3 md:gap-4"><input type="number" id="w5" class="input-field p-3 rounded font-bold"><input type="number" id="r5" class="input-field p-3 rounded font-bold"></div>
+            </div>
+
+            <div class="mt-8 border-t border-neutral-900 pt-6">
+                <h3 class="text-[10px] font-bold uppercase tracking-widest text-neutral-400 mb-3">Protocol Instructions</h3>
+                <ul class="text-[9px] text-neutral-600 space-y-2 uppercase leading-tight tracking-wider">
+                    <li>• <span class="text-neutral-400">Targeting:</span> Input data for the <span class="text-orange-900">SAME</span> specific lift only.</li>
+                    <li>• <span class="text-neutral-400">Normalization:</span> Calculated via the <span class="italic">Brzycki Equation</span>.</li>
+                    <li>• <span class="text-neutral-400">Baseline Theory:</span> High variance (>10%) suggests recovery failure.</li>
+                </ul>
             </div>
 
             <button onclick="calculateBaseline()" class="w-full mt-8 bg-orange-600 hover:bg-orange-500 text-black font-black py-4 rounded-xl uppercase tracking-[0.2em] transition-all transform active:scale-95 shadow-lg shadow-orange-900/20">
-                Run Diagnostic
+                Execute Diagnostic
             </button>
         </section>
 
         <section class="flex flex-col gap-6">
-            <div class="glass-card p-8 rounded-3xl min-h-[400px]">
+            <div class="glass-card p-8 rounded-3xl min-h-[400px] flex flex-col">
                 <div class="flex justify-between items-start border-b border-neutral-900 pb-4 mb-8">
                     <span class="text-[10px] text-neutral-500 uppercase tracking-widest">Diagnostic Readout</span>
                     <div id="chart" class="bar-container w-24">
-                        <div class="bar" style="height: 10%"></div>
-                        <div class="bar" style="height: 10%"></div>
-                        <div class="bar" style="height: 10%"></div>
-                        <div class="bar" style="height: 10%"></div>
-                        <div class="bar" style="height: 10%"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
                     </div>
                 </div>
                 
@@ -80,21 +117,28 @@
 
                 <div class="grid grid-cols-2 gap-8 mb-10">
                     <div>
-                        <span class="text-[9px] text-neutral-600 uppercase tracking-widest block mb-1">Variance</span>
+                        <span class="text-[9px] text-neutral-600 uppercase tracking-widest block mb-1">Variance Index</span>
                         <div id="variance-val" class="text-xl font-bold">--</div>
                     </div>
                     <div>
-                        <span class="text-[9px] text-neutral-600 uppercase tracking-widest block mb-1">PhD Rank</span>
-                        <div id="rank-val" class="text-xl font-bold">--</div>
+                        <span class="text-[9px] text-neutral-600 uppercase tracking-widest block mb-1">DU-PASS Rank</span>
+                        <div id="rank-val" class="text-xl font-bold italic">--</div>
                     </div>
                 </div>
 
-                <div id="feedback-box" class="p-6 bg-orange-600/5 border border-orange-600/20 rounded-2xl hidden">
+                <div id="feedback-box" class="p-6 bg-orange-600/5 border border-orange-600/20 rounded-2xl hidden mt-auto">
+                    <p class="text-[9px] font-bold text-orange-500 uppercase mb-3 tracking-widest">Adaptive Feedback:</p>
                     <p id="feedback-text" class="text-xs text-neutral-400 leading-relaxed italic"></p>
                 </div>
             </div>
         </section>
     </div>
+
+    <footer class="mt-24 border-t border-neutral-900 py-12 text-center">
+        <p class="text-[9px] text-neutral-700 uppercase tracking-[0.6em] leading-relaxed max-w-2xl mx-auto">
+            DirectorLabs HQ Protocol 2026 / Behavioral Stability Research
+        </p>
+    </footer>
 </main>
 
 <script>
@@ -106,8 +150,8 @@
             let w = parseFloat(document.getElementById(`w${i}`).value);
             let r = parseFloat(document.getElementById(`r${i}`).value);
             
-            // Safety Validation: Brzycki limit and non-negatives
-            if(r >= 37) { alert("Error: Reps must be 36 or fewer for the DU-PASS algorithm."); return; }
+            // Safety Validation
+            if(r >= 37) { alert("Error: Reps ≥ 37 are mathematically invalid for this diagnostic."); return; }
             
             if(w > 0 && r > 0) {
                 let est = w * (36 / (37 - r));
@@ -116,33 +160,33 @@
             }
         }
 
-        if(estimates.length < 2) { alert("Please enter at least 2 sessions."); return; }
+        if(estimates.length < 2) return;
 
-        // Persistence: Save to LocalStorage
-        localStorage.setItem('labData', JSON.stringify(rawData));
+        // Persistence
+        localStorage.setItem('athleteLabData', JSON.stringify(rawData));
 
         const avg = estimates.reduce((a,b) => a+b) / estimates.length;
         const stdDev = Math.sqrt(estimates.map(x => Math.pow(x - avg, 2)).reduce((a,b) => a+b) / estimates.length);
-        const variancePercent = (stdDev / avg) * 100;
+        const varPct = (stdDev / avg) * 100;
         
-        // UI Updates
+        // Display
         document.getElementById('baseline-val').innerText = avg.toFixed(1) + 'kg';
-        document.getElementById('variance-val').innerText = variancePercent.toFixed(1) + '%';
+        document.getElementById('variance-val').innerText = varPct.toFixed(1) + '%';
         
-        // Visual Chart Logic
+        // Visualization
         const bars = document.querySelectorAll('.bar');
-        const maxEst = Math.max(...estimates);
+        const max = Math.max(...estimates);
         estimates.forEach((est, i) => {
-            bars[i].style.height = (est / maxEst * 100) + '%';
+            bars[i].style.height = (est / max * 100) + '%';
             bars[i].classList.add('active');
         });
 
-        // Rank Logic
+        // PhD Logic Ranks
         let rank = ""; let msg = "";
-        if(variancePercent < 3) { rank = "LVL 5: Mastery"; msg = "Stability elite. Increase load +5%."; }
-        else if(variancePercent < 7) { rank = "LVL 4: Operational"; msg = "Stable. Ready for +2.5% increase."; }
-        else if(variancePercent < 12) { rank = "LVL 3: Threshold"; msg = "Volatile. Stabilize current weight for 2 more sessions."; }
-        else { rank = "LVL 2: Emergent"; msg = "Critical variance. Deload 10% to reset baseline."; }
+        if(varPct < 3) { rank = "LEVEL 5: MASTERY"; msg = "Elite stability. The neurological pattern is locked. PROMOTED: Increase load +5%."; }
+        else if(varPct < 7) { rank = "LEVEL 4: OPERATIONAL"; msg = "Stable baseline confirmed. System recommends +2.5% load increase."; }
+        else if(varPct < 12) { rank = "LEVEL 3: THRESHOLD"; msg = "Inconsistent output. CNS adaptation in progress. STABILIZE: Match current load next session."; }
+        else { rank = "LEVEL 2: EMERGENT"; msg = "Critical variance detected. Recovery failure likely. DELOAD: Drop 10% to reset baseline safety."; }
 
         document.getElementById('rank-val').innerText = rank;
         document.getElementById('feedback-text').innerText = msg;
@@ -150,21 +194,24 @@
     }
 
     function loadPersistentData() {
-        const saved = localStorage.getItem('labData');
+        const saved = localStorage.getItem('athleteLabData');
         if(saved) {
             const data = JSON.parse(saved);
             data.forEach((item, i) => {
                 document.getElementById(`w${i+1}`).value = item.w;
                 document.getElementById(`r${i+1}`).value = item.r;
             });
-            calculateBaseline(); // Auto-run if data exists
+            calculateBaseline();
         }
     }
 
     function clearLogs() {
-        localStorage.removeItem('labData');
-        location.reload();
+        if(confirm("Purge all local session data?")) {
+            localStorage.removeItem('athleteLabData');
+            location.reload();
+        }
     }
 </script>
+
 </body>
 </html>
