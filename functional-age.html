@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Functional Age Diagnostic | Academic Athlete Lab</title>
+    <title>Biological Strength Age Calculator | Masters Athlete Longevity</title>
+    <meta name="description" content="Determine your biological age based on relative strength standards for men and women over 50. Benchmarks for sarcopenia prevention and functional longevity.">
+    <meta name="keywords" content="biological age calculator, strength standards over 50, masters athlete benchmarks, relative strength longevity">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@900&display=swap');
@@ -14,7 +17,6 @@
         .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
         .toggle-active { background-color: #22d3ee !important; color: #000 !important; }
         select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2322d3ee'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1rem; }
-        input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col" onload="initPage()">
@@ -32,99 +34,121 @@
 <nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80">
     <div class="max-w-6xl mx-auto flex gap-8">
         <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM Calculator</a>
-        <a href="athlete-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Athlete Lab Logs</a>
         <a href="functional-age.html" class="nav-link text-cyan-400 border-b-2 border-cyan-400 pb-1">Functional Age</a>
+        <a href="athlete-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Performance Log</a>
     </div>
 </nav>
 
-<main class="max-w-4xl mx-auto p-6 md:p-12 w-full">
+<main class="max-w-5xl mx-auto p-6 md:p-12 w-full">
     <header class="mb-12">
-        <div class="inline-block bg-cyan text-black px-4 py-1 font-black italic text-2xl uppercase mb-4">
-            Biological Age Diagnostic
-        </div>
-        <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase">Relative Strength Standard v1.3 | 50+ Niche</p>
+        <div class="inline-block bg-cyan text-black px-4 py-1 font-black italic text-2xl uppercase mb-4 text-left">Biological Age Diagnostic</div>
+        <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase text-left">Gender-Optimized Standards v1.5</p>
     </header>
 
-    <div class="grid md:grid-cols-2 gap-8 items-start">
-        <section class="glass-card p-8 rounded-3xl border-l-4 border-cyan-500">
-            <h3 class="text-xs font-bold uppercase safety-cyan mb-6 tracking-widest text-left">Diagnostic Inputs</h3>
-            <div class="space-y-6 text-left">
+    <div class="grid lg:grid-cols-2 gap-10 items-start">
+        <section class="glass-card p-8 rounded-3xl border-l-4 border-cyan-500 text-left">
+            <h3 class="text-xs font-bold uppercase safety-cyan mb-6 tracking-widest">Diagnostic Profile</h3>
+            <div class="space-y-6">
                 <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Select Movement</label>
-                    <select id="lift-type" onchange="calculateBioAge()" class="bg-black border border-neutral-800 w-full p-4 rounded-xl text-cyan-400 font-bold outline-none focus:border-cyan-400 cursor-pointer">
-                        <option value="bench">Bench Press (Upper Power)</option>
-                        <option value="squat">Back Squat (Lower Drive)</option>
-                        <option value="deadlift" selected>Deadlift (Hinge/Posterior)</option>
-                        <option value="db_press">DB Shoulder Press (Stability)</option>
+                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Gender Profile</label>
+                    <div class="flex bg-black border border-neutral-800 rounded-xl p-1">
+                        <button id="gen-male" onclick="setGender('male')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">MALE</button>
+                        <button id="gen-female" onclick="setGender('female')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">FEMALE</button>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Selected Movement</label>
+                    <select id="lift-type" onchange="updateLift()" class="bg-black border border-neutral-800 w-full p-4 rounded-xl text-cyan-400 font-bold outline-none focus:border-cyan-400 cursor-pointer">
+                        <option value="bench">Bench Press</option>
+                        <option value="squat">Back Squat</option>
+                        <option value="deadlift">Deadlift</option>
+                        <option value="db_press">DB Shoulder Press</option>
                     </select>
                 </div>
                 <div>
                     <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Chronological Age</label>
                     <input type="number" id="chron-age" value="55" class="bg-black border border-neutral-800 w-full p-4 rounded-xl text-cyan-400 font-bold outline-none focus:border-cyan-400">
                 </div>
-                <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Bodyweight (<span class="unit-label">LBS</span>)</label>
-                    <input type="number" id="bodyweight" placeholder="Enter Weight" class="bg-black border border-neutral-800 w-full p-4 rounded-xl text-cyan-400 font-bold outline-none focus:border-cyan-400">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Bodyweight (<span class="unit-label">LBS</span>)</label>
+                        <input type="number" id="bodyweight" oninput="calculateBioAge()" placeholder="0" class="bg-black border border-neutral-800 w-full p-4 rounded-xl text-cyan-400 font-bold outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Est. 1RM (<span class="unit-label">LBS</span>)</label>
+                        <input type="number" id="one-rm" oninput="calculateBioAge()" placeholder="0" class="bg-black border border-neutral-800 w-full p-4 rounded-xl text-cyan-400 font-bold outline-none">
+                    </div>
                 </div>
-                <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Estimated 1RM (<span class="unit-label">LBS</span>)</label>
-                    <input type="number" id="one-rm" placeholder="Max Lift" class="bg-black border border-neutral-800 w-full p-4 rounded-xl text-cyan-400 font-bold outline-none focus:border-cyan-400">
-                    <p id="db-note" class="hidden text-[9px] text-neutral-600 mt-2 italic">*Enter TOTAL weight of both dumbbells.</p>
-                </div>
-                <button onclick="calculateBioAge()" class="w-full bg-cyan-500 hover:bg-cyan-400 text-black font-black py-4 rounded-xl uppercase tracking-widest transition-all shadow-lg shadow-cyan-900/20">Analyze Strength Age</button>
             </div>
         </section>
 
-        <section class="glass-card p-8 rounded-3xl flex flex-col justify-center text-center min-h-[450px]">
-            <div id="age-display" class="hidden text-left">
-                <span class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2">Estimated Strength Age:</span>
+        <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[500px] text-left">
+            <div id="age-display" class="hidden">
+                <span class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2">Calculated Strength Age:</span>
                 <div id="bio-age-val" class="text-8xl font-black safety-cyan tracking-tighter mb-4 text-center">--</div>
                 <div id="age-status" class="mb-4"></div>
                 <div class="mt-8 pt-8 border-t border-neutral-900">
                     <p id="bio-feedback" class="text-sm text-neutral-400 italic leading-relaxed"></p>
                 </div>
-                <button onclick="window.print()" class="mt-6 text-[9px] text-neutral-600 uppercase font-bold tracking-widest border border-neutral-800 px-4 py-2 rounded-lg hover:border-cyan-500 hover:text-cyan-500 transition-all">Save Report as PDF</button>
+                <button onclick="window.print()" class="mt-6 w-full text-[10px] text-neutral-500 uppercase font-bold tracking-widest border border-neutral-800 py-3 rounded-xl hover:border-cyan-500 transition-all">Download Longevity Report</button>
             </div>
-            <div id="age-placeholder" class="text-neutral-600 italic">Configure profile to generate diagnostic...</div>
+            <div id="age-placeholder" class="text-neutral-600 italic">Syncing with performance data...</div>
         </section>
     </div>
 
-    <section class="mt-12 bg-cyan-950/20 border border-cyan-500/30 p-8 rounded-3xl text-left">
-        <h4 class="text-cyan-400 font-bold uppercase text-xs mb-4 italic">Is your strength age higher than your real age?</h4>
-        <p class="text-sm text-neutral-300 mb-6 leading-relaxed">Download the <strong class="text-white">"Age-Reversal Strength Blueprint"</strong>. A science-based 12-week protocol for athletes 50+ to reclaim power and protect joint longevity.</p>
-        <div class="flex flex-col sm:flex-row gap-4">
-            <input type="email" placeholder="Enter email for the PDF" class="bg-black border border-neutral-800 p-4 rounded-xl flex-grow text-sm outline-none focus:border-cyan-400 text-cyan-400">
-            <button class="bg-white text-black font-black px-8 py-4 rounded-xl uppercase text-xs tracking-widest hover:bg-cyan-400 transition-all">Get Blueprint</button>
+    <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
+        <h2 class="text-2xl font-black italic uppercase mb-8 safety-cyan">Strength: The Ultimate Longevity Variable</h2>
+        
+        <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
+            <div class="space-y-6">
+                <p><strong class="text-white">Biological vs. Chronological:</strong> Your chronological age is a fixed number, but your biological age is plastic. For athletes over 50, the most accurate predictor of "all-cause mortality" isn't cholesterol—it's leg strength and grip strength. Our diagnostic uses relative strength ratios to see how your muscle-to-mass density compares to the clinical averages of younger demographics.</p>
+                <p><strong class="text-white">The 50+ Pivot:</strong> After 50, training isn't just about aesthetics; it's about protecting the "Functional Floor." By maintaining a deadlift ratio of at least 1.0 (female) or 1.25 (male), you are statistically insulating yourself against the most common risks of aging.</p>
+            </div>
+            <div class="space-y-6">
+                <p><strong class="text-white">Why Gender Matters:</strong> Men and women have different hormonal profiles and bone density baselines. Our v1.5 algorithm uses gender-specific coefficients to ensure your Functional Age is compared against the correct physiological standard.</p>
+                <p><strong class="text-white">Actionable Data:</strong> If your Strength Age is higher than your real age, it is a clinical signal to increase resistance training frequency. We recommend compound movements (Squat, Deadlift, Press) to maximize neuro-motor recruitment.</p>
+            </div>
         </div>
     </section>
 </main>
 
 <script>
     let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
+    let currentGender = localStorage.getItem('athleteGender') || 'male';
     const KG_RATIO = 2.20462;
 
     function initPage() {
         setUnit(currentUnit);
+        setGender(currentGender);
         syncData();
     }
 
-    function setUnit(u) {
-        const weightInput = document.getElementById('bodyweight');
-        const maxInput = document.getElementById('one-rm');
-        let bw = parseFloat(weightInput.value);
-        let mx = parseFloat(maxInput.value);
+    function setGender(g) {
+        currentGender = g;
+        localStorage.setItem('athleteGender', g);
+        document.getElementById('gen-male').className = g === 'male' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
+        document.getElementById('gen-female').className = g === 'female' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
+        calculateBioAge();
+    }
 
-        if(bw || mx) {
-            if(currentUnit === 'LBS' && u === 'KG') {
-                if(bw) weightInput.value = (bw / KG_RATIO).toFixed(1);
-                if(mx) maxInput.value = (mx / KG_RATIO).toFixed(1);
-            }
-            if(currentUnit === 'KG' && u === 'LBS') {
-                if(bw) weightInput.value = (bw * KG_RATIO).toFixed(1);
-                if(mx) maxInput.value = (mx * KG_RATIO).toFixed(1);
-            }
+    function updateLift() {
+        localStorage.setItem('athleteLift', document.getElementById('lift-type').value);
+        calculateBioAge();
+    }
+
+    function syncData() {
+        const savedW = localStorage.getItem('athleteWeight');
+        const savedR = localStorage.getItem('athleteReps');
+        const savedL = localStorage.getItem('athleteLift');
+        if(savedL) document.getElementById('lift-type').value = savedL;
+        if(savedW && savedR) {
+            const oneRM = savedW / (1.0278 - (0.0278 * savedR));
+            document.getElementById('one-rm').value = Math.round(oneRM);
         }
+        calculateBioAge();
+    }
 
+    function setUnit(u) {
         currentUnit = u;
         localStorage.setItem('athleteUnit', u);
         document.querySelectorAll('.unit-label').forEach(el => el.innerText = u);
@@ -133,64 +157,36 @@
         calculateBioAge();
     }
 
-    function syncData() {
-        const savedW = localStorage.getItem('athleteWeight');
-        const savedR = localStorage.getItem('athleteReps');
-        if(savedW && savedR) {
-            const oneRM = savedW / (1.0278 - (0.0278 * savedR));
-            document.getElementById('one-rm').value = Math.round(oneRM);
-        }
-    }
-
     function calculateBioAge() {
         const chronAge = parseInt(document.getElementById('chron-age').value);
         const bw = parseFloat(document.getElementById('bodyweight').value);
         const max = parseFloat(document.getElementById('one-rm').value);
         const lift = document.getElementById('lift-type').value;
-        
-        // Show/Hide DB Note
-        document.getElementById('db-note').className = lift === 'db_press' ? "text-[9px] text-neutral-600 mt-2 italic" : "hidden";
-
         if(!bw || !max) return;
 
         const ratio = (max / bw).toFixed(2);
-        
-        // Multi-Lift Coefficients for 50+ Athletes
         const standards = {
-            bench: { base: 0.85, step: 25, label: "Bench Press" },
-            squat: { base: 1.10, step: 18, label: "Back Squat" },
-            deadlift: { base: 1.25, step: 15, label: "Deadlift" },
-            db_press: { base: 0.50, step: 40, label: "DB Shoulder Press" }
+            male: { bench: { base: 0.85, step: 25 }, squat: { base: 1.10, step: 18 }, deadlift: { base: 1.25, step: 15 }, db_press: { base: 0.50, step: 40 } },
+            female: { bench: { base: 0.55, step: 35 }, squat: { base: 0.80, step: 25 }, deadlift: { base: 1.00, step: 20 }, db_press: { base: 0.35, step: 50 } }
         };
 
-        const config = standards[lift];
-        let bioAge;
-
-        if (ratio >= config.base) {
-            bioAge = chronAge - ((ratio - config.base) * config.step);
-        } else {
-            bioAge = chronAge + ((config.base - ratio) * 12);
-        }
-
+        const config = standards[currentGender][lift];
+        let bioAge = ratio >= config.base ? chronAge - ((ratio - config.base) * config.step) : chronAge + ((config.base - ratio) * 15);
         bioAge = Math.max(30, Math.round(bioAge));
+
         document.getElementById('age-display').classList.remove('hidden');
         document.getElementById('age-placeholder').classList.add('hidden');
         document.getElementById('bio-age-val').innerText = bioAge + (bioAge === 30 ? "+" : "");
 
-        const benchmarkRange = `${(config.base - 0.05).toFixed(2)}–${(config.base + 0.05).toFixed(2)}`;
-        let statusText = bioAge < chronAge ? "Status: Biological Outperformer" : "Status: At-Risk Baseline";
-        let statusColor = bioAge < chronAge ? "text-green-400" : "text-yellow-500";
-        
+        const statusColor = bioAge < chronAge ? "text-green-400" : "text-yellow-500";
         document.getElementById('age-status').innerHTML = `
-            <div class="${statusColor} text-xs font-bold uppercase tracking-widest mb-2">${statusText}</div>
-            <p class="text-[10px] text-neutral-500 mt-2 tracking-wide uppercase leading-loose">
-                ${config.label} Std (Age ${chronAge}): <span class="text-white">${benchmarkRange}</span><br>
-                Your Relative Ratio: <span class="text-cyan-400 font-bold">${ratio}</span>
+            <div class="${statusColor} text-xs font-bold uppercase tracking-widest mb-2">${bioAge < chronAge ? "Outperforming Demographic" : "Below Longevity Threshold"}</div>
+            <p class="text-[10px] text-neutral-500 tracking-wide uppercase leading-loose">
+                Benchmark for ${currentGender}: <span class="text-white">${config.base} Ratio</span> | Current: <span class="text-cyan-400 font-bold">${ratio}</span>
             </p>`;
-
         document.getElementById('bio-feedback').innerText = bioAge < chronAge ? 
-            "Research consistently links higher relative strength with significantly lower all-cause mortality risk and improved functional longevity." : 
-            "Targeting a " + config.base + " ratio on the " + config.label + " is a primary recommendation for bone density and muscle mass retention.";
+            "Excellent. Your power-to-weight ratio suggests high skeletal integrity." : 
+            "High priority: Increasing relative strength to hit the " + config.base + " ratio will significantly reduce aging markers.";
     }
 </script>
 </body>
