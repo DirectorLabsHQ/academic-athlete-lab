@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Streak Lab | Academic Athlete Lab</title>
-    <meta name="description" content="Centralized performance dashboard for masters athletes. Track your longevity streak, muscle retention, and metabolic defense protocols.">
-    <meta name="keywords" content="athlete habit tracker 50+, longevity streak, masters athlete log, muscle mass defense, protein consistency tracker">
+    <title>The Streak Lab | Academic Athlete Performance Dashboard</title>
+    
+    <meta name="description" content="Centralized performance dashboard for athletes 50+. Track longevity momentum, muscle mass defense (SMI), and CNS readiness protocols.">
+    <meta name="keywords" content="masters athlete dashboard, 50 plus fitness tracker, longevity streak, sarcopenia defense, muscle retention log">
+    <meta name="author" content="Academic Athlete Lab">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -36,14 +38,14 @@
     <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono">
         <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Lab Home</a>
         <a href="1rm-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM</a>
-        <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Bio-Age</a>
-        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Functional-Age</a>
         <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">FFMI</a>
-        <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">VO2 Max</a>
-        <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Grip</a>
         <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">SMI</a>
+        <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">VO2 Max</a>
+        <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Bio-Age</a>
+        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Func-Age</a>
+        <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Recovery</a>
         <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Protein</a>
-        <a href="athlete-lab.html" class="nav-link text-purple-400 border-b border-purple-400 pb-1 italic">The Streak Lab</a>
+        <a href="athlete-lab.html" class="nav-link text-purple-400 border-b border-purple-400 pb-1 italic font-bold">The Streak Lab</a>
     </div>
 </nav>
 
@@ -107,19 +109,11 @@
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-4">
                         <h4 class="text-[10px] font-bold text-purple-500 uppercase tracking-widest">1. The Habit Anchor</h4>
-                        <p class="text-neutral-500 text-xs leading-relaxed">The Streak Lab is your daily defense against sarcopenia. To maintain your streak, both checkboxes must be verified every 24 hours. Nutrition (Protein) and Stimulus (Strain) are the binary requirements for muscle retention.</p>
+                        <p class="text-neutral-500 text-xs leading-relaxed">Both Nutrition (Protein) and Stimulus (Strain) are required daily for muscle retention.</p>
                     </div>
                     <div class="space-y-4">
                         <h4 class="text-[10px] font-bold text-purple-500 uppercase tracking-widest">2. The 48-Hour Decay</h4>
-                        <p class="text-neutral-500 text-xs leading-relaxed">In aging biology, consistency is the primary variable. If the system remains idle for more than 48 hours without a check-in, the streak resets to zero to reflect the loss in biological momentum.</p>
-                    </div>
-                    <div class="space-y-4">
-                        <h4 class="text-[10px] font-bold text-purple-500 uppercase tracking-widest">3. Diagnostic Integration</h4>
-                        <p class="text-neutral-500 text-xs leading-relaxed">Habits alone aren't enough. Use the other Labs (1RM, VO2, SMI) to ensure your effort is resulting in physiological change. Your <strong>Subject Profile</strong> sidebar keeps your current laboratory benchmarks in view.</p>
-                    </div>
-                    <div class="space-y-4">
-                        <h4 class="text-[10px] font-bold text-purple-500 uppercase tracking-widest">4. Phase Progression</h4>
-                        <p class="text-neutral-500 text-xs leading-relaxed">Progress through the Phases to optimize your metabolic machinery. Phase 1 is habituation; Phase 4 (Biological Apex) represents 30 days of uninterrupted skeletal and cardiovascular protection.</p>
+                        <p class="text-neutral-500 text-xs leading-relaxed">If the system remains idle for more than 48 hours, the streak resets to zero.</p>
                     </div>
                 </div>
             </section>
@@ -128,6 +122,14 @@
         <aside class="space-y-4 text-left">
             <h3 class="text-[10px] font-bold uppercase text-neutral-600 tracking-[0.3em] mb-4 font-mono italic">Subject Profile</h3>
             
+            <div class="glass-card p-6 rounded-2xl border-l-2 border-teal-500 flex justify-between items-center">
+                <div>
+                    <span class="stat-label font-mono">Readiness (CNS)</span>
+                    <div id="stat-readiness" class="stat-value text-2xl mt-1 text-teal-400 uppercase">--</div>
+                </div>
+                <a href="recovery-lab.html" class="text-[8px] bg-neutral-900 p-2 rounded hover:text-teal-400 font-bold">UPDATE</a>
+            </div>
+
             <div class="glass-card p-6 rounded-2xl border-l-2 border-blue-500 flex justify-between items-center">
                 <div>
                     <span class="stat-label font-mono">SMI (Muscle)</span>
@@ -179,11 +181,13 @@
         const vo2 = localStorage.getItem('athleteVO2');
         const bioAge = localStorage.getItem('athleteBioAge');
         const funcAge = localStorage.getItem('athleteFunctionalAge');
+        const readiness = localStorage.getItem('athleteReadiness');
 
         document.getElementById('stat-smi').innerText = smi ? smi : '--';
         document.getElementById('stat-vo2').innerText = vo2 ? vo2 : '--';
         document.getElementById('stat-age').innerText = bioAge ? bioAge : '--';
         document.getElementById('stat-func-age').innerText = funcAge ? funcAge : '--';
+        document.getElementById('stat-readiness').innerText = readiness ? readiness : '--';
 
         const currentStreak = parseInt(localStorage.getItem('longevityStreak') || 0);
         document.getElementById('streak-count-display').innerText = currentStreak;
