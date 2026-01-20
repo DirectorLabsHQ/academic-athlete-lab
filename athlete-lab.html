@@ -6,8 +6,6 @@
     <title>The Streak Lab | Academic Athlete Performance Dashboard</title>
     
     <meta name="description" content="Centralized performance dashboard for athletes 50+. Track longevity momentum, muscle mass defense (SMI), and CNS readiness protocols.">
-    <meta name="keywords" content="masters athlete dashboard, 50 plus fitness tracker, longevity streak, sarcopenia defense, muscle retention log">
-    <meta name="author" content="Academic Athlete Lab">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -42,6 +40,7 @@
         <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white">SMI</a>
         <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white">Grip</a>
         <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white">VO2 Max</a>
+        <a href="watts-lab.html" class="nav-link text-neutral-500 hover:text-white">Watts/kg</a>
         <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white">Max HR</a>
         <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white">Bio-Age</a>
         <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white">Func-Age</a>
@@ -75,14 +74,14 @@
                         <input type="checkbox" id="check-protein" class="mt-1 w-6 h-6 rounded border-neutral-800 bg-black accent-green-500">
                         <div>
                             <span class="block text-[11px] font-black uppercase text-white group-hover:text-green-500 font-inter">Protein Threshold</span>
-                            <span class="block text-[9px] text-neutral-500 italic mt-1">Sufficient leucine to bypass anabolic resistance.</span>
+                            <span class="block text-[9px] text-neutral-500 italic mt-1">Sufficient leucine intake reached to trigger MPS.</span>
                         </div>
                     </label>
                     <label class="flex items-start gap-4 cursor-pointer group p-4 bg-neutral-900/50 rounded-2xl border border-transparent hover:border-green-500/30 transition-all">
                         <input type="checkbox" id="check-train" class="mt-1 w-6 h-6 rounded border-neutral-800 bg-black accent-green-500">
                         <div>
                             <span class="block text-[11px] font-black uppercase text-white group-hover:text-green-500 font-inter">Structural Strain</span>
-                            <span class="block text-[9px] text-neutral-500 italic mt-1">Mechanical load to stimulate mTOR & fiber retention.</span>
+                            <span class="block text-[9px] text-neutral-500 italic mt-1">Mechanical loading session completed.</span>
                         </div>
                     </label>
                 </div>
@@ -115,61 +114,61 @@
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-4">
                         <h4 class="text-[10px] font-bold text-purple-500 uppercase tracking-widest">1. The Habit Anchor</h4>
-                        <p class="text-neutral-500 text-xs leading-relaxed">Both Nutrition (Protein) and Stimulus (Strain) are required daily for muscle retention.</p>
+                        <p class="text-neutral-500 text-xs leading-relaxed">Sustaining lean mass requires daily mechanical stimulus and amino acid availability. Missing both creates a decay window.</p>
                     </div>
                     <div class="space-y-4">
                         <h4 class="text-[10px] font-bold text-purple-500 uppercase tracking-widest">2. The 48-Hour Decay</h4>
-                        <p class="text-neutral-500 text-xs leading-relaxed">If the system remains idle for more than 48 hours, the streak resets to zero.</p>
+                        <p class="text-neutral-500 text-xs leading-relaxed">Metabolic markers begin resetting after 48 hours of inactivity. The streak follows this biological reality.</p>
                     </div>
                 </div>
             </section>
         </div>
 
         <aside class="space-y-4 text-left">
-            <h3 class="text-[10px] font-bold uppercase text-neutral-600 tracking-[0.3em] mb-4 font-mono italic">Subject Profile</h3>
+            <h3 class="text-[10px] font-bold uppercase text-neutral-600 tracking-[0.3em] mb-4 font-mono italic">Laboratory History</h3>
             
-            <div class="glass-card p-6 rounded-2xl border-l-2 border-teal-500 flex justify-between items-center">
+            <div class="glass-card p-5 rounded-2xl border-l-2 border-teal-500 flex justify-between items-center">
                 <div>
-                    <span class="stat-label font-mono">Readiness (CNS)</span>
-                    <div id="stat-readiness" class="stat-value text-2xl mt-1 text-teal-400 uppercase">--</div>
+                    <span class="stat-label font-mono">Readiness (HRV)</span>
+                    <div id="stat-readiness" class="stat-value text-xl mt-1 text-teal-400 uppercase">--</div>
                 </div>
-                <a href="recovery-lab.html" class="text-[8px] bg-neutral-900 p-2 rounded hover:text-teal-400 font-bold">UPDATE</a>
+                <a href="recovery-lab.html" class="text-[8px] bg-neutral-900 p-2 rounded hover:text-teal-400 font-bold">LAB</a>
             </div>
 
-            <div class="glass-card p-6 rounded-2xl border-l-2 border-blue-500 flex justify-between items-center">
+            <div class="glass-card p-5 rounded-2xl border-l-2 border-blue-500 flex justify-between items-center">
                 <div>
                     <span class="stat-label font-mono">SMI (Muscle)</span>
-                    <div id="stat-smi" class="stat-value text-2xl mt-1 text-blue-400">--</div>
+                    <div id="stat-smi" class="stat-value text-xl mt-1 text-blue-400">--</div>
                 </div>
-                <a href="smi-lab.html" class="text-[8px] bg-neutral-900 p-2 rounded hover:text-blue-400 font-bold">UPDATE</a>
+                <a href="smi-lab.html" class="text-[8px] bg-neutral-900 p-2 rounded hover:text-blue-400 font-bold">LAB</a>
             </div>
 
-            <div class="glass-card p-6 rounded-2xl border-l-2 border-red-500 flex justify-between items-center">
+            <div class="glass-card p-5 rounded-2xl border-l-2 border-purple-500 flex justify-between items-center">
+                <div>
+                    <span class="stat-label font-mono">Power (Watts/kg)</span>
+                    <div id="stat-watts" class="stat-value text-xl mt-1 text-purple-400">--</div>
+                </div>
+                <a href="watts-lab.html" class="text-[8px] bg-neutral-900 p-2 rounded hover:text-purple-400 font-bold">LAB</a>
+            </div>
+
+            <div class="glass-card p-5 rounded-2xl border-l-2 border-red-500 flex justify-between items-center">
                 <div>
                     <span class="stat-label font-mono">VO2 Max</span>
-                    <div id="stat-vo2" class="stat-value text-2xl mt-1 text-red-500">--</div>
+                    <div id="stat-vo2" class="stat-value text-xl mt-1 text-red-500">--</div>
                 </div>
-                <a href="vo2-lab.html" class="text-[8px] bg-neutral-900 p-2 rounded hover:text-red-400 font-bold">UPDATE</a>
+                <a href="vo2-lab.html" class="text-[8px] bg-neutral-900 p-2 rounded hover:text-red-400 font-bold">LAB</a>
             </div>
 
-            <div class="glass-card p-6 rounded-2xl border-l-2 border-purple-500 flex justify-between items-center">
+            <div class="glass-card p-5 rounded-2xl border-l-2 border-cyan-500 flex justify-between items-center">
                 <div>
-                    <span class="stat-label font-mono">Bio-Age (HR)</span>
-                    <div id="stat-age" class="stat-value text-2xl mt-1 text-purple-400">--</div>
+                    <span class="stat-label font-mono">Func-Age (1RM)</span>
+                    <div id="stat-func-age" class="stat-value text-xl mt-1 text-cyan-400">--</div>
                 </div>
-                <a href="bio-age.html" class="text-[8px] bg-neutral-900 p-2 rounded hover:text-purple-400 font-bold">UPDATE</a>
-            </div>
-
-            <div class="glass-card p-6 rounded-2xl border-l-2 border-cyan-500 flex justify-between items-center">
-                <div>
-                    <span class="stat-label font-mono">Functional Age (1RM)</span>
-                    <div id="stat-func-age" class="stat-value text-2xl mt-1 text-cyan-400">--</div>
-                </div>
-                <a href="functional-age.html" class="text-[8px] bg-neutral-900 p-2 rounded hover:text-cyan-400 font-bold">UPDATE</a>
+                <a href="functional-age.html" class="text-[8px] bg-neutral-900 p-2 rounded hover:text-cyan-400 font-bold">LAB</a>
             </div>
             
-            <button onclick="if(confirm('Erase all laboratory history?')) { localStorage.clear(); location.reload(); }" class="w-full py-4 mt-6 text-[9px] text-neutral-700 hover:text-red-500 font-bold uppercase tracking-[0.2em] transition-colors border border-dashed border-neutral-900 rounded-xl hover:border-red-900/50">
-                [ HARD RESET SYSTEM ]
+            <button onclick="if(confirm('Erase all laboratory history?')) { localStorage.clear(); location.reload(); }" class="w-full py-4 mt-6 text-[9px] text-neutral-700 hover:text-red-500 font-bold uppercase tracking-[0.2em] transition-colors border border-dashed border-neutral-900 rounded-xl">
+                [ RESET ARCHIVE ]
             </button>
         </aside>
 
@@ -182,18 +181,18 @@
 
 <script>
     function initLog() {
-        // Sync data from local storage
+        // Sync Laboratory Results
         const smi = localStorage.getItem('athleteSMI');
         const vo2 = localStorage.getItem('athleteVO2');
-        const bioAge = localStorage.getItem('athleteBioAge');
         const funcAge = localStorage.getItem('athleteFunctionalAge');
         const readiness = localStorage.getItem('athleteReadiness');
+        const watts = localStorage.getItem('athleteWattsKg');
 
         document.getElementById('stat-smi').innerText = smi ? smi : '--';
         document.getElementById('stat-vo2').innerText = vo2 ? vo2 : '--';
-        document.getElementById('stat-age').innerText = bioAge ? bioAge : '--';
         document.getElementById('stat-func-age').innerText = funcAge ? funcAge : '--';
         document.getElementById('stat-readiness').innerText = readiness ? readiness : '--';
+        document.getElementById('stat-watts').innerText = watts ? watts : '--';
 
         const currentStreak = parseInt(localStorage.getItem('longevityStreak') || 0);
         document.getElementById('streak-count-display').innerText = currentStreak;
@@ -207,9 +206,9 @@
 
     function lockCheckIn() {
         const btn = document.getElementById('checkin-btn');
-        btn.innerText = "DEFENSE PROTOCOL ACTIVE FOR TODAY";
+        btn.innerText = "DEFENSE PROTOCOL ACTIVE";
         btn.disabled = true;
-        btn.className = "mt-8 w-full py-5 bg-neutral-900 text-neutral-600 font-black italic uppercase text-[10px] rounded-xl cursor-not-allowed font-inter border border-neutral-800";
+        btn.className = "mt-8 w-full py-5 bg-neutral-900 text-neutral-600 font-black italic uppercase text-[10px] rounded-xl cursor-not-allowed border border-neutral-800";
         
         document.getElementById('check-protein').checked = true;
         document.getElementById('check-train').checked = true;
@@ -219,28 +218,28 @@
 
     function commitDailyCheckIn() {
         if (!document.getElementById('check-protein').checked || !document.getElementById('check-train').checked) {
-            alert("INCOMPLETE PROTOCOL: You must verify both nutrition and mechanical load.");
+            alert("INCOMPLETE PROTOCOL: verify both nutrition and mechanical load.");
             return;
         }
 
-        const today = new Date().toDateString();
+        const today = new Date();
+        const todayStr = today.toDateString();
         let currentStreak = parseInt(localStorage.getItem('longevityStreak') || 0);
         const lastCheckIn = localStorage.getItem('lastCheckInDate');
 
         if (lastCheckIn) {
             const lastDate = new Date(lastCheckIn);
-            const now = new Date();
-            const diffHours = Math.floor((now - lastDate) / (1000 * 60 * 60));
+            const diffHours = Math.floor((today - lastDate) / (1000 * 60 * 60));
             
             if (diffHours >= 48) {
-                alert("STREAK DECAYED: System idle for >48 hours. Longevity momentum reset.");
+                alert("STREAK DECAYED: System idle > 48h. Resetting momentum.");
                 currentStreak = 0;
             }
         }
 
         currentStreak++;
         localStorage.setItem('longevityStreak', currentStreak);
-        localStorage.setItem('lastCheckInDate', today);
+        localStorage.setItem('lastCheckInDate', todayStr);
         initLog();
     }
 
@@ -252,19 +251,19 @@
         
         if (streak >= 30) {
             title.innerText = "Biological Apex";
-            desc.innerText = "ELITE CONSISTENCY: Your metabolic machinery is optimized. Sarcopenia risk is effectively mitigated.";
+            desc.innerText = "ELITE CONSISTENCY: Metabolic machinery optimized. Sarcopenia defense at maximum threshold.";
             num.innerText = "4"; progress.style.width = "100%";
         } else if (streak >= 14) {
             title.innerText = "Structural Fortification";
-            desc.innerText = "REINFORCEMENT: Lean mass retention is stabilized. Your body expects mechanical stress as the baseline.";
+            desc.innerText = "STABILITY: Lean mass retention is reinforced. Your body has accepted the new mechanical baseline.";
             num.innerText = "3"; progress.style.width = "75%";
         } else if (streak >= 7) {
             title.innerText = "Metabolic Shift";
-            desc.innerText = "ADAPTATION: Enzyme activity and insulin sensitivity are peaking. Habit pathways are overriding age-related drift.";
+            desc.innerText = "ADAPTATION: Enzyme activity peaking. Habit pathways are overriding age-related drift.";
             num.innerText = "2"; progress.style.width = "50%";
         } else if (streak > 0) {
             title.innerText = "Neural Ignition";
-            desc.innerText = "INITIATION: You have begun the defense cycle. Complete the first 7 days to trigger a metabolic shift.";
+            desc.innerText = "INITIATION: You have triggered the defense cycle. Reach Day 7 to secure metabolic shift.";
             num.innerText = "1"; progress.style.width = "25%";
         } else {
             title.innerText = "System Idle";
