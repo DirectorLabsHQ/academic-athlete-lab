@@ -1,1 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Age-Adjusted Max HR Calculator for Masters Athletes | Academic Athlete</title>
+    <meta name="description" content="Stop using 220-Age. Use the Tanaka and Gulati formulas to calculate precise maximum heart rate for athletes 50+. Optimize your Zone 2 and VO2 training.">
+    <meta name="keywords" content="max heart rate formula over 50, Tanaka formula calculator, Gulati formula women, masters athlete heart rate zones">
+    <link rel="canonical" href="https://yourdomain.com/max-hr.html" />
 
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Max HR Precision Lab",
+      "operatingSystem": "All",
+      "applicationCategory": "HealthApplication",
+      "description": "Calculates age-adjusted maximum heart rate using the Tanaka and Gulati protocols for high-performance athletes.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap');
+        body { background-color: #050505; color: #fff; font-family: 'Space Mono', monospace; -webkit-font-smoothing: antialiased; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        .safety-red { color: #ef4444; }
+        .glass-card { background: #111; border: 1px solid #222; }
+        .input-field { background: #000; border: 1px solid #333; color: #ef4444; outline: none; transition: all 0.2s; font-size: 1.1rem; width: 100%; padding: 1rem; border-radius: 0.75rem; }
+        .input-field:focus { border-color: #ef4444; background: #0a0a0a; }
+        .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col" onload="initPage()">
+
+<header class="p-6 border-b border-neutral-900 bg-black">
+    <div class="max-w-6xl mx-auto flex justify-between items-center text-left">
+        <a href="index.html" class="text-xl font-black tracking-tighter safety-red italic uppercase font-inter">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
+        <div class="hidden md:block">
+            <span class="text-[9px] text-neutral-600 uppercase tracking-widest font-bold font-mono">Module: Cardiac_Ceiling_v2.4</span>
+        </div>
+    </div>
+</header>
+
+<nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto">
+    <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono">
+        <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM</a>
+        <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Bio-Age</a>
+        <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">FFMI</a>
+        <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">VO2 Max</a>
+        <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Grip</a>
+        <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Recovery</a>
+        <a href="max-hr.html" class="nav-link text-red-500 border-b-2 border-red-500 pb-1">Max HR</a>
+        <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">SMI</a>
+        <a href="watts-kg.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Watts/KG</a>
+        <a href="insulin-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Insulin</a>
+        <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Hydrate</a>
+        <a href="mobility-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Mobility</a>
+        <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">TDEE</a>
+        <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Protein</a>
+        <a href="athlete-lab.html" class="nav-link text-neutral-500 hover:text-white italic px-2 bg-neutral-900 rounded">Log</a>
+    </div>
+</nav>
+
+<main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter">
+    <article>
+        <header class="mb-12 text-left">
+            <h1 class="inline-block bg-red-600 text-white px-4 py-1 font-black italic text-2xl md:text-4xl uppercase mb-4 leading-tight">Max HR Precision Lab</h1>
+            <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono block">Formula: Tanaka/Gulati Cardiac Adjustment</p>
+        </header>
+
+        <div class="grid lg:grid-cols-2 gap-10">
+            <section class="glass-card p-8 rounded-3xl border-l-4 border-red-600 text-left">
+                <h2 class="text-xs font-bold uppercase safety-red mb-6 tracking-widest font-mono">Physiological Inputs</h2>
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Current Age</label>
+                        <input type="number" id="age" oninput="calculateHR()" class="input-field font-mono text-2xl" placeholder="55">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Biological Sex</label>
+                        <select id="sex" onchange="calculateHR()" class="input-field font-mono text-xl appearance-none cursor-pointer">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px]">
+                <div id="hr-result" class="hidden text-left">
+                    <h3 class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono">Predicted Max Heart Rate:</h3>
+                    <div id="hr-val" class="text-8xl font-black safety-red tracking-tighter mb-4 uppercase italic">--</div>
+                    
+                    <div class="p-6 bg-red-600/5 border border-red-600/20 rounded-2xl mb-6">
+                        <p class="text-[9px] font-bold text-red-500 uppercase mb-2 tracking-widest italic text-left underline">The "Fit Gap" Analysis:</p>
+                        <p id="hr-comment" class="text-xs text-neutral-400 leading-relaxed italic text-left"></p>
+                    </div>
+
+                    <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-red-600 hover:text-white transition-all italic">Log Cardiac Baseline →</a>
+                </div>
+                <div id="hr-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest font-mono px-10 leading-loose">
+                    [ Awaiting age and sex for age-compensated cardiac modeling ]
+                </div>
+            </section>
+        </div>
+
+        <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
+            <h2 class="text-2xl font-black italic uppercase mb-8 safety-red tracking-tighter">Academic Research: The 220-Age Fallacy</h2>
+            
+            
+
+            <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
+                <div>
+                    <h3 class="text-white font-bold mb-4 uppercase tracking-tighter text-left">The Tanaka Formula (All Sexes)</h3>
+                    <p class="mb-6">The standard <em>220 - Age</em> formula was never intended for athletic populations. It significantly underestimates the max HR of fit individuals over 50. This lab utilizes the <strong>Tanaka Formula</strong> ($208 - (0.7 \times \text{Age})$), which is the gold standard for healthy, aging adults.</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-white font-bold mb-4 uppercase tracking-tighter text-left">The Gulati Formula (Female Specific)</h3>
+                    <p class="mb-4">Research by Dr. Martha Gulati found that the Tanaka and traditional formulas often overestimate the cardiac ceiling for women. The <strong>Gulati Formula</strong> ($206 - (0.88 \times \text{Age})$) provides a more accurate, research-backed limit for female athletes to ensure cardiovascular safety during interval training.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mt-12 p-6 bg-neutral-900/30 border border-neutral-800 rounded-2xl text-left font-mono">
+            <p class="text-[10px] text-neutral-500 leading-relaxed italic">
+                <span class="text-neutral-300 font-bold uppercase tracking-widest block mb-2 underline">Diagnostic Disclaimer:</span>
+                Calculated Max HR is a statistical estimate. Individual variation can be $\pm 12$ beats per minute. For high-intensity athletic training, a medically supervised stress test is the only way to determine absolute maximum heart rate. Consult a cardiologist before performing Zone 5 efforts.
+            </p>
+        </section>
+    </article>
+</main>
+
+<footer class="p-12 border-t border-neutral-900 mt-auto bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-widest">
+    Academic Athlete Lab © 2026 | Protocol: Cardiac_Ceiling_v2.4
+</footer>
+
+<script>
+    function initPage() {
+        const savedAge = localStorage.getItem('athleteAge');
+        if(savedAge) document.getElementById('age').value = savedAge;
+        calculateHR();
+    }
+
+    function calculateHR() {
+        const age = parseInt(document.getElementById('age').value);
+        const sex = document.getElementById('sex').value;
+
+        if(!age || age < 1) {
+            document.getElementById('hr-result').classList.add('hidden');
+            document.getElementById('hr-placeholder').classList.remove('hidden');
+            return;
+        }
+
+        let maxHR = 0;
+        let oldFormula = 220 - age;
+        let formulaName = "";
+
+        if (sex === 'female') {
+            // Gulati Formula for women
+            maxHR = Math.round(206 - (0.88 * age));
+            formulaName = "Gulati Protocol";
+        } else {
+            // Tanaka Formula
+            maxHR = Math.round(208 - (0.7 * age));
+            formulaName = "Tanaka Protocol";
+        }
+
+        const fitGap = maxHR - oldFormula;
+
+        document.getElementById('hr-result').classList.remove('hidden');
+        document.getElementById('hr-placeholder').classList.add('hidden');
+        document.getElementById('hr-val').innerText = maxHR + " BPM";
+        document.getElementById('hr-comment').innerText = `Using the ${formulaName}, your max HR is ${fitGap} BPM higher than the standard '220-Age' formula predicts. This allows for a more aggressive Zone 2 and VO2 Max training ceiling.`;
+        
+        localStorage.setItem('athleteAge', age);
+    }
+</script>
+</body>
+</html>
