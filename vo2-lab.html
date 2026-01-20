@@ -47,9 +47,6 @@
         <a href="insulin-lab.html" class="nav-link text-neutral-500 hover:text-white">Insulin</a>
         <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white">Metabolic</a>
         <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white">Protein</a>
-        <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white">Hydration</a>
-        <a href="mobility-lab.html" class="nav-link text-neutral-500 hover:text-white">Mobility</a>
-        <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white">Recovery</a>
         <a href="athlete-lab.html" class="nav-link text-purple-500 border-l border-neutral-800 pl-6 italic font-bold">The Streak Lab</a>
     </div>
 </nav>
@@ -62,7 +59,7 @@
 
     <div class="grid lg:grid-cols-2 gap-10">
         <section class="glass-card p-8 rounded-3xl border-l-4 border-red-600">
-            <h3 class="text-xs font-bold uppercase safety-red mb-6 tracking-widest font-mono">Performance Data</h3>
+            <h3 class="text-xs font-bold uppercase safety-red mb-6 tracking-widest font-mono italic">Performance Data</h3>
             <div class="space-y-6">
                 <div>
                     <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Gender Profile</label>
@@ -84,23 +81,24 @@
             </div>
         </section>
 
-        <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px]">
-            <div id="vo2-result" class="hidden">
+        <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px] relative overflow-hidden">
+            <div id="vo2-result" class="hidden relative z-10">
                 <span class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono italic">Cardiovascular Tier:</span>
                 <div id="vo2-category" class="text-5xl font-black safety-red tracking-tighter mb-1 leading-none italic uppercase">--</div>
                 <div id="vo2-percentile" class="text-[10px] font-bold text-white uppercase tracking-[0.2em] mb-8 opacity-70 font-mono">--</div>
                 <div class="p-6 bg-red-600/5 border border-red-600/20 rounded-2xl mb-6 text-left">
                     <p id="vo2-advice" class="text-xs text-neutral-400 leading-relaxed italic"></p>
                 </div>
-                <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-red-500 hover:text-white transition-all italic">Log to Streak Lab →</a>
+                <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-red-500 hover:text-white transition-all italic">Commit to Streak Lab →</a>
             </div>
             <div id="vo2-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest font-mono">Awaiting Aerobic Data...</div>
+            <div class="absolute -right-8 -bottom-8 text-9xl font-black text-white/[0.02] italic pointer-events-none select-none uppercase">Ceiling</div>
         </section>
     </div>
 
     <section class="mt-12 glass-card p-8 rounded-3xl border-l-4 border-white/20 text-left">
         <div class="mb-6">
-            <h3 class="text-xs font-bold uppercase text-white mb-2 tracking-widest font-mono">Field Test: Rockport Walk Model</h3>
+            <h3 class="text-xs font-bold uppercase text-white mb-2 tracking-widest font-mono italic">Field Test: Rockport Walk Model</h3>
             <p class="text-[9px] text-neutral-500 uppercase italic">Walk 1-mile as fast as possible and enter metrics to estimate VO2 Max.</p>
         </div>
         <div class="grid md:grid-cols-3 gap-6">
@@ -116,11 +114,11 @@
                 <input type="number" id="walk-hr" class="input-field font-mono text-xl" placeholder="BPM">
             </div>
             <div class="flex items-end">
-                <button onclick="calculateRockport()" class="w-full py-4 bg-neutral-800 text-white font-black italic uppercase text-[10px] rounded-xl hover:bg-white hover:text-black transition-all tracking-widest">Estimate Score</button>
+                <button onclick="calculateRockport()" class="w-full py-4 bg-neutral-800 text-white font-black italic uppercase text-[10px] rounded-xl hover:bg-white hover:text-black transition-all tracking-widest">Generate Estimate</button>
             </div>
         </div>
         <div id="rockport-result" class="hidden mt-6 p-4 bg-white/5 border border-white/10 rounded-xl">
-            <p class="text-[10px] text-neutral-400 uppercase tracking-widest font-mono italic">Calculated VO2: <span id="rockport-score" class="text-white font-bold ml-2">--</span></p>
+            <p class="text-[10px] text-neutral-400 uppercase tracking-widest font-mono italic">Calculated VO2 Estimate: <span id="rockport-score" class="text-white font-bold ml-2">--</span></p>
             <button onclick="applyRockport()" class="text-[9px] text-red-500 font-bold uppercase mt-2 underline font-mono">Apply to Main Lab ↑</button>
         </div>
     </section>
@@ -133,10 +131,10 @@
 
             <div class="grid md:grid-cols-2 gap-10 mt-8 text-neutral-400 text-sm leading-relaxed border-b border-white/5 pb-10">
                 <div>
-                    <p><strong class="text-white uppercase tracking-widest text-[10px] font-mono">The Risk Profile:</strong> VO2 Max is the single strongest predictor of lifespan. Moving from the "Low" category to "Elite" can result in a <span class="text-red-400">significant reduction in all-cause mortality risk</span>.</p>
+                    <p><strong class="text-white uppercase tracking-widest text-[10px] font-mono">The Risk Profile:</strong> VO2 Max is a primary predictor of healthspan. Moving from the "Low" category to "Above Average" can reduce all-cause mortality risk by nearly 50%.</p>
                 </div>
                 <div>
-                    <p><strong class="text-white uppercase tracking-widest text-[10px] font-mono">Functional Headroom:</strong> We lose ~10% capacity per decade. Building a high ceiling at 50+ provides the "buffer" needed to maintain high quality of life into your 90s.</p>
+                    <p><strong class="text-white uppercase tracking-widest text-[10px] font-mono">Functional Headroom:</strong> Building a high ceiling at 50+ provides the cardiovascular "buffer" needed to maintain high mobility and cognitive function into your late 80s.</p>
                 </div>
             </div>
 
@@ -144,12 +142,12 @@
                 <h4 class="text-white font-black italic uppercase tracking-widest text-xs mb-6 underline decoration-red-500 underline-offset-8">Lab Protocol: Training Cadence</h4>
                 <div class="grid md:grid-cols-3 gap-6">
                     <div class="bg-black/40 p-5 rounded-2xl border border-white/5">
-                        <span class="text-red-500 font-bold text-[10px] block mb-2 uppercase tracking-tighter italic font-mono">01. Intensity</span>
-                        <p class="text-[11px] leading-relaxed">Focus on Zone 2 base building (80%) and one weekly max-aerobic output session (4x4 intervals).</p>
+                        <span class="text-red-500 font-bold text-[10px] block mb-2 uppercase tracking-tighter italic font-mono">01. Intensity Split</span>
+                        <p class="text-[11px] leading-relaxed">Prioritize 80% Zone 2 training (low intensity) to build mitochondrial density without overtaxing joints.</p>
                     </div>
                     <div class="bg-black/40 p-5 rounded-2xl border border-white/5">
                         <span class="text-red-500 font-bold text-[10px] block mb-2 uppercase tracking-tighter italic font-mono">02. Measurement</span>
-                        <p class="text-[11px] leading-relaxed">Use a chest-strap monitor for intervals. Wrist-based sensors are often unreliable at high intensities.</p>
+                        <p class="text-[11px] leading-relaxed">For masters athletes, heart rate variability (HRV) should guide interval sessions to prevent overtraining.</p>
                     </div>
                     <div class="bg-black/40 p-5 rounded-2xl border border-white/5">
                         <span class="text-red-500 font-bold text-[10px] block mb-2 uppercase tracking-tighter italic font-mono">03. Verification</span>
@@ -160,6 +158,10 @@
         </div>
     </article>
 </main>
+
+<footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center">
+    <p class="text-[10px] text-neutral-600 uppercase tracking-[0.3em] font-mono">Academic Athlete Lab | Protocol: VO2_Longevity_v1.5</p>
+</footer>
 
 <script>
     let currentGender = localStorage.getItem('athleteGender') || 'male';
@@ -178,8 +180,8 @@
     function setUnit(u) {
         currentUnit = u;
         localStorage.setItem('athleteUnit', u);
-        document.getElementById('unit-lbs').className = u === 'LBS' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active shadow-sm' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500 hover:text-white';
-        document.getElementById('unit-kg').className = u === 'KG' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active shadow-sm' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500 hover:text-white';
+        document.getElementById('unit-lbs').className = u === 'LBS' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500 hover:text-white';
+        document.getElementById('unit-kg').className = u === 'KG' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500 hover:text-white';
     }
 
     function setGender(g) {
@@ -193,22 +195,28 @@
     function calculateVO2() {
         const age = parseFloat(document.getElementById('age').value);
         const vo2 = parseFloat(document.getElementById('vo2-score').value);
-        if(!age || !vo2) return;
+        
+        if(!age || !vo2) {
+            document.getElementById('vo2-result').classList.add('hidden');
+            document.getElementById('vo2-placeholder').classList.remove('hidden');
+            return;
+        }
 
         let category = "";
         let percentile = "";
         let advice = "";
 
+        // Standards focused on longevity for the 50+ cohort
         if(currentGender === 'male') {
-            if(vo2 < 28) { category = "Low"; percentile = "Bottom 20%"; advice = "Critical: Prioritize Zone 2 aerobic base building immediately."; }
-            else if(vo2 < 36) { category = "Below Average"; percentile = "30th–45th Percentile"; advice = "Improvement needed to meet the longevity floor benchmarks."; }
-            else if(vo2 < 46) { category = "High Performance"; percentile = "60th–80th Percentile"; advice = "Strong engine. Defend this capacity with weekly HIIT intervals."; }
-            else { category = "Elite Reserve"; percentile = "Top 5% for age"; advice = "Maximum biological protection against metabolic and cardiac decline."; }
+            if(vo2 < 28) { category = "Low"; percentile = "Bottom 20%"; advice = "Critical: High risk for metabolic syndrome. Prioritize Zone 2 base building."; }
+            else if(vo2 < 36) { category = "Fair"; percentile = "30th–45th Percentile"; advice = "Average for age, but below the longevity ceiling. Increase aerobic volume."; }
+            else if(vo2 < 46) { category = "High Tier"; percentile = "60th–80th Percentile"; advice = "Excellent engine. Defend this capacity with weekly max-output intervals."; }
+            else { category = "Elite Reserve"; percentile = "Top 5% for age"; advice = "Maximum biological protection against cardiac and cognitive decline."; }
         } else {
-            if(vo2 < 24) { category = "Low"; percentile = "Bottom 20%"; advice = "Critical: Focus on consistent aerobic conditioning."; }
-            else if(vo2 < 31) { category = "Below Average"; percentile = "30th–45th Percentile"; advice = "Building stage. Focus on increasing weekly aerobic volume."; }
-            else if(vo2 < 39) { category = "High Performance"; percentile = "60th–80th Percentile"; advice = "Excellent cardiovascular health markers."; }
-            else { category = "Elite Reserve"; percentile = "Top 5% for age"; advice = "Exceptional aerobic reserve for independent aging."; }
+            if(vo2 < 24) { category = "Low"; percentile = "Bottom 20%"; advice = "Critical: Focus on consistent aerobic walking and foundational conditioning."; }
+            else if(vo2 < 31) { category = "Fair"; percentile = "30th–45th Percentile"; advice = "Baseline met. Focus on increasing weekly aerobic volume to improve headroom."; }
+            else if(vo2 < 39) { category = "High Tier"; percentile = "60th–80th Percentile"; advice = "Excellent cardiovascular health markers. High protection against frailty."; }
+            else { category = "Elite Reserve"; percentile = "Top 5% for age"; advice = "Exceptional aerobic reserve. You are biologically significantly younger than your years."; }
         }
 
         localStorage.setItem('athleteAge', age);
@@ -230,11 +238,12 @@
         const sec = parseFloat(document.getElementById('walk-sec').value || 0);
         const hr = parseFloat(document.getElementById('walk-hr').value);
 
-        if (!min || !hr || !age) { alert("Missing data: Age, Walk Time, and Heart Rate are required."); return; }
+        if (!min || !hr || !age) { alert("Diagnostic Error: Age, 1-Mile Time, and Final Heart Rate are required."); return; }
 
         const timeDec = min + (sec / 60);
         const weightLbs = currentUnit === 'KG' ? weight * 2.20462 : weight;
         
+        // Rockport Fitness Walking Test Equation
         let vo2 = 132.853 - (0.0769 * weightLbs) - (0.3877 * age) + (6.315 * genderNum) - (3.2649 * timeDec) - (0.1565 * hr);
         
         document.getElementById('rockport-result').classList.remove('hidden');
