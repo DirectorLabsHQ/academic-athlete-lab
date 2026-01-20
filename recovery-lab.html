@@ -34,11 +34,12 @@
 <nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto no-scrollbar">
     <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono text-[10px]">
         <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Lab Home</a>
-         <a href="1rm-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM</a>
+        <a href="1rm-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM</a>
         <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white">FFMI</a>
         <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white">SMI</a>
         <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white">Grip</a>
         <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white">VO2 Max</a>
+        <a href="watts-lab.html" class="nav-link text-neutral-500 hover:text-white">Watts/kg</a>
         <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white">Max HR</a>
         <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white">Bio-Age</a>
         <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white">Func-Age</a>
@@ -47,7 +48,7 @@
         <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white">Protein</a>
         <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white">Hydration</a>
         <a href="mobility-lab.html" class="nav-link text-neutral-500 hover:text-white">Mobility</a>
-        <a href="recovery-lab.html" class="nav-link text-teal-400 border-b border-teal-400 pb-1">Recovery</a>
+        <a href="recovery-lab.html" class="nav-link safety-teal border-b border-teal-400 pb-1">Recovery</a>
         <a href="athlete-lab.html" class="nav-link text-purple-500 border-l border-neutral-800 pl-6 italic font-bold">The Streak Lab</a>
     </div>
 </nav>
@@ -65,16 +66,16 @@
             <div class="space-y-6">
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Today's HRV (ms)</label>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Today's HRV (ms)</label>
                         <input type="number" id="hrv" placeholder="65" oninput="calculateReadiness()" class="input-field font-mono text-2xl">
                     </div>
                     <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono italic">7-Day Baseline</label>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono italic tracking-widest">7-Day Baseline</label>
                         <input type="number" id="hrv-base" placeholder="60" oninput="calculateReadiness()" class="input-field font-mono text-2xl">
                     </div>
                 </div>
                 <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Sleep Duration (Hours)</label>
+                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Sleep Duration (Hours)</label>
                     <input type="number" id="sleep" step="0.1" placeholder="7.5" oninput="calculateReadiness()" class="input-field font-mono text-2xl">
                 </div>
             </div>
@@ -109,16 +110,16 @@
     <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
         <h3 class="text-2xl font-black italic uppercase mb-8 safety-teal tracking-tighter font-inter">Research Protocol: Neural Restoration</h3>
         
-        
-
         <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
             <div class="space-y-6 font-inter">
                 <h4 class="text-white font-bold uppercase text-xs tracking-widest font-mono">The HRV Baseline Shift</h4>
-                <p>Heart Rate Variability (HRV) is the primary non-invasive marker for the <strong>Autonomic Nervous System</strong>. For the 50+ athlete, we prioritize the stability of the baseline over the raw number. A significant drop in HRV (rMSSD) indicates sympathetic dominance, signaling that your CNS is still processing the previous training load.</p>
+                
+                <p>Heart Rate Variability (HRV) is the primary marker for the <strong>Autonomic Nervous System</strong>. For the 50+ athlete, we prioritize the stability of the baseline over the raw number. A significant drop in HRV indicates sympathetic dominance, signaling that your CNS is still processing the previous training load.</p>
             </div>
             <div class="space-y-6 font-inter">
                 <h4 class="text-white font-bold uppercase text-xs tracking-widest font-mono">Anabolic Sleep Windows</h4>
-                <p>Sleep architecture shifts as we age, often reducing Deep SWS sleep. For the masters athlete, sleep is the only phase where growth hormone release facilitates muscle repair. Falling below 7 hours creates a <strong>recovery debt</strong> that increases injury risk and suppresses the immune response.</p>
+                
+                <p>Sleep architecture shifts as we age, often reducing Deep Slow Wave Sleep (SWS). For the masters athlete, sleep is the only phase where growth hormone release facilitates muscle repair. Falling below 7 hours creates a <strong>recovery debt</strong> that suppresses the immune response.</p>
             </div>
         </div>
     </section>
@@ -126,7 +127,7 @@
     <section class="mt-12 p-6 bg-neutral-900/30 border border-neutral-800 rounded-2xl text-left font-mono">
         <p class="text-[10px] text-neutral-500 leading-relaxed italic">
             <span class="text-neutral-300 font-bold uppercase tracking-widest block mb-2 underline font-inter">Diagnostic Disclaimer:</span>
-            Recovery scores are physiological proxies. Correlate these results with perceived exertion (RPE) and morning mood. If you experience chronic fatigue or heart palpitations, consult a physician for overtraining assessment.
+            Recovery scores are physiological proxies. Correlate these results with perceived exertion (RPE) and morning mood. If you experience chronic fatigue, consult a physician for overtraining assessment.
         </p>
     </section>
 </main>
@@ -163,15 +164,16 @@
         let readiness = "";
         let comment = "";
 
+        // Diagnostic Logic tailored for 50+ Athletes
         if (hrvRatio >= 1.05 && sleep >= 7.5) {
             readiness = "Prime";
             comment = "CNS is fully supercompensated. Optimal window for Maximum Intensity or 1RM testing. Push the ceiling today.";
         } else if (hrvRatio >= 0.9 && sleep >= 7) {
             readiness = "Functional";
             comment = "Autonomic balance is stable. Suitable for standard volume hypertrophy or Zone 2 endurance work.";
-        } else if (hrvRatio >= 0.8 || sleep >= 6) {
+        } else if (hrvRatio >= 0.8 || (sleep < 7 && sleep >= 6)) {
             readiness = "Compromised";
-            comment = "Parasympathetic suppression detected. Recommend a deload session. Limit RPE to 6/10 and focus on technique.";
+            comment = "Parasympathetic suppression detected. Recommend a deload session. Limit RPE to 6/10 and focus on movement quality.";
         } else {
             readiness = "Critical";
             comment = "Systemic stress detected. High injury risk. Priority: Active recovery, inflammatory management, or total rest.";
@@ -182,6 +184,7 @@
         document.getElementById('readiness-val').innerText = readiness;
         document.getElementById('recovery-comment').innerText = comment;
         
+        // Save state
         localStorage.setItem('athleteHRV', hrv);
         localStorage.setItem('athleteHRVBase', base);
         localStorage.setItem('athleteSleep', sleep);
