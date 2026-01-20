@@ -1,1 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Insulin Sensitivity & Metabolic Lab | Academic Athlete</title>
+    <meta name="description" content="Calculate your metabolic efficiency and insulin sensitivity proxy. Specialized diagnostic for masters athletes to optimize carbohydrate timing and fat oxidation.">
+    <meta name="keywords" content="insulin sensitivity calculator, metabolic health 50+, waist to height ratio athlete, glucose disposal, masters athlete nutrition">
+    <link rel="canonical" href="https://yourdomain.com/insulin-lab.html" />
 
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Insulin Sensitivity Lab",
+      "operatingSystem": "All",
+      "applicationCategory": "HealthApplication",
+      "description": "Analyzes metabolic health markers and carbohydrate tolerance proxies for athletes.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap');
+        body { background-color: #050505; color: #fff; font-family: 'Space Mono', monospace; -webkit-font-smoothing: antialiased; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        .safety-green { color: #10b981; }
+        .glass-card { background: #111; border: 1px solid #222; }
+        .input-field { background: #000; border: 1px solid #333; color: #10b981; outline: none; transition: all 0.2s; font-size: 1.1rem; width: 100%; padding: 1rem; border-radius: 0.75rem; }
+        .input-field:focus { border-color: #10b981; background: #0a0a0a; }
+        .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col" onload="initPage()">
+
+<header class="p-6 border-b border-neutral-900 bg-black">
+    <div class="max-w-6xl mx-auto flex justify-between items-center text-left">
+        <a href="index.html" class="text-xl font-black tracking-tighter safety-green italic uppercase font-inter">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
+        <div class="hidden md:block">
+            <span class="text-[9px] text-neutral-600 uppercase tracking-widest font-bold font-mono">Module: Metabolic_Efficiency_v4.0</span>
+        </div>
+    </div>
+</header>
+
+<nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto">
+    <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono">
+        <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM</a>
+        <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Bio-Age</a>
+        <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">FFMI</a>
+        <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">VO2 Max</a>
+        <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Grip</a>
+        <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Recovery</a>
+        <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Max HR</a>
+        <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">SMI</a>
+        <a href="watts-kg.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Watts/KG</a>
+        <a href="insulin-lab.html" class="nav-link text-green-500 border-b-2 border-green-500 pb-1">Insulin</a>
+        <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Hydrate</a>
+        <a href="mobility-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Mobility</a>
+        <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">TDEE</a>
+        <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Protein</a>
+        <a href="athlete-lab.html" class="nav-link text-neutral-500 hover:text-white italic px-2 bg-neutral-900 rounded">Log</a>
+    </div>
+</nav>
+
+<main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter">
+    <article>
+        <header class="mb-12 text-left">
+            <h1 class="inline-block bg-green-500 text-black px-4 py-1 font-black italic text-2xl md:text-4xl uppercase mb-4">Insulin Sensitivity Lab</h1>
+            <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono block">Diagnostic: Glycemic Disposal & Visceral Load</p>
+        </header>
+
+        <div class="grid lg:grid-cols-2 gap-10">
+            <section class="glass-card p-8 rounded-3xl border-l-4 border-green-600 text-left">
+                <h2 class="text-xs font-bold uppercase safety-green mb-6 tracking-widest font-mono">Biometric Inputs</h2>
+                <div class="space-y-6">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Height (cm)</label>
+                            <input type="number" id="height" oninput="calculateMetabolic()" class="input-field font-mono text-2xl" placeholder="180">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Waist (cm)</label>
+                            <input type="number" id="waist" oninput="calculateMetabolic()" class="input-field font-mono text-2xl" placeholder="85">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Weekly Activity Level</label>
+                        <select id="activity" onchange="calculateMetabolic()" class="input-field font-mono text-xl appearance-none cursor-pointer">
+                            <option value="1">Sedentary / Light</option>
+                            <option value="1.2">Active (3-4 days/wk)</option>
+                            <option value="1.5">Athlete (5+ days/wk)</option>
+                            <option value="1.8">Elite / Multi-Session</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px]">
+                <div id="metabolic-result" class="hidden text-left">
+                    <h3 class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono">Metabolic Efficiency:</h3>
+                    <div id="efficiency-val" class="text-6xl font-black safety-green tracking-tighter mb-4 uppercase italic">--</div>
+                    
+                    <div class="p-6 bg-green-600/5 border border-green-600/20 rounded-2xl mb-6">
+                        <p class="text-[9px] font-bold text-green-500 uppercase mb-2 tracking-widest italic text-left underline">Nutrition Strategy:</p>
+                        <p id="strategy-comment" class="text-xs text-neutral-400 leading-relaxed italic text-left"></p>
+                    </div>
+
+                    <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-green-600 hover:text-white transition-all italic">Log Metabolic Diagnostic →</a>
+                </div>
+                <div id="metabolic-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest font-mono px-10 leading-loose">
+                    [ Awaiting anthropometric data for insulin proxy calculation ]
+                </div>
+            </section>
+        </div>
+
+        <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
+            <h2 class="text-2xl font-black italic uppercase mb-8 safety-green tracking-tighter">Academic Research: Insulin & The Masters Athlete</h2>
+            
+            
+
+            <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
+                <div>
+                    <h3 class="text-white font-bold mb-4 uppercase tracking-tighter">The Waist-to-Height Ratio (WtHR)</h3>
+                    <p class="mb-6">While BMI is often misleading for athletes with high muscle mass, WtHR is a direct proxy for <strong>visceral adiposity</strong>. Research in *The Lancet* suggests that keeping your waist circumference below half your height is the most significant predictor of insulin sensitivity and long-term metabolic health in men and women over 50.</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-white font-bold mb-4 uppercase tracking-tighter">Carbohydrate Tolerance</h3>
+                    <p class="mb-4">As athletes age, the "Anabolic Window" becomes more about nutrient partitioning than just calorie intake. High insulin sensitivity allows you to use carbohydrates to fuel glycolytic performance and recovery rather than storing them as adipose tissue.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mt-12 p-6 bg-neutral-900/30 border border-neutral-800 rounded-2xl text-left font-mono">
+            <p class="text-[10px] text-neutral-500 leading-relaxed italic">
+                <span class="text-neutral-300 font-bold uppercase tracking-widest block mb-2 underline">Diagnostic Disclaimer:</span>
+                This tool is for educational purposes and provides a statistical proxy for insulin sensitivity. It does not replace a clinical HOMA-IR test or HbA1c blood panel. Consult a medical professional for clinical metabolic diagnosis.
+            </p>
+        </section>
+    </article>
+</main>
+
+<footer class="p-12 border-t border-neutral-900 mt-auto bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-widest">
+    Academic Athlete Lab © 2026 | Protocol: Insulin_Proxy_v4.0
+</footer>
+
+<script>
+    function initPage() {}
+
+    function calculateMetabolic() {
+        const height = parseFloat(document.getElementById('height').value);
+        const waist = parseFloat(document.getElementById('waist').value);
+        const activity = parseFloat(document.getElementById('activity').value);
+
+        if(!height || !waist) {
+            document.getElementById('metabolic-result').classList.add('hidden');
+            document.getElementById('metabolic-placeholder').classList.remove('hidden');
+            return;
+        }
+
+        const wthr = waist / height;
+        
+        let efficiency = "";
+        let strategy = "";
+
+        if (wthr < 0.43) {
+            efficiency = "Elite";
+            strategy = "Exceptional insulin sensitivity. High carbohydrate tolerance. Focus on peri-workout glucose for maximum glycogen resynthesis.";
+        } else if (wthr < 0.49) {
+            efficiency = "Optimal";
+            strategy = "Healthy metabolic baseline. Good nutrient partitioning. Maintain moderate carb intake balanced with high-intensity training.";
+        } else if (wthr < 0.53) {
+            efficiency = "Low Sensitivity";
+            strategy = "Early metabolic drift detected. Recommend 'Carb Backloading' or restricting sugars to post-training windows only.";
+        } else {
+            efficiency = "Metabolic Risk";
+            strategy = "Significant visceral load detected. Insulin resistance likely. Priority: Zone 2 training and low-glycemic nutrition to restore signaling.";
+        }
+
+        document.getElementById('metabolic-result').classList.remove('hidden');
+        document.getElementById('metabolic-placeholder').classList.add('hidden');
+        document.getElementById('efficiency-val').innerText = efficiency;
+        document.getElementById('strategy-comment').innerText = strategy;
+    }
+</script>
+</body>
+</html>
