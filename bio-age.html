@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bio-Age Lab | Academic Athlete Lab</title>
     <meta name="description" content="Biological age calculator for athletes 50+. Calculate your bio-age offset using Resting Heart Rate (RHR) and HIIT volume markers.">
-    <meta name="keywords" content="biological age calculator 50 plus, RHR longevity, masters athlete bio age, metabolic defense tracking">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -34,17 +33,18 @@
         <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Lab Home</a>
         <a href="1rm-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM</a>
         <a href="bio-age.html" class="nav-link text-purple-400 border-b border-purple-400 pb-1">Bio-Age</a>
-        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white">Functional-Age</a>
+        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Functional-Age</a>
         <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">FFMI</a>
         <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">VO2 Max</a>
         <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Grip</a>
+        <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">SMI</a>
         <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Protein</a>
         <a href="athlete-lab.html" class="nav-link text-purple-500 border-l border-neutral-800 pl-6 italic">The Streak Lab</a>
     </div>
 </nav>
 
 <main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter">
-    <header class="mb-12">
+    <header class="mb-12 text-left">
         <div class="inline-block bg-purple-500 text-black px-4 py-1 font-black italic text-sm uppercase mb-4">Diagnostic: Cardiovascular Efficiency</div>
         <h2 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter mb-4">Bio-Age<br>Offset</h2>
         <p class="text-neutral-500 max-w-xl italic leading-relaxed text-sm">Quantifying the gap between your chronological age and autonomic health via heart rate variability and aerobic volume.</p>
@@ -74,7 +74,7 @@
             </div>
         </section>
 
-        <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[450px] relative overflow-hidden">
+        <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[450px] relative overflow-hidden text-left">
             <div id="result-display" class="hidden relative z-10">
                 <span class="text-[10px] font-bold uppercase text-purple-500 tracking-[0.3em] font-mono">Estimated Biological Age</span>
                 <div class="text-9xl font-black text-white italic tracking-tighter mb-4" id="bio-age-result">--</div>
@@ -90,29 +90,10 @@
             <div class="absolute -right-8 -bottom-8 text-9xl font-black text-white/[0.02] italic pointer-events-none select-none">BIO</div>
         </section>
     </div>
-
-    <article class="mt-20 border-t border-neutral-900 pt-16 text-left">
-        <h3 class="text-2xl font-black italic uppercase mb-8 safety-purple tracking-tighter">The Science of Cardiovascular Offset</h3>
-        <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
-            <div class="space-y-6">
-                <h4 class="text-white font-bold uppercase text-xs tracking-widest font-mono">RHR & Autonomic Health</h4>
-                <p>Resting Heart Rate (RHR) is a window into the health of your autonomic nervous system. For athletes over 50, a lower RHR typically correlates with higher heart rate variability (HRV) and a significantly "younger" biological profile. Every 10 BPM reduction below 70 is associated with a marked decrease in biological load.</p>
-            </div>
-            <div class="space-y-6">
-                <h4 class="text-white font-bold uppercase text-xs tracking-widest font-mono">Intensity vs. Aging</h4>
-                <p>HIIT volume is the primary driver of mitochondrial density and mitochondrial turnover. High-intensity minutes (Zone 4/5) stimulate pathways that actively slow telomere shortening and improve cardiovascular elasticities, effectively "turning back the clock" on aerobic decline.</p>
-            </div>
-        </div>
-    </article>
 </main>
-
-<footer class="p-12 border-t border-neutral-900 mt-auto bg-black text-center">
-    <p class="text-[10px] text-neutral-600 uppercase tracking-[0.3em] font-mono">Academic Athlete Lab © 2026 | Bio-Age Offset Protocol v2.1</p>
-</footer>
 
 <script>
     function initPage() {
-        // Pre-fill from existing weight if helpful, though Bio-Age relies on RHR/HIIT
         const savedAge = localStorage.getItem('athleteAge');
         if(savedAge) document.getElementById('chron-age').value = savedAge;
         calculateBioAge();
@@ -125,35 +106,23 @@
 
         if(!chronAge || !rhr) return;
 
-        // Logic: RHR and HIIT are proxies for cardiovascular age
         let bioAge = chronAge;
-
-        // RHR Adjustment (Standard RHR for 50+ is ~70; athletes target sub-60)
         bioAge += (rhr - 65) * 0.2;
-
-        // HIIT Adjustment (Intensity minutes drive bio-efficiency)
         bioAge -= (hiit / 15) * 0.5;
 
         const finalAge = Math.max(18, bioAge).toFixed(1);
         const offset = (chronAge - finalAge).toFixed(1);
 
-        // UI Update
         document.getElementById('idle-display').classList.add('hidden');
         document.getElementById('result-display').classList.remove('hidden');
         document.getElementById('bio-age-result').innerText = finalAge;
         
-        // Save to Streak Lab
         localStorage.setItem('athleteBioAge', finalAge);
         localStorage.setItem('athleteAge', chronAge);
 
-        let comment = "";
-        if (offset > 5) {
-            comment = `Elite Tier. You are biologically ${offset} years younger than your demographic peers. Your metabolic defense is exceptional.`;
-        } else if (offset > 0) {
-            comment = `Bio-Positive. You are trending ${offset} years younger than your chronological age. Keep your aerobic intensity volume high.`;
-        } else {
-            comment = `Metabolic Drift. Your biological markers are currently tracking above your chronological age. Increase intensity volume to reclaim efficiency.`;
-        }
+        let comment = offset > 5 ? `Elite Tier. You are biologically ${offset} years younger than your peers.` : 
+                      offset > 0 ? `Bio-Positive. You are trending ${offset} years younger.` : 
+                      `Metabolic Drift detected. Biological markers exceed chronological age.`;
         document.getElementById('offset-comment').innerText = comment;
     }
 </script>
