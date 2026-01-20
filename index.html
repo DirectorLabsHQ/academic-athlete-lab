@@ -3,54 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academic Athlete Lab | 50+ Performance Hub</title>
+    <title>Academic Athlete Lab | 50+ Performance & Longevity Metrics</title>
+    <meta name="description" content="Evidence-based performance calculators for competitive athletes over 50. Track FFMI, VO2 Max, Functional Age, and Protein Synthesis with academic rigor.">
+    <meta name="keywords" content="50+ athlete, masters athletics, FFMI calculator for seniors, longevity metrics, VO2 max over 50, anabolic resistance protein">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .lab-card:hover { transform: translateY(-3px); border-color: #3b82f6; }
+        .lab-card {
+            transition: all 0.2s ease-in-out;
+        }
+        .lab-card:hover {
+            transform: translateY(-4px);
+            border-color: #2563eb;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-sans">
+<body class="bg-slate-50 text-slate-900 font-sans leading-normal">
 
-    <header class="bg-slate-900 text-white py-12 px-6 text-center shadow-lg border-b-4 border-blue-600">
-        <h1 class="text-4xl font-bold tracking-tight mb-2">ACADEMIC ATHLETE LAB</h1>
-        <p class="text-slate-400 text-lg max-w-2xl mx-auto font-light">Advanced performance metrics for the competitive 50+ athlete.</p>
+    <header class="bg-slate-900 text-white py-16 px-6 text-center shadow-2xl border-b-4 border-blue-600">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-white">
+                ACADEMIC ATHLETE LAB
+            </h1>
+            <p class="text-slate-400 text-xl font-light leading-relaxed">
+                The definitive resource for <span class="text-blue-400 font-medium">longevity science</span> and 
+                <span class="text-blue-400 font-medium">performance monitoring</span> specifically calibrated for 
+                competitive athletes in the 50+ demographic.
+            </p>
+        </div>
     </header>
 
     <main class="max-w-6xl mx-auto py-12 px-6">
         
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             
-            <a href="ffmi-lab.html" class="lab-card bg-white p-6 rounded-lg shadow-sm border border-slate-200 block">
-                <h3 class="text-xl font-bold mb-2 text-blue-800">FFMI Lab</h3>
-                <p class="text-slate-600 text-sm">Track Fat-Free Mass Index to monitor muscle retention and sarcopenia risk.</p>
+            <a href="ffmi-lab.html" class="lab-card bg-white p-8 rounded-xl border border-slate-200 shadow-sm">
+                <div class="text-blue-600 font-mono text-xs font-bold tracking-widest mb-3 uppercase">Body Composition</div>
+                <h3 class="text-2xl font-bold mb-3 text-slate-800">FFMI Lab</h3>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    Optimize your Fat-Free Mass Index to combat <strong>age-related sarcopenia</strong>. Monitor muscle retention progress without the variance of water weight.
+                </p>
+                <div class="mt-6 text-blue-600 font-semibold text-sm">Open Lab &rarr;</div>
             </a>
 
-            <a href="functional-age.html" class="lab-card bg-white p-6 rounded-lg shadow-sm border border-slate-200 block">
-                <h3 class="text-xl font-bold mb-2 text-blue-800">Functional Age</h3>
-                <p class="text-slate-600 text-sm">Assess biological performance markers against chronological age benchmarks.</p>
+            <a href="functional-age.html" class="lab-card bg-white p-8 rounded-xl border border-slate-200 shadow-sm">
+                <div class="text-blue-600 font-mono text-xs font-bold tracking-widest mb-3 uppercase">Biological Benchmarking</div>
+                <h3 class="text-2xl font-bold mb-3 text-slate-800">Functional Age</h3>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    Assess your <strong>biological performance</strong> against chronological age benchmarks using standardized athletic movement patterns.
+                </p>
+                <div class="mt-6 text-blue-600 font-semibold text-sm">Open Lab &rarr;</div>
             </a>
 
-            <a href="protein-lab.html" class="lab-card bg-white p-6 rounded-lg shadow-sm border border-slate-200 block">
-                <h3 class="text-xl font-bold mb-2 text-blue-800">Protein Lab</h3>
-                <p class="text-slate-600 text-sm">Calculate optimal amino acid requirements for 50+ muscle protein synthesis.</p>
+            <a href="protein-lab.html" class="lab-card bg-white p-8 rounded-xl border border-slate-200 shadow-sm">
+                <div class="text-blue-600 font-mono text-xs font-bold tracking-widest mb-3 uppercase">Nutritional Kinetics</div>
+                <h3 class="text-2xl font-bold mb-3 text-slate-800">Protein Lab</h3>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    Calculate optimal amino acid requirements to overcome <strong>anabolic resistance</strong> in the 50+ training population.
+                </p>
+                <div class="mt-6 text-blue-600 font-semibold text-sm">Open Lab &rarr;</div>
             </a>
 
-            <a href="vo2-lab.html" class="lab-card bg-white p-6 rounded-lg shadow-sm border border-slate-200 block">
-                <h3 class="text-xl font-bold mb-2 text-blue-800">VO2 Max Lab</h3>
-                <p class="text-slate-600 text-sm">Cardiovascular endurance tracking and age-group percentile ranking.</p>
+            <a href="vo2-lab.html" class="lab-card bg-white p-8 rounded-xl border border-slate-200 shadow-sm">
+                <div class="text-blue-600 font-mono text-xs font-bold tracking-widest mb-3 uppercase">Cardiovascular Ceiling</div>
+                <h3 class="text-2xl font-bold mb-3 text-slate-800">VO2 Max Lab</h3>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    Benchmark your <strong>aerobic capacity</strong> against age-matched athletic percentiles to optimize zone-based training for longevity.
+                </p>
+                <div class="mt-6 text-blue-600 font-semibold text-sm">Open Lab &rarr;</div>
             </a>
 
-            <a href="athlete-lab.html" class="lab-card bg-white p-6 rounded-lg shadow-sm border border-slate-200 block">
-                <h3 class="text-xl font-bold mb-2 text-blue-800">Performance Tracking</h3>
-                <p class="text-slate-600 text-sm">Comprehensive athlete dashboard for strength and power output.</p>
+            <a href="athlete-lab.html" class="lab-card bg-white p-8 rounded-xl border border-slate-200 shadow-sm">
+                <div class="text-blue-600 font-mono text-xs font-bold tracking-widest mb-3 uppercase">Performance Data</div>
+                <h3 class="text-2xl font-bold mb-3 text-slate-800">Strength Dashboard</h3>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    Centralized tracking for 1RM, power output, and resistance training volume tailored for the mature skeletal system.
+                </p>
+                <div class="mt-6 text-blue-600 font-semibold text-sm">Open Lab &rarr;</div>
             </a>
 
         </div>
 
+        <section class="max-w-4xl mx-auto mt-20 p-8 bg-slate-100 rounded-2xl border border-slate-200">
+            <h2 class="text-lg font-bold text-slate-900 mb-4 uppercase tracking-widest flex items-center">
+                <span class="w-8 h-1 bg-blue-600 mr-3"></span>
+                Academic Methodology
+            </h2>
+            <p class="text-slate-700 text-sm leading-relaxed mb-4">
+                The Academic Athlete Lab utilizes peer-reviewed formulas—including the <strong>Katch-McArdle</strong> and <strong>Cunningham</strong> equations—specifically adjusted for the physiological shifts in athletes post-50. Our goal is to move beyond "standard" fitness metrics into data that respects the unique recovery and metabolic demands of the mature competitor.
+            </p>
+            <p class="text-slate-500 text-xs italic">
+                *All data is for performance tracking purposes and does not constitute medical advice. Formulas are updated based on 2026 longevity standards.
+            </p>
+        </section>
+
     </main>
 
-    <footer class="text-center py-10 text-slate-400 text-xs uppercase tracking-widest">
-        Property of Director Labs HQ • 2026 Archive
+    <footer class="text-center py-12 text-slate-400 text-xs uppercase tracking-widest border-t border-slate-200 mt-12">
+        Property of Director Labs HQ • Academic Athlete Lab 2026 Archive
     </footer>
 
 </body>
