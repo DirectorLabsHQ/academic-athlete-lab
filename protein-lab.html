@@ -5,19 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Protein & Metabolic Fueling Lab | Academic Athlete</title>
     <meta name="description" content="Calculate optimal protein intake for athletes 50+ to combat sarcopenia and anabolic resistance. Specialized metabolic fueling for masters longevity.">
-    <meta name="keywords" content="protein calculator for seniors, anabolic resistance, muscle protein synthesis masters, sarcopenia prevention diet, masters athlete nutrition">
     
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Metabolic Fueling Lab",
-      "operatingSystem": "Web",
-      "applicationCategory": "HealthApplication",
-      "description": "Anabolic resistance modeling and protein requirement calculator for athletes over 50."
-    }
-    </script>
-
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap');
@@ -30,13 +18,14 @@
         .input-field:focus { border-color: #a855f7; background: #0a0a0a; }
         .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
         .toggle-active { background-color: #a855f7 !important; color: #000 !important; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
         select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23a855f7'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1rem; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col" onload="initPage()">
 
 <header class="p-6 border-b border-neutral-900 bg-black">
-    <div class="max-w-6xl mx-auto flex justify-between items-center">
+    <div class="max-w-6xl mx-auto flex justify-between items-center text-left">
         <a href="index.html" class="text-xl font-black tracking-tighter safety-purple italic uppercase font-inter">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
         <div class="flex bg-neutral-900 rounded-lg p-1">
             <button id="unit-lbs" onclick="setUnit('LBS')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all">LBS</button>
@@ -45,37 +34,36 @@
     </div>
 </header>
 
-<nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto">
-    <div class="max-w-6xl mx-auto flex items-center justify-between">
-        <div class="flex gap-6 md:gap-8 whitespace-nowrap">
-            <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Lab Home</a>
-            <div class="flex gap-4 border-l border-neutral-800 pl-4">
-               <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white">Bio-Age</a>
-               <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white">FFMI</a>
-               <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white">VO2 Max</a>
-            </div>
-            <div class="flex gap-4 border-l border-neutral-800 pl-4">
-               <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white">Grip</a>
-               <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white">Recovery</a>
-               <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white">Protein</a>
-            </div>
-        </div>
-        <a href="athlete-log.html" class="nav-link text-purple-500 border-l border-purple-900/50 pl-6 hidden md:block">Log Entry</a>
+<nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto no-scrollbar">
+    <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono text-[10px]">
+        <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Lab Home</a>
+        <a href="1rm-lab.html" class="nav-link text-neutral-500 hover:text-white">1RM</a>
+        <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white">FFMI</a>
+        <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white">SMI</a>
+        <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white">Grip</a>
+        <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white">VO2 Max</a>
+        <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white">Max HR</a>
+        <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white">Bio-Age</a>
+        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white">Func-Age</a>
+        <a href="insulin-lab.html" class="nav-link text-neutral-500 hover:text-white">Insulin</a>
+        <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white">Metabolic</a>
+        <a href="protein-lab.html" class="nav-link safety-purple border-b border-purple-500 pb-1">Protein</a>
+        <a href="athlete-lab.html" class="nav-link text-purple-500 border-l border-neutral-800 pl-6 italic font-bold">The Streak Lab</a>
     </div>
 </nav>
 
-<main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter">
+<main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter text-left">
     <header class="mb-12">
-        <div class="inline-block bg-purple text-black px-4 py-1 font-black italic text-2xl uppercase mb-4 text-left">Metabolic Fueling Lab</div>
-        <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase text-left font-mono font-bold">Anabolic Resistance Model v1.5</p>
+        <div class="inline-block bg-purple text-black px-4 py-1 font-black italic text-2xl uppercase mb-4 tracking-tighter">Metabolic Fueling Lab</div>
+        <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono font-bold">Anabolic Resistance Model v1.5</p>
     </header>
 
     <div class="grid lg:grid-cols-2 gap-10">
         <section class="glass-card p-8 rounded-3xl border-l-4 border-purple-500 text-left">
-            <h3 class="text-xs font-bold uppercase safety-purple mb-6 tracking-widest font-mono">Metabolic Inputs</h3>
+            <h3 class="text-xs font-bold uppercase safety-purple mb-6 tracking-widest font-mono italic">Metabolic Inputs</h3>
             <div class="space-y-6">
                 <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Gender Profile</label>
+                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Gender Profile</label>
                     <div class="flex bg-black border border-neutral-800 rounded-xl p-1">
                         <button id="gen-male" onclick="setGender('male')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">MALE</button>
                         <button id="gen-female" onclick="setGender('female')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">FEMALE</button>
@@ -84,52 +72,53 @@
 
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Weight (<span class="unit-label">LBS</span>)</label>
-                        <input type="number" id="weight" oninput="calculateMacros()" class="input-field font-mono" placeholder="0">
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Weight (<span class="unit-label">LBS</span>)</label>
+                        <input type="number" id="weight" oninput="calculateMacros()" class="input-field font-mono text-2xl" placeholder="180">
                     </div>
                     <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Height (CM)</label>
-                        <input type="number" id="height" oninput="calculateMacros()" class="input-field font-mono" placeholder="175">
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Height (CM)</label>
+                        <input type="number" id="height" oninput="calculateMacros()" class="input-field font-mono text-2xl" placeholder="175">
                     </div>
                 </div>
                 
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Age</label>
-                        <input type="number" id="age" oninput="calculateMacros()" class="input-field font-mono" placeholder="55">
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Age</label>
+                        <input type="number" id="age" oninput="calculateMacros()" class="input-field font-mono text-2xl" placeholder="55">
                     </div>
                     <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Training Load</label>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Training Load</label>
                         <select id="activity" onchange="calculateMacros()" class="input-field cursor-pointer font-mono font-bold">
                             <option value="1.2">Sedentary</option>
-                            <option value="1.375">Light</option>
-                            <option value="1.55" selected>Moderate</option>
-                            <option value="1.725">High</option>
+                            <option value="1.375">Light (1-2 days)</option>
+                            <option value="1.55" selected>Moderate (3-5 days)</option>
+                            <option value="1.725">High (6-7 days)</option>
                         </select>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px] text-left">
-            <div id="macro-result" class="hidden">
+        <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px] relative overflow-hidden">
+            <div id="macro-result" class="hidden relative z-10">
                 <div class="mb-8">
-                    <span class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono">Daily Protein Target:</span>
+                    <span class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono italic">Daily Protein Target:</span>
                     <div class="flex items-baseline gap-2">
-                        <div id="protein-range" class="text-6xl font-black safety-purple tracking-tighter">--</div>
-                        <span class="text-xl font-bold text-neutral-700 uppercase italic">Grams</span>
+                        <div id="protein-range" class="text-6xl font-black safety-purple tracking-tighter italic">--</div>
+                        <span class="text-xl font-bold text-neutral-700 uppercase italic font-inter">Grams</span>
                     </div>
                 </div>
-                <div class="p-6 bg-purple-500/5 border border-purple-500/20 rounded-2xl">
-                    <p class="text-[9px] font-bold text-purple-500 uppercase mb-3 tracking-widest italic font-mono">Anabolic Threshold Advice:</p>
+                <div class="p-6 bg-purple-500/5 border border-purple-500/20 rounded-2xl mb-6">
+                    <p class="text-[9px] font-bold text-purple-500 uppercase mb-3 tracking-widest italic font-mono">Anabolic Threshold Strategy:</p>
                     <p id="dist-advice" class="text-xs text-neutral-400 leading-relaxed italic"></p>
                 </div>
-                <div class="mt-8 pt-6 border-t border-neutral-900">
-                    <p class="text-[10px] text-neutral-600 uppercase tracking-[0.2em] font-mono">Est. TDEE: <span id="tdee-val" class="text-white">--</span> Calories</p>
-                    <a href="vo2-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest mt-6 hover:bg-purple-500 transition-all">Analyze VO2 Metabolic Efficiency →</a>
+                <div class="pt-6 border-t border-neutral-900">
+                    <p class="text-[10px] text-neutral-600 uppercase tracking-[0.2em] font-mono">Est. Maintenance (TDEE): <span id="tdee-val" class="text-white font-bold">--</span> Cal</p>
+                    <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest mt-6 hover:bg-purple-500 hover:text-white transition-all italic">Commit to Streak Lab →</a>
                 </div>
             </div>
             <div id="macro-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest font-mono">Awaiting Metabolic Data...</div>
+            <div class="absolute -right-8 -bottom-8 text-9xl font-black text-white/[0.02] italic pointer-events-none select-none uppercase">Fueling</div>
         </section>
     </div>
 
@@ -141,25 +130,25 @@
         <div class="grid md:grid-cols-3 gap-8 text-neutral-400 text-sm leading-relaxed">
             <div class="space-y-4">
                 <h4 class="text-white uppercase tracking-widest text-[10px] font-bold font-mono">01. Halt Sarcopenia</h4>
-                <p>Post-50, muscle loss accelerates. Protein is no longer just for hypertrophy; it is the substrate for survival. Our model uses a 1.8g-2.2g/kg coefficient to offset the decreased sensitivity to leucine in older tissue.</p>
+                <p>Post-50, muscle loss is the primary driver of frailty. Protein is no longer just for aesthetics; it is the structural substrate for longevity. Our model uses a 1.8g–2.2g/kg coefficient to offset decreased tissue sensitivity.</p>
             </div>
             <div class="space-y-4">
                 <h4 class="text-white uppercase tracking-widest text-[10px] font-bold font-mono">02. The Leucine Trigger</h4>
-                <p>To stimulate <strong>Muscle Protein Synthesis (MPS)</strong> after 50, you must hit a "threshold" of ~3g of Leucine per meal. This typically requires 35-50g of high-quality protein per bolus, distributed across 4 main meals.</p>
+                <p>To stimulate <strong>Muscle Protein Synthesis (MPS)</strong> in masters athletes, you must hit a "threshold" of ~3g of Leucine per meal. This typically requires 40g+ of high-quality protein per bolus.</p>
             </div>
             <div class="space-y-4">
-                <h4 class="text-white uppercase tracking-widest text-[10px] font-bold font-mono">03. Skeletal Integrity</h4>
-                <p>Muscle is the metabolic organ of longevity. By using protein to protect your lean mass, you maintain a "glycemic sink," keeping insulin sensitivity high and systemic inflammation (inflammaging) low.</p>
+                <h4 class="text-white uppercase tracking-widest text-[10px] font-bold font-mono">03. Glycemic Sinks</h4>
+                <p>Muscle is your largest metabolic organ. By protecting lean mass, you maintain a "glucose sink," keeping insulin sensitivity high and preventing systemic "inflammaging."</p>
             </div>
         </div>
         
-        <p class="text-[8px] text-neutral-700 mt-12 uppercase tracking-[0.3em] italic font-mono text-center">Reference: Clinically Validated Anabolic Thresholds for Masters Athletes (2026).</p>
+        <p class="text-[8px] text-neutral-700 mt-12 uppercase tracking-[0.3em] italic font-mono text-center">Reference: Clinical Protein Thresholds for Masters Athletes (2026).</p>
     </article>
-
-    <footer class="mt-24 text-center text-[9px] text-neutral-600 uppercase tracking-[0.3em] pb-12 font-mono">
-        Academic Model Only. Not Medical Advice.
-    </footer>
 </main>
+
+<footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-[0.3em]">
+    Academic Athlete Lab © 2026 | Protocol: Metabolic_Fueling_v1.5
+</footer>
 
 <script>
     let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
@@ -200,7 +189,11 @@
         const age = parseFloat(document.getElementById('age').value);
         const activity = parseFloat(document.getElementById('activity').value);
 
-        if(!w || !h || !age) return;
+        if(!w || !h || !age) {
+            document.getElementById('macro-result').classList.add('hidden');
+            document.getElementById('macro-placeholder').classList.remove('hidden');
+            return;
+        }
 
         let weightKg = currentUnit === 'LBS' ? w * 0.453592 : w;
         
@@ -214,16 +207,15 @@
         let pLow = Math.round(weightKg * 1.8); 
         let pHigh = Math.round(weightKg * 2.2);
 
-        // SYNC ACROSS LABS
         localStorage.setItem('athleteWeight', w);
         localStorage.setItem('athleteHeight', h);
         localStorage.setItem('athleteAge', age);
 
         document.getElementById('macro-result').classList.remove('hidden');
         document.getElementById('macro-placeholder').classList.add('hidden');
-        document.getElementById('protein-range').innerText = `${pLow}-${pHigh}`;
+        document.getElementById('protein-range').innerText = `${pLow}–${pHigh}`;
         document.getElementById('tdee-val').innerText = tdee.toLocaleString();
-        document.getElementById('dist-advice').innerText = `Distribution is critical: Target 4 main protein "boluses" of ~${Math.round(pLow/4)}-${Math.round(pHigh/4)}g to overcome anabolic resistance.`;
+        document.getElementById('dist-advice').innerText = `To overcome anabolic resistance, do not graze. Target 3–4 "bolus" meals of ~${Math.round(pLow/4)}–${Math.round(pHigh/4)}g of protein to trigger muscle protein synthesis.`;
     }
 </script>
 </body>
