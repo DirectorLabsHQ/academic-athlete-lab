@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protein & Metabolic Fueling Lab | Academic Athlete</title>
+    <title>Protein & Metabolic Fueling Lab | Academic Athlete Lab</title>
     <meta name="description" content="Calculate optimal protein intake for athletes 50+ to combat sarcopenia and anabolic resistance. Specialized metabolic fueling for masters longevity.">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -42,12 +42,13 @@
         <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white">SMI</a>
         <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white">Grip</a>
         <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white">VO2 Max</a>
+        <a href="watts-lab.html" class="nav-link text-neutral-500 hover:text-white">Watts/kg</a>
         <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white">Max HR</a>
         <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white">Bio-Age</a>
         <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white">Func-Age</a>
         <a href="insulin-lab.html" class="nav-link text-neutral-500 hover:text-white">Insulin</a>
         <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white">Metabolic</a>
-        <a href="protein-lab.html" class="nav-link text-white border-b border-white pb-1">Protein</a>
+        <a href="protein-lab.html" class="nav-link safety-purple border-b border-purple-400 pb-1">Protein</a>
         <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white">Hydration</a>
         <a href="mobility-lab.html" class="nav-link text-neutral-500 hover:text-white">Mobility</a>
         <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white">Recovery</a>
@@ -57,7 +58,7 @@
 
 <main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter text-left">
     <header class="mb-12">
-        <div class="inline-block bg-purple text-black px-4 py-1 font-black italic text-2xl uppercase mb-4 tracking-tighter">Metabolic Fueling Lab</div>
+        <div class="inline-block bg-purple-500 text-black px-4 py-1 font-black italic text-2xl uppercase mb-4 tracking-tighter">Metabolic Fueling Lab</div>
         <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono font-bold">Anabolic Resistance Model v1.5</p>
     </header>
 
@@ -66,7 +67,7 @@
             <h3 class="text-xs font-bold uppercase safety-purple mb-6 tracking-widest font-mono italic">Metabolic Inputs</h3>
             <div class="space-y-6">
                 <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Gender Profile</label>
+                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Gender Profile</label>
                     <div class="flex bg-black border border-neutral-800 rounded-xl p-1">
                         <button id="gen-male" onclick="setGender('male')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">MALE</button>
                         <button id="gen-female" onclick="setGender('female')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">FEMALE</button>
@@ -75,22 +76,22 @@
 
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Weight (<span class="unit-label">LBS</span>)</label>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Weight (<span class="unit-label">LBS</span>)</label>
                         <input type="number" id="weight" oninput="calculateMacros()" class="input-field font-mono text-2xl" placeholder="180">
                     </div>
                     <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Height (CM)</label>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Height (CM)</label>
                         <input type="number" id="height" oninput="calculateMacros()" class="input-field font-mono text-2xl" placeholder="175">
                     </div>
                 </div>
                 
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Age</label>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Age</label>
                         <input type="number" id="age" oninput="calculateMacros()" class="input-field font-mono text-2xl" placeholder="55">
                     </div>
                     <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Training Load</label>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono italic tracking-widest">Training Load</label>
                         <select id="activity" onchange="calculateMacros()" class="input-field cursor-pointer font-mono font-bold">
                             <option value="1.2">Sedentary</option>
                             <option value="1.375">Light (1-2 days)</option>
@@ -120,7 +121,9 @@
                     <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest mt-6 hover:bg-purple-500 hover:text-white transition-all italic">Commit to Streak Lab →</a>
                 </div>
             </div>
-            <div id="macro-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest font-mono">Awaiting Metabolic Data...</div>
+            <div id="macro-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest font-mono px-12">
+                [ Awaiting metabolic data for fueling calculation ]
+            </div>
             <div class="absolute -right-8 -bottom-8 text-9xl font-black text-white/[0.02] italic pointer-events-none select-none uppercase">Fueling</div>
         </section>
     </div>
@@ -128,12 +131,11 @@
     <article class="mt-16 bg-neutral-900/40 p-10 rounded-3xl border border-neutral-800 text-left">
         <h3 class="text-2xl font-black italic uppercase mb-8 safety-purple tracking-tighter">Combatting Anabolic Resistance (50+)</h3>
         
-        
-
         <div class="grid md:grid-cols-3 gap-8 text-neutral-400 text-sm leading-relaxed">
             <div class="space-y-4">
                 <h4 class="text-white uppercase tracking-widest text-[10px] font-bold font-mono">01. Halt Sarcopenia</h4>
-                <p>Post-50, muscle loss is the primary driver of frailty. Protein is no longer just for aesthetics; it is the structural substrate for longevity. Our model uses a 1.8g–2.2g/kg coefficient to offset decreased tissue sensitivity.</p>
+                <p>Post-50, muscle loss is the primary driver of frailty. Protein is the structural substrate for longevity. Our model uses a $1.8\text{g}–2.2\text{g}/kg$ coefficient to offset decreased tissue sensitivity.</p>
+                
             </div>
             <div class="space-y-4">
                 <h4 class="text-white uppercase tracking-widest text-[10px] font-bold font-mono">02. The Leucine Trigger</h4>
@@ -213,6 +215,8 @@
         localStorage.setItem('athleteWeight', w);
         localStorage.setItem('athleteHeight', h);
         localStorage.setItem('athleteAge', age);
+        localStorage.setItem('athleteProteinLow', pLow);
+        localStorage.setItem('athleteProteinHigh', pHigh);
 
         document.getElementById('macro-result').classList.remove('hidden');
         document.getElementById('macro-placeholder').classList.add('hidden');
