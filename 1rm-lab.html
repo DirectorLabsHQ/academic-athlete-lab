@@ -3,10 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1RM Calculator for Masters Athletes | Academic Athlete Lab</title>
-    <meta name="description" content="Calculate your 1RM safely using submaximal strength modeling. Designed specifically for athletes 50+ to track performance and combat sarcopenia.">
-    <meta name="keywords" content="1RM calculator, masters athletes, strength training over 50, sarcopenia prevention, relative strength standards">
+    <title>1RM Calculator for Masters Athletes | Safe Strength Modeling 50+</title>
+    <meta name="description" content="Calculate your One-Rep Max safely using the Brzycki submaximal formula. Specifically designed for masters athletes 50+ to track strength without injury.">
+    <meta name="keywords" content="1RM calculator for seniors, masters athlete strength standards, submaximal 1rm formula, strength training over 50, sarcopenia prevention">
     
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "1RM Strength Lab",
+      "operatingSystem": "Web",
+      "applicationCategory": "HealthApplication",
+      "description": "Submaximal one-rep max calculator for masters athletes using the Brzycki Algorithm."
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap');
@@ -94,7 +105,7 @@
             <div id="placeholder" class="text-neutral-600 italic text-sm py-10">Enter data to generate strength model...</div>
 
             <div id="results-area" class="hidden">
-                <div class="mb-10">
+                <div class="mb-10 text-left">
                     <span class="text-[9px] text-neutral-600 uppercase tracking-widest block mb-1">Estimated One-Rep Max</span>
                     <div class="flex items-baseline gap-2">
                         <div id="result-val" class="text-7xl font-black safety-yellow tracking-tighter">--</div>
@@ -107,28 +118,31 @@
                     <p id="safety-text" class="text-xs text-neutral-400 leading-relaxed italic"></p>
                 </div>
                 
-                <a href="functional-age.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-yellow-500 transition-all shadow-xl">Analyze Strength Age →</a>
+                <a href="functional-age.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-yellow-500 transition-all shadow-xl font-inter">Analyze Strength Age →</a>
             </div>
         </section>
     </div>
 
-    <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
-        <h2 class="text-2xl font-black italic uppercase mb-8 safety-yellow">Intelligent Strength Assessment for Athletes 50+</h2>
+    <article class="mt-20 border-t border-neutral-900 pt-16 text-left">
+        <h3 class="text-2xl font-black italic uppercase mb-8 safety-yellow tracking-tighter">Academic Research: Why Submaximal Testing Wins</h3>
         
         <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
             <div class="space-y-6">
-                <p><strong class="text-white">The Science of 1RM Estimation:</strong> For the masters athlete, testing a true 1-rep max (1RM) often carries a risk-to-reward ratio that is simply too high. Our laboratory uses the <strong class="text-white">Brzycki Algorithm</strong>, a clinically validated formula that allows you to calculate force capacity using submaximal loads.</p>
-                <p><strong class="text-white">Combating Sarcopenia:</strong> Accurate tracking allows you to program working sets at the specific intensities (70-85%) required to maintain lean body mass and bone density.</p>
+                <h4 class="text-white font-bold uppercase text-xs tracking-widest">The Brzycki Algorithm</h4>
+                <p>Testing a true 1-rep max (1RM) involves significant orthopedic risk for athletes 50+. Our lab utilizes the <strong>Brzycki Formula</strong>, calculated as: $$1RM = Weight \div (1.0278 - (0.0278 \times Reps))$$</p>
+                <p>This allows for high-precision strength modeling using 3-8 rep sets, protecting joints while establishing accurate intensity zones for <strong>progressive overload</strong>.</p>
             </div>
             <div class="space-y-6">
-                <p><strong class="text-white">Gender-Specific Benchmarking:</strong> Physiological strength ceilings differ between profiles. Selecting your profile ensures your data is ready for the correct longevity standards.</p>
-                <p><strong class="text-white">CNS Preservation:</strong> This tool helps you find your "top end" without the systemic fatigue associated with maximal attempts, ensuring training consistency.</p>
+                <h4 class="text-white font-bold uppercase text-xs tracking-widest">CNS Preservation & Recovery</h4>
+                <p>For the masters athlete, recovery is the bottleneck. Maximal attempts tax the <strong>Central Nervous System (CNS)</strong> far more than submaximal sets. By using this model, you can maintain your training streak without the 72-96 hour fatigue window typically following a 1RM test.</p>
+                <p>Consistent tracking helps identify <strong>Anabolic Resistance</strong> early, allowing for adjustments in volume and protein intake to maintain lean body mass.</p>
             </div>
         </div>
-    </section>
+    </article>
 </main>
 
 <script>
+    /* ... (rest of your script remains the same) ... */
     let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
     let currentGender = localStorage.getItem('athleteGender') || 'male';
 
