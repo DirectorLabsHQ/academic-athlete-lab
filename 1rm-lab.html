@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1RM Strength Lab | Academic Athlete Lab</title>
-    <meta name="description" content="Submaximal one-rep max calculator for masters athletes using the Brzycki Algorithm. Safe strength modeling for athletes 50+.">
+    <title>1RM Strength Lab | Masters Athlete Performance Diagnostics</title>
+    <meta name="description" content="Submaximal one-rep max calculator for masters athletes using the Brzycki Algorithm. Safe strength modeling for athletes 50+ to prevent CNS fatigue.">
+    <meta name="keywords" content="1RM calculator, masters strength training, 50 plus lifting, Brzycki formula, strength modeling, skeletal muscle preservation">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -28,8 +29,8 @@
     <div class="max-w-6xl mx-auto flex justify-between items-center text-left">
         <a href="index.html" class="text-xl font-black tracking-tighter safety-yellow italic uppercase font-inter">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
         <div class="flex bg-neutral-900 rounded-lg p-1">
-            <button id="unit-lbs" onclick="setUnit('LBS')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all">LBS</button>
-            <button id="unit-kg" onclick="setUnit('KG')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all">KG</button>
+            <button id="unit-lbs" onclick="setUnit('LBS')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">Lbs</button>
+            <button id="unit-kg" onclick="setUnit('KG')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">Kg</button>
         </div>
     </div>
 </header>
@@ -42,6 +43,7 @@
         <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white">SMI</a>
         <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white">Grip</a>
         <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white">VO2 Max</a>
+        <a href="watts-lab.html" class="nav-link text-neutral-500 hover:text-white">Watts/kg</a>
         <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white">Max HR</a>
         <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white">Bio-Age</a>
         <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white">Func-Age</a>
@@ -70,14 +72,14 @@
             <h3 class="text-xs font-bold uppercase safety-yellow mb-6 tracking-widest font-mono italic">Input Recent Set</h3>
             <div class="space-y-6">
                 <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Gender Profile</label>
+                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Gender Profile</label>
                     <div class="flex bg-black border border-neutral-800 rounded-xl p-1">
                         <button id="gen-male" onclick="setGender('male')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">MALE</button>
                         <button id="gen-female" onclick="setGender('female')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">FEMALE</button>
                     </div>
                 </div>
                 <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Movement Type</label>
+                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Movement Type</label>
                     <select id="lift-choice" onchange="updateLift()" class="input-field cursor-pointer font-mono">
                         <option value="bench">Bench Press</option>
                         <option value="squat">Back Squat</option>
@@ -86,11 +88,11 @@
                     </select>
                 </div>
                 <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Weight Lifted (<span class="unit-label">LBS</span>)</label>
+                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Weight Lifted (<span class="unit-label">LBS</span>)</label>
                     <input type="number" id="weight" oninput="calculate1RM()" placeholder="0" class="input-field font-mono text-2xl">
                 </div>
                 <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Reps Performed</label>
+                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Reps Performed</label>
                     <input type="number" id="reps" oninput="calculate1RM()" placeholder="0" class="input-field font-mono text-2xl">
                 </div>
                 <button onclick="resetLab()" class="text-[9px] text-neutral-600 hover:text-yellow-500 uppercase font-bold tracking-widest pt-2">Clear Calculator</button>
@@ -112,7 +114,7 @@
                 </div>
 
                 <div id="safety-box" class="p-6 bg-yellow-500/5 border border-yellow-500/20 rounded-2xl mb-8">
-                    <p class="text-[9px] font-bold text-yellow-500 uppercase mb-3 tracking-widest italic">Safety Protocol Advice:</p>
+                    <p class="text-[9px] font-bold text-yellow-500 uppercase mb-3 tracking-widest italic font-mono">Safety Protocol Advice:</p>
                     <p id="safety-text" class="text-xs text-neutral-400 leading-relaxed italic"></p>
                 </div>
                 
@@ -124,17 +126,21 @@
     <article class="mt-20 border-t border-neutral-900 pt-16 text-left">
         <h3 class="text-2xl font-black italic uppercase mb-8 safety-yellow tracking-tighter">Operational Protocol: Submaximal Testing</h3>
         <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
-            <div class="space-y-6">
-                <h4 class="text-white font-bold uppercase text-xs tracking-widest">The Brzycki Algorithm</h4>
-                <p>Testing a true 1-rep max (1RM) involves significant orthopedic risk for athletes 50+. This lab utilize the <strong>Brzycki Formula</strong>, allowing for high-precision strength modeling using submaximal sets (3-8 reps) to establish accurate intensity zones without joint trauma.</p>
+            <div class="space-y-6 font-mono text-xs uppercase tracking-tight">
+                <h4 class="text-white font-bold uppercase text-[10px] tracking-widest border-b border-neutral-800 pb-2">The Brzycki Algorithm</h4>
+                <p>Testing a true 1-rep max (1RM) involves significant orthopedic risk for athletes 50+. This lab utilizes the <strong>Brzycki Formula</strong>, allowing for high-precision strength modeling using submaximal sets (3-8 reps) to establish accurate intensity zones without joint trauma.</p>
             </div>
-            <div class="space-y-6">
-                <h4 class="text-white font-bold uppercase text-xs tracking-widest">CNS Preservation</h4>
+            <div class="space-y-6 font-mono text-xs uppercase tracking-tight">
+                <h4 class="text-white font-bold uppercase text-[10px] tracking-widest border-b border-neutral-800 pb-2">CNS Preservation</h4>
                 <p>For the masters athlete, recovery is the bottleneck. Maximal attempts tax the central nervous system far more than submaximal modeling. Consistent tracking identifies <strong>Anabolic Resistance</strong> early, allowing for adjustments in protein and volume to protect lean mass.</p>
             </div>
         </div>
     </article>
 </main>
+
+<footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-[0.3em]">
+    Academic Athlete Lab © 2026 | Protocol: Strength_v2.6
+</footer>
 
 <script>
     let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
@@ -187,7 +193,6 @@
             const roundedRM = Math.round(oneRM);
             document.getElementById('result-val').innerText = roundedRM;
             
-            // Save for Streak Lab
             localStorage.setItem('athlete1RM', roundedRM);
             localStorage.setItem('athleteWeight', w);
             localStorage.setItem('athleteReps', r);
