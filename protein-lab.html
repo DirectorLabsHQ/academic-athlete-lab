@@ -3,11 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protein Requirement Model (50+) | Academic Athlete Lab</title>
+    <title>Protein & Metabolic Fueling Lab | Academic Athlete</title>
+    <meta name="description" content="Calculate optimal protein intake for athletes 50+ to combat sarcopenia and anabolic resistance. Specialized metabolic fueling for masters longevity.">
+    <meta name="keywords" content="protein calculator for seniors, anabolic resistance, muscle protein synthesis masters, sarcopenia prevention diet, masters athlete nutrition">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Metabolic Fueling Lab",
+      "operatingSystem": "Web",
+      "applicationCategory": "HealthApplication",
+      "description": "Anabolic resistance modeling and protein requirement calculator for athletes over 50."
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap');
         body { background-color: #050505; color: #fff; font-family: 'Space Mono', monospace; -webkit-font-smoothing: antialiased; }
+        .font-inter { font-family: 'Inter', sans-serif; }
         .safety-purple { color: #a855f7; }
         .bg-purple { background-color: #a855f7; }
         .glass-card { background: #111; border: 1px solid #222; }
@@ -22,7 +37,7 @@
 
 <header class="p-6 border-b border-neutral-900 bg-black">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
-        <h1 class="text-xl font-black tracking-tighter safety-purple italic uppercase">ACADEMIC<span class="text-white">ATHLETE</span>LAB</h1>
+        <a href="index.html" class="text-xl font-black tracking-tighter safety-purple italic uppercase font-inter">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
         <div class="flex bg-neutral-900 rounded-lg p-1">
             <button id="unit-lbs" onclick="setUnit('LBS')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all">LBS</button>
             <button id="unit-kg" onclick="setUnit('KG')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all">KG</button>
@@ -32,7 +47,8 @@
 
 <nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto">
     <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap">
-        <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM Lab</a>
+        <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Home</a>
+        <a href="1rm-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM Lab</a>
         <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Age Lab</a>
         <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">FFMI Lab</a>
         <a href="protein-lab.html" class="nav-link text-purple-500 border-b-2 border-purple-500 pb-1">Protein Lab</a>
@@ -41,15 +57,15 @@
     </div>
 </nav>
 
-<main class="max-w-5xl mx-auto p-6 md:p-12 w-full">
+<main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter">
     <header class="mb-12">
         <div class="inline-block bg-purple text-black px-4 py-1 font-black italic text-2xl uppercase mb-4 text-left">Metabolic Fueling Lab</div>
-        <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase text-left">Anabolic Resistance Model v1.5</p>
+        <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase text-left font-mono font-bold">Anabolic Resistance Model v1.5</p>
     </header>
 
     <div class="grid lg:grid-cols-2 gap-10">
         <section class="glass-card p-8 rounded-3xl border-l-4 border-purple-500 text-left">
-            <h3 class="text-xs font-bold uppercase safety-purple mb-6 tracking-widest">Metabolic Inputs</h3>
+            <h3 class="text-xs font-bold uppercase safety-purple mb-6 tracking-widest font-mono">Metabolic Inputs</h3>
             <div class="space-y-6">
                 <div>
                     <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Gender Profile</label>
@@ -62,22 +78,22 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Weight (<span class="unit-label">LBS</span>)</label>
-                        <input type="number" id="weight" oninput="calculateMacros()" class="input-field" placeholder="0">
+                        <input type="number" id="weight" oninput="calculateMacros()" class="input-field font-mono" placeholder="0">
                     </div>
                     <div>
                         <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Height (CM)</label>
-                        <input type="number" id="height" oninput="calculateMacros()" class="input-field" placeholder="175">
+                        <input type="number" id="height" oninput="calculateMacros()" class="input-field font-mono" placeholder="175">
                     </div>
                 </div>
                 
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Age</label>
-                        <input type="number" id="age" oninput="calculateMacros()" class="input-field" placeholder="55">
+                        <input type="number" id="age" oninput="calculateMacros()" class="input-field font-mono" placeholder="55">
                     </div>
                     <div>
                         <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Training Load</label>
-                        <select id="activity" onchange="calculateMacros()" class="input-field cursor-pointer">
+                        <select id="activity" onchange="calculateMacros()" class="input-field cursor-pointer font-mono font-bold">
                             <option value="1.2">Sedentary</option>
                             <option value="1.375">Light</option>
                             <option value="1.55" selected>Moderate</option>
@@ -91,48 +107,49 @@
         <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px] text-left">
             <div id="macro-result" class="hidden">
                 <div class="mb-8">
-                    <span class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2">Daily Protein Target:</span>
+                    <span class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono">Daily Protein Target:</span>
                     <div class="flex items-baseline gap-2">
                         <div id="protein-range" class="text-6xl font-black safety-purple tracking-tighter">--</div>
                         <span class="text-xl font-bold text-neutral-700 uppercase italic">Grams</span>
                     </div>
                 </div>
                 <div class="p-6 bg-purple-500/5 border border-purple-500/20 rounded-2xl">
-                    <p class="text-[9px] font-bold text-purple-500 uppercase mb-3 tracking-widest italic">Anabolic Threshold Advice:</p>
+                    <p class="text-[9px] font-bold text-purple-500 uppercase mb-3 tracking-widest italic font-mono">Anabolic Threshold Advice:</p>
                     <p id="dist-advice" class="text-xs text-neutral-400 leading-relaxed italic"></p>
                 </div>
-                <p class="text-[10px] text-neutral-600 mt-6 uppercase tracking-[0.2em]">Est. TDEE: <span id="tdee-val" class="text-white">--</span> Calories</p>
+                <div class="mt-8 pt-6 border-t border-neutral-900">
+                    <p class="text-[10px] text-neutral-600 uppercase tracking-[0.2em] font-mono">Est. TDEE: <span id="tdee-val" class="text-white">--</span> Calories</p>
+                    <a href="vo2-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest mt-6 hover:bg-purple-500 transition-all">Analyze VO2 Metabolic Efficiency →</a>
+                </div>
             </div>
-            <div id="macro-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest">Awaiting Metabolic Data...</div>
+            <div id="macro-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest font-mono">Awaiting Metabolic Data...</div>
         </section>
     </div>
 
-    <section class="mt-16 bg-neutral-900/40 p-10 rounded-3xl border border-neutral-800 text-left">
-        <div class="max-w-4xl mx-auto">
-            <h3 class="text-xl font-black italic uppercase mb-6 safety-purple tracking-tighter">The Structural Defense Strategy</h3>
-            
-            
+    <article class="mt-16 bg-neutral-900/40 p-10 rounded-3xl border border-neutral-800 text-left">
+        <h3 class="text-2xl font-black italic uppercase mb-8 safety-purple tracking-tighter">Combatting Anabolic Resistance (50+)</h3>
+        
+        
 
-            <div class="grid md:grid-cols-3 gap-8 mt-8 text-neutral-400 text-sm leading-relaxed">
-                <div class="space-y-4">
-                    <h4 class="text-white uppercase tracking-widest text-[10px] font-bold">01. Halt Sarcopenia</h4>
-                    <p>Post-50, muscle loss accelerates to ~1% annually. Protein isn't just for "gains"; it is the essential raw material required to prevent age-related muscle wasting and maintain physical independence.</p>
-                </div>
-                <div class="space-y-4">
-                    <h4 class="text-white uppercase tracking-widest text-[10px] font-bold">02. Glycemic Sink</h4>
-                    <p>Muscle is your primary site for glucose disposal. By using protein to protect your lean mass, you maintain your "metabolic sink," keeping insulin sensitivity high and systemic inflammation low.</p>
-                </div>
-                <div class="space-y-4">
-                    <h4 class="text-white uppercase tracking-widest text-[10px] font-bold">03. Skeletal Integrity</h4>
-                    <p>Protein makes up 50% of bone volume. For the masters athlete, hitting high protein targets is as critical as calcium for bone mineral density and fracture prevention during high-impact training.</p>
-                </div>
+        <div class="grid md:grid-cols-3 gap-8 text-neutral-400 text-sm leading-relaxed">
+            <div class="space-y-4">
+                <h4 class="text-white uppercase tracking-widest text-[10px] font-bold font-mono">01. Halt Sarcopenia</h4>
+                <p>Post-50, muscle loss accelerates. Protein is no longer just for hypertrophy; it is the substrate for survival. Our model uses a 1.8g-2.2g/kg coefficient to offset the decreased sensitivity to leucine in older tissue.</p>
             </div>
-            
-            <p class="text-[8px] text-neutral-700 mt-8 uppercase tracking-[0.3em] italic">Source: Clinical models for Anabolic Resistance in Aging Populations (2025).</p>
+            <div class="space-y-4">
+                <h4 class="text-white uppercase tracking-widest text-[10px] font-bold font-mono">02. The Leucine Trigger</h4>
+                <p>To stimulate <strong>Muscle Protein Synthesis (MPS)</strong> after 50, you must hit a "threshold" of ~3g of Leucine per meal. This typically requires 35-50g of high-quality protein per bolus, distributed across 4 main meals.</p>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-white uppercase tracking-widest text-[10px] font-bold font-mono">03. Skeletal Integrity</h4>
+                <p>Muscle is the metabolic organ of longevity. By using protein to protect your lean mass, you maintain a "glycemic sink," keeping insulin sensitivity high and systemic inflammation (inflammaging) low.</p>
+            </div>
         </div>
-    </section>
+        
+        <p class="text-[8px] text-neutral-700 mt-12 uppercase tracking-[0.3em] italic font-mono text-center">Reference: Clinically Validated Anabolic Thresholds for Masters Athletes (2026).</p>
+    </article>
 
-    <footer class="mt-24 text-center text-[9px] text-neutral-600 uppercase tracking-[0.3em] pb-12">
+    <footer class="mt-24 text-center text-[9px] text-neutral-600 uppercase tracking-[0.3em] pb-12 font-mono">
         Academic Model Only. Not Medical Advice.
     </footer>
 </main>
@@ -186,21 +203,20 @@
         
         let tdee = Math.round(bmr * activity);
         
-        // Masters-Specific Protein Logic (1.8g - 2.2g per kg)
+        // Masters-Specific Protein Logic (1.8g - 2.2g per kg to overcome anabolic resistance)
         let pLow = Math.round(weightKg * 1.8); 
         let pHigh = Math.round(weightKg * 2.2);
 
-        // SYNC TO STREAK LAB
+        // SYNC ACROSS LABS
         localStorage.setItem('athleteWeight', w);
         localStorage.setItem('athleteHeight', h);
         localStorage.setItem('athleteAge', age);
-        localStorage.setItem('athleteProteinGoal', `${pLow}-${pHigh}`);
 
         document.getElementById('macro-result').classList.remove('hidden');
         document.getElementById('macro-placeholder').classList.add('hidden');
         document.getElementById('protein-range').innerText = `${pLow}-${pHigh}`;
         document.getElementById('tdee-val').innerText = tdee.toLocaleString();
-        document.getElementById('dist-advice').innerText = `To overcome anabolic resistance, prioritize 4 meals of ~${Math.round(pLow/4)}-${Math.round(pHigh/4)}g protein. Avoid grazing.`;
+        document.getElementById('dist-advice').innerText = `Distribution is critical: Target 4 main protein "boluses" of ~${Math.round(pLow/4)}-${Math.round(pHigh/4)}g to overcome anabolic resistance.`;
     }
 </script>
 </body>
