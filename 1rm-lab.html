@@ -3,21 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1RM Calculator for Masters Athletes | Safe Strength Modeling 50+</title>
-    <meta name="description" content="Calculate your One-Rep Max safely using the Brzycki submaximal formula. Specifically designed for masters athletes 50+ to track strength without injury.">
-    <meta name="keywords" content="1RM calculator for seniors, masters athlete strength standards, submaximal 1rm formula, strength training over 50, sarcopenia prevention">
+    <title>1RM Strength Lab | Academic Athlete Lab</title>
+    <meta name="description" content="Submaximal one-rep max calculator for masters athletes using the Brzycki Algorithm. Safe strength modeling for athletes 50+.">
     
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "1RM Strength Lab",
-      "operatingSystem": "Web",
-      "applicationCategory": "HealthApplication",
-      "description": "Submaximal one-rep max calculator for masters athletes using the Brzycki Algorithm."
-    }
-    </script>
-
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap');
@@ -30,13 +18,14 @@
         .input-field:focus { border-color: #facc15; background: #0a0a0a; }
         .toggle-active { background-color: #facc15 !important; color: #000 !important; }
         .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
         select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23facc15'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1rem; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col" onload="initPage()">
 
 <header class="p-6 border-b border-neutral-900 bg-black">
-    <div class="max-w-6xl mx-auto flex justify-between items-center">
+    <div class="max-w-6xl mx-auto flex justify-between items-center text-left">
         <a href="index.html" class="text-xl font-black tracking-tighter safety-yellow italic uppercase font-inter">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
         <div class="flex bg-neutral-900 rounded-lg p-1">
             <button id="unit-lbs" onclick="setUnit('LBS')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all">LBS</button>
@@ -45,39 +34,41 @@
     </div>
 </header>
 
-<nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto">
-    <div class="max-w-6xl mx-auto flex items-center justify-between">
-        <div class="flex gap-6 md:gap-8 whitespace-nowrap">
-            <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Lab Home</a>
-            <div class="flex gap-4 border-l border-neutral-800 pl-4">
-               <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white">Bio-Age</a>
-               <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white">FFMI</a>
-               <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white">VO2 Max</a>
-            </div>
-            <div class="flex gap-4 border-l border-neutral-800 pl-4">
-               <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white">Grip</a>
-               <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white">Recovery</a>
-               <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white">Protein</a>
-            </div>
-        </div>
-        <a href="athlete-log.html" class="nav-link text-purple-500 border-l border-purple-900/50 pl-6 hidden md:block">Log Entry</a>
+<nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto no-scrollbar">
+    <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono text-[10px]">
+        <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Lab Home</a>
+        <a href="1rm-lab.html" class="nav-link safety-yellow border-b border-yellow-500 pb-1">1RM</a>
+        <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white">FFMI</a>
+        <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white">SMI</a>
+        <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white">Grip</a>
+        <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white">VO2 Max</a>
+        <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white">Max HR</a>
+        <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white">Bio-Age</a>
+        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white">Func-Age</a>
+        <a href="insulin-lab.html" class="nav-link text-neutral-500 hover:text-white">Insulin</a>
+        <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white">Metabolic</a>
+        <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white">Protein</a>
+        <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white">Hydration</a>
+        <a href="mobility-lab.html" class="nav-link text-neutral-500 hover:text-white">Mobility</a>
+        <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white">Recovery</a>
+        <a href="athlete-lab.html" class="nav-link text-purple-500 border-l border-neutral-800 pl-6 italic font-bold">The Streak Lab</a>
     </div>
 </nav>
 
-<main class="flex-grow max-w-5xl mx-auto p-4 md:p-12 w-full font-inter">
-    <header class="mb-12">
-        <div class="inline-block bg-safety text-black px-4 py-1 font-black italic text-2xl uppercase mb-4 text-left">
+<main class="flex-grow max-w-5xl mx-auto p-6 md:p-12 w-full font-inter">
+    <header class="mb-12 text-left">
+        <div class="inline-block bg-safety text-black px-4 py-1 font-black italic text-2xl uppercase mb-4">
             1RM Strength Modeling
         </div>
-        <p class="text-neutral-500 text-[9px] md:text-[10px] tracking-[0.4em] uppercase text-left font-mono">
+        <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono">
             Submaximal Protocol for Athletes 50+
         </p>
     </header>
 
     <div class="grid lg:grid-cols-2 gap-10 items-start">
-        <section class="glass-card p-8 rounded-3xl border-l-4 border-l-yellow-500">
-            <h2 class="text-xs font-bold uppercase tracking-widest safety-yellow mb-6 text-left">Input Recent Set</h2>
-            <div class="space-y-6 text-left">
+        <section class="glass-card p-8 rounded-3xl border-l-4 border-yellow-500 text-left">
+            <h3 class="text-xs font-bold uppercase safety-yellow mb-6 tracking-widest font-mono italic">Input Recent Set</h3>
+            <div class="space-y-6">
                 <div>
                     <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Gender Profile</label>
                     <div class="flex bg-black border border-neutral-800 rounded-xl p-1">
@@ -109,7 +100,7 @@
         <section class="glass-card p-8 rounded-3xl min-h-[400px] flex flex-col text-left">
             <span class="text-[10px] text-neutral-500 uppercase tracking-widest border-b border-neutral-900 pb-4 mb-8 font-mono">Calculated Load Model</span>
             
-            <div id="placeholder" class="text-neutral-600 italic text-sm py-10">Enter data to generate strength model...</div>
+            <div id="placeholder" class="text-neutral-600 italic text-sm py-10 text-center">Enter data to generate strength model...</div>
 
             <div id="results-area" class="hidden">
                 <div class="mb-10 text-left">
@@ -131,25 +122,21 @@
     </div>
 
     <article class="mt-20 border-t border-neutral-900 pt-16 text-left">
-        <h3 class="text-2xl font-black italic uppercase mb-8 safety-yellow tracking-tighter">Academic Research: Why Submaximal Testing Wins</h3>
-        
+        <h3 class="text-2xl font-black italic uppercase mb-8 safety-yellow tracking-tighter">Operational Protocol: Submaximal Testing</h3>
         <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
             <div class="space-y-6">
                 <h4 class="text-white font-bold uppercase text-xs tracking-widest">The Brzycki Algorithm</h4>
-                <p>Testing a true 1-rep max (1RM) involves significant orthopedic risk for athletes 50+. Our lab utilizes the <strong>Brzycki Formula</strong>, calculated as: $$1RM = Weight \div (1.0278 - (0.0278 \times Reps))$$</p>
-                <p>This allows for high-precision strength modeling using 3-8 rep sets, protecting joints while establishing accurate intensity zones for <strong>progressive overload</strong>.</p>
+                <p>Testing a true 1-rep max (1RM) involves significant orthopedic risk for athletes 50+. This lab utilize the <strong>Brzycki Formula</strong>, allowing for high-precision strength modeling using submaximal sets (3-8 reps) to establish accurate intensity zones without joint trauma.</p>
             </div>
             <div class="space-y-6">
-                <h4 class="text-white font-bold uppercase text-xs tracking-widest">CNS Preservation & Recovery</h4>
-                <p>For the masters athlete, recovery is the bottleneck. Maximal attempts tax the <strong>Central Nervous System (CNS)</strong> far more than submaximal sets. By using this model, you can maintain your training streak without the 72-96 hour fatigue window typically following a 1RM test.</p>
-                <p>Consistent tracking helps identify <strong>Anabolic Resistance</strong> early, allowing for adjustments in volume and protein intake to maintain lean body mass.</p>
+                <h4 class="text-white font-bold uppercase text-xs tracking-widest">CNS Preservation</h4>
+                <p>For the masters athlete, recovery is the bottleneck. Maximal attempts tax the central nervous system far more than submaximal modeling. Consistent tracking identifies <strong>Anabolic Resistance</strong> early, allowing for adjustments in protein and volume to protect lean mass.</p>
             </div>
         </div>
     </article>
 </main>
 
 <script>
-    /* ... (rest of your script remains the same) ... */
     let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
     let currentGender = localStorage.getItem('athleteGender') || 'male';
 
@@ -193,20 +180,23 @@
         const resArea = document.getElementById('results-area');
         const placeHolder = document.getElementById('placeholder');
 
-        localStorage.setItem('athleteWeight', w || '');
-        localStorage.setItem('athleteReps', r || '');
-
         if (w > 0 && r > 0) {
             resArea.classList.remove('hidden');
             placeHolder.classList.add('hidden');
             const oneRM = w / (1.0278 - (0.0278 * r));
-            document.getElementById('result-val').innerText = Math.round(oneRM);
+            const roundedRM = Math.round(oneRM);
+            document.getElementById('result-val').innerText = roundedRM;
             
+            // Save for Streak Lab
+            localStorage.setItem('athlete1RM', roundedRM);
+            localStorage.setItem('athleteWeight', w);
+            localStorage.setItem('athleteReps', r);
+
             let advice = "";
-            if (r > 10) advice = "For athletes 50+, accuracy is higher on sets of 5-8 reps. High-rep sets may lead to technical breakdown.";
+            if (r > 10) advice = "For athletes 50+, accuracy is higher on sets of 5-8 reps. High-rep sets often lead to technical breakdown before muscular failure.";
             else if (lift === 'deadlift' && r < 3) advice = "Caution: Low-rep deadlifts tax the CNS heavily. Stick to submaximal modeling for spinal longevity.";
-            else if (lift === 'db_press') advice = "Stability focus: If the dumbbells are shaking, the load is too high for your current rotator cuff capacity.";
-            else advice = "Model established. Program your primary strength work at 75-80% of this figure.";
+            else if (lift === 'db_press') advice = "Stability focus: If the weights are shaking, the load exceeds your current rotator cuff capacity.";
+            else advice = "Model established. Program your primary strength work at 75-80% of this figure for optimal retention.";
             document.getElementById('safety-text').innerText = advice;
         } else {
             resArea.classList.add('hidden');
