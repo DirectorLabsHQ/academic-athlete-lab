@@ -3,100 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academic Athlete Lab | 50+ Performance & Longevity Research</title>
-    <meta name="description" content="Professional performance tracking for athletes 50+. Research-backed tools for VO2 Max, FFMI, Protein Synthesis, Functional Age, and 1RM Strength.">
-    <meta name="keywords" content="50 plus athlete, masters athletics, sarcopenia defense, longevity science, strength tracking over 50">
+    <title>Academic Athlete Lab | 50+ Performance & Longevity Diagnostics</title>
+    <meta name="description" content="Professional performance tracking for athletes 50+. Research-backed tools for VO2 Max, FFMI, Sarcopenia Defense, Recovery, and Strength.">
+    <meta name="keywords" content="50 plus athlete, masters athletics, sarcopenia defense, longevity science, strength tracking over 50, VO2 Max masters">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .lab-card { transition: all 0.2s ease-in-out; }
-        .lab-card:hover { transform: translateY(-4px); border-color: #2563eb; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .lab-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border-left-width: 4px; }
+        .lab-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); border-left-color: #2563eb; }
+        .nav-link { font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+        .category-header { font-family: 'Space Mono', monospace; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-sans leading-normal">
+<body class="text-slate-900">
 
-    <nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto">
-    <div class="max-w-6xl mx-auto flex items-center justify-between">
-        <div class="flex gap-6 md:gap-8 whitespace-nowrap">
-            <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Lab Home</a>
-            <div class="flex gap-4 border-l border-neutral-800 pl-4">
-               <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white">Bio-Age</a>
-               <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white">FFMI</a>
-               <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white">VO2 Max</a>
+    <nav class="bg-black py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/90 border-b border-white/10">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-8 overflow-x-auto no-scrollbar">
+                <a href="index.html" class="text-white font-black italic tracking-tighter mr-4">ACADEMIC<span class="text-blue-500">ATHLETE</span></a>
+                <div class="flex gap-6 whitespace-nowrap">
+                    <a href="bio-age.html" class="nav-link text-neutral-400 hover:text-white">Bio-Age</a>
+                    <a href="ffmi-lab.html" class="nav-link text-neutral-400 hover:text-white">FFMI</a>
+                    <a href="vo2-lab.html" class="nav-link text-neutral-400 hover:text-white">VO2</a>
+                    <a href="recovery-lab.html" class="nav-link text-neutral-400 hover:text-white">Recovery</a>
+                    <a href="protein-lab.html" class="nav-link text-neutral-400 hover:text-white">Protein</a>
+                </div>
             </div>
-            <div class="flex gap-4 border-l border-neutral-800 pl-4">
-               <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white">Grip</a>
-               <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white">Recovery</a>
-               <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white">Protein</a>
-            </div>
+            <a href="athlete-lab.html" class="hidden md:block bg-blue-600 text-white text-[10px] font-bold px-4 py-2 rounded uppercase tracking-widest italic hover:bg-blue-500">The Streak Lab</a>
         </div>
-        <a href="athlete-log.html" class="nav-link text-purple-500 border-l border-purple-900/50 pl-6 hidden md:block">Log Entry</a>
-    </div>
-</nav>
+    </nav>
 
-    <header class="bg-slate-900 text-white py-16 px-6 text-center border-b-4 border-blue-600">
-        <div class="max-w-4xl mx-auto">
-            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">50+ ATHLETE PERFORMANCE LAB</h1>
-            <p class="text-slate-400 text-xl font-light">
-                Evidence-based longevity tools and performance metrics for the <span class="text-white">competitive mature athlete</span>.
+    <header class="bg-slate-900 text-white py-20 px-6 text-left relative overflow-hidden">
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="inline-block bg-blue-600 text-[10px] font-black px-3 py-1 mb-6 tracking-[0.3em] uppercase">Archive Update: 2026.01</div>
+            <h1 class="text-5xl md:text-7xl font-black tracking-tighter mb-6 leading-none">THE 50+<br><span class="text-blue-500">ATHLETE</span> LABS</h1>
+            <p class="text-slate-400 text-xl max-w-2xl font-light leading-relaxed">
+                Quantitative diagnostics for the <span class="text-white font-medium">Academic Athlete</span>. Preserving functional power, metabolic flexibility, and skeletal integrity through the fifth decade and beyond.
             </p>
         </div>
+        <div class="absolute right-0 bottom-0 opacity-10 font-black text-[20vw] leading-none select-none pointer-events-none -mb-20 italic">LABS</div>
     </header>
 
-    <main class="max-w-6xl mx-auto py-12 px-6">
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <a href="1rm-lab.html" class="lab-card bg-white p-8 rounded-xl border border-slate-200 shadow-sm">
-                <div class="text-blue-600 font-mono text-xs font-bold tracking-widest mb-3 uppercase">Strength Metrics</div>
-                <h3 class="text-2xl font-bold mb-3">1RM Max Lab</h3>
-                <p class="text-slate-600 text-sm leading-relaxed">Safety-focused <strong>one-rep max estimation</strong> for programming resistance training intensity.</p>
-                <div class="mt-6 text-blue-600 font-semibold text-sm italic">Launch Tool &rarr;</div>
-            </a>
-
-            <a href="athlete-lab.html" class="lab-card bg-white p-8 rounded-xl border border-slate-200 shadow-sm">
-                <div class="text-blue-600 font-mono text-xs font-bold tracking-widest mb-3 uppercase">Power Output</div>
-                <h3 class="text-2xl font-bold mb-3">Performance Tracking</h3>
-                <p class="text-slate-600 text-sm leading-relaxed">Centralized dashboard for <strong>explosive power</strong> and volume load monitoring.</p>
-                <div class="mt-6 text-blue-600 font-semibold text-sm italic">Launch Tool &rarr;</div>
-            </a>
-
-            <a href="ffmi-lab.html" class="lab-card bg-white p-8 rounded-xl border border-slate-200 shadow-sm">
-                <div class="text-blue-600 font-mono text-xs font-bold tracking-widest mb-3 uppercase">Sarcopenia Defense</div>
-                <h3 class="text-2xl font-bold mb-3">FFMI Lab</h3>
-                <p class="text-slate-600 text-sm leading-relaxed">Monitor <strong>Fat-Free Mass Index</strong> to ensure lean tissue retention during aging cycles.</p>
-                <div class="mt-6 text-blue-600 font-semibold text-sm italic">Launch Tool &rarr;</div>
-            </a>
-
-            <a href="functional-age.html" class="lab-card bg-white p-8 rounded-xl border border-slate-200 shadow-sm">
-                <div class="text-blue-600 font-mono text-xs font-bold tracking-widest mb-3 uppercase">Aging Research</div>
-                <h3 class="text-2xl font-bold mb-3">Functional Age</h3>
-                <p class="text-slate-600 text-sm leading-relaxed">Analyze <strong>biological age</strong> through movement-based performance markers and metabolic data.</p>
-                <div class="mt-6 text-blue-600 font-semibold text-sm italic">Launch Tool &rarr;</div>
-            </a>
-
-            <a href="protein-lab.html" class="lab-card bg-white p-8 rounded-xl border border-slate-200 shadow-sm">
-                <div class="text-blue-600 font-mono text-xs font-bold tracking-widest mb-3 uppercase">Anabolic Resistance</div>
-                <h3 class="text-2xl font-bold mb-3">Protein Lab</h3>
-                <p class="text-slate-600 text-sm leading-relaxed">Optimize <strong>amino acid intake</strong> for muscle protein synthesis in the post-50 athlete.</p>
-                <div class="mt-6 text-blue-600 font-semibold text-sm italic">Launch Tool &rarr;</div>
-            </a>
-
-            <a href="vo2-lab.html" class="lab-card bg-white p-8 rounded-xl border border-slate-200 shadow-sm">
-                <div class="text-blue-600 font-mono text-xs font-bold tracking-widest mb-3 uppercase">Cardiovascular Ceiling</div>
-                <h3 class="text-2xl font-bold mb-3">VO2 Max Lab</h3>
-                <p class="text-slate-600 text-sm leading-relaxed">Benchmark your <strong>aerobic capacity</strong> to mitigate all-cause mortality and improve endurance.</p>
-                <div class="mt-6 text-blue-600 font-semibold text-sm italic">Launch Tool &rarr;</div>
-            </a>
-
+    <main class="max-w-7xl mx-auto py-16 px-6">
+        
+        <div class="mb-16">
+            <h2 class="category-header text-blue-600 text-xs font-bold mb-8 uppercase tracking-widest flex items-center gap-4">
+                01. Longevity & Aging <span class="h-[1px] bg-slate-200 flex-grow"></span>
+            </h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <a href="bio-age.html" class="lab-card bg-white p-6 rounded-xl border border-slate-200">
+                    <h3 class="font-bold text-lg mb-2">Phenotypic Bio-Age</h3>
+                    <p class="text-slate-500 text-sm italic">Blood marker & lipid-based aging analysis.</p>
+                </a>
+                <a href="functional-age.html" class="lab-card bg-white p-6 rounded-xl border border-slate-200">
+                    <h3 class="font-bold text-lg mb-2">Functional Age</h3>
+                    <p class="text-slate-500 text-sm italic">Performance-based biological age proxy.</p>
+                </a>
+                <a href="grip-lab.html" class="lab-card bg-white p-6 rounded-xl border border-slate-200">
+                    <h3 class="font-bold text-lg mb-2">Grip Strength Lab</h3>
+                    <p class="text-slate-500 text-sm italic">CNS integrity and all-cause mortality risk.</p>
+                </a>
+            </div>
         </div>
+
+        <div class="mb-16">
+            <h2 class="category-header text-blue-600 text-xs font-bold mb-8 uppercase tracking-widest flex items-center gap-4">
+                02. Metabolic Engine <span class="h-[1px] bg-slate-200 flex-grow"></span>
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <a href="metabolic-lab.html" class="lab-card bg-white p-6 rounded-xl border border-slate-200">
+                    <h3 class="font-bold text-lg mb-2 text-blue-600">TDEE Lab</h3>
+                    <p class="text-xs text-slate-500">Metabolic rate & caloric drift.</p>
+                </a>
+                <a href="insulin-lab.html" class="lab-card bg-white p-6 rounded-xl border border-slate-200">
+                    <h3 class="font-bold text-lg mb-2 text-blue-600">Insulin Lab</h3>
+                    <p class="text-xs text-slate-500">Glycemic response & sensitivity.</p>
+                </a>
+                <a href="hydration-lab.html" class="lab-card bg-white p-6 rounded-xl border border-slate-200">
+                    <h3 class="font-bold text-lg mb-2 text-blue-600">Hydration</h3>
+                    <p class="text-xs text-slate-500">Electrolyte & fluid requirements.</p>
+                </a>
+                <a href="protein-lab.html" class="lab-card bg-white p-6 rounded-xl border border-slate-200">
+                    <h3 class="font-bold text-lg mb-2 text-blue-600">Protein Lab</h3>
+                    <p class="text-xs text-slate-500">Anabolic resistance modeling.</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="mb-16">
+            <h2 class="category-header text-blue-600 text-xs font-bold mb-8 uppercase tracking-widest flex items-center gap-4">
+                03. Power & Sarcopenia Defense <span class="h-[1px] bg-slate-200 flex-grow"></span>
+            </h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <a href="1rm-lab.html" class="lab-card bg-white p-8 rounded-xl border border-slate-200">
+                    <h3 class="text-2xl font-bold mb-3">1RM Strength</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">Intensity programming for heavy resistance training.</p>
+                </a>
+                <a href="ffmi-lab.html" class="lab-card bg-white p-8 rounded-xl border border-slate-200">
+                    <h3 class="text-2xl font-bold mb-3">FFMI Lab</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">Tracking the genetic ceiling for lean mass retention.</p>
+                </a>
+                <a href="smi-lab.html" class="lab-card bg-white p-8 rounded-xl border border-slate-200">
+                    <h3 class="text-2xl font-bold mb-3">SMI Lab</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">Clinical Skeletal Muscle Index & Sarcopenia screening.</p>
+                </a>
+                <a href="vo2-lab.html" class="lab-card bg-white p-8 rounded-xl border border-slate-200">
+                    <h3 class="text-2xl font-bold mb-3">VO2 Max</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">The gold standard for aerobic engine capacity.</p>
+                </a>
+                <a href="max-hr.html" class="lab-card bg-white p-8 rounded-xl border border-slate-200">
+                    <h3 class="text-2xl font-bold mb-3">Max HR Lab</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">Age-adjusted cardiac thresholds (Tanaka/Gulati).</p>
+                </a>
+                <a href="mobility-lab.html" class="lab-card bg-white p-8 rounded-xl border border-slate-200">
+                    <h3 class="text-2xl font-bold mb-3">Mobility Lab</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">Functional range of motion and joint integrity.</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="bg-blue-600 rounded-3xl p-12 text-center text-white">
+            <h2 class="text-3xl font-black uppercase italic mb-4">Launch The Streak Lab</h2>
+            <p class="text-blue-100 max-w-xl mx-auto mb-8">Integrated performance tracking. Log your daily diagnostics and build your athletic streak.</p>
+            <a href="athlete-lab.html" class="inline-block bg-white text-blue-600 font-bold px-8 py-4 rounded-full uppercase tracking-tighter hover:bg-slate-100 transition-all">Enter Dashboard →</a>
+        </div>
+
     </main>
 
-    <footer class="bg-white border-t border-slate-200 pt-16 pb-8 px-6 text-center">
+    <footer class="bg-white border-t border-slate-200 pt-16 pb-12 px-6 text-center">
         <div class="max-w-3xl mx-auto mb-8">
-            <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Academic Standards</h4>
-            <p class="text-slate-500 text-xs italic leading-relaxed">
-                Calculations utilize the Brzycki, Katch-McArdle, and Cunningham equations, specifically adjusted for mature athlete physiology. 
-                Director Labs HQ Archive © 2026.
+            <h4 class="category-header text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400 mb-6 underline">Academic Methodology</h4>
+            <p class="text-slate-500 text-[10px] leading-loose uppercase tracking-widest">
+                Diagnostics built on the Brzycki Strength Model, Tanaka Cardiac Scaling, and Kouri FFMI Research. All protocols optimized for the 50+ master athlete demographic.
+                <br>Director Labs HQ © 2026.
             </p>
         </div>
     </footer>
