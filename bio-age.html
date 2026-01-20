@@ -23,35 +23,44 @@
 <body class="min-h-screen flex flex-col" onload="initPage()">
 
 <header class="p-6 border-b border-neutral-900 bg-black">
-    <div class="max-w-6xl mx-auto flex justify-between items-center">
+    <div class="max-w-6xl mx-auto flex justify-between items-center text-left">
         <a href="index.html" class="text-xl font-black tracking-tighter safety-purple italic uppercase font-inter">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
+        <div class="flex bg-neutral-900 rounded-lg p-1">
+            <button class="px-4 py-1.5 text-[10px] font-bold rounded-md bg-purple-500 text-black shadow-sm">BIO-MARKER</button>
+        </div>
     </div>
 </header>
 
 <nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto no-scrollbar">
-    <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono">
+    <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono text-[10px]">
         <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Lab Home</a>
-        <a href="1rm-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM</a>
-        <a href="bio-age.html" class="nav-link text-purple-400 border-b border-purple-400 pb-1">Bio-Age</a>
-        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Functional-Age</a>
-        <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">FFMI</a>
-        <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">VO2 Max</a>
-        <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Grip</a>
-        <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">SMI</a>
-        <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Protein</a>
-        <a href="athlete-lab.html" class="nav-link text-purple-500 border-l border-neutral-800 pl-6 italic">The Streak Lab</a>
+        <a href="1rm-lab.html" class="nav-link text-neutral-500 hover:text-white">1RM</a>
+        <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white">FFMI</a>
+        <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white">SMI</a>
+        <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white">Grip</a>
+        <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white">VO2 Max</a>
+        <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white">Max HR</a>
+        <a href="bio-age.html" class="nav-link safety-purple border-b border-purple-400 pb-1">Bio-Age</a>
+        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white">Func-Age</a>
+        <a href="insulin-lab.html" class="nav-link text-neutral-500 hover:text-white">Insulin</a>
+        <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white">Metabolic</a>
+        <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white">Protein</a>
+        <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white">Hydration</a>
+        <a href="mobility-lab.html" class="nav-link text-neutral-500 hover:text-white">Mobility</a>
+        <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white">Recovery</a>
+        <a href="athlete-lab.html" class="nav-link text-purple-500 border-l border-neutral-800 pl-6 italic font-bold">The Streak Lab</a>
     </div>
 </nav>
 
 <main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter">
     <header class="mb-12 text-left">
-        <div class="inline-block bg-purple-500 text-black px-4 py-1 font-black italic text-sm uppercase mb-4">Diagnostic: Cardiovascular Efficiency</div>
+        <div class="inline-block bg-purple-500 text-black px-4 py-1 font-black italic text-sm uppercase mb-4 tracking-tighter">Diagnostic: Cardiovascular Efficiency</div>
         <h2 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter mb-4">Bio-Age<br>Offset</h2>
         <p class="text-neutral-500 max-w-xl italic leading-relaxed text-sm">Quantifying the gap between your chronological age and autonomic health via heart rate variability and aerobic volume.</p>
     </header>
 
-    <div class="grid lg:grid-cols-2 gap-10 items-start">
-        <section class="glass-card p-8 rounded-3xl border-l-4 border-purple-500 text-left">
+    <div class="grid lg:grid-cols-2 gap-10 items-start text-left">
+        <section class="glass-card p-8 rounded-3xl border-l-4 border-purple-500">
             <h3 class="text-xs font-bold uppercase safety-purple mb-6 tracking-widest font-mono italic">Vital Markers</h3>
             <div class="space-y-6">
                 <div>
@@ -63,7 +72,7 @@
                     <input type="number" id="rhr" value="60" oninput="calculateBioAge()" class="input-field font-mono text-2xl">
                 </div>
                 <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Weekly High-Intensity Minutes (Zone 4/5)</label>
+                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Weekly HIIT Minutes (Zone 4/5)</label>
                     <input type="number" id="hiit-mins" value="30" oninput="calculateBioAge()" class="input-field font-mono text-2xl">
                 </div>
             </div>
@@ -74,11 +83,14 @@
             </div>
         </section>
 
-        <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[450px] relative overflow-hidden text-left">
+        <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[450px] relative overflow-hidden">
             <div id="result-display" class="hidden relative z-10">
                 <span class="text-[10px] font-bold uppercase text-purple-500 tracking-[0.3em] font-mono">Estimated Biological Age</span>
                 <div class="text-9xl font-black text-white italic tracking-tighter mb-4" id="bio-age-result">--</div>
-                <p id="offset-comment" class="text-sm italic text-neutral-400 leading-relaxed"></p>
+                <div class="p-6 bg-purple-500/5 border border-purple-500/20 rounded-2xl">
+                    <p class="text-[9px] font-bold text-purple-400 uppercase mb-2 tracking-widest italic">Performance Interpretation:</p>
+                    <p id="offset-comment" class="text-xs italic text-neutral-400 leading-relaxed"></p>
+                </div>
                 
                 <div class="mt-8 pt-8 border-t border-neutral-900">
                     <a href="athlete-lab.html" class="block w-full text-center bg-purple-500 text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-white transition-all italic">Log to Streak Lab →</a>
@@ -90,12 +102,33 @@
             <div class="absolute -right-8 -bottom-8 text-9xl font-black text-white/[0.02] italic pointer-events-none select-none">BIO</div>
         </section>
     </div>
+
+    <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
+        <h3 class="text-2xl font-black italic uppercase mb-8 safety-purple tracking-tighter font-inter">Research Protocol: Autonomic Age Markers</h3>
+        <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
+            <div class="space-y-6 font-inter">
+                <h4 class="text-white font-bold uppercase text-xs tracking-widest font-mono">RHR & Vagal Tone</h4>
+                <p>Resting Heart Rate (RHR) is a window into the parasympathetic nervous system. For athletes over 50, a lower RHR is often correlated with higher <strong>Vagal Tone</strong> and a more resilient cardiovascular system. This offset assumes a baseline RHR of 65 BPM as the standard "Chronological Zero."</p>
+                
+            </div>
+            <div class="space-y-6 font-inter">
+                <h4 class="text-white font-bold uppercase text-xs tracking-widest font-mono">The HIIT Multiplier</h4>
+                <p>Zone 4 and Zone 5 training stimulus forces mitochondrial biogenesis and improves stroke volume. Research indicates that just 25–30 minutes of high-intensity work per week can significantly reverse the age-related decline in VO2 Max, effectively "de-aging" the heart by 5–10 years relative to sedentary peers.</p>
+            </div>
+        </div>
+    </section>
 </main>
 
 <script>
     function initPage() {
         const savedAge = localStorage.getItem('athleteAge');
+        const savedRHR = localStorage.getItem('athleteRHR');
+        const savedHIIT = localStorage.getItem('athleteHIIT');
+        
         if(savedAge) document.getElementById('chron-age').value = savedAge;
+        if(savedRHR) document.getElementById('rhr').value = savedRHR;
+        if(savedHIIT) document.getElementById('hiit-mins').value = savedHIIT;
+        
         calculateBioAge();
     }
 
@@ -106,9 +139,10 @@
 
         if(!chronAge || !rhr) return;
 
+        // Heuristic: RHR impact + HIIT impact
         let bioAge = chronAge;
-        bioAge += (rhr - 65) * 0.2;
-        bioAge -= (hiit / 15) * 0.5;
+        bioAge += (rhr - 65) * 0.25; // RHR over 65 adds age, under subtracts
+        bioAge -= (hiit / 15) * 0.6;  // Every 15 mins of HIIT subtracts ~0.6 years
 
         const finalAge = Math.max(18, bioAge).toFixed(1);
         const offset = (chronAge - finalAge).toFixed(1);
@@ -117,12 +151,15 @@
         document.getElementById('result-display').classList.remove('hidden');
         document.getElementById('bio-age-result').innerText = finalAge;
         
+        // Update Local Storage for other Labs
         localStorage.setItem('athleteBioAge', finalAge);
         localStorage.setItem('athleteAge', chronAge);
+        localStorage.setItem('athleteRHR', rhr);
+        localStorage.setItem('athleteHIIT', hiit);
 
-        let comment = offset > 5 ? `Elite Tier. You are biologically ${offset} years younger than your peers.` : 
-                      offset > 0 ? `Bio-Positive. You are trending ${offset} years younger.` : 
-                      `Metabolic Drift detected. Biological markers exceed chronological age.`;
+        let comment = offset > 5 ? `Elite Tier. You are biologically ${offset} years younger than your chronological peers due to high autonomic efficiency.` : 
+                      offset > 0 ? `Bio-Positive. Your heart rate markers are trending ${offset} years younger than your calendar age.` : 
+                      `Metabolic Drift detected. Your cardiovascular markers suggest a biological age higher than your chronological age. Focus on Zone 2/Zone 5 balance.`;
         document.getElementById('offset-comment').innerText = comment;
     }
 </script>
