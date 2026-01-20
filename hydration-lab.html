@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Sweat Rate Calculator for Masters Athletes | Academic Athlete Lab</title>
+    <title>Hydration & Sweat Rate Lab | Academic Athlete Lab</title>
     <meta name="description" content="Precision hydration lab for athletes 50+. Calculate hourly sweat rate and sodium replacement needs based on body mass changes and training duration.">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -40,13 +39,14 @@
         <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white">SMI</a>
         <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white">Grip</a>
         <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white">VO2 Max</a>
+        <a href="watts-lab.html" class="nav-link text-neutral-500 hover:text-white">Watts/kg</a>
         <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white">Max HR</a>
         <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white">Bio-Age</a>
         <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white">Func-Age</a>
         <a href="insulin-lab.html" class="nav-link text-neutral-500 hover:text-white">Insulin</a>
         <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white">Metabolic</a>
         <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white">Protein</a>
-        <a href="hydration-lab.html" class="nav-link text-blue-300 border-b border-blue-300 pb-1">Hydration</a>
+        <a href="hydration-lab.html" class="nav-link safety-blue border-b border-blue-500 pb-1">Hydration</a>
         <a href="mobility-lab.html" class="nav-link text-neutral-500 hover:text-white">Mobility</a>
         <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white">Recovery</a>
         <a href="athlete-lab.html" class="nav-link text-purple-500 border-l border-neutral-800 pl-6 italic font-bold">The Streak Lab</a>
@@ -66,21 +66,21 @@
                 <div class="space-y-6">
                     <div class="grid grid-cols-2 gap-4 text-left">
                         <div>
-                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Pre-Workout (kg)</label>
+                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Pre-Workout (kg)</label>
                             <input type="number" id="weight-pre" step="0.1" oninput="calculateHydration()" class="input-field font-mono text-2xl" placeholder="85.0">
                         </div>
                         <div>
-                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Post-Workout (kg)</label>
+                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Post-Workout (kg)</label>
                             <input type="number" id="weight-post" step="0.1" oninput="calculateHydration()" class="input-field font-mono text-2xl" placeholder="84.2">
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Fluids In (L)</label>
+                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Fluids In (L)</label>
                             <input type="number" id="fluid-in" step="0.1" oninput="calculateHydration()" class="input-field font-mono text-2xl" placeholder="0.5">
                         </div>
                         <div>
-                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Time (Hours)</label>
+                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Time (Hours)</label>
                             <input type="number" id="duration" step="0.1" oninput="calculateHydration()" class="input-field font-mono text-2xl" placeholder="1.0">
                         </div>
                     </div>
@@ -109,12 +109,11 @@
         <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
             <h2 class="text-2xl font-black italic uppercase mb-8 text-blue-500 tracking-tighter">Academic Overview: Hydration & The Aging Athlete</h2>
             
-            
-
             <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
                 <div>
                     <h3 class="text-white font-bold mb-4 uppercase tracking-tighter text-xs font-mono">The Hypohydration Risk in Masters</h3>
                     <p class="mb-6">As we age, total body water decreases and the **thirst mechanism** becomes less sensitive. Research indicates that by the time an athlete over 50 feels "thirsty," they have often reached a 2% body mass deficit—the point where <strong>cognitive function and power output</strong> degrade rapidly.</p>
+                    
                 </div>
                 
                 <div>
@@ -139,7 +138,7 @@
 
 <script>
     function initPage() {
-        const storedPre = localStorage.getItem('lastWeightPre');
+        const storedPre = localStorage.getItem('athleteWeight'); // Standardized key
         if(storedPre) document.getElementById('weight-pre').value = storedPre;
     }
 
@@ -165,7 +164,7 @@
         document.getElementById('sweat-rate').innerText = sweatRate.toFixed(2) + " L/HR";
         document.getElementById('sodium-comment').innerText = `Data indicates a turnover of ${totalLoss.toFixed(2)} liters. To maintain osmotic pressure, target ~${sodiumNeeded}mg of Sodium per hour of activity. Post-session: Rehydrate with 150% of total mass lost.`;
 
-        localStorage.setItem('lastWeightPre', pre);
+        localStorage.setItem('athleteWeight', post); // Update current weight for other labs
     }
 </script>
 </body>
