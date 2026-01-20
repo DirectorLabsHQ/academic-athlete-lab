@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Functional Mobility & Joint Integrity Lab | Academic Athlete</title>
+    <title>Functional Mobility & Joint Integrity Lab | Academic Athlete Lab</title>
     <meta name="description" content="Assess your functional range of motion and joint integrity. Specialized mobility diagnostic for athletes 50+ to identify injury risk and movement gaps.">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -41,6 +41,7 @@
         <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white">SMI</a>
         <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white">Grip</a>
         <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white">VO2 Max</a>
+        <a href="watts-lab.html" class="nav-link text-neutral-500 hover:text-white">Watts/kg</a>
         <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white">Max HR</a>
         <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white">Bio-Age</a>
         <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white">Func-Age</a>
@@ -48,7 +49,7 @@
         <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white">Metabolic</a>
         <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white">Protein</a>
         <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white">Hydration</a>
-        <a href="mobility-lab.html" class="nav-link text-lime-400 border-b border-lime-400 pb-1">Mobility</a>
+        <a href="mobility-lab.html" class="nav-link safety-yellow border-b border-yellow-400 pb-1">Mobility</a>
         <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white">Recovery</a>
         <a href="athlete-lab.html" class="nav-link text-purple-500 border-l border-neutral-800 pl-6 italic font-bold">The Streak Lab</a>
     </div>
@@ -115,17 +116,17 @@
     <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
         <h2 class="text-2xl font-black italic uppercase mb-8 safety-yellow tracking-tighter">Academic Research: Mobility vs Flexibility</h2>
         
-        
-
         <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
             <div>
                 <h3 class="text-white font-bold mb-4 uppercase tracking-tighter text-xs font-mono">The Joint-By-Joint Approach</h3>
-                <p class="mb-6">For the athlete over 50, a loss of ankle mobility forces the knee (a stability joint) to compensate, leading to chronic inflammation and tissue failure. We prioritize <strong>functional Range of Motion (fROM)</strong> over simple static stretching.</p>
+                
+                <p class="mt-6 mb-6">For the athlete over 50, a loss of ankle mobility forces the knee (a stability joint) to compensate, leading to chronic inflammation and tissue failure. We prioritize <strong>functional Range of Motion (fROM)</strong> over simple static stretching.</p>
             </div>
             
             <div>
                 <h3 class="text-white font-bold mb-4 uppercase tracking-tighter text-xs font-mono">Connective Tissue Aging</h3>
-                <p class="mb-4">With age, tendons and ligaments lose elastic properties. Mobility training provides the <strong>mechanical loading</strong> necessary to stimulate tenocyte activity and maintain the integrity of the extracellular matrix.</p>
+                <p class="mb-4">With age, tendons and ligaments lose elastic properties (collagen cross-linking). Mobility training provides the <strong>mechanical loading</strong> necessary to stimulate tenocyte activity and maintain the integrity of the extracellular matrix.</p>
+                
             </div>
         </div>
     </section>
@@ -145,14 +146,16 @@
 <script>
     let scores = { ankle: 0, hip: 0, shoulder: 0 };
 
-    function initPage() {}
+    function initPage() {
+        // Recall any previous session scores if needed
+    }
 
     function setScore(joint, val) {
         scores[joint] = val;
         
         // Update UI buttons
         for (let i = 1; i <= 3; i++) {
-            document.getElementById(`${joint}-${i}`).classList.remove('active');
+            document.getElementById(`${joint}-${i}`).className = 'score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800';
         }
         document.getElementById(`${joint}-${val}`).classList.add('active');
 
@@ -179,6 +182,7 @@
         }
         
         document.getElementById('mobility-comment').innerText = comment;
+        localStorage.setItem('athleteMobilityScore', percentage);
     }
 </script>
 </body>
