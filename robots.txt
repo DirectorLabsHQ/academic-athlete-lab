@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Focus on longevity and 50+ athlete performance
+Sitemap: https://academicathletelab.com/sitemap.xmlUser-agent: *
+Allow: /
+
 Sitemap: https://academicathletelab.com/sitemap.xml
