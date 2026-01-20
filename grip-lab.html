@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grip Strength Benchmarks for Athletes 50+ | Academic Athlete Lab</title>
-    <meta name="description" content="Calculate your grip strength percentile and biological longevity score. The gold standard for masters athletes to track muscle quality and mortality risk.">
-    <meta name="keywords" content="grip strength standards 50 plus, handgrip dynamometer benchmarks, longevity proxy, masters athlete strength standards">
+    <title>Grip Strength Lab | Academic Athlete Lab</title>
+    <meta name="description" content="Calculate your grip strength percentile and biological longevity score. The gold standard for masters athletes to track muscle quality.">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -18,133 +17,131 @@
         .input-field { background: #000; border: 1px solid #333; color: #a855f7; outline: none; transition: all 0.2s; font-size: 1.1rem; width: 100%; padding: 1rem; border-radius: 0.75rem; }
         .input-field:focus { border-color: #a855f7; background: #0a0a0a; }
         .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23a855f7'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1rem; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col" onload="initPage()">
 
 <header class="p-6 border-b border-neutral-900 bg-black">
-    <div class="max-w-6xl mx-auto flex justify-between items-center">
-        <a href="index.html" class="text-xl font-black tracking-tighter safety-purple italic uppercase font-inter text-left">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
+    <div class="max-w-6xl mx-auto flex justify-between items-center text-left">
+        <a href="index.html" class="text-xl font-black tracking-tighter safety-purple italic uppercase font-inter">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
         <div class="hidden md:block">
-            <span class="text-[9px] text-neutral-600 uppercase tracking-widest font-bold font-mono">Module: Grip_Recruitment_v1.0</span>
+            <span class="text-[9px] text-neutral-600 uppercase tracking-widest font-bold font-mono">Module: Grip_Recruitment_v1.2</span>
         </div>
     </div>
 </header>
 
-<nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto">
-    <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono">
-        <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM</a>
-        <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Bio-Age</a>
-        <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">FFMI</a>
-        <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">VO2 Max</a>
-        <a href="grip-lab.html" class="nav-link text-purple-500 border-b-2 border-purple-500 pb-1">Grip</a>
-        <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Recovery</a>
-        <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Max HR</a>
-        <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">SMI</a>
-        <a href="watts-kg.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Watts/KG</a>
-        <a href="insulin-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Insulin</a>
-        <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Hydrate</a>
-        <a href="mobility-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Mobility</a>
-        <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">TDEE</a>
-        <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Protein</a>
-        <a href="athlete-lab.html" class="nav-link text-neutral-500 hover:text-white italic px-2 bg-neutral-900 rounded">Log</a>
+<nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto no-scrollbar">
+    <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono text-[10px]">
+        <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Lab Home</a>
+        <a href="1rm-lab.html" class="nav-link text-neutral-500 hover:text-white">1RM</a>
+        <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white">FFMI</a>
+        <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white">SMI</a>
+        <a href="grip-lab.html" class="nav-link safety-purple border-b border-purple-400 pb-1">Grip</a>
+        <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white">VO2 Max</a>
+        <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white">Max HR</a>
+        <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white">Bio-Age</a>
+        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white">Func-Age</a>
+        <a href="insulin-lab.html" class="nav-link text-neutral-500 hover:text-white">Insulin</a>
+        <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white">Metabolic</a>
+        <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white">Protein</a>
+        <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white">Hydration</a>
+        <a href="mobility-lab.html" class="nav-link text-neutral-500 hover:text-white">Mobility</a>
+        <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white">Recovery</a>
+        <a href="athlete-lab.html" class="nav-link text-purple-500 border-l border-neutral-800 pl-6 italic font-bold">The Streak Lab</a>
     </div>
 </nav>
 
 <main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter">
-    <article>
-        <header class="mb-12 text-left">
-            <div class="inline-block bg-purple-500 text-black px-4 py-1 font-black italic text-2xl uppercase mb-4">Grip Strength & Mortality Proxy</div>
-            <h2 class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono">The Diagnostic "Check Engine Light" for Athletes 50+</h2>
-        </header>
+    <header class="mb-12 text-left">
+        <div class="inline-block bg-purple-500 text-black px-4 py-1 font-black italic text-2xl uppercase mb-4 tracking-tighter">Grip Strength Diagnostic</div>
+        <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono font-bold">The "Check Engine Light" for Athletes 50+</p>
+    </header>
 
-        <div class="grid lg:grid-cols-2 gap-10">
-            <section class="glass-card p-8 rounded-3xl border-l-4 border-purple-600 text-left">
-                <h3 class="text-xs font-bold uppercase safety-purple mb-6 tracking-widest font-mono">Dynamometer Input</h3>
-                <div class="space-y-6">
-                    <div class="grid grid-cols-2 gap-4 text-left">
-                        <div>
-                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Age</label>
-                            <input type="number" id="age" oninput="calculateGrip()" class="input-field font-mono text-2xl" placeholder="55">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Sex</label>
-                            <select id="sex" onchange="calculateGrip()" class="input-field font-mono text-xl appearance-none cursor-pointer">
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                            </select>
-                        </div>
+    <div class="grid lg:grid-cols-2 gap-10 text-left">
+        <section class="glass-card p-8 rounded-3xl border-l-4 border-purple-600">
+            <h3 class="text-xs font-bold uppercase safety-purple mb-6 tracking-widest font-mono italic">Dynamometer Input</h3>
+            <div class="space-y-6">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Age</label>
+                        <input type="number" id="age" oninput="calculateGrip()" class="input-field font-mono text-2xl" placeholder="55">
                     </div>
                     <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Max Squeeze (Kilograms)</label>
-                        <input type="number" id="grip-kg" oninput="calculateGrip()" class="input-field font-mono text-2xl" placeholder="45">
-                        <p class="text-[9px] text-neutral-600 mt-2 uppercase italic tracking-widest">Digital Dynamometer Score Recommended</p>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Biological Sex</label>
+                        <select id="sex" onchange="calculateGrip()" class="input-field font-mono text-xl cursor-pointer">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
                     </div>
                 </div>
-            </section>
-
-            <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px]">
-                <div id="grip-result" class="hidden text-left">
-                    <span class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono">Strength Classification:</span>
-                    <div id="grip-val" class="text-7xl font-black safety-purple tracking-tighter mb-4 uppercase italic">--</div>
-                    <div class="p-6 bg-purple-600/5 border border-purple-600/20 rounded-2xl">
-                        <p class="text-[9px] font-bold text-purple-500 uppercase mb-2 tracking-widest italic text-left">Clinical Interpretation:</p>
-                        <p id="grip-comment" class="text-xs text-neutral-400 leading-relaxed italic text-left"></p>
-                    </div>
-                    <div class="mt-8">
-                         <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-purple-600 hover:text-white transition-all">Log Diagnostic Result →</a>
-                    </div>
-                </div>
-                <div id="grip-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest font-mono px-10">
-                    Awaiting handgrip dynamometer data for peer decile comparison...
-                </div>
-            </section>
-        </div>
-
-        <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
-            <h3 class="text-2xl font-black italic uppercase mb-8 safety-purple tracking-tighter">Academic Research: Why Grip Matters</h3>
-            
-            <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
                 <div>
-                    <h4 class="text-white font-bold mb-4 uppercase tracking-tighter">A Proxy for Biological Age</h4>
-                    <p class="mb-6">Extensive longitudinal studies (including PURE and UK Biobank) have demonstrated that grip strength is a more accurate predictor of cardiovascular health and all-cause mortality than systolic blood pressure. It measures the integrity of the <strong>Neuromuscular Junction</strong>, which is the first system to degrade with age.</p>
-                    
-                    <h4 class="text-white font-bold mb-4 uppercase tracking-tighter">The "Failing" Threshold</h4>
-                    <p>For the athlete over 50, a "passing" score isn't enough. We track the **Grip-to-Mass Ratio**. If your grip strength falls into the "Average" sedentary range, it indicates a lack of neural recruitment that will eventually limit your 1RM and VO2 performance.</p>
-                </div>
-                
-                <div>
-                    <h4 class="text-white font-bold mb-4 uppercase tracking-tighter">Male Athletic Standards (KG)</h4>
-                    <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
-                        <ul class="space-y-3 font-mono text-xs">
-                            <li class="flex justify-between border-b border-neutral-800 pb-1"><span>Elite:</span> <span class="text-purple-400">54+ kg</span></li>
-                            <li class="flex justify-between border-b border-neutral-800 pb-1"><span>High Performance:</span> <span class="text-green-500">46 - 53 kg</span></li>
-                            <li class="flex justify-between border-b border-neutral-800 pb-1"><span>Optimal:</span> <span class="text-yellow-500">38 - 45 kg</span></li>
-                            <li class="flex justify-between"><span>At Risk (Sarcopenia):</span> <span class="text-red-500">< 28 kg</span></li>
-                        </ul>
-                    </div>
-                    <p class="mt-4 text-[10px] italic">Female athletes: Standards typically scale at 60-65% of male cohorts. High performance is 30+ kg.</p>
+                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Max Squeeze (Kilograms)</label>
+                    <input type="number" id="grip-kg" oninput="calculateGrip()" class="input-field font-mono text-2xl" placeholder="45">
+                    <p class="text-[9px] text-neutral-600 mt-2 uppercase italic tracking-widest">Protocol: Use the highest of 3 attempts per hand.</p>
                 </div>
             </div>
         </section>
 
-        <section class="mt-12 p-6 bg-neutral-900/30 border border-neutral-800 rounded-2xl text-left">
-            <p class="text-[10px] text-neutral-500 font-mono leading-relaxed italic">
-                <span class="text-neutral-300 font-bold uppercase tracking-widest block mb-2 underline">Diagnostic Disclaimer:</span>
-                This tool is for educational and athletic self-tracking purposes only. The results provided are based on population-level athletic benchmarks and do not replace professional medical evaluation, diagnosis, or treatment. Always consult with a qualified healthcare provider regarding clinical markers or before beginning a high-intensity training protocol.
-            </p>
+        <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px] relative overflow-hidden">
+            <div id="grip-result" class="hidden relative z-10">
+                <span class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono italic">Strength Classification:</span>
+                <div id="grip-val" class="text-7xl font-black safety-purple tracking-tighter mb-4 uppercase italic leading-none">--</div>
+                <div class="p-6 bg-purple-500/5 border border-purple-500/20 rounded-2xl mb-8">
+                    <p class="text-[9px] font-bold text-purple-400 uppercase mb-2 tracking-widest italic">Clinical Interpretation:</p>
+                    <p id="grip-comment" class="text-xs text-neutral-400 leading-relaxed italic"></p>
+                </div>
+                <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-purple-600 hover:text-white transition-all italic">Log to Streak Lab →</a>
+            </div>
+            <div id="grip-placeholder" class="text-neutral-700 italic text-center uppercase text-[10px] tracking-widest font-mono px-10">
+                Awaiting handgrip dynamometer data for peer decile comparison...
+            </div>
+            <div class="absolute -right-8 -bottom-8 text-9xl font-black text-white/[0.02] italic pointer-events-none select-none">GRIP</div>
         </section>
-    </article>
+    </div>
+
+    <section class="mt-20 border-t border-neutral-900 pt-16 text-left font-inter">
+        <h3 class="text-2xl font-black italic uppercase mb-8 safety-purple tracking-tighter font-inter">Research Protocol: Neuromuscular Integrity</h3>
+        <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
+            <div class="space-y-6">
+                <h4 class="text-white font-bold uppercase text-xs tracking-widest font-mono">The Mortality Proxy</h4>
+                <p>Extensive studies (UK Biobank/PURE) demonstrate that grip strength is a more accurate predictor of cardiovascular health and all-cause mortality than systolic blood pressure in the 50+ cohort. It measures the integrity of the <strong>Neuromuscular Junction (NMJ)</strong>, the system that bridges nerve signals to muscle action.</p>
+                
+
+[Image of the neuromuscular junction structure]
+
+            </div>
+            <div class="space-y-6">
+                <h4 class="text-white font-bold uppercase text-xs tracking-widest font-mono">Athletic Standards (KG)</h4>
+                <div class="bg-neutral-900/50 rounded-xl p-6 border border-neutral-800">
+                    <ul class="space-y-3 font-mono text-[11px]">
+                        <li class="flex justify-between border-b border-neutral-800 pb-1"><span>Elite:</span> <span class="text-purple-400 font-bold">54+ kg</span></li>
+                        <li class="flex justify-between border-b border-neutral-800 pb-1"><span>High Performance:</span> <span class="text-green-500">46 - 53 kg</span></li>
+                        <li class="flex justify-between border-b border-neutral-800 pb-1"><span>Optimal:</span> <span class="text-yellow-500">38 - 45 kg</span></li>
+                        <li class="flex justify-between"><span>At Risk:</span> <span class="text-red-500 font-bold">< 28 kg</span></li>
+                    </ul>
+                </div>
+                <p class="text-[10px] italic">Female athletes: Optimal range is 28-35kg. Elite is 36kg+. Scores below 18kg indicate clinical sarcopenia risk.</p>
+            </div>
+        </div>
+    </section>
 </main>
 
-<footer class="p-12 border-t border-neutral-900 mt-auto bg-black text-center font-mono">
-    <p class="text-[9px] text-neutral-600 uppercase tracking-widest">Academic Athlete Lab © 2026 | Protocol: Grip_V1_R3</p>
+<footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center font-mono">
+    <p class="text-[9px] text-neutral-600 uppercase tracking-widest italic">Academic Athlete Lab | Protocol: Grip_V1_R3 | Not Medical Advice</p>
 </footer>
 
 <script>
     function initPage() {
         const savedAge = localStorage.getItem('athleteAge');
+        const savedGrip = localStorage.getItem('athleteGrip');
+        const savedSex = localStorage.getItem('athleteGender');
+
         if(savedAge) document.getElementById('age').value = savedAge;
+        if(savedGrip) document.getElementById('grip-kg').value = savedGrip;
+        if(savedSex) document.getElementById('sex').value = savedSex;
+
         calculateGrip();
     }
 
@@ -159,6 +156,7 @@
             return;
         }
 
+        // Standardized means based on clinical aging cohorts (50+)
         let mean = 42; 
         if (sex === 'male') {
             if (age >= 75) mean = 32;
@@ -180,23 +178,24 @@
 
         if (ratio >= 1.25) {
             category = "Elite";
-            comment = "Exceptional CNS recruitment. Your strength-to-age ratio is in the top 5% of the athletic cohort.";
+            comment = "Exceptional Neuromuscular Recruitment. You are in the top 5% of your age cohort, indicating high biological resilience.";
         } else if (ratio >= 1.05) {
             category = "High Performance";
-            comment = "Robust muscle quality. You are significantly outperforming sedentary peers and protecting against functional decay.";
+            comment = "Robust Muscle Quality. You are significantly outperforming sedentary peers and effectively protecting against functional decay.";
         } else if (ratio >= 0.85) {
             category = "Optimal";
-            comment = "Standard athletic baseline. You are maintaining the necessary tension required for longevity.";
+            comment = "Solid Athletic Baseline. You are maintaining the structural tension required for longevity and independent movement.";
         } else if (ratio >= 0.65) {
             category = "Fragility Risk";
-            comment = "Sub-optimal muscle recruitment. Increased risk of age-related functional decline. Priority: Heavy carries and hang work.";
+            comment = "Sub-optimal recruitment detected. You are at an increased risk of functional decline. Priority: Heavy carries and deadlifts.";
         } else {
             category = "At Risk";
-            comment = "Critical Sarcopenia Marker. Grip strength is below safety thresholds for longevity. Clinical intervention recommended.";
+            comment = "Sarcopenia Marker. Grip strength is below safety thresholds. Focus on hypertrophy and neural recruitment immediately.";
         }
 
         localStorage.setItem('athleteAge', age);
         localStorage.setItem('athleteGrip', kg);
+        localStorage.setItem('athleteGender', sex);
 
         document.getElementById('grip-result').classList.remove('hidden');
         document.getElementById('grip-placeholder').classList.add('hidden');
