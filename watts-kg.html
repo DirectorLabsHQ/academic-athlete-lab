@@ -1,1 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Watts per KG (W/kg) Calculator for Masters Athletes | Academic Athlete</title>
+    <meta name="description" content="Calculate your power-to-weight ratio. Specialized diagnostic for cyclists and athletes 50+ to track engine efficiency and climbing performance.">
+    <meta name="keywords" content="watts per kg calculator, power to weight ratio cycling, masters cycling performance, FTP calculator over 50, watts/kg standards">
+    <link rel="canonical" href="https://yourdomain.com/watts-kg.html" />
 
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Watts/KG Efficiency Lab",
+      "operatingSystem": "All",
+      "applicationCategory": "HealthApplication",
+      "description": "Calculates power-to-weight ratio (Watts/kg) to assess athletic engine efficiency in endurance sports.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap');
+        body { background-color: #050505; color: #fff; font-family: 'Space Mono', monospace; -webkit-font-smoothing: antialiased; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        .safety-violet { color: #a855f7; }
+        .glass-card { background: #111; border: 1px solid #222; }
+        .input-field { background: #000; border: 1px solid #333; color: #a855f7; outline: none; transition: all 0.2s; font-size: 1.1rem; width: 100%; padding: 1rem; border-radius: 0.75rem; }
+        .input-field:focus { border-color: #a855f7; background: #0a0a0a; }
+        .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col" onload="initPage()">
+
+<header class="p-6 border-b border-neutral-900 bg-black">
+    <div class="max-w-6xl mx-auto flex justify-between items-center text-left">
+        <a href="index.html" class="text-xl font-black tracking-tighter safety-violet italic uppercase font-inter">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
+        <div class="hidden md:block">
+            <span class="text-[9px] text-neutral-600 uppercase tracking-widest font-bold font-mono italic">Module: Power_Efficiency_v2.0</span>
+        </div>
+    </div>
+</header>
+
+<nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto">
+    <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono">
+        <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM</a>
+        <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Bio-Age</a>
+        <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">FFMI</a>
+        <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">VO2 Max</a>
+        <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Grip</a>
+        <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Recovery</a>
+        <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Max HR</a>
+        <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">SMI</a>
+        <a href="watts-kg.html" class="nav-link text-purple-400 border-b-2 border-purple-400 pb-1">Watts/KG</a>
+        <a href="insulin-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Insulin</a>
+        <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Hydrate</a>
+        <a href="mobility-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Mobility</a>
+        <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">TDEE</a>
+        <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Protein</a>
+        <a href="athlete-lab.html" class="nav-link text-neutral-500 hover:text-white italic px-2 bg-neutral-900 rounded">Log</a>
+    </div>
+</nav>
+
+<main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter">
+    <article>
+        <header class="mb-12 text-left">
+            <h1 class="inline-block bg-purple-600 text-white px-4 py-1 font-black italic text-2xl md:text-4xl uppercase mb-4 leading-tight">Watts/KG Lab</h1>
+            <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono block">Diagnostic: Relative Power & Climbing Efficiency</p>
+        </header>
+
+        <div class="grid lg:grid-cols-2 gap-10">
+            <section class="glass-card p-8 rounded-3xl border-l-4 border-purple-600 text-left">
+                <h2 class="text-xs font-bold uppercase safety-violet mb-6 tracking-widest font-mono">Performance Inputs</h2>
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Sustainable Power (Watts)</label>
+                        <input type="number" id="watts" oninput="calculateWattsKg()" class="input-field font-mono text-2xl" placeholder="250">
+                        <p class="text-[9px] text-neutral-600 mt-2 uppercase">e.g., 20-min Max or FTP</p>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Current Weight (kg)</label>
+                        <input type="number" id="weight" oninput="calculateWattsKg()" class="input-field font-mono text-2xl" placeholder="80">
+                    </div>
+                </div>
+            </section>
+
+            <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px]">
+                <div id="wkg-result" class="hidden text-left">
+                    <h3 class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono">Relative Power Output:</h3>
+                    <div id="wkg-val" class="text-7xl font-black safety-violet tracking-tighter mb-4 uppercase italic">-- W/KG</div>
+                    
+                    <div class="p-6 bg-purple-600/5 border border-purple-600/20 rounded-2xl mb-6">
+                        <p class="text-[9px] font-bold text-purple-400 uppercase mb-2 tracking-widest italic text-left underline">Engine Diagnostic:</p>
+                        <p id="wkg-comment" class="text-xs text-neutral-400 leading-relaxed italic text-left"></p>
+                    </div>
+
+                    <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-purple-600 hover:text-white transition-all italic">Commit Power Data →</a>
+                </div>
+                <div id="wkg-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest font-mono px-10 leading-loose">
+                    [ Awaiting sustainable power and mass metrics for efficiency calculation ]
+                </div>
+            </section>
+        </div>
+
+        <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
+            <h2 class="text-2xl font-black italic uppercase mb-8 safety-violet tracking-tighter">Academic Research: Relative Power vs Absolute Watts</h2>
+            
+            
+
+            <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
+                <div>
+                    <h3 class="text-white font-bold mb-4 uppercase tracking-tighter text-left">The Power-to-Weight Advantage</h3>
+                    <p class="mb-6 text-left">In cycling and rowing, absolute power is great for the flats, but **Watts per Kilogram (W/kg)** is what determines performance on a gradient. For the athlete over 50, defending your power-to-weight ratio often means focusing on fat loss and muscle retention, as increasing absolute power becomes physiologically more difficult after the fifth decade.</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-white font-bold mb-4 uppercase tracking-tighter text-left">Masters Performance Benchmarks</h3>
+                    <p class="mb-4 text-left">A sustainble W/kg of **3.0+** is the standard for high-level amateur masters performance. Elite masters (Cat 1/2) often sustain **4.0 to 4.5 W/kg**. Tracking this metric allows you to see if your training is improving your "engine" even if your total weight fluctuates.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mt-12 p-6 bg-neutral-900/30 border border-neutral-800 rounded-2xl text-left font-mono">
+            <p class="text-[10px] text-neutral-500 leading-relaxed italic">
+                <span class="text-neutral-300 font-bold uppercase tracking-widest block mb-2 underline">Diagnostic Disclaimer:</span>
+                Watts/kg results are dependent on accurate power meter calibration and scale data. Functional Threshold Power (FTP) testing is an extremely high-intensity effort; ensure you have medical clearance for Zone 5/Max exertion training.
+            </p>
+        </section>
+    </article>
+</main>
+
+<footer class="p-12 border-t border-neutral-900 mt-auto bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-widest">
+    Academic Athlete Lab © 2026 | Protocol: Power_Efficiency_v2.0
+</footer>
+
+<script>
+    function initPage() {}
+
+    function calculateWattsKg() {
+        const watts = parseFloat(document.getElementById('watts').value);
+        const weight = parseFloat(document.getElementById('weight').value);
+
+        if(!watts || !weight) {
+            document.getElementById('wkg-result').classList.add('hidden');
+            document.getElementById('wkg-placeholder').classList.remove('hidden');
+            return;
+        }
+
+        const wkg = watts / weight;
+
+        document.getElementById('wkg-result').classList.remove('hidden');
+        document.getElementById('wkg-placeholder').classList.add('hidden');
+        document.getElementById('wkg-val').innerText = wkg.toFixed(2) + " W/KG";
+        
+        let comment = "";
+        if (wkg >= 4.0) comment = "World Class Masters. Exceptional engine efficiency. Your power-to-weight ratio puts you in the top 5% of your age category globally.";
+        else if (wkg >= 3.0) comment = "Academic Standard. Strong athletic engine. You possess the relative power required for competitive club-level climbing and endurance performance.";
+        else if (wkg >= 2.0) comment = "Healthy Baseline. Standard fitness range. Focus on leaning out or increasing interval intensity to move toward the 3.0 W/kg threshold.";
+        else comment = "Limited Efficiency. Focus on Zone 2 base training and weight optimization to reduce the internal drag on your power output.";
+        
+        document.getElementById('wkg-comment').innerText = comment;
+    }
+</script>
+</body>
+</html>
