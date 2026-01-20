@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VO2 Max Lab | Academic Athlete</title>
+    <title>VO2 Max Lab | Academic Athlete Lab</title>
     <meta name="description" content="Determine your VO2 Max percentile and longevity floor. Specialized aerobic capacity diagnostics for masters athletes (50+).">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -11,13 +11,13 @@
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap');
         body { background-color: #050505; color: #fff; font-family: 'Space Mono', monospace; -webkit-font-smoothing: antialiased; }
         .font-inter { font-family: 'Inter', sans-serif; }
-        .safety-red { color: #ef4444; }
-        .bg-red { background-color: #ef4444; }
+        .aerobic-blue { color: #3b82f6; }
+        .bg-aerobic { background-color: #3b82f6; }
         .glass-card { background: #111; border: 1px solid #222; }
-        .input-field { background: #000; border: 1px solid #333; color: #ef4444; outline: none; transition: all 0.2s; font-size: 1.1rem; width: 100%; padding: 1rem; border-radius: 0.75rem; }
-        .input-field:focus { border-color: #ef4444; background: #0a0a0a; }
+        .input-field { background: #000; border: 1px solid #333; color: #3b82f6; outline: none; transition: all 0.2s; font-size: 1.1rem; width: 100%; padding: 1rem; border-radius: 0.75rem; }
+        .input-field:focus { border-color: #3b82f6; background: #0a0a0a; }
         .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
-        .toggle-active { background-color: #ef4444 !important; color: #000 !important; }
+        .toggle-active { background-color: #3b82f6 !important; color: #fff !important; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
@@ -25,7 +25,7 @@
 
 <header class="p-6 border-b border-neutral-900 bg-black">
     <div class="max-w-6xl mx-auto flex justify-between items-center text-left">
-        <a href="index.html" class="text-xl font-black tracking-tighter safety-red italic uppercase font-inter">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
+        <a href="index.html" class="text-xl font-black tracking-tighter aerobic-blue italic uppercase font-inter">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
         <div class="flex bg-neutral-900 rounded-lg p-1">
             <button id="unit-lbs" onclick="setUnit('LBS')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all">LBS</button>
             <button id="unit-kg" onclick="setUnit('KG')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all">KG</button>
@@ -37,35 +37,36 @@
     <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono text-[10px]">
         <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Lab Home</a>
         <a href="1rm-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM</a>
-        <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white">FFMI</a>
-        <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white">SMI</a>
-        <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white">Grip</a>
-        <a href="vo2-lab.html" class="nav-link text-red-500 border-b border-red-500 pb-1">VO2 Max</a>
-        <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white">Max HR</a>
-        <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white">Bio-Age</a>
-        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white">Func-Age</a>
-        <a href="insulin-lab.html" class="nav-link text-neutral-500 hover:text-white">Insulin</a>
-        <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white">Metabolic</a>
-        <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white">Protein</a>
-        <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white">Hydration</a>
-        <a href="mobility-lab.html" class="nav-link text-neutral-500 hover:text-white">Mobility</a>
-        <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white">Recovery</a>
+        <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">FFMI</a>
+        <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">SMI</a>
+        <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Grip</a>
+        <a href="vo2-lab.html" class="nav-link aerobic-blue border-b border-blue-500 pb-1">VO2 Max</a>
+        <a href="watts-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Watts/kg</a>
+        <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Max HR</a>
+        <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Bio-Age</a>
+        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Func-Age</a>
+        <a href="insulin-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Insulin</a>
+        <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Metabolic</a>
+        <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Protein</a>
+        <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Hydration</a>
+        <a href="mobility-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Mobility</a>
+        <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Recovery</a>
         <a href="athlete-lab.html" class="nav-link text-purple-500 border-l border-neutral-800 pl-6 italic font-bold">The Streak Lab</a>
     </div>
 </nav>
 
 <main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter text-left">
     <header class="mb-12">
-        <div class="inline-block bg-red text-black px-4 py-1 font-black italic text-2xl uppercase mb-4 tracking-tighter">Aerobic Capacity Lab</div>
+        <div class="inline-block bg-aerobic text-white px-4 py-1 font-black italic text-2xl uppercase mb-4 tracking-tighter">Aerobic Capacity Lab</div>
         <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono font-bold">Longevity Ceiling Model v1.5</p>
     </header>
 
     <div class="grid lg:grid-cols-2 gap-10">
-        <section class="glass-card p-8 rounded-3xl border-l-4 border-red-600">
-            <h3 class="text-xs font-bold uppercase safety-red mb-6 tracking-widest font-mono italic">Performance Data</h3>
+        <section class="glass-card p-8 rounded-3xl border-l-4 border-blue-600">
+            <h3 class="text-xs font-bold uppercase aerobic-blue mb-6 tracking-widest font-mono italic">Performance Data</h3>
             <div class="space-y-6">
                 <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Gender Profile</label>
+                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Gender Profile</label>
                     <div class="flex bg-black border border-neutral-800 rounded-xl p-1">
                         <button id="gen-male" onclick="setGender('male')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">MALE</button>
                         <button id="gen-female" onclick="setGender('female')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">FEMALE</button>
@@ -73,11 +74,11 @@
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Age</label>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Age</label>
                         <input type="number" id="age" oninput="calculateVO2()" class="input-field font-mono text-2xl" placeholder="55">
                     </div>
                     <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">VO2 Max Score</label>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">VO2 Max Score</label>
                         <input type="number" id="vo2-score" oninput="calculateVO2()" class="input-field font-mono text-2xl" placeholder="0">
                     </div>
                 </div>
@@ -87,12 +88,12 @@
         <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px] relative overflow-hidden">
             <div id="vo2-result" class="hidden relative z-10">
                 <span class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono italic">Cardiovascular Tier:</span>
-                <div id="vo2-category" class="text-5xl font-black safety-red tracking-tighter mb-1 leading-none italic uppercase">--</div>
+                <div id="vo2-category" class="text-5xl font-black aerobic-blue tracking-tighter mb-1 leading-none italic uppercase">--</div>
                 <div id="vo2-percentile" class="text-[10px] font-bold text-white uppercase tracking-[0.2em] mb-8 opacity-70 font-mono">--</div>
-                <div class="p-6 bg-red-600/5 border border-red-600/20 rounded-2xl mb-6 text-left">
+                <div class="p-6 bg-blue-600/5 border border-blue-600/20 rounded-2xl mb-6 text-left">
                     <p id="vo2-advice" class="text-xs text-neutral-400 leading-relaxed italic"></p>
                 </div>
-                <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-red-500 hover:text-white transition-all italic">Commit to Streak Lab →</a>
+                <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-blue-500 hover:text-white transition-all italic">Commit to Streak Lab →</a>
             </div>
             <div id="vo2-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest font-mono">Awaiting Aerobic Data...</div>
             <div class="absolute -right-8 -bottom-8 text-9xl font-black text-white/[0.02] italic pointer-events-none select-none uppercase">Ceiling</div>
@@ -106,35 +107,32 @@
         </div>
         <div class="grid md:grid-cols-3 gap-6">
             <div>
-                <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">1-Mile Time (Min:Sec)</label>
+                <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">1-Mile Time (Min:Sec)</label>
                 <div class="flex gap-2">
                     <input type="number" id="walk-min" class="input-field font-mono text-xl" placeholder="Min">
                     <input type="number" id="walk-sec" class="input-field font-mono text-xl" placeholder="Sec">
                 </div>
             </div>
             <div>
-                <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Finish Heart Rate</label>
+                <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Finish Heart Rate</label>
                 <input type="number" id="walk-hr" class="input-field font-mono text-xl" placeholder="BPM">
             </div>
             <div class="flex items-end">
-                <button onclick="calculateRockport()" class="w-full py-4 bg-neutral-800 text-white font-black italic uppercase text-[10px] rounded-xl hover:bg-white hover:text-black transition-all tracking-widest">Generate Estimate</button>
+                <button onclick="calculateRockport()" class="w-full py-4 bg-neutral-800 text-white font-black italic uppercase text-[10px] rounded-xl hover:bg-white hover:text-black transition-all tracking-widest border border-neutral-700">Generate Estimate</button>
             </div>
         </div>
         <div id="rockport-result" class="hidden mt-6 p-4 bg-white/5 border border-white/10 rounded-xl">
-            <p class="text-[10px] text-neutral-400 uppercase tracking-widest font-mono italic">Calculated VO2 Estimate: <span id="rockport-score" class="text-white font-bold ml-2">--</span></p>
-            <button onclick="applyRockport()" class="text-[9px] text-red-500 font-bold uppercase mt-2 underline font-mono">Apply to Main Lab ↑</button>
+            <p class="text-[10px] text-neutral-400 uppercase tracking-widest font-mono italic">Calculated VO2 Estimate: <span id="rockport-score" class="text-blue-500 font-bold ml-2 text-lg">--</span></p>
+            <button onclick="applyRockport()" class="text-[9px] text-blue-400 font-bold uppercase mt-2 underline font-mono tracking-widest">Apply to Main Lab ↑</button>
         </div>
     </section>
 
     <article class="mt-16 bg-neutral-900/40 p-10 rounded-3xl border border-neutral-800 text-left font-inter">
         <div class="max-w-4xl mx-auto">
-            <h3 class="text-2xl font-black italic uppercase mb-6 safety-red tracking-tighter">The Longevity Ceiling</h3>
-            
-            
-
+            <h3 class="text-2xl font-black italic uppercase mb-6 aerobic-blue tracking-tighter">The Longevity Ceiling</h3>
             <div class="grid md:grid-cols-2 gap-10 mt-8 text-neutral-400 text-sm leading-relaxed border-b border-white/5 pb-10">
                 <div>
-                    <p><strong class="text-white uppercase tracking-widest text-[10px] font-mono">The Risk Profile:</strong> VO2 Max is a primary predictor of healthspan. Moving from the "Low" category to "Above Average" can reduce all-cause mortality risk by nearly 50%.</p>
+                    <p><strong class="text-white uppercase tracking-widest text-[10px] font-mono">The Risk Profile:</strong> VO2 Max is a primary predictor of healthspan. Moving from the "Low" category to "Above Average" can reduce all-cause mortality risk by nearly 50% in masters athletes.</p>
                 </div>
                 <div>
                     <p><strong class="text-white uppercase tracking-widest text-[10px] font-mono">Functional Headroom:</strong> Building a high ceiling at 50+ provides the cardiovascular "buffer" needed to maintain high mobility and cognitive function into your late 80s.</p>
@@ -142,19 +140,19 @@
             </div>
 
             <div class="mt-10">
-                <h4 class="text-white font-black italic uppercase tracking-widest text-xs mb-6 underline decoration-red-500 underline-offset-8">Lab Protocol: Training Cadence</h4>
+                <h4 class="text-white font-black italic uppercase tracking-widest text-xs mb-6 underline decoration-blue-500 underline-offset-8">Lab Protocol: Training Cadence</h4>
                 <div class="grid md:grid-cols-3 gap-6">
                     <div class="bg-black/40 p-5 rounded-2xl border border-white/5">
-                        <span class="text-red-500 font-bold text-[10px] block mb-2 uppercase tracking-tighter italic font-mono">01. Intensity Split</span>
-                        <p class="text-[11px] leading-relaxed">Prioritize 80% Zone 2 training (low intensity) to build mitochondrial density without overtaxing joints.</p>
+                        <span class="text-blue-500 font-bold text-[10px] block mb-2 uppercase tracking-tighter italic font-mono">01. Intensity Split</span>
+                        <p class="text-[11px] leading-relaxed">Prioritize 80% Zone 2 training (low intensity) to build mitochondrial density without overtaxing joints or recovery capacity.</p>
                     </div>
                     <div class="bg-black/40 p-5 rounded-2xl border border-white/5">
-                        <span class="text-red-500 font-bold text-[10px] block mb-2 uppercase tracking-tighter italic font-mono">02. Measurement</span>
-                        <p class="text-[11px] leading-relaxed">For masters athletes, heart rate variability (HRV) should guide interval sessions to prevent overtraining.</p>
+                        <span class="text-blue-500 font-bold text-[10px] block mb-2 uppercase tracking-tighter italic font-mono">02. Measurement</span>
+                        <p class="text-[11px] leading-relaxed">For masters athletes, heart rate variability (HRV) should guide interval sessions to prevent central nervous system fatigue.</p>
                     </div>
                     <div class="bg-black/40 p-5 rounded-2xl border border-white/5">
-                        <span class="text-red-500 font-bold text-[10px] block mb-2 uppercase tracking-tighter italic font-mono">03. Verification</span>
-                        <p class="text-[11px] leading-relaxed">Retest every 12 weeks. VO2 is a trailing indicator of cardiovascular resilience.</p>
+                        <span class="text-blue-500 font-bold text-[10px] block mb-2 uppercase tracking-tighter italic font-mono">03. Verification</span>
+                        <p class="text-[11px] leading-relaxed">Retest every 12 weeks. VO2 is a trailing indicator of cardiovascular resilience and physiological age.</p>
                     </div>
                 </div>
             </div>
@@ -162,8 +160,8 @@
     </article>
 </main>
 
-<footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center">
-    <p class="text-[10px] text-neutral-600 uppercase tracking-[0.3em] font-mono">Academic Athlete Lab | Protocol: VO2_Longevity_v1.5</p>
+<footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center font-mono">
+    <p class="text-[10px] text-neutral-600 uppercase tracking-[0.3em]">Academic Athlete Lab | Protocol: VO2_Longevity_v1.5</p>
 </footer>
 
 <script>
@@ -224,7 +222,6 @@
 
         localStorage.setItem('athleteAge', age);
         localStorage.setItem('athleteVO2', vo2);
-        localStorage.setItem('athleteVO2Cat', category);
 
         document.getElementById('vo2-result').classList.remove('hidden');
         document.getElementById('vo2-placeholder').classList.add('hidden');
