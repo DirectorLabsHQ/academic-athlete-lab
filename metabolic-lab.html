@@ -1,1 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>TDEE & Metabolic Drift Calculator for Masters Athletes | Academic Athlete</title>
+    <meta name="description" content="Calculate your precision TDEE and metabolic rate. Specialized calorie and macro diagnostic for athletes 50+ to prevent age-related metabolic drift.">
+    <meta name="keywords" content="TDEE calculator athletes 50 plus, metabolic drift, maintenance calories masters athlete, Katch-McArdle formula, BMR calculator over 50">
+    <link rel="canonical" href="https://yourdomain.com/metabolic-lab.html" />
 
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Metabolic Drift & TDEE Lab",
+      "operatingSystem": "All",
+      "applicationCategory": "HealthApplication",
+      "description": "Calculates maintenance calories and metabolic efficiency for older athletes based on lean body mass.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap');
+        body { background-color: #050505; color: #fff; font-family: 'Space Mono', monospace; -webkit-font-smoothing: antialiased; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        .safety-orange { color: #f97316; }
+        .glass-card { background: #111; border: 1px solid #222; }
+        .input-field { background: #000; border: 1px solid #333; color: #f97316; outline: none; transition: all 0.2s; font-size: 1.1rem; width: 100%; padding: 1rem; border-radius: 0.75rem; }
+        .input-field:focus { border-color: #f97316; background: #0a0a0a; }
+        .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col" onload="initPage()">
+
+<header class="p-6 border-b border-neutral-900 bg-black">
+    <div class="max-w-6xl mx-auto flex justify-between items-center text-left">
+        <a href="index.html" class="text-xl font-black tracking-tighter safety-orange italic uppercase font-inter">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
+        <div class="hidden md:block">
+            <span class="text-[9px] text-neutral-600 uppercase tracking-widest font-bold font-mono italic text-right">Module: Metabolic_Flux_v3.2</span>
+        </div>
+    </div>
+</header>
+
+<nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto">
+    <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono">
+        <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM</a>
+        <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Bio-Age</a>
+        <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">FFMI</a>
+        <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">VO2 Max</a>
+        <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Grip</a>
+        <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Recovery</a>
+        <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Max HR</a>
+        <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">SMI</a>
+        <a href="watts-kg.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Watts/KG</a>
+        <a href="insulin-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Insulin</a>
+        <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Hydrate</a>
+        <a href="mobility-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Mobility</a>
+        <a href="metabolic-lab.html" class="nav-link text-orange-500 border-b-2 border-orange-500 pb-1">TDEE</a>
+        <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Protein</a>
+        <a href="athlete-lab.html" class="nav-link text-neutral-500 hover:text-white italic px-2 bg-neutral-900 rounded">Log</a>
+    </div>
+</nav>
+
+<main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter">
+    <article>
+        <header class="mb-12 text-left">
+            <h1 class="inline-block bg-orange-600 text-white px-4 py-1 font-black italic text-2xl md:text-4xl uppercase mb-4 leading-tight">TDEE & Metabolic Drift</h1>
+            <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono block">Diagnostic: Daily Energy Expenditure & Maintenance Thresholds</p>
+        </header>
+
+        <div class="grid lg:grid-cols-2 gap-10">
+            <section class="glass-card p-8 rounded-3xl border-l-4 border-orange-600 text-left">
+                <h2 class="text-xs font-bold uppercase safety-orange mb-6 tracking-widest font-mono">Thermodynamic Inputs</h2>
+                <div class="space-y-6">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Weight (kg)</label>
+                            <input type="number" id="weight" oninput="calculateTDEE()" class="input-field font-mono text-2xl" placeholder="85">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Body Fat %</label>
+                            <input type="number" id="bodyfat" oninput="calculateTDEE()" class="input-field font-mono text-2xl" placeholder="18">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Activity Multiplier (T.E.F included)</label>
+                        <select id="activity" onchange="calculateTDEE()" class="input-field font-mono text-xl appearance-none cursor-pointer">
+                            <option value="1.2">Sedentary (Office job, no exercise)</option>
+                            <option value="1.375">Light (1-3 days/wk exercise)</option>
+                            <option value="1.55">Moderate (3-5 days/wk training)</option>
+                            <option value="1.725">Active (6-7 days/wk heavy lifting/sport)</option>
+                            <option value="1.9">Extreme (Pro Athlete / 2-a-days)</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px]">
+                <div id="tdee-result" class="hidden text-left">
+                    <h3 class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono">Daily Maintenance Budget:</h3>
+                    <div id="tdee-val" class="text-7xl font-black safety-orange tracking-tighter mb-4 uppercase italic">-- KCAL</div>
+                    
+                    <div class="p-6 bg-orange-600/5 border border-orange-600/20 rounded-2xl mb-6">
+                        <p class="text-[9px] font-bold text-orange-500 uppercase mb-2 tracking-widest italic text-left underline">Metabolic Status:</p>
+                        <p id="tdee-comment" class="text-xs text-neutral-400 leading-relaxed italic text-left"></p>
+                    </div>
+
+                    <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-orange-600 hover:text-white transition-all italic">Commit Metabolic Data →</a>
+                </div>
+                <div id="tdee-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest font-mono px-10 leading-loose">
+                    [ Awaiting mass and composition data for metabolic modeling ]
+                </div>
+            </section>
+        </div>
+
+        <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
+            <h2 class="text-2xl font-black italic uppercase mb-8 safety-orange tracking-tighter text-left">Academic Research: Preventing Metabolic Drift</h2>
+            
+            
+
+            <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
+                <div>
+                    <h3 class="text-white font-bold mb-4 uppercase tracking-tighter text-left">The Katch-McArdle Advantage</h3>
+                    <p class="mb-6 text-left">Most calculators use age and height (Mifflin-St Jeor), which penalizes older athletes. This lab utilizes the <strong>Katch-McArdle Formula</strong> ($BMR = 370 + (21.6 \times \text{LBM in kg})$). By focusing on Lean Body Mass (LBM), we recognize that a muscular 55-year-old athlete has significantly higher energy demands than their sedentary peer.</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-white font-bold mb-4 uppercase tracking-tighter text-left">Understanding Metabolic Drift</h3>
+                    <p class="mb-4 text-left">Metabolic "slowdown" is largely a byproduct of **Sarcopenia** (muscle loss) rather than chronological age alone. By maintaining a high FFMI (Fat-Free Mass Index) and consistent Zone 2/Resistance training, masters athletes can effectively "drift" their metabolic floor upwards, allowing for better nutrient partitioning and body composition control.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mt-12 p-6 bg-neutral-900/30 border border-neutral-800 rounded-2xl text-left font-mono">
+            <p class="text-[10px] text-neutral-500 leading-relaxed italic">
+                <span class="text-neutral-300 font-bold uppercase tracking-widest block mb-2 underline">Diagnostic Disclaimer:</span>
+                TDEE is an estimate. Individual variation in NEAT (Non-Exercise Activity Thermogenesis) and gut microbiome can impact actual maintenance by ±15%. Use this as a baseline and adjust based on weekly scale trends.
+            </p>
+        </section>
+    </article>
+</main>
+
+<footer class="p-12 border-t border-neutral-900 mt-auto bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-widest">
+    Academic Athlete Lab © 2026 | Protocol: Metabolic_Flux_v3.2
+</footer>
+
+<script>
+    function initPage() {
+        const savedWeight = localStorage.getItem('athleteWeight');
+        const savedBF = localStorage.getItem('athleteBF');
+        if(savedWeight) document.getElementById('weight').value = savedWeight;
+        if(savedBF) document.getElementById('bodyfat').value = savedBF;
+        calculateTDEE();
+    }
+
+    function calculateTDEE() {
+        const weight = parseFloat(document.getElementById('weight').value);
+        const bf = parseFloat(document.getElementById('bodyfat').value);
+        const multiplier = parseFloat(document.getElementById('activity').value);
+
+        if(!weight || !bf) {
+            document.getElementById('tdee-result').classList.add('hidden');
+            document.getElementById('tdee-placeholder').classList.remove('hidden');
+            return;
+        }
+
+        // Katch-McArdle Formula
+        const lbm = weight * (1 - (bf / 100));
+        const bmr = 370 + (21.6 * lbm);
+        const tdee = Math.round(bmr * multiplier);
+
+        document.getElementById('tdee-result').classList.remove('hidden');
+        document.getElementById('tdee-placeholder').classList.add('hidden');
+        document.getElementById('tdee-val').innerText = tdee + " KCAL";
+        
+        let comment = "";
+        if (bf < 15) {
+            comment = "High Metabolic Efficiency. Your caloric budget is optimized for performance and muscle preservation.";
+        } else if (bf < 25) {
+            comment = "Standard Athletic Range. Maintenance calories are stable. Focus on protein density to protect Lean Body Mass.";
+        } else {
+            comment = "Metabolic Ceiling Detected. Adipose load may be impacting insulin signaling. Recommend a 10-15% deficit to optimize power-to-weight ratio.";
+        }
+        
+        document.getElementById('tdee-comment').innerText = comment;
+        
+        localStorage.setItem('athleteWeight', weight);
+        localStorage.setItem('athleteBF', bf);
+    }
+</script>
+</body>
+</html>
