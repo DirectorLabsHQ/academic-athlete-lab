@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insulin Sensitivity Lab | Academic Athlete</title>
-    <meta name="description" content="Calculate HOMA-IR and metabolic efficiency for masters athletes. Monitor insulin sensitivity to optimize nutrient partitioning and reduce inflammation.">
+    <title>Insulin Sensitivity Lab | Academic Athlete Lab</title>
+    <meta name="description" content="Calculate HOMA-IR and metabolic efficiency for masters athletes. Monitor insulin sensitivity to optimize nutrient partitioning.">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -25,8 +25,8 @@
 <header class="p-6 border-b border-neutral-900 bg-black">
     <div class="max-w-6xl mx-auto flex justify-between items-center text-left">
         <a href="index.html" class="text-xl font-black tracking-tighter safety-purple italic uppercase font-inter">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
-        <div class="hidden md:block">
-            <span class="text-[9px] text-neutral-600 uppercase tracking-widest font-bold font-mono">Module: Metabolic_Flex_v2.4</span>
+        <div class="flex bg-neutral-900 rounded-lg p-1">
+            <button class="px-4 py-1.5 text-[10px] font-bold rounded-md bg-purple-500 text-black shadow-sm uppercase font-mono tracking-tighter">Metabolic Module</button>
         </div>
     </div>
 </header>
@@ -34,15 +34,16 @@
 <nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto no-scrollbar">
     <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono text-[10px]">
         <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Lab Home</a>
-       <a href="1rm-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM</a>
+        <a href="1rm-lab.html" class="nav-link text-neutral-500 hover:text-white">1RM</a>
         <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white">FFMI</a>
         <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white">SMI</a>
         <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white">Grip</a>
         <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white">VO2 Max</a>
+        <a href="watts-lab.html" class="nav-link text-neutral-500 hover:text-white">Watts/kg</a>
         <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white">Max HR</a>
         <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white">Bio-Age</a>
         <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white">Func-Age</a>
-        <a href="insulin-lab.html" class="nav-link text-emerald-400 border-b border-emerald-400 pb-1">Insulin</a>
+        <a href="insulin-lab.html" class="nav-link safety-purple border-b border-purple-400 pb-1">Insulin</a>
         <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white">Metabolic</a>
         <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white">Protein</a>
         <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white">Hydration</a>
@@ -64,16 +65,16 @@
             <h3 class="text-xs font-bold uppercase safety-purple mb-6 tracking-widest font-mono italic">Serological Markers</h3>
             <div class="space-y-6">
                 <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Fasting Glucose (mg/dL)</label>
+                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Fasting Glucose (mg/dL)</label>
                     <input type="number" id="glucose" placeholder="90" oninput="calculateInsulin()" class="input-field font-mono text-2xl">
                 </div>
                 <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Fasting Insulin (µU/mL)</label>
+                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Fasting Insulin (µU/mL)</label>
                     <input type="number" id="insulin" placeholder="5" oninput="calculateInsulin()" class="input-field font-mono text-2xl">
                 </div>
             </div>
             <button onclick="calculateInsulin()" class="mt-8 w-full py-4 bg-white text-black font-black italic uppercase text-[10px] rounded-xl hover:bg-purple-500 transition-all tracking-widest font-inter">
-                Calculate HOMA-IR
+                Run Metabolic Diagnostic
             </button>
         </section>
 
@@ -102,6 +103,7 @@
             <div class="space-y-4">
                 <h4 class="text-white font-bold uppercase text-xs tracking-widest font-mono">The HOMA-IR Standard</h4>
                 <p>The Homeostatic Model Assessment for Insulin Resistance (HOMA-IR) is the premier metric for tracking metabolic health. For athletes 50+, a score below 1.5 indicates high metabolic flexibility—meaning your body partitions nutrients toward muscle recovery rather than visceral fat storage.</p>
+                
             </div>
             <div class="space-y-4">
                 <h4 class="text-white font-bold uppercase text-xs tracking-widest font-mono">The Masters Athlete Edge</h4>
@@ -148,6 +150,8 @@
         document.getElementById('insulin-comment').innerText = comment;
         
         localStorage.setItem('athleteHOMA', finalScore);
+        localStorage.setItem('athleteGlucose', glucose);
+        localStorage.setItem('athleteInsulin', insulin);
     }
 </script>
 </body>
