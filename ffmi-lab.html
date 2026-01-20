@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FFMI Calculator for Athletes 50+ | Muscle Mass Index & Sarcopenia Tracker</title>
-    <meta name="description" content="Calculate your Fat-Free Mass Index (FFMI) with age-adjusted normalization. The gold standard for masters athletes over 50 to track lean muscle reserve and metabolic health.">
-    <meta name="keywords" content="FFMI calculator 50 plus, muscle mass index masters athletes, sarcopenia tracking tool, lean mass reserve, fat free mass index formula">
+    <title>FFMI Calculator | Academic Athlete Lab</title>
+    <meta name="description" content="Age-adjusted Fat-Free Mass Index tracking for masters athletes over 50.">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -95,10 +94,10 @@
             <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
                 <div>
                     <h4 class="text-white font-bold mb-4">Why BMI Fails the Masters Athlete</h4>
-                    <p class="mb-6">For the competitive athlete over 50, Body Mass Index (BMI) is a misleading metric. BMI does not account for muscle density, often categorizing high-performing athletes as "overweight." <strong>Fat-Free Mass Index (FFMI)</strong> provides a superior alternative by isolating lean muscle mass relative to height.</p>
+                    <p class="mb-6">For the competitive athlete over 50, BMI is a misleading metric. It doesn't account for muscle density. <strong>FFMI</strong> provides a superior alternative by isolating lean muscle mass relative to height.</p>
                     
                     <h4 class="text-white font-bold mb-4">The Height Normalization Factor</h4>
-                    <p>Our lab utilizes the <strong>Normalized FFMI formula</strong> ($Final = FFMI + 6.1 \times (1.8 - Height)$). This ensures that taller and shorter athletes are compared on an even playing field, accounting for the natural scaling of skeletal muscle.</p>
+                    <p>Our lab uses the <strong>Normalized FFMI formula</strong> ($Final = FFMI + 6.1 \times (1.8 - Height)$). This ensures that taller and shorter athletes are compared on an even playing field, accounting for the natural scaling of skeletal muscle.</p>
                 </div>
                 
                 <div>
@@ -111,12 +110,15 @@
                             <li class="flex justify-between"><span>22 - 25:</span> <span class="text-blue-500">Elite / Advanced</span></li>
                         </ul>
                     </div>
-                    <p class="mt-4 text-[10px] italic">Note: Female athletes typically benchmark 2-3 points lower due to essential fat requirements and hormonal profiling.</p>
+                    <p class="mt-4 text-[10px] italic">Note: Female athletes typically benchmark 2-3 points lower due to hormonal profiling and essential fat requirements.</p>
                 </div>
             </div>
         </article>
-    </section>
-</main>
+    </main>
+
+    <footer class="p-12 border-t border-neutral-900 mt-auto bg-black text-center">
+        <p class="text-[10px] text-neutral-600 uppercase tracking-widest">Academic Athlete Lab © 2026 | Precision Performance Tracking</p>
+    </footer>
 
 <script>
     let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
@@ -134,8 +136,11 @@
         currentUnit = u;
         localStorage.setItem('athleteUnit', u);
         document.querySelectorAll('.unit-label').forEach(el => el.innerText = u);
+        
+        // UI Button States
         document.getElementById('unit-lbs').className = u==='LBS' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active shadow-sm' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500';
         document.getElementById('unit-kg').className = u==='KG' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active shadow-sm' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500';
+        
         calculateFFMI();
     }
 
@@ -144,13 +149,18 @@
         const bf = parseFloat(document.getElementById('bf').value);
         const hCm = parseFloat(document.getElementById('height').value);
 
-        if(!w || !bf || !hCm) return;
+        if(!w || !bf || !hCm) {
+            document.getElementById('ffmi-result').classList.add('hidden');
+            document.getElementById('ffmi-placeholder').classList.remove('hidden');
+            return;
+        }
 
         let weightKg = currentUnit === 'LBS' ? w * 0.453592 : w;
         let heightM = hCm / 100;
         let lbm = weightKg * (1 - (bf / 100));
         let ffmi = lbm / (heightM * heightM);
         
+        // Kouri et al. Normalization Formula
         let normalizedFFMI = ffmi + 6.1 * (1.8 - heightM);
         let finalScore = normalizedFFMI.toFixed(1);
 
@@ -160,10 +170,12 @@
         else if(finalScore < 22) category = "High Performance - Above average muscle mass for the 50+ demographic.";
         else category = "Elite Level - Exceptional structural integrity and muscle reserve.";
 
+        // Persistence
         localStorage.setItem('athleteFFMI', finalScore);
         localStorage.setItem('athleteWeight', w);
         localStorage.setItem('athleteHeight', hCm);
 
+        // UI Update
         document.getElementById('ffmi-result').classList.remove('hidden');
         document.getElementById('ffmi-placeholder').classList.add('hidden');
         document.getElementById('ffmi-val').innerText = finalScore;
