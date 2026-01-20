@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insulin Sensitivity Lab | Academic Athlete Lab</title>
-    <meta name="description" content="Calculate HOMA-IR and metabolic efficiency for masters athletes. Monitor insulin sensitivity to optimize nutrient partitioning.">
+    <title>Insulin Sensitivity Lab | Academic Athlete</title>
+    <meta name="description" content="Calculate HOMA-IR and metabolic efficiency for masters athletes. Monitor insulin sensitivity to optimize nutrient partitioning and reduce inflammation.">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -12,6 +12,7 @@
         body { background-color: #050505; color: #fff; font-family: 'Space Mono', monospace; -webkit-font-smoothing: antialiased; }
         .font-inter { font-family: 'Inter', sans-serif; }
         .safety-purple { color: #a855f7; }
+        .bg-purple { background-color: #a855f7; }
         .glass-card { background: #111; border: 1px solid #222; }
         .input-field { background: #000; border: 1px solid #333; color: #a855f7; outline: none; transition: all 0.2s; font-size: 1.1rem; width: 100%; padding: 1rem; border-radius: 0.75rem; }
         .input-field:focus { border-color: #a855f7; background: #0a0a0a; }
@@ -22,13 +23,16 @@
 <body class="min-h-screen flex flex-col">
 
 <header class="p-6 border-b border-neutral-900 bg-black">
-    <div class="max-w-6xl mx-auto flex justify-between items-center">
+    <div class="max-w-6xl mx-auto flex justify-between items-center text-left">
         <a href="index.html" class="text-xl font-black tracking-tighter safety-purple italic uppercase font-inter">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
+        <div class="hidden md:block">
+            <span class="text-[9px] text-neutral-600 uppercase tracking-widest font-bold font-mono">Module: Metabolic_Flex_v2.4</span>
+        </div>
     </div>
 </header>
 
 <nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto no-scrollbar">
-    <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono text-[10px]">
+    <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono text-[10px] text-left">
         <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Lab Home</a>
         <a href="1rm-lab.html" class="nav-link text-neutral-500 hover:text-white">1RM</a>
         <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white">FFMI</a>
@@ -38,10 +42,10 @@
         <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white">Max HR</a>
         <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white">Bio-Age</a>
         <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white">Func-Age</a>
-        <a href="insulin-lab.html" class="nav-link text-purple-400 border-b border-purple-400 pb-1">Insulin</a>
+        <a href="insulin-lab.html" class="nav-link safety-purple border-b border-purple-500 pb-1">Insulin</a>
         <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white">Metabolic</a>
         <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white">Protein</a>
-        <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white">Hydration</a>
+        <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white">Hydrate</a>
         <a href="mobility-lab.html" class="nav-link text-neutral-500 hover:text-white">Mobility</a>
         <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white">Recovery</a>
         <a href="athlete-lab.html" class="nav-link text-purple-500 border-l border-neutral-800 pl-6 italic font-bold">The Streak Lab</a>
@@ -50,9 +54,9 @@
 
 <main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter">
     <header class="mb-12 text-left">
-        <div class="inline-block bg-purple-500 text-black px-4 py-1 font-black italic text-sm uppercase mb-4">Diagnostic: Metabolic Flexibility</div>
-        <h2 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter mb-4">Insulin<br>Sensitivity</h2>
-        <p class="text-neutral-500 max-w-xl italic leading-relaxed text-sm">Quantifying nutrient partitioning efficiency. For athletes 50+, managing insulin is the key to maintaining lean mass while minimizing systemic inflammation.</p>
+        <div class="inline-block bg-purple-500 text-black px-4 py-1 font-black italic text-sm uppercase mb-4 tracking-tight">Diagnostic: Metabolic Flexibility</div>
+        <h2 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter mb-4 leading-none">Insulin<br>Sensitivity</h2>
+        <p class="text-neutral-500 max-w-xl italic leading-relaxed text-sm">Quantifying nutrient partitioning efficiency. For athletes 50+, managing insulin is the primary mechanism for maintaining lean mass while minimizing systemic inflammation.</p>
     </header>
 
     <div class="grid lg:grid-cols-2 gap-10 items-start">
@@ -60,31 +64,35 @@
             <h3 class="text-xs font-bold uppercase safety-purple mb-6 tracking-widest font-mono italic">Serological Markers</h3>
             <div class="space-y-6">
                 <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Fasting Glucose (mg/dL)</label>
-                    <input type="number" id="glucose" value="90" oninput="calculateInsulin()" class="input-field font-mono text-2xl">
+                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Fasting Glucose (mg/dL)</label>
+                    <input type="number" id="glucose" placeholder="90" oninput="calculateInsulin()" class="input-field font-mono text-2xl">
                 </div>
                 <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2">Fasting Insulin (µU/mL)</label>
-                    <input type="number" id="insulin" value="5" oninput="calculateInsulin()" class="input-field font-mono text-2xl">
+                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono">Fasting Insulin (µU/mL)</label>
+                    <input type="number" id="insulin" placeholder="5" oninput="calculateInsulin()" class="input-field font-mono text-2xl">
                 </div>
             </div>
-            <button onclick="calculateInsulin()" class="mt-8 w-full py-4 bg-white text-black font-black italic uppercase text-[10px] rounded-xl hover:bg-purple-500 transition-all tracking-widest">
+            <button onclick="calculateInsulin()" class="mt-8 w-full py-4 bg-white text-black font-black italic uppercase text-[10px] rounded-xl hover:bg-purple-500 transition-all tracking-widest font-inter">
                 Calculate HOMA-IR
             </button>
         </section>
 
         <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px] relative overflow-hidden text-left">
             <div id="result-display" class="hidden relative z-10">
-                <span class="text-[10px] font-bold uppercase text-purple-500 tracking-[0.3em] font-mono">HOMA-IR Score</span>
-                <div class="text-9xl font-black text-white italic tracking-tighter mb-4" id="homa-result">--</div>
-                <p id="insulin-comment" class="text-sm italic text-neutral-400 leading-relaxed"></p>
-                <div class="mt-8 pt-8 border-t border-neutral-900">
-                    <a href="athlete-lab.html" class="block w-full text-center bg-purple-500 text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-white transition-all italic">Log to Streak Lab →</a>
+                <span class="text-[10px] font-bold uppercase text-purple-500 tracking-[0.3em] font-mono italic">HOMA-IR Score</span>
+                <div class="text-9xl font-black text-white italic tracking-tighter mb-4 leading-none" id="homa-result">--</div>
+                
+                <div class="p-6 bg-purple-500/5 border border-purple-500/20 rounded-2xl mb-6">
+                    <p class="text-[9px] font-bold text-purple-400 uppercase mb-2 tracking-widest italic text-left underline font-mono">Analysis:</p>
+                    <p id="insulin-comment" class="text-xs italic text-neutral-400 leading-relaxed font-inter"></p>
                 </div>
+                
+                <a href="athlete-lab.html" class="block w-full text-center bg-purple-500 text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-white transition-all italic font-inter">Commit to Streak Lab →</a>
             </div>
-            <div id="idle-display" class="text-neutral-700 italic text-center uppercase text-[10px] tracking-widest font-mono">
-                Awaiting biomarker input...
+            <div id="idle-display" class="text-neutral-700 italic text-center uppercase text-[10px] tracking-widest font-mono px-12">
+                [ Awaiting biomarker input for metabolic modeling ]
             </div>
+            <div class="absolute -right-8 -bottom-8 text-9xl font-black text-white/[0.02] italic pointer-events-none select-none uppercase">Partition</div>
         </section>
     </div>
 
@@ -92,16 +100,27 @@
         <h3 class="text-xl font-black italic uppercase mb-8 text-white tracking-tighter">Operational Protocol</h3>
         <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
             <div class="space-y-4">
-                <h4 class="text-white font-bold uppercase text-xs tracking-widest font-mono">Understanding HOMA-IR</h4>
-                <p>The Homeostatic Model Assessment for Insulin Resistance (HOMA-IR) is the gold standard for tracking metabolic health outside of a clinical clamp. For athletes over 50, a score below 1.5 indicates high metabolic flexibility—meaning your body effectively uses carbohydrates for fuel and protein for repair rather than storing them as visceral fat.</p>
+                <h4 class="text-white font-bold uppercase text-xs tracking-widest font-mono">The HOMA-IR Standard</h4>
+                <p>The Homeostatic Model Assessment for Insulin Resistance (HOMA-IR) is the premier metric for tracking metabolic health. For athletes 50+, a score below 1.5 indicates high metabolic flexibility—meaning your body partitions nutrients toward muscle recovery rather than visceral fat storage.</p>
             </div>
             <div class="space-y-4">
                 <h4 class="text-white font-bold uppercase text-xs tracking-widest font-mono">The Masters Athlete Edge</h4>
-                <p>Insulin sensitivity often declines with age, but high-intensity resistance training creates a "glucose sink" in skeletal muscle. By tracking this metric, you can adjust your carbohydrate timing around training windows to ensure maximum anabolic response while maintaining low systemic inflammation.</p>
+                <p>Insulin sensitivity often declines with age, but high-intensity training creates a "glucose sink" in skeletal muscle. By tracking this lab, you can adjust carbohydrate timing around training windows to maximize anabolism while maintaining low systemic inflammation.</p>
             </div>
         </div>
     </section>
+
+    <section class="mt-12 p-6 bg-neutral-900/30 border border-neutral-800 rounded-2xl text-left font-mono">
+        <p class="text-[10px] text-neutral-500 leading-relaxed italic">
+            <span class="text-neutral-300 font-bold uppercase tracking-widest block mb-2 underline font-inter">Diagnostic Disclaimer:</span>
+            HOMA-IR requires accurate fasting blood work. A single high reading may be an outlier; consistent longitudinal tracking via The Streak Lab is recommended for accurate metabolic profiling.
+        </p>
+    </section>
 </main>
+
+<footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-[0.3em]">
+    Academic Athlete Lab © 2026 | Protocol: Metabolic_Flex_v2.4
+</footer>
 
 <script>
     function calculateInsulin() {
@@ -118,17 +137,17 @@
         document.getElementById('result-display').classList.remove('hidden');
         document.getElementById('homa-result').innerText = finalScore;
         
-        localStorage.setItem('athleteInsulin', finalScore);
-
         let comment = "";
         if (homaIR < 1.0) {
-            comment = "Optimal. You possess elite insulin sensitivity. Nutrient partitioning is heavily skewed toward muscle recovery.";
+            comment = "Optimal. You possess elite insulin sensitivity. Nutrient partitioning is heavily skewed toward muscle recovery and glycogen replenishment.";
         } else if (homaIR < 1.9) {
-            comment = "Healthy. You are within the functional range for active masters athletes. Maintain current training volume.";
+            comment = "Functional. You are within the healthy range for active masters athletes. Maintain current training volume and carbohydrate timing.";
         } else {
-            comment = "Resistance Detected. Elevated HOMA-IR suggests metabolic drift. Increase Zone 2 volume or optimize carb timing.";
+            comment = "Resistance Detected. Elevated HOMA-IR suggests metabolic drift. Recommend increasing Zone 2 volume or tightening carbohydrate windows.";
         }
         document.getElementById('insulin-comment').innerText = comment;
+        
+        localStorage.setItem('athleteHOMA', finalScore);
     }
 </script>
 </body>
