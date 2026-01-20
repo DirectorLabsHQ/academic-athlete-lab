@@ -3,27 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>Functional Mobility & Joint Integrity Lab | Academic Athlete</title>
     <meta name="description" content="Assess your functional range of motion and joint integrity. Specialized mobility diagnostic for athletes 50+ to identify injury risk and movement gaps.">
-    <meta name="keywords" content="mobility assessment for older athletes, functional range of motion test, joint health 50 plus, flexibility vs mobility masters, FMS screening online">
-    <link rel="canonical" href="https://yourdomain.com/mobility-lab.html" />
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Functional Mobility Lab",
-      "operatingSystem": "All",
-      "applicationCategory": "HealthApplication",
-      "description": "A diagnostic tool to assess joint range of motion and functional movement quality for masters athletes.",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      }
-    }
-    </script>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -31,131 +12,131 @@
         body { background-color: #050505; color: #fff; font-family: 'Space Mono', monospace; -webkit-font-smoothing: antialiased; }
         .font-inter { font-family: 'Inter', sans-serif; }
         .safety-yellow { color: #facc15; }
+        .bg-yellow { background-color: #facc15; }
         .glass-card { background: #111; border: 1px solid #222; }
         .input-field { background: #000; border: 1px solid #333; color: #facc15; outline: none; transition: all 0.2s; font-size: 1.1rem; width: 100%; padding: 1rem; border-radius: 0.75rem; }
         .input-field:focus { border-color: #facc15; background: #0a0a0a; }
         .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
-        .score-btn { border: 1px solid #333; transition: all 0.2s; }
-        .score-btn.active { background: #facc15; color: #000; border-color: #facc15; }
+        .score-btn { border: 1px solid #333; transition: all 0.2s; color: #666; }
+        .score-btn.active { background: #facc15; color: #000; border-color: #facc15; font-weight: 900; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col" onload="initPage()">
 
 <header class="p-6 border-b border-neutral-900 bg-black text-left">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
-        <a href="index.html" class="text-xl font-black tracking-tighter safety-yellow italic uppercase font-inter">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
+        <a href="index.html" class="text-xl font-black tracking-tighter safety-yellow italic uppercase font-inter text-left">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
         <div class="hidden md:block">
             <span class="text-[9px] text-neutral-600 uppercase tracking-widest font-bold font-mono">Module: Biomechanical_Symmetry_v1.9</span>
         </div>
     </div>
 </header>
 
-<nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto">
-    <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono">
-        <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM</a>
-        <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Bio-Age</a>
-        <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">FFMI</a>
-        <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">VO2 Max</a>
-        <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Grip</a>
-        <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Recovery</a>
-        <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Max HR</a>
-        <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">SMI</a>
-        <a href="watts-kg.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Watts/KG</a>
-        <a href="insulin-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Insulin</a>
-        <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Hydrate</a>
-        <a href="mobility-lab.html" class="nav-link text-yellow-500 border-b-2 border-yellow-500 pb-1">Mobility</a>
-        <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">TDEE</a>
-        <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Protein</a>
-        <a href="athlete-lab.html" class="nav-link text-neutral-500 hover:text-white italic px-2 bg-neutral-900 rounded">Log</a>
+<nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto no-scrollbar">
+    <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono text-[10px]">
+        <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Lab Home</a>
+        <a href="1rm-lab.html" class="nav-link text-neutral-500 hover:text-white">1RM</a>
+        <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white">FFMI</a>
+        <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white">SMI</a>
+        <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white">Grip</a>
+        <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white">VO2 Max</a>
+        <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white">Max HR</a>
+        <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white">Bio-Age</a>
+        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white">Func-Age</a>
+        <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white">Hydrate</a>
+        <a href="mobility-lab.html" class="nav-link safety-yellow border-b border-yellow-500 pb-1">Mobility</a>
+        <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white">Metabolic</a>
+        <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white">Protein</a>
+        <a href="athlete-lab.html" class="nav-link text-purple-500 border-l border-neutral-800 pl-6 italic font-bold">The Streak Lab</a>
     </div>
 </nav>
 
 <main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter">
-    <article>
-        <header class="mb-12 text-left">
-            <h1 class="inline-block bg-yellow-400 text-black px-4 py-1 font-black italic text-2xl md:text-4xl uppercase mb-4">Functional Mobility Lab</h1>
-            <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono block">Diagnostic: Kinetic Chain Integrity & Joint Clearance</p>
-        </header>
+    <header class="mb-12 text-left">
+        <div class="inline-block bg-yellow-400 text-black px-4 py-1 font-black italic text-2xl uppercase mb-4 tracking-tighter">Functional Mobility Lab</div>
+        <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono block font-bold">Diagnostic: Kinetic Chain Integrity & Joint Clearance</p>
+    </header>
 
-        <div class="grid lg:grid-cols-2 gap-10">
-            <section class="glass-card p-8 rounded-3xl border-l-4 border-yellow-400 text-left">
-                <h2 class="text-xs font-bold uppercase safety-yellow mb-6 tracking-widest font-mono italic">Self-Assessment Protocol</h2>
-                <p class="text-[10px] text-neutral-500 mb-8 uppercase font-bold tracking-tighter">Scale: 1 (Pain/Blocked) | 2 (Limited) | 3 (Full/Academic)</p>
-                
-                <div class="space-y-8">
-                    <div>
-                        <label class="block text-[11px] uppercase text-white font-bold mb-3 tracking-widest">Ankle Dorsiflexion (Knee to Wall)</label>
-                        <div class="flex gap-4">
-                            <button onclick="setScore('ankle', 1)" id="ankle-1" class="score-btn flex-1 py-3 rounded-lg text-xs font-mono">1</button>
-                            <button onclick="setScore('ankle', 2)" id="ankle-2" class="score-btn flex-1 py-3 rounded-lg text-xs font-mono">2</button>
-                            <button onclick="setScore('ankle', 3)" id="ankle-3" class="score-btn flex-1 py-3 rounded-lg text-xs font-mono">3</button>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-[11px] uppercase text-white font-bold mb-3 tracking-widest">Hip Internal Rotation</label>
-                        <div class="flex gap-4">
-                            <button onclick="setScore('hip', 1)" id="hip-1" class="score-btn flex-1 py-3 rounded-lg text-xs font-mono">1</button>
-                            <button onclick="setScore('hip', 2)" id="hip-2" class="score-btn flex-1 py-3 rounded-lg text-xs font-mono">2</button>
-                            <button onclick="setScore('hip', 3)" id="hip-3" class="score-btn flex-1 py-3 rounded-lg text-xs font-mono">3</button>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-[11px] uppercase text-white font-bold mb-3 tracking-widest">Shoulder Overhead Clearance</label>
-                        <div class="flex gap-4">
-                            <button onclick="setScore('shoulder', 1)" id="shoulder-1" class="score-btn flex-1 py-3 rounded-lg text-xs font-mono">1</button>
-                            <button onclick="setScore('shoulder', 2)" id="shoulder-2" class="score-btn flex-1 py-3 rounded-lg text-xs font-mono">2</button>
-                            <button onclick="setScore('shoulder', 3)" id="shoulder-3" class="score-btn flex-1 py-3 rounded-lg text-xs font-mono">3</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px]">
-                <div id="mobility-result" class="hidden text-left">
-                    <h3 class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono">Movement Readiness Score:</h3>
-                    <div id="mobility-val" class="text-7xl font-black safety-yellow tracking-tighter mb-4 uppercase italic">--%</div>
-                    
-                    <div class="p-6 bg-yellow-400/5 border border-yellow-400/20 rounded-2xl mb-6">
-                        <p class="text-[9px] font-bold text-yellow-400 uppercase mb-2 tracking-widest italic text-left underline">Kinetic Analysis:</p>
-                        <p id="mobility-comment" class="text-xs text-neutral-400 leading-relaxed italic text-left"></p>
-                    </div>
-
-                    <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-yellow-400 hover:text-white transition-all italic">Log Movement Profile →</a>
-                </div>
-                <div id="mobility-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest font-mono px-10 leading-loose">
-                    [ Awaiting biomechanical assessment scores for joint analysis ]
-                </div>
-            </section>
-        </div>
-
-        <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
-            <h2 class="text-2xl font-black italic uppercase mb-8 safety-yellow tracking-tighter text-left">Academic Research: Mobility vs Flexibility</h2>
+    <div class="grid lg:grid-cols-2 gap-10">
+        <section class="glass-card p-8 rounded-3xl border-l-4 border-yellow-400 text-left">
+            <h2 class="text-xs font-bold uppercase safety-yellow mb-6 tracking-widest font-mono italic">Self-Assessment Protocol</h2>
+            <p class="text-[10px] text-neutral-500 mb-8 uppercase font-bold tracking-tighter">Scale: 1 (Blocked/Pain) | 2 (Limited) | 3 (Optimal/Academic)</p>
             
-            
-
-            <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
+            <div class="space-y-8">
                 <div>
-                    <h3 class="text-white font-bold mb-4 uppercase tracking-tighter text-left">The Joint-By-Joint Approach</h3>
-                    <p class="mb-6 text-left">As proposed by Gray Cook and Mike Boyle, the body is a stack of joints alternating between **stability and mobility**. For the athlete over 50, a loss of ankle mobility forces the knee (a stability joint) to compensate, leading to chronic inflammation and tissue failure. We prioritize fROM over static stretching.</p>
+                    <label class="block text-[11px] uppercase text-white font-bold mb-3 tracking-widest font-mono italic">Ankle Dorsiflexion (Knee to Wall)</label>
+                    <div class="flex gap-4">
+                        <button onclick="setScore('ankle', 1)" id="ankle-1" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">1</button>
+                        <button onclick="setScore('ankle', 2)" id="ankle-2" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">2</button>
+                        <button onclick="setScore('ankle', 3)" id="ankle-3" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">3</button>
+                    </div>
                 </div>
-                
                 <div>
-                    <h3 class="text-white font-bold mb-4 uppercase tracking-tighter text-left">Connective Tissue Aging</h3>
-                    <p class="mb-4 text-left">With age, tendons and ligaments lose their elastic properties. Mobility training provides the <strong>mechanical loading</strong> necessary to stimulate tenocyte activity and maintain the integrity of the extracellular matrix. Functional range is the prerequisite for all power development.</p>
+                    <label class="block text-[11px] uppercase text-white font-bold mb-3 tracking-widest font-mono italic">Hip Internal/External Rotation</label>
+                    <div class="flex gap-4">
+                        <button onclick="setScore('hip', 1)" id="hip-1" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">1</button>
+                        <button onclick="setScore('hip', 2)" id="hip-2" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">2</button>
+                        <button onclick="setScore('hip', 3)" id="hip-3" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">3</button>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-[11px] uppercase text-white font-bold mb-3 tracking-widest font-mono italic">Shoulder Overhead Clearance</label>
+                    <div class="flex gap-4">
+                        <button onclick="setScore('shoulder', 1)" id="shoulder-1" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">1</button>
+                        <button onclick="setScore('shoulder', 2)" id="shoulder-2" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">2</button>
+                        <button onclick="setScore('shoulder', 3)" id="shoulder-3" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">3</button>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="mt-12 p-6 bg-neutral-900/30 border border-neutral-800 rounded-2xl text-left font-mono">
-            <p class="text-[10px] text-neutral-500 leading-relaxed italic">
-                <span class="text-neutral-300 font-bold uppercase tracking-widest block mb-2 underline">Diagnostic Disclaimer:</span>
-                This self-assessment tool is for educational purposes only. If you experience sharp pain (Level 1) during any movement, cease the activity and consult a Physical Therapist or Orthopedic specialist. Mobility scores do not replace clinical diagnostic imaging.
-            </p>
+        <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px] relative overflow-hidden">
+            <div id="mobility-result" class="hidden text-left relative z-10">
+                <h3 class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono italic">Movement Readiness Score:</h3>
+                <div id="mobility-val" class="text-7xl font-black safety-yellow tracking-tighter mb-4 uppercase italic leading-none">--%</div>
+                
+                <div class="p-6 bg-yellow-400/5 border border-yellow-400/20 rounded-2xl mb-6">
+                    <p class="text-[9px] font-bold text-yellow-400 uppercase mb-2 tracking-widest italic text-left underline">Kinetic Analysis:</p>
+                    <p id="mobility-comment" class="text-xs text-neutral-400 leading-relaxed italic text-left"></p>
+                </div>
+
+                <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-yellow-400 transition-all italic font-inter">Commit to Streak Lab →</a>
+            </div>
+            <div id="mobility-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest font-mono px-10 leading-loose">
+                [ Awaiting biomechanical assessment scores for joint analysis ]
+            </div>
+            <div class="absolute -right-8 -bottom-8 text-9xl font-black text-white/[0.02] italic pointer-events-none select-none uppercase">Kinetic</div>
         </section>
-    </article>
+    </div>
+
+    <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
+        <h2 class="text-2xl font-black italic uppercase mb-8 safety-yellow tracking-tighter">Academic Research: Mobility vs Flexibility</h2>
+        
+        
+
+        <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
+            <div>
+                <h3 class="text-white font-bold mb-4 uppercase tracking-tighter text-xs font-mono">The Joint-By-Joint Approach</h3>
+                <p class="mb-6">For the athlete over 50, a loss of ankle mobility forces the knee (a stability joint) to compensate, leading to chronic inflammation and tissue failure. We prioritize <strong>functional Range of Motion (fROM)</strong> over simple static stretching.</p>
+            </div>
+            
+            <div>
+                <h3 class="text-white font-bold mb-4 uppercase tracking-tighter text-xs font-mono">Connective Tissue Aging</h3>
+                <p class="mb-4">With age, tendons and ligaments lose elastic properties. Mobility training provides the <strong>mechanical loading</strong> necessary to stimulate tenocyte activity and maintain the integrity of the extracellular matrix.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="mt-12 p-6 bg-neutral-900/30 border border-neutral-800 rounded-2xl text-left font-mono">
+        <p class="text-[10px] text-neutral-500 leading-relaxed italic">
+            <span class="text-neutral-300 font-bold uppercase tracking-widest block mb-2 underline font-inter">Diagnostic Disclaimer:</span>
+            This tool is for educational purposes. If you experience sharp pain (Level 1) during any movement, cease activity and consult a specialist. Mobility scores do not replace clinical imaging.
+        </p>
+    </section>
 </main>
 
-<footer class="p-12 border-t border-neutral-900 mt-auto bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-widest">
+<footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-[0.3em]">
     Academic Athlete Lab © 2026 | Protocol: Biomechanical_Symmetry_v1.9
 </footer>
 
@@ -188,11 +169,11 @@
         
         let comment = "";
         if (percentage >= 88) {
-            comment = "Academic Standard. Your joint ranges are optimized for high-intensity athletic recruitment. Maintain with daily end-range loading.";
+            comment = "Academic Standard. Joint ranges are optimized for high-intensity recruitment. Maintain with daily end-range loading.";
         } else if (percentage >= 66) {
-            comment = "Functional. Minor movement leaks detected. Priority: Focus on the specific joints scored at Level 2 to prevent compensation patterns.";
+            comment = "Functional Level. Minor movement leaks detected. Priority: Focus on specific joints scored at Level 2 to prevent compensation.";
         } else {
-            comment = "Injury Risk High. Significant mobility deficits detected. Your kinetic chain is compromised. Recommend shifting focus to corrective fROM protocols before increasing load.";
+            comment = "Injury Risk High. Significant deficits detected. Recommend corrective fROM protocols before increasing external load.";
         }
         
         document.getElementById('mobility-comment').innerText = comment;
