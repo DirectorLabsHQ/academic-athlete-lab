@@ -1,33 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://academicathletelab.com/index.html</loc>
-    <lastmod>2026-01-18</lastmod>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://academicathletelab.com/functional-age.html</loc>
-    <lastmod>2026-01-18</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://academicathletelab.com/ffmi-lab.html</loc>
-    <lastmod>2026-01-18</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://academicathletelab.com/protein-lab.html</loc>
-    <lastmod>2026-01-18</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://academicathletelab.com/vo2-lab.html</loc>
-    <lastmod>2026-01-18</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://academicathletelab.com/athlete-lab.html</loc>
-    <lastmod>2026-01-18</lastmod>
-    <priority>0.5</priority>
-  </url>
+    <url>
+        <loc>https://academiceslhub.com/index.html</loc>
+        <lastmod>2026-01-22</lastmod>
+        <priority>1.0</priority>
+    </url>
+
+    <url><loc>https://academiceslhub.com/1rm-lab.html</loc><lastmod>2026-01-22</lastmod><priority>0.9</priority></url>
+    <url><loc>https://academiceslhub.com/ffmi-lab.html</loc><lastmod>2026-01-22</lastmod><priority>0.9</priority></url>
+    <url><loc>https://academiceslhub.com/smi-lab.html</loc><lastmod>2026-01-22</lastmod><priority>0.8</priority></url>
+
+    <url><loc>https://academiceslhub.com/vo2-lab.html</loc><lastmod>2026-01-22</lastmod><priority>0.9</priority></url>
+    <url><loc>https://academiceslhub.com/watts-lab.html</loc><lastmod>2026-01-22</lastmod><priority>0.8</priority></url>
+    <url><loc>https://academiceslhub.com/max-hr.html</loc><lastmod>2026-01-22</lastmod><priority>0.8</priority></url>
+    <url><loc>https://academiceslhub.com/grip-lab.html</loc><lastmod>2026-01-22</lastmod><priority>0.8</priority></url>
+
+    <url><loc>https://academiceslhub.com/bio-age.html</loc><lastmod>2026-01-22</lastmod><priority>0.8</priority></url>
+    <url><loc>https://academiceslhub.com/functional-age.html</loc><lastmod>2026-01-22</lastmod><priority>0.8</priority></url>
+
+    <url><loc>https://academiceslhub.com/insulin-lab.html</loc><lastmod>2026-01-22</lastmod><priority>0.7</priority></url>
+    <url><loc>https://academiceslhub.com/metabolic-lab.html</loc><lastmod>2026-01-22</lastmod><priority>0.7</priority></url>
+    <url><loc>https://academiceslhub.com/protein-lab.html</loc><lastmod>2026-01-22</lastmod><priority>0.7</priority></url>
+    <url><loc>https://academiceslhub.com/hydration-lab.html</loc><lastmod>2026-01-22</lastmod><priority>0.7</priority></url>
+
+    <url><loc>https://academiceslhub.com/mobility-lab.html</loc><lastmod>2026-01-22</lastmod><priority>0.7</priority></url>
+    <url><loc>https://academiceslhub.com/recovery-lab.html</loc><lastmod>2026-01-22</lastmod><priority>0.7</priority></url>
+
+    <url><loc>https://academiceslhub.com/athlete-lab.html</loc><lastmod>2026-01-22</lastmod><priority>0.9</priority></url>
 </urlset>
