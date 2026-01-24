@@ -23,8 +23,10 @@
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap');
         body { background-color: #050505; color: #fff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
         .font-mono { font-family: 'Space Mono', monospace; }
-        .lab-card { background: #111; border: 1px solid #222; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border-left-width: 4px; }
-        .lab-card:hover { transform: translateY(-5px); background: #161616; border-color: #333; }
+        .safety-yellow { color: #facc15; }
+        .bg-safety { background-color: #facc15; }
+        .glass-card { background: #111; border: 1px solid #222; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border-left-width: 4px; }
+        .glass-card:hover { transform: translateY(-5px); background: #161616; border-color: #333; }
         .nav-link { font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
         .category-header { font-family: 'Space Mono', monospace; color: #444; border-bottom: 1px solid #222; padding-bottom: 8px; margin-bottom: 24px; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -160,6 +162,21 @@
                     <p class="text-neutral-500 text-xs font-mono uppercase tracking-tighter">CNS Strain Modeling</p>
                 </a>
             </div>
+        </div>
+
+        <!-- NEW: Amazon affiliate recommendation box (clean, matches your style) -->
+        <div class="mb-12 p-8 bg-[#111] border border-[#222] rounded-3xl text-center">
+            <p class="text-neutral-300 text-base mb-4">
+                Support muscle preservation and strength gains with high-quality creatine supplementation.
+            </p>
+            <a href="https://amzn.to/4rfebkU" 
+               target="_blank" rel="noopener noreferrer"
+               class="inline-block bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-8 rounded-lg transition">
+                Recommended Creatine → (Amazon)
+            </a>
+            <p class="text-neutral-500 text-xs mt-4 italic">
+                As an Amazon Associate, I earn from qualifying purchases at no extra cost to you.
+            </p>
         </div>
 
         <div class="bg-purple-600 rounded-3xl p-12 text-center text-white shadow-[0_20px_50px_rgba(168,85,247,0.2)]">
