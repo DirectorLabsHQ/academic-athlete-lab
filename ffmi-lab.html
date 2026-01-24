@@ -17,8 +17,8 @@
         .glass-card { background: #111; border: 1px solid #222; }
         .input-field { background: #000; border: 1px solid #333; color: #facc15; outline: none; transition: all 0.2s; font-size: 1.1rem; width: 100%; padding: 1rem; border-radius: 0.75rem; }
         .input-field:focus { border-color: #facc15; background: #0a0a0a; }
-        .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
         .toggle-active { background-color: #facc15 !important; color: #000 !important; }
+        .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
@@ -88,10 +88,26 @@
             <div id="ffmi-result-container" class="hidden relative z-10">
                 <span class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono italic">Normalized FFMI Score:</span>
                 <div id="ffmi-val" class="text-8xl font-black safety-yellow tracking-tighter mb-4">--</div>
-                <div class="p-6 bg-yellow-500/5 border border-yellow-500/20 rounded-2xl">
-                    <p class="text-[9px] font-bold text-yellow-500 uppercase mb-2 tracking-widest italic font-mono">Longevity Interpretation:</p>
+                <div class="p-6 bg-yellow-500/5 border border-yellow-500/20 rounded-2xl mb-8">
+                    <p class="text-[9px] font-bold text-yellow-500 uppercase mb-3 tracking-widest italic font-mono">Longevity Interpretation:</p>
                     <p id="ffmi-category" class="text-xs text-neutral-400 leading-relaxed italic"></p>
                 </div>
+
+                <!-- NEW: Amazon affiliate recommendation box (clean, matches your style) -->
+                <div class="mt-6 p-6 bg-[#111] border border-[#222] rounded-2xl text-center">
+                    <p class="text-neutral-300 text-base mb-4">
+                        Support lean muscle mass preservation and strength gains with high-quality creatine supplementation.
+                    </p>
+                    <a href="https://amzn.to/4rfebkU" 
+                       target="_blank" rel="noopener noreferrer"
+                       class="inline-block bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-8 rounded-lg transition">
+                        Recommended Creatine → (Amazon)
+                    </a>
+                    <p class="text-neutral-500 text-xs mt-4 italic">
+                        As an Amazon Associate, I earn from qualifying purchases at no extra cost to you.
+                    </p>
+                </div>
+
                 <div class="mt-8">
                      <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-yellow-500 transition-all italic shadow-xl">Log to Streak Lab →</a>
                 </div>
