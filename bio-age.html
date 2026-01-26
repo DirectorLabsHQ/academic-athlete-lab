@@ -94,7 +94,7 @@
                     <p id="offset-comment" class="text-xs italic text-neutral-400 leading-relaxed font-inter"></p>
                 </div>
 
-                <!-- NEW: Longevity affiliate recommendation (appears after calculation) -->
+                <!-- Longevity affiliate recommendation (only once, after calculation) -->
                 <div class="mt-8 p-6 bg-[#111] border border-[#222] rounded-2xl text-center">
                     <p class="text-neutral-300 text-base mb-4">
                         Want to track your true biological age more accurately and optimize recovery/longevity?
@@ -197,23 +197,26 @@
         }
         document.getElementById('offset-comment').innerText = comment;
 
-        // NEW: Longevity affiliate recommendation (appears after calculation)
-        const affiliateBox = document.createElement('div');
-        affiliateBox.className = 'mt-8 p-6 bg-[#111] border border-[#222] rounded-2xl text-center';
-        affiliateBox.innerHTML = `
-            <p class="text-neutral-300 text-base mb-4">
-                Want to track your true biological age more accurately and optimize recovery/longevity?
-            </p>
-            <a href="https://tidd.ly/4pX1IkE" 
-               target="_blank" rel="noopener noreferrer nofollow"
-               class="inline-block bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 px-8 rounded-lg transition text-sm">
-                Explore Longevity & Recovery Tools →
-            </a>
-            <p class="text-neutral-500 text-xs mt-4 italic">
-                Affiliate link — we may earn a small commission at no extra cost to you.
-            </p>
-        `;
-        document.getElementById('result-display').appendChild(affiliateBox);
+        // Longevity affiliate recommendation (only once, after calculation)
+        if (!document.getElementById('affiliate-box')) {  // Prevent duplicates
+            const affiliateBox = document.createElement('div');
+            affiliateBox.id = 'affiliate-box';  // ID to check for existence
+            affiliateBox.className = 'mt-8 p-6 bg-[#111] border border-[#222] rounded-2xl text-center';
+            affiliateBox.innerHTML = `
+                <p class="text-neutral-300 text-base mb-4">
+                    Want to track your true biological age more accurately and optimize recovery/longevity?
+                </p>
+                <a href="https://tidd.ly/4pX1IkE" 
+                   target="_blank" rel="noopener noreferrer nofollow"
+                   class="inline-block bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 px-8 rounded-lg transition text-sm">
+                    Explore Longevity & Recovery Tools →
+                </a>
+                <p class="text-neutral-500 text-xs mt-4 italic">
+                    Affiliate link — we may earn a small commission at no extra cost to you.
+                </p>
+            `;
+            document.getElementById('result-display').appendChild(affiliateBox);
+        }
     }
 </script>
 </body>
