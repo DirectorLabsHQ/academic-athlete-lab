@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const navHTML = `
-<nav id="main-nav" class="bg-black py-4 px-6 sticky top-0 border-b border-neutral-900 w-full" style="z-index: 999999;">
+<nav id="main-nav" class="bg-black py-4 px-6 pb-8 sticky top-0 border-b border-neutral-900 w-full" style="z-index: 999999;">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
         <div class="flex items-center gap-8">
             <a href="index.html" class="text-white font-black italic tracking-tighter mr-4 uppercase text-xl">ACADEMIC<span class="text-neutral-500">ATHLETE</span></a>
@@ -63,32 +63,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add simple hover logic for browsers that struggle with Tailwind 'group-hover' on injected HTML
     const wrapper = document.getElementById('tools-wrapper');
     const menu = document.getElementById('tools-menu-dropdown');
-    const arrow = document.getElementById('tools-arrow');
     
-    if (wrapper && menu && arrow) {
-        let isOpen = false;
-
-        const openMenu = () => {
-            menu.style.display = 'block';
-            arrow.classList.add('rotate-180');
-            isOpen = true;
-        };
-
-        const closeMenu = () => {
-            menu.style.display = 'none';
-            arrow.classList.remove('rotate-180');
-            isOpen = false;
-        };
-
-        wrapper.addEventListener('mouseenter', openMenu);
-        wrapper.addEventListener('mouseleave', (e) => {
-            // Only close if mouse is not entering the menu
-            if (!menu.contains(e.relatedTarget)) {
-                closeMenu();
-            }
-        });
-
-        menu.addEventListener('mouseleave', closeMenu);
-        menu.addEventListener('mouseenter', openMenu);
+    if(wrapper && menu) {
+        wrapper.addEventListener('mouseenter', () => menu.style.display = 'block');
+        wrapper.addEventListener('mouseleave', () => menu.style.display = 'none');
     }
 });
