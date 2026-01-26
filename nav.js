@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const navHTML = `
-<nav class="bg-black py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/90 border-b border-neutral-900">
+<nav class="bg-black py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/90 border-b border-neutral-900" style="overflow: visible !important;">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
         <div class="flex items-center gap-8">
             <a href="index.html" class="text-white font-black italic tracking-tighter mr-4 uppercase text-xl">ACADEMIC<span class="text-neutral-500">ATHLETE</span></a>
@@ -8,26 +8,22 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono text-[10px]">
                 <a href="index.html" class="nav-link text-white border-b border-white pb-1">Lab Home</a>
                 
-                <!-- Tools Dropdown -->
-                <div class="relative" id="tools-group">
+                <div class="relative" id="tools-group" style="padding-bottom: 20px; margin-bottom: -20px;">
                     <button id="tools-button" class="nav-link text-neutral-500 hover:text-white flex items-center gap-1 focus:outline-none">
                         Tools
-                        <svg id="tools-arrow" class="w-3 h-3 fill-current transition-transform" viewBox="0 0 20 20">
+                        <svg id="tools-arrow" class="w-3 h-3 fill-current transition-transform duration-200" viewBox="0 0 20 20">
                             <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path>
                         </svg>
                     </button>
                     
-                    <div id="tools-menu" class="absolute left-0 mt-3 w-72 bg-[#111] border border-[#222] rounded-xl shadow-2xl hidden transition-all duration-200 overflow-hidden z-50">
+                    <div id="tools-menu" class="absolute left-0 mt-2 w-72 bg-[#111] border border-[#222] rounded-xl shadow-2xl transition-all duration-200 overflow-hidden z-[1000]" style="display: none;">
                         <div class="max-h-[70vh] overflow-y-auto no-scrollbar">
-                            <!-- 01. Power & Sarcopenia Defense -->
                             <div class="px-4 py-3 border-b border-neutral-800">
                                 <p class="text-neutral-600 text-[9px] uppercase tracking-wider mb-2 font-bold">Power & Sarcopenia Defense</p>
                                 <a href="1rm-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">1RM Strength</a>
                                 <a href="ffmi-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">FFMI Lab</a>
                                 <a href="smi-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">SMI Lab</a>
                             </div>
-                            
-                            <!-- 02. Engine & Power Output -->
                             <div class="px-4 py-3 border-b border-neutral-800">
                                 <p class="text-neutral-600 text-[9px] uppercase tracking-wider mb-2 font-bold">Engine & Power Output</p>
                                 <a href="vo2-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">VO2 Max</a>
@@ -35,15 +31,11 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <a href="max-hr.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Max HR</a>
                                 <a href="grip-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Grip Strength</a>
                             </div>
-                            
-                            <!-- 03. Cellular & Functional Age -->
                             <div class="px-4 py-3 border-b border-neutral-800">
                                 <p class="text-neutral-600 text-[9px] uppercase tracking-wider mb-2 font-bold">Cellular & Functional Age</p>
                                 <a href="bio-age.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Biological Age</a>
                                 <a href="functional-age.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Functional Age</a>
                             </div>
-                            
-                            <!-- 04. Metabolic & Recovery -->
                             <div class="px-4 py-3 border-b border-neutral-800">
                                 <p class="text-neutral-600 text-[9px] uppercase tracking-wider mb-2 font-bold">Metabolic & Recovery</p>
                                 <a href="insulin-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Insulin Lab</a>
@@ -51,8 +43,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <a href="protein-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Protein Lab</a>
                                 <a href="hydration-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Hydration</a>
                             </div>
-                            
-                            <!-- 05. Structural Integrity -->
                             <div class="px-4 py-3">
                                 <p class="text-neutral-600 text-[9px] uppercase tracking-wider mb-2 font-bold">Structural Integrity</p>
                                 <a href="mobility-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Mobility Lab</a>
@@ -72,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.body.insertAdjacentHTML('afterbegin', navHTML);
 
-    // JS toggle for all devices
     const toolsGroup = document.getElementById('tools-group');
     const toolsMenu = document.getElementById('tools-menu');
     const toolsArrow = document.getElementById('tools-arrow');
@@ -80,11 +69,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (toolsGroup && toolsMenu) {
         toolsGroup.addEventListener('mouseenter', () => {
             toolsMenu.style.display = 'block';
-            toolsArrow.classList.add('rotate-180');
+            toolsArrow.style.transform = 'rotate(180deg)';
         });
         toolsGroup.addEventListener('mouseleave', () => {
             toolsMenu.style.display = 'none';
-            toolsArrow.classList.remove('rotate-180');
+            toolsArrow.style.transform = 'rotate(0deg)';
         });
     }
 });
