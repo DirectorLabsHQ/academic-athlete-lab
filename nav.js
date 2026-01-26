@@ -8,16 +8,16 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono text-[10px]">
                 <a href="index.html" class="nav-link text-white border-b border-white pb-1">Lab Home</a>
                 
-                <!-- Tools Dropdown -->
-                <div class="relative group">
-                    <button class="nav-link text-neutral-500 hover:text-white flex items-center gap-1 focus:outline-none">
+                <!-- Tools Dropdown with toggle support -->
+                <div class="relative" id="tools-container">
+                    <button id="tools-button" class="nav-link text-neutral-500 hover:text-white flex items-center gap-1 focus:outline-none focus:text-white" aria-expanded="false">
                         Tools
-                        <svg class="w-3 h-3 fill-current transition-transform group-hover:rotate-180" viewBox="0 0 20 20">
+                        <svg id="tools-arrow" class="w-3 h-3 fill-current transition-transform" viewBox="0 0 20 20">
                             <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
                         </svg>
                     </button>
                     
-                    <div class="absolute left-0 mt-3 w-72 bg-[#111] border border-[#222] rounded-xl shadow-2xl opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 overflow-hidden z-50">
+                    <div id="tools-dropdown" class="absolute left-0 mt-3 w-72 bg-[#111] border border-[#222] rounded-xl shadow-2xl opacity-0 pointer-events-none transition-opacity duration-200 overflow-hidden z-50">
                         <div class="max-h-[70vh] overflow-y-auto no-scrollbar">
                             <!-- 01. Power & Sarcopenia Defense -->
                             <div class="px-4 py-3 border-b border-neutral-800">
@@ -68,6 +68,37 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </div>
 </nav>
+
+<script>
+    // Dropdown toggle logic
+    const toolsButton = document.getElementById('tools-button');
+    const toolsDropdown = document.getElementById('tools-dropdown');
+    const toolsArrow = document.getElementById('tools-arrow');
+    const toolsContainer = document.getElementById('tools-container');
+
+    if (toolsButton && toolsDropdown) {
+        toolsButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();  // Prevent closing immediately
+            const isOpen = toolsDropdown.classList.contains('opacity-100');
+            
+            // Toggle
+            toolsDropdown.classList.toggle('opacity-100');
+            toolsDropdown.classList.toggle('pointer-events-auto');
+            toolsArrow.classList.toggle('rotate-180');
+            toolsButton.setAttribute('aria-expanded', !isOpen);
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!toolsContainer.contains(e.target)) {
+                toolsDropdown.classList.remove('opacity-100', 'pointer-events-auto');
+                toolsArrow.classList.remove('rotate-180');
+                toolsButton.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+</script>
     `;
 
     document.body.insertAdjacentHTML('afterbegin', navHTML);
