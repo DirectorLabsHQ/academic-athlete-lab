@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <svg id="tools-arrow" class="w-3 h-3 transition-transform duration-200" viewBox="0 0 20 20" fill="currentColor"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path></svg>
                     </button>
                     
-                    <div class="absolute left-0 top-full pt-2 hidden group-hover:block w-72" id="tools-menu-dropdown">
+                    <div class="absolute left-0 top-full pt-2 w-72" id="tools-menu-dropdown" style="display:none">
                         <div class="bg-[#111] border border-[#222] rounded-xl shadow-2xl overflow-hidden p-4">
                              <div class="grid gap-4">
                                 <div>
@@ -65,14 +65,30 @@ document.addEventListener('DOMContentLoaded', function() {
     const menu = document.getElementById('tools-menu-dropdown');
     const arrow = document.getElementById('tools-arrow');
     
-    if(wrapper && menu && arrow) {
-        wrapper.addEventListener('mouseenter', () => {
+    if (wrapper && menu && arrow) {
+        let isOpen = false;
+
+        const openMenu = () => {
             menu.style.display = 'block';
             arrow.classList.add('rotate-180');
-        });
-        wrapper.addEventListener('mouseleave', () => {
+            isOpen = true;
+        };
+
+        const closeMenu = () => {
             menu.style.display = 'none';
             arrow.classList.remove('rotate-180');
+            isOpen = false;
+        };
+
+        wrapper.addEventListener('mouseenter', openMenu);
+        wrapper.addEventListener('mouseleave', (e) => {
+            // Only close if mouse is not entering the menu
+            if (!menu.contains(e.relatedTarget)) {
+                closeMenu();
+            }
         });
+
+        menu.addEventListener('mouseleave', closeMenu);
+        menu.addEventListener('mouseenter', openMenu);
     }
 });
