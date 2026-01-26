@@ -49,4 +49,42 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <a href="insulin-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Insulin Lab</a>
                                 <a href="metabolic-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Metabolic</a>
                                 <a href="protein-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Protein Lab</a>
-                                <a href="hydration-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition...
+                                <a href="hydration-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Hydration</a>
+                            </div>
+                            
+                            <!-- 05. Structural Integrity -->
+                            <div class="px-4 py-3">
+                                <p class="text-neutral-600 text-[9px] uppercase tracking-wider mb-2 font-bold">Structural Integrity</p>
+                                <a href="mobility-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Mobility Lab</a>
+                                <a href="recovery-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Recovery Lab</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="recommendations.html" class="nav-link text-neutral-500 hover:text-white">Gear & Recs</a>
+                <a href="athlete-lab.html" class="nav-link text-purple-500 border-l border-neutral-800 pl-6 italic font-bold">The Streak Lab</a>
+            </div>
+        </div>
+    </div>
+</nav>
+    `;
+
+    document.body.insertAdjacentHTML('afterbegin', navHTML);
+
+    // JS toggle for all devices
+    const toolsGroup = document.getElementById('tools-group');
+    const toolsMenu = document.getElementById('tools-menu');
+    const toolsArrow = document.getElementById('tools-arrow');
+
+    if (toolsGroup && toolsMenu) {
+        toolsGroup.addEventListener('mouseenter', () => {
+            toolsMenu.style.display = 'block';
+            toolsArrow.classList.add('rotate-180');
+        });
+        toolsGroup.addEventListener('mouseleave', () => {
+            toolsMenu.style.display = 'none';
+            toolsArrow.classList.remove('rotate-180');
+        });
+    }
+});
