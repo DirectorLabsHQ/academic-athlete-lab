@@ -94,25 +94,18 @@
                     <p id="offset-comment" class="text-xs italic text-neutral-400 leading-relaxed font-inter"></p>
                 </div>
 
-                <!-- NEW: Amazon affiliate recommendation box (clean, matches your style, exact product wording) -->
+                <!-- NEW: Longevity affiliate recommendation (appears after calculation) -->
                 <div class="mt-8 p-6 bg-[#111] border border-[#222] rounded-2xl text-center">
                     <p class="text-neutral-300 text-base mb-4">
-                        Track your true biological age more accurately and learn strategies for healthy aging:
+                        Want to track your true biological age more accurately and optimize recovery/longevity?
                     </p>
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href="https://amzn.to/4jTVsc2" 
-                           target="_blank" rel="noopener noreferrer"
-                           class="inline-block bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 px-6 rounded-lg transition text-sm">
-                            BioAge Test Kit → (Amazon)
-                        </a>
-                        <a href="https://amzn.to/4r6lawf" 
-                           target="_blank" rel="noopener noreferrer"
-                           class="inline-block bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 px-6 rounded-lg transition text-sm">
-                            Book on Healthy Aging → (Amazon)
-                        </a>
-                    </div>
+                    <a href="https://tidd.ly/4pX1IkE" 
+                       target="_blank" rel="noopener noreferrer nofollow"
+                       class="inline-block bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 px-8 rounded-lg transition text-sm">
+                        Explore Longevity & Recovery Tools →
+                    </a>
                     <p class="text-neutral-500 text-xs mt-4 italic">
-                        As an Amazon Associate, I earn from qualifying purchases at no extra cost to you.
+                        Affiliate link — we may earn a small commission at no extra cost to you.
                     </p>
                 </div>
 
@@ -203,6 +196,24 @@
             comment = `Metabolic Drift detected. Your markers suggest a biological age slightly higher than your calendar age. Increase Zone 2 volume to lower RHR.`;
         }
         document.getElementById('offset-comment').innerText = comment;
+
+        // NEW: Longevity affiliate recommendation (appears after calculation)
+        const affiliateBox = document.createElement('div');
+        affiliateBox.className = 'mt-8 p-6 bg-[#111] border border-[#222] rounded-2xl text-center';
+        affiliateBox.innerHTML = `
+            <p class="text-neutral-300 text-base mb-4">
+                Want to track your true biological age more accurately and optimize recovery/longevity?
+            </p>
+            <a href="https://tidd.ly/4pX1IkE" 
+               target="_blank" rel="noopener noreferrer nofollow"
+               class="inline-block bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 px-8 rounded-lg transition text-sm">
+                Explore Longevity & Recovery Tools →
+            </a>
+            <p class="text-neutral-500 text-xs mt-4 italic">
+                Affiliate link — we may earn a small commission at no extra cost to you.
+            </p>
+        `;
+        document.getElementById('result-display').appendChild(affiliateBox);
     }
 </script>
 </body>
