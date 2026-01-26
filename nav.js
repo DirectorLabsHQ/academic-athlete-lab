@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const navHTML = `
-<nav id="main-nav" class="bg-black py-4 px-6 sticky top-0 border-b border-neutral-900 w-full" style="z-index: 999999;">
+<nav id="main-nav" class="bg-black py-4 px-6 pb-8 sticky top-0 border-b border-neutral-900 w-full" style="z-index: 999999;">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
         <div class="flex items-center gap-8">
             <a href="index.html" class="text-white font-black italic tracking-tighter mr-4 uppercase text-xl">ACADEMIC<span class="text-neutral-500">ATHLETE</span></a>
