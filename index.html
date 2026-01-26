@@ -4,55 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Academic Athlete Lab | 50+ Performance & Longevity Diagnostics</title>
+    <meta name="description" content="Professional performance tracking for athletes 50+. Research-backed tools for VO2 Max, FFMI, Sarcopenia Defense, and Strength.">
+    <meta name="keywords" content="50 plus athlete, masters athletics, sarcopenia defense, longevity science, strength tracking over 50, VO2 Max masters">
     
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <script src="nav.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Academic Athlete Lab",
+      "description": "Advanced diagnostic suite for athletic performance and longevity metrics optimized for the 50+ athlete.",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "All"
+    }
+    </script>
 
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap');
-        
-        body { 
-            background-color: #050505; 
-            color: #fff; 
-            font-family: 'Inter', sans-serif; 
-            -webkit-font-smoothing: antialiased;
-            margin: 0;
-            padding: 0;
-        }
-        
-        /* THE FIX: Force the injected nav to the absolute front */
-        nav#main-nav {
-            position: sticky !important;
-            top: 0 !important;
-            z-index: 999999 !important;
-            overflow: visible !important;
-            pointer-events: auto !important;
-        }
-
-        /* Ensure dropdown is visible */
-        #tools-menu {
-            display: none;
-            pointer-events: auto !important;
-        }
-
+        body { background-color: #050505; color: #fff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
         .font-mono { font-family: 'Space Mono', monospace; }
-        .lab-card { 
-            background: #111; 
-            border: 1px solid #222; 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-            border-left-width: 4px; 
-            display: block;
-        }
-        .lab-card:hover { transform: translateY(-5px); background: #161616; border-color: #333; }
+        .safety-yellow { color: #facc15; }
+        .bg-safety { background-color: #facc15; }
+        .glass-card { background: #111; border: 1px solid #222; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border-left-width: 4px; }
+        .glass-card:hover { transform: translateY(-5px); background: #161616; border-color: #333; }
         .nav-link { font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
         .category-header { font-family: 'Space Mono', monospace; color: #444; border-bottom: 1px solid #222; padding-bottom: 8px; margin-bottom: 24px; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
+
+        /* Force dropdown visibility fix for debugging */
+        #tools-container:hover #tools-dropdown,
+        #tools-container.group:hover #tools-dropdown,
+        #tools-container:focus-within #tools-dropdown {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            transform: translateY(0) !important;
+        }
+        #tools-dropdown {
+            transform: translateY(-8px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        #tools-container:hover #tools-dropdown,
+        #tools-dropdown:hover {
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <header class="bg-black text-white py-24 px-6 text-left relative border-b border-neutral-900" style="z-index: 1;">
+    <header class="bg-black text-white py-24 px-6 text-left relative overflow-hidden border-b border-neutral-900">
         <div class="max-w-6xl mx-auto relative z-10">
             <div class="inline-block bg-purple-600 text-[10px] font-black px-3 py-1 mb-6 tracking-[0.3em] uppercase">Archive Update: 2026.01</div>
             <h1 class="text-6xl md:text-8xl font-black tracking-tighter mb-6 leading-[0.9] uppercase italic">The 50+<br><span class="text-purple-500">Athlete</span> Labs</h1>
@@ -60,39 +59,140 @@
                 Quantitative diagnostics for the <span class="text-white font-medium">Academic Athlete</span>. Preserving functional power and metabolic integrity through the fifth decade.
             </p>
         </div>
-        <div class="absolute right-0 bottom-0 opacity-[0.03] font-black text-[25vw] leading-none select-none pointer-events-none italic uppercase z-0">Labs</div>
+        <div class="absolute right-0 bottom-0 opacity-[0.03] font-black text-[25vw] leading-none select-none pointer-events-none italic uppercase">Labs</div>
     </header>
 
-    <main class="max-w-7xl mx-auto py-20 px-6 w-full relative" style="z-index: 1;">
+    <main class="max-w-7xl mx-auto py-20 px-6 w-full">
+        
         <div class="mb-20">
             <h2 class="category-header text-[10px] font-bold uppercase tracking-[0.4em]">01. Power & Sarcopenia Defense</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <a href="1rm-lab.html" class="lab-card p-6 rounded-2xl border-l-yellow-500 text-white"><h3 class="font-bold text-lg mb-1 uppercase italic">1RM Strength</h3><p class="text-neutral-500 text-xs font-mono uppercase">Intensity & Max Load Modeling</p></a>
-                <a href="ffmi-lab.html" class="lab-card p-6 rounded-2xl border-l-yellow-500 text-white"><h3 class="font-bold text-lg mb-1 uppercase italic">FFMI Lab</h3><p class="text-neutral-500 text-xs font-mono uppercase">Fat-Free Muscle Mass Index</p></a>
-                <a href="smi-lab.html" class="lab-card p-6 rounded-2xl border-l-yellow-500 text-white"><h3 class="font-bold text-lg mb-1 uppercase italic">SMI Lab</h3><p class="text-neutral-500 text-xs font-mono uppercase">Skeletal Muscle Index</p></a>
+                <a href="1rm-lab.html" class="lab-card p-6 rounded-2xl border-l-yellow-500 hover:border-l-yellow-400">
+                    <h3 class="font-bold text-lg mb-1 uppercase italic font-inter text-white">1RM Strength</h3>
+                    <p class="text-neutral-500 text-xs font-mono uppercase tracking-tighter">Intensity & Max Load Modeling</p>
+                </a>
+                <a href="ffmi-lab.html" class="lab-card p-6 rounded-2xl border-l-yellow-500 hover:border-l-yellow-400">
+                    <h3 class="font-bold text-lg mb-1 uppercase italic text-white font-inter">FFMI Lab</h3>
+                    <p class="text-neutral-500 text-xs font-mono uppercase tracking-tighter">Fat-Free Muscle Mass Index</p>
+                </a>
+                <a href="smi-lab.html" class="lab-card p-6 rounded-2xl border-l-yellow-500 hover:border-l-yellow-400">
+                    <h3 class="font-bold text-lg mb-1 uppercase italic text-white font-inter">SMI Lab</h3>
+                    <p class="text-neutral-500 text-xs font-mono uppercase tracking-tighter">Skeletal Muscle Index</p>
+                </a>
             </div>
         </div>
 
         <div class="mb-20">
             <h2 class="category-header text-[10px] font-bold uppercase tracking-[0.4em]">02. Engine & Power Output</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <a href="vo2-lab.html" class="lab-card p-6 rounded-2xl border-l-red-600 text-white"><h3 class="font-bold text-lg mb-1 uppercase italic">VO2 Max</h3><p class="text-neutral-500 text-xs font-mono uppercase">Aerobic Ceiling</p></a>
-                <a href="watts-lab.html" class="lab-card p-6 rounded-2xl border-l-red-600 text-white"><h3 class="font-bold text-lg mb-1 uppercase italic">Watts/kg</h3><p class="text-neutral-500 text-xs font-mono uppercase">Relative Power Ratio</p></a>
-                <a href="max-hr.html" class="lab-card p-6 rounded-2xl border-l-red-600 text-white"><h3 class="font-bold text-lg mb-1 uppercase italic">Max HR</h3><p class="text-neutral-500 text-xs font-mono uppercase">Cardiac Scaling</p></a>
-                <a href="grip-lab.html" class="lab-card p-6 rounded-2xl border-l-red-600 text-white"><h3 class="font-bold text-lg mb-1 uppercase italic">Grip Strength</h3><p class="text-neutral-500 text-xs font-mono uppercase">CNS Readiness Proxy</p></a>
+                <a href="vo2-lab.html" class="lab-card p-6 rounded-2xl border-l-red-600 hover:border-l-red-500">
+                    <h3 class="font-bold text-lg mb-1 uppercase italic text-white">VO2 Max</h3>
+                    <p class="text-neutral-500 text-xs font-mono uppercase tracking-tighter">Aerobic Ceiling</p>
+                </a>
+                <a href="watts-lab.html" class="lab-card p-6 rounded-2xl border-l-red-600 hover:border-l-red-500">
+                    <h3 class="font-bold text-lg mb-1 uppercase italic text-white">Watts/kg</h3>
+                    <p class="text-neutral-500 text-xs font-mono uppercase tracking-tighter">Relative Power Ratio</p>
+                </a>
+                <a href="max-hr.html" class="lab-card p-6 rounded-2xl border-l-red-600 hover:border-l-red-500">
+                    <h3 class="font-bold text-lg mb-1 uppercase italic text-white">Max HR</h3>
+                    <p class="text-neutral-500 text-xs font-mono uppercase tracking-tighter">Cardiac Scaling</p>
+                </a>
+                <a href="grip-lab.html" class="lab-card p-6 rounded-2xl border-l-red-600 hover:border-l-red-500">
+                    <h3 class="font-bold text-lg mb-1 uppercase italic text-white font-inter">Grip Strength</h3>
+                    <p class="text-neutral-500 text-xs font-mono uppercase tracking-tighter">CNS Readiness Proxy</p>
+                </a>
             </div>
         </div>
 
         <div class="mb-20">
             <h2 class="category-header text-[10px] font-bold uppercase tracking-[0.4em]">03. Cellular & Functional Age</h2>
-            <div class="grid md:grid-cols-2 gap-4">
-                <a href="bio-age.html" class="lab-card p-6 rounded-2xl border-l-purple-500 text-white"><h3 class="font-bold text-lg mb-1 uppercase italic">Biological Age</h3><p class="text-neutral-500 text-xs font-mono uppercase">Physiological Offset Modeling</p></a>
-                <a href="functional-age.html" class="lab-card p-6 rounded-2xl border-l-purple-500 text-white"><h3 class="font-bold text-lg mb-1 uppercase italic">Functional Age</h3><p class="text-neutral-500 text-xs font-mono uppercase">Kinetic Performance Age</p></a>
+            <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-4">
+                <a href="bio-age.html" class="lab-card p-6 rounded-2xl border-l-purple-500 hover:border-l-purple-400">
+                    <h3 class="font-bold text-lg mb-1 uppercase italic text-white font-inter">Biological Age</h3>
+                    <p class="text-neutral-500 text-xs font-mono uppercase tracking-tighter">Physiological Offset Modeling</p>
+                </a>
+                <a href="functional-age.html" class="lab-card p-6 rounded-2xl border-l-purple-500 hover:border-l-purple-400">
+                    <h3 class="font-bold text-lg mb-1 uppercase italic text-white font-inter">Functional Age</h3>
+                    <p class="text-neutral-500 text-xs font-mono uppercase tracking-tighter">Kinetic Performance Age</p>
+                </a>
             </div>
         </div>
 
         <div class="mb-20">
             <h2 class="category-header text-[10px] font-bold uppercase tracking-[0.4em]">04. Metabolic & Recovery</h2>
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                <a href="insulin-lab.html" class="lab-card p-6 rounded-xl border-l-emerald-500 text-white"><h3 class="font-bold text-sm uppercase italic">Insulin Lab</h3><p class="text-[10px] text-neutral-500 font-mono">HOMA-IR Sensitivity</p></a>
-                <a href="metabolic-lab.html" class="lab-card p-6 rounded-xl border-l-emerald
+                <a href="insulin-lab.html" class="lab-card p-6 rounded-xl border-l-emerald-500 hover:border-l-emerald-400">
+                    <h3 class="font-bold text-sm uppercase text-white italic">Insulin Lab</h3>
+                    <p class="text-[10px] text-neutral-500 font-mono uppercase">HOMA-IR Sensitivity</p>
+                </a>
+                <a href="metabolic-lab.html" class="lab-card p-6 rounded-xl border-l-emerald-500 hover:border-l-emerald-400">
+                    <h3 class="font-bold text-sm uppercase text-white italic">Metabolic</h3>
+                    <p class="text-[10px] text-neutral-500 font-mono uppercase">Caloric Thresholds</p>
+                </a>
+                <a href="protein-lab.html" class="lab-card p-6 rounded-xl border-l-emerald-500 hover:border-l-emerald-400">
+                    <h3 class="font-bold text-sm uppercase text-white italic">Protein Lab</h3>
+                    <p class="text-[10px] text-neutral-500 font-mono uppercase">Anabolic Resistance</p>
+                </a>
+                <a href="hydration-lab.html" class="lab-card p-6 rounded-xl border-l-emerald-500 hover:border-l-emerald-400">
+                    <h3 class="font-bold text-sm uppercase text-white italic">Hydration</h3>
+                    <p class="text-[10px] text-neutral-500 font-mono uppercase">Solute Balance</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="mb-20">
+            <h2 class="category-header text-[10px] font-bold uppercase tracking-[0.4em]">05. Structural Integrity</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-4">
+                <a href="mobility-lab.html" class="lab-card p-6 rounded-2xl border-l-teal-400 hover:border-l-teal-300">
+                    <h3 class="font-bold text-lg mb-1 uppercase italic text-white font-inter">Mobility Lab</h3>
+                    <p class="text-neutral-500 text-xs font-mono uppercase tracking-tighter">Joint Integrity & ROM</p>
+                </a>
+                <a href="recovery-lab.html" class="lab-card p-6 rounded-2xl border-l-teal-400 hover:border-l-teal-300">
+                    <h3 class="font-bold text-lg mb-1 uppercase italic text-white font-inter">Recovery Lab</h3>
+                    <p class="text-neutral-500 text-xs font-mono uppercase tracking-tighter">CNS Strain Modeling</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- Affiliate box -->
+        <div class="mb-12 p-8 bg-[#111] border border-[#222] rounded-3xl text-center">
+            <p class="text-neutral-300 text-base mb-4">
+                Support muscle preservation, recovery, and longevity tracking with these high-quality tools:
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
+                <a href="https://amzn.to/4rfebkU" target="_blank" rel="noopener noreferrer" class="inline-block bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded-lg transition text-sm">
+                    Recommended Creatine → (Amazon)
+                </a>
+                <a href="https://amzn.to/45pIqx8" target="_blank" rel="noopener noreferrer" class="inline-block bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded-lg transition text-sm">
+                    Fitbit Charge 6 → (Amazon)
+                </a>
+                <a href="https://amzn.to/49OwZjK" target="_blank" rel="noopener noreferrer" class="inline-block bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded-lg transition text-sm">
+                    Oura Ring 4 → (Amazon)
+                </a>
+            </div>
+            <p class="text-neutral-500 text-xs mt-4 italic">
+                As an Amazon Associate, I earn from qualifying purchases at no extra cost to you.
+            </p>
+        </div>
+
+        <div class="bg-purple-600 rounded-3xl p-12 text-center text-white shadow-[0_20px_50px_rgba(168,85,247,0.2)]">
+            <h2 class="text-4xl font-black uppercase italic mb-4 font-inter tracking-tighter">Enter The Streak Lab</h2>
+            <p class="text-purple-100 max-w-xl mx-auto mb-8 font-mono text-sm uppercase tracking-widest">Performance trend analysis for the 50+ athlete.</p>
+            <a href="athlete-lab.html" class="inline-block bg-white text-purple-600 font-black px-10 py-4 rounded-full uppercase tracking-widest hover:bg-neutral-100 transition-all italic text-xs shadow-xl">Launch Dashboard →</a>
+        </div>
+
+    </main>
+
+    <footer class="bg-black border-t border-neutral-900 pt-16 pb-12 px-6 text-center">
+        <div class="max-w-3xl mx-auto mb-8">
+            <h4 class="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-neutral-600 mb-6 underline">Academic Methodology</h4>
+            <p class="text-neutral-700 text-[9px] leading-loose uppercase tracking-widest font-mono">
+                Diagnostics built on the Brzycki Strength Model, Tanaka Cardiac Scaling, and Kouri FFMI Research. All protocols optimized for the 50+ master athlete demographic.
+                <br>Academic Athlete Lab © 2026.
+            </p>
+        </div>
+    </footer>
+
+    <script src="nav.js"></script>
+</body>
+</html>
