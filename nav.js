@@ -8,9 +8,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 <a href="index.html" class="text-white border-b border-white pb-1 uppercase font-bold tracking-widest">Lab Home</a>
                 
                 <div class="relative group" id="tools-wrapper">
-                    <button id="tools-button" class="text-neutral-500 group-hover:text-white flex items-center gap-1 uppercase font-bold tracking-widest transition-colors duration-200 py-2">
+                    <button class="text-neutral-500 group-hover:text-white flex items-center gap-1 uppercase font-bold tracking-widest transition-colors duration-200 py-2">
                         Tools
-                        <svg id="tools-arrow" class="w-3 h-3 transition-transform duration-200" viewBox="0 0 20 20" fill="currentColor"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path></svg>
+                        <svg class="w-3 h-3 transition-transform group-hover:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path></svg>
                     </button>
                     
                     <div class="absolute left-0 top-full pt-2 w-72" id="tools-menu-dropdown" style="display:none">
