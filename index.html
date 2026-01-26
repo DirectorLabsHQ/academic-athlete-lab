@@ -65,24 +65,27 @@
         
         .no-scrollbar::-webkit-scrollbar { display: none; }
 
-        /* CRITICAL: Allows the dropdown injected by nav.js to be visible */
-        nav { overflow: visible !important; }
+        /* CRITICAL: Force the nav and dropdown above all content */
+        #main-nav { 
+            z-index: 9999 !important; 
+            overflow: visible !important; 
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <header class="bg-black text-white py-24 px-6 text-left relative overflow-hidden border-b border-neutral-900">
-        <div class="max-w-6xl mx-auto relative z-10">
+    <header class="bg-black text-white py-24 px-6 text-left relative border-b border-neutral-900 z-10">
+        <div class="max-w-6xl mx-auto relative z-20">
             <div class="inline-block bg-purple-600 text-[10px] font-black px-3 py-1 mb-6 tracking-[0.3em] uppercase">Archive Update: 2026.01</div>
             <h1 class="text-6xl md:text-8xl font-black tracking-tighter mb-6 leading-[0.9] uppercase italic">The 50+<br><span class="text-purple-500">Athlete</span> Labs</h1>
             <p class="text-neutral-500 text-xl max-w-2xl font-light leading-relaxed font-mono italic">
                 Quantitative diagnostics for the <span class="text-white font-medium">Academic Athlete</span>. Preserving functional power and metabolic integrity through the fifth decade.
             </p>
         </div>
-        <div class="absolute right-0 bottom-0 opacity-[0.03] font-black text-[25vw] leading-none select-none pointer-events-none italic uppercase">Labs</div>
+        <div class="absolute right-0 bottom-0 opacity-[0.03] font-black text-[25vw] leading-none select-none pointer-events-none italic uppercase z-0">Labs</div>
     </header>
 
-    <main class="max-w-7xl mx-auto py-20 px-6 w-full">
+    <main class="max-w-7xl mx-auto py-20 px-6 w-full relative z-10">
         
         <div class="mb-20">
             <h2 class="category-header text-[10px] font-bold uppercase tracking-[0.4em]">01. Power & Sarcopenia Defense</h2>
@@ -179,18 +182,15 @@
                 Support muscle preservation, recovery, and longevity tracking with these high-quality tools:
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
-                <a href="https://amzn.to/4rfebkU" 
-                   target="_blank" rel="noopener noreferrer"
+                <a href="https://amzn.to/4rfebkU" target="_blank" rel="noopener noreferrer"
                    class="inline-block bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded-lg transition text-sm">
                     Recommended Creatine → (Amazon)
                 </a>
-                <a href="https://amzn.to/45pIqx8" 
-                   target="_blank" rel="noopener noreferrer"
+                <a href="https://amzn.to/45pIqx8" target="_blank" rel="noopener noreferrer"
                    class="inline-block bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded-lg transition text-sm">
                     Fitbit Charge 6 → (Amazon)
                 </a>
-                <a href="https://amzn.to/49OwZjK" 
-                   target="_blank" rel="noopener noreferrer"
+                <a href="https://amzn.to/49OwZjK" target="_blank" rel="noopener noreferrer"
                    class="inline-block bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded-lg transition text-sm">
                     Oura Ring 4 → (Amazon)
                 </a>
@@ -208,7 +208,7 @@
 
     </main>
 
-    <footer class="bg-black border-t border-neutral-900 pt-16 pb-12 px-6 text-center">
+    <footer class="bg-black border-t border-neutral-900 pt-16 pb-12 px-6 text-center relative z-10">
         <div class="max-w-3xl mx-auto mb-8">
             <h4 class="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-neutral-600 mb-6 underline">Academic Methodology</h4>
             <p class="text-neutral-700 text-[9px] leading-loose uppercase tracking-widest font-mono">
