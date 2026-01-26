@@ -21,22 +21,18 @@
             padding: 0;
         }
         
-        /* THE FIX: Force the injected nav to the absolute front */
-        nav#main-nav {
+        /* THE CRITICAL FIX: 
+           This ensures the Nav is physically the top-most layer on desktop.
+        */
+        #main-nav {
             position: sticky !important;
             top: 0 !important;
             z-index: 999999 !important;
             overflow: visible !important;
-            pointer-events: auto !important;
-        }
-
-        /* Ensure dropdown is visible */
-        #tools-menu {
-            display: none;
-            pointer-events: auto !important;
         }
 
         .font-mono { font-family: 'Space Mono', monospace; }
+        
         .lab-card { 
             background: #111; 
             border: 1px solid #222; 
@@ -44,15 +40,41 @@
             border-left-width: 4px; 
             display: block;
         }
-        .lab-card:hover { transform: translateY(-5px); background: #161616; border-color: #333; }
-        .nav-link { font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
-        .category-header { font-family: 'Space Mono', monospace; color: #444; border-bottom: 1px solid #222; padding-bottom: 8px; margin-bottom: 24px; }
+        
+        .lab-card:hover { 
+            transform: translateY(-5px); 
+            background: #161616; 
+            border-color: #333; 
+        }
+
+        .nav-link { 
+            font-family: 'Space Mono', monospace; 
+            font-size: 10px; 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            letter-spacing: 0.2em; 
+        }
+
+        .category-header { 
+            font-family: 'Space Mono', monospace; 
+            color: #444; 
+            border-bottom: 1px solid #222; 
+            padding-bottom: 8px; 
+            margin-bottom: 24px; 
+        }
+
         .no-scrollbar::-webkit-scrollbar { display: none; }
+
+        /* Ensure standard elements don't overlap the sticky nav */
+        header, main, footer {
+            position: relative;
+            z-index: 1;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <header class="bg-black text-white py-24 px-6 text-left relative border-b border-neutral-900" style="z-index: 1;">
+    <header class="bg-black text-white py-24 px-6 text-left relative border-b border-neutral-900">
         <div class="max-w-6xl mx-auto relative z-10">
             <div class="inline-block bg-purple-600 text-[10px] font-black px-3 py-1 mb-6 tracking-[0.3em] uppercase">Archive Update: 2026.01</div>
             <h1 class="text-6xl md:text-8xl font-black tracking-tighter mb-6 leading-[0.9] uppercase italic">The 50+<br><span class="text-purple-500">Athlete</span> Labs</h1>
@@ -60,10 +82,10 @@
                 Quantitative diagnostics for the <span class="text-white font-medium">Academic Athlete</span>. Preserving functional power and metabolic integrity through the fifth decade.
             </p>
         </div>
-        <div class="absolute right-0 bottom-0 opacity-[0.03] font-black text-[25vw] leading-none select-none pointer-events-none italic uppercase">Labs</div>
+        <div class="absolute right-0 bottom-0 opacity-[0.03] font-black text-[25vw] leading-none select-none pointer-events-none italic uppercase z-0">Labs</div>
     </header>
 
-    <main class="max-w-7xl mx-auto py-20 px-6 w-full relative" style="z-index: 1;">
+    <main class="max-w-7xl mx-auto py-20 px-6 w-full relative">
         <div class="mb-20">
             <h2 class="category-header text-[10px] font-bold uppercase tracking-[0.4em]">01. Power & Sarcopenia Defense</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
