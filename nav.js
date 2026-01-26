@@ -8,9 +8,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 <a href="index.html" class="text-white border-b border-white pb-1 uppercase font-bold tracking-widest">Lab Home</a>
                 
                 <div class="relative group" id="tools-wrapper">
-                    <button class="text-neutral-500 group-hover:text-white flex items-center gap-1 uppercase font-bold tracking-widest transition-colors duration-200 py-2">
+                    <button id="tools-button" class="text-neutral-500 group-hover:text-white flex items-center gap-1 uppercase font-bold tracking-widest transition-colors duration-200 py-2">
                         Tools
-                        <svg class="w-3 h-3 transition-transform group-hover:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path></svg>
+                        <svg id="tools-arrow" class="w-3 h-3 transition-transform duration-200" viewBox="0 0 20 20" fill="currentColor"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path></svg>
                     </button>
                     
                     <div class="absolute left-0 top-full pt-2 w-72" id="tools-menu-dropdown" style="display:none">
@@ -56,16 +56,35 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         </div>
     </div>
-</nav>`;
+</nav>`);
 
-    document.body.insertAdjacentHTML('afterbegin', navHTML);
-    
-    // Add simple hover logic for browsers that struggle with Tailwind 'group-hover' on injected HTML
     const wrapper = document.getElementById('tools-wrapper');
     const menu = document.getElementById('tools-menu-dropdown');
-    
-    if(wrapper && menu) {
-        wrapper.addEventListener('mouseenter', () => menu.style.display = 'block');
-        wrapper.addEventListener('mouseleave', () => menu.style.display = 'none');
+    const arrow = document.getElementById('tools-arrow');
+
+    if (wrapper && menu && arrow) {
+        let isOpen = false;
+
+        const openMenu = () => {
+            menu.style.display = 'block';
+            arrow.classList.add('rotate-180');
+            isOpen = true;
+        };
+
+        const closeMenu = () => {
+            menu.style.display = 'none';
+            arrow.classList.remove('rotate-180');
+            isOpen = false;
+        };
+
+        wrapper.addEventListener('mouseenter', openMenu);
+        wrapper.addEventListener('mouseleave', (e) => {
+            // If moving into the dropdown, keep it open
+            if (menu.contains(e.relatedTarget)) return;
+            closeMenu();
+        });
+
+        menu.addEventListener('mouseenter', openMenu);
+        menu.addEventListener('mouseleave', closeMenu);
     }
 });
