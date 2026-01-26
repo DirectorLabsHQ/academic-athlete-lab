@@ -21,6 +21,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap');
+        
         body { background-color: #050505; color: #fff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
         .font-mono { font-family: 'Space Mono', monospace; }
         .safety-yellow { color: #facc15; }
@@ -31,19 +32,23 @@
         .category-header { font-family: 'Space Mono', monospace; color: #444; border-bottom: 1px solid #222; padding-bottom: 8px; margin-bottom: 24px; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
 
-        /* Dropdown fix */
-        .dropdown-menu {
-            display: none;
+        /* Dropdown fix - ensure hover works and no clipping */
+        nav { overflow: visible !important; }
+        .group { position: relative; }
+        .dropdown-menu { 
+            opacity: 0;
+            pointer-events: none;
             position: absolute;
-            top: 100%;
-            left: 0;
+            top: 100%; 
+            left: 0; 
             z-index: 1000;
             min-width: 280px;
+            transition: opacity 0.2s ease;
         }
         .group:hover .dropdown-menu {
-            display: block;
+            opacity: 1;
+            pointer-events: auto;
         }
-        nav { overflow: visible; } /* Prevent clipping */
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -151,7 +156,6 @@
             </div>
         </div>
 
-        <!-- UPDATED: Combined Amazon affiliate recommendation box (clean, matches your style) -->
         <div class="mb-12 p-8 bg-[#111] border border-[#222] rounded-3xl text-center">
             <p class="text-neutral-300 text-base mb-4">
                 Support muscle preservation, recovery, and longevity tracking with these high-quality tools:
