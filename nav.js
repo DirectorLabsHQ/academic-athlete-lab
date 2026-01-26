@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="flex gap-6 md:gap-8 items-center font-mono text-[10px]">
                 <a href="index.html" class="nav-link text-white border-b border-white pb-1">Lab Home</a>
                 
-                <div class="group">
+                <div class="relative group">
                     <button class="nav-link text-neutral-500 hover:text-white flex items-center gap-1 focus:outline-none py-2">
                         Tools
                         <svg class="w-3 h-3 fill-current transition-transform group-hover:rotate-180" viewBox="0 0 20 20">
@@ -16,8 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         </svg>
                     </button>
                     
-                    <div class="dropdown-menu w-72">
-                        <div class="bg-[#111] border border-[#222] rounded-xl shadow-2xl overflow-hidden">
+                    <div class="dropdown-menu">
+                        <div class="bg-[#111] border border-[#222] rounded-xl shadow-2xl overflow-hidden mt-2">
                             <div class="max-h-[70vh] overflow-y-auto no-scrollbar">
                                 <div class="px-4 py-3 border-b border-neutral-800">
                                     <p class="text-neutral-600 text-[9px] uppercase tracking-wider mb-2 font-bold">Power & Sarcopenia Defense</p>
