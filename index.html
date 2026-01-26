@@ -22,33 +22,51 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap');
         
-        body { background-color: #050505; color: #fff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        body { 
+            background-color: #050505; 
+            color: #fff; 
+            font-family: 'Inter', sans-serif; 
+            -webkit-font-smoothing: antialiased; 
+        }
+        
         .font-mono { font-family: 'Space Mono', monospace; }
         .safety-yellow { color: #facc15; }
         .bg-safety { background-color: #facc15; }
-        .glass-card { background: #111; border: 1px solid #222; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border-left-width: 4px; }
-        .glass-card:hover { transform: translateY(-5px); background: #161616; border-color: #333; }
-        .nav-link { font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
-        .category-header { font-family: 'Space Mono', monospace; color: #444; border-bottom: 1px solid #222; padding-bottom: 8px; margin-bottom: 24px; }
+        
+        .lab-card { 
+            background: #111; 
+            border: 1px solid #222; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            border-left-width: 4px; 
+            display: block;
+        }
+        
+        .lab-card:hover { 
+            transform: translateY(-5px); 
+            background: #161616; 
+            border-color: #333; 
+        }
+        
+        .nav-link { 
+            font-family: 'Space Mono', monospace; 
+            font-size: 10px; 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            letter-spacing: 0.2em; 
+        }
+        
+        .category-header { 
+            font-family: 'Space Mono', monospace; 
+            color: #444; 
+            border-bottom: 1px solid #222; 
+            padding-bottom: 8px; 
+            margin-bottom: 24px; 
+        }
+        
         .no-scrollbar::-webkit-scrollbar { display: none; }
 
-        /* Dropdown fix - ensure hover works and no clipping */
+        /* CRITICAL: Allows the dropdown injected by nav.js to be visible */
         nav { overflow: visible !important; }
-        .group { position: relative; }
-        .dropdown-menu { 
-            opacity: 0;
-            pointer-events: none;
-            position: absolute;
-            top: 100%; 
-            left: 0; 
-            z-index: 1000;
-            min-width: 280px;
-            transition: opacity 0.2s ease;
-        }
-        .group:hover .dropdown-menu {
-            opacity: 1;
-            pointer-events: auto;
-        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -69,15 +87,15 @@
         <div class="mb-20">
             <h2 class="category-header text-[10px] font-bold uppercase tracking-[0.4em]">01. Power & Sarcopenia Defense</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <a href="1rm-lab.html" class="lab-card p-6 rounded-2xl border-l-yellow-500 hover:border-l-yellow-400">
+                <a href="1rm-lab.html" class="lab-card p-6 rounded-2xl border-l-yellow-500">
                     <h3 class="font-bold text-lg mb-1 uppercase italic font-inter text-white">1RM Strength</h3>
                     <p class="text-neutral-500 text-xs font-mono uppercase tracking-tighter">Intensity & Max Load Modeling</p>
                 </a>
-                <a href="ffmi-lab.html" class="lab-card p-6 rounded-2xl border-l-yellow-500 hover:border-l-yellow-400">
+                <a href="ffmi-lab.html" class="lab-card p-6 rounded-2xl border-l-yellow-500">
                     <h3 class="font-bold text-lg mb-1 uppercase italic text-white font-inter">FFMI Lab</h3>
                     <p class="text-neutral-500 text-xs font-mono uppercase tracking-tighter">Fat-Free Muscle Mass Index</p>
                 </a>
-                <a href="smi-lab.html" class="lab-card p-6 rounded-2xl border-l-yellow-500 hover:border-l-yellow-400">
+                <a href="smi-lab.html" class="lab-card p-6 rounded-2xl border-l-yellow-500">
                     <h3 class="font-bold text-lg mb-1 uppercase italic text-white font-inter">SMI Lab</h3>
                     <p class="text-neutral-500 text-xs font-mono uppercase tracking-tighter">Skeletal Muscle Index</p>
                 </a>
@@ -87,19 +105,19 @@
         <div class="mb-20">
             <h2 class="category-header text-[10px] font-bold uppercase tracking-[0.4em]">02. Engine & Power Output</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <a href="vo2-lab.html" class="lab-card p-6 rounded-2xl border-l-red-600 hover:border-l-red-500">
+                <a href="vo2-lab.html" class="lab-card p-6 rounded-2xl border-l-red-600">
                     <h3 class="font-bold text-lg mb-1 uppercase italic text-white">VO2 Max</h3>
                     <p class="text-neutral-500 text-xs font-mono uppercase tracking-tighter">Aerobic Ceiling</p>
                 </a>
-                <a href="watts-lab.html" class="lab-card p-6 rounded-2xl border-l-red-600 hover:border-l-red-500">
+                <a href="watts-lab.html" class="lab-card p-6 rounded-2xl border-l-red-600">
                     <h3 class="font-bold text-lg mb-1 uppercase italic text-white">Watts/kg</h3>
                     <p class="text-neutral-500 text-xs font-mono uppercase tracking-tighter">Relative Power Ratio</p>
                 </a>
-                <a href="max-hr.html" class="lab-card p-6 rounded-2xl border-l-red-600 hover:border-l-red-500">
+                <a href="max-hr.html" class="lab-card p-6 rounded-2xl border-l-red-600">
                     <h3 class="font-bold text-lg mb-1 uppercase italic text-white">Max HR</h3>
                     <p class="text-neutral-500 text-xs font-mono uppercase tracking-tighter">Cardiac Scaling</p>
                 </a>
-                <a href="grip-lab.html" class="lab-card p-6 rounded-2xl border-l-red-600 hover:border-l-red-500">
+                <a href="grip-lab.html" class="lab-card p-6 rounded-2xl border-l-red-600">
                     <h3 class="font-bold text-lg mb-1 uppercase italic text-white font-inter">Grip Strength</h3>
                     <p class="text-neutral-500 text-xs font-mono uppercase tracking-tighter">CNS Readiness Proxy</p>
                 </a>
@@ -109,11 +127,11 @@
         <div class="mb-20">
             <h2 class="category-header text-[10px] font-bold uppercase tracking-[0.4em]">03. Cellular & Functional Age</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-4">
-                <a href="bio-age.html" class="lab-card p-6 rounded-2xl border-l-purple-500 hover:border-l-purple-400">
+                <a href="bio-age.html" class="lab-card p-6 rounded-2xl border-l-purple-500">
                     <h3 class="font-bold text-lg mb-1 uppercase italic text-white font-inter">Biological Age</h3>
                     <p class="text-neutral-500 text-xs font-mono uppercase tracking-tighter">Physiological Offset Modeling</p>
                 </a>
-                <a href="functional-age.html" class="lab-card p-6 rounded-2xl border-l-purple-500 hover:border-l-purple-400">
+                <a href="functional-age.html" class="lab-card p-6 rounded-2xl border-l-purple-500">
                     <h3 class="font-bold text-lg mb-1 uppercase italic text-white font-inter">Functional Age</h3>
                     <p class="text-neutral-500 text-xs font-mono uppercase tracking-tighter">Kinetic Performance Age</p>
                 </a>
@@ -123,19 +141,19 @@
         <div class="mb-20">
             <h2 class="category-header text-[10px] font-bold uppercase tracking-[0.4em]">04. Metabolic & Recovery</h2>
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                <a href="insulin-lab.html" class="lab-card p-6 rounded-xl border-l-emerald-500 hover:border-l-emerald-400">
+                <a href="insulin-lab.html" class="lab-card p-6 rounded-xl border-l-emerald-500">
                     <h3 class="font-bold text-sm uppercase text-white italic">Insulin Lab</h3>
                     <p class="text-[10px] text-neutral-500 font-mono uppercase">HOMA-IR Sensitivity</p>
                 </a>
-                <a href="metabolic-lab.html" class="lab-card p-6 rounded-xl border-l-emerald-500 hover:border-l-emerald-400">
+                <a href="metabolic-lab.html" class="lab-card p-6 rounded-xl border-l-emerald-500">
                     <h3 class="font-bold text-sm uppercase text-white italic">Metabolic</h3>
                     <p class="text-[10px] text-neutral-500 font-mono uppercase">Caloric Thresholds</p>
                 </a>
-                <a href="protein-lab.html" class="lab-card p-6 rounded-xl border-l-emerald-500 hover:border-l-emerald-400">
+                <a href="protein-lab.html" class="lab-card p-6 rounded-xl border-l-emerald-500">
                     <h3 class="font-bold text-sm uppercase text-white italic">Protein Lab</h3>
                     <p class="text-[10px] text-neutral-500 font-mono uppercase">Anabolic Resistance</p>
                 </a>
-                <a href="hydration-lab.html" class="lab-card p-6 rounded-xl border-l-emerald-500 hover:border-l-emerald-400">
+                <a href="hydration-lab.html" class="lab-card p-6 rounded-xl border-l-emerald-500">
                     <h3 class="font-bold text-sm uppercase text-white italic">Hydration</h3>
                     <p class="text-[10px] text-neutral-500 font-mono uppercase">Solute Balance</p>
                 </a>
@@ -145,11 +163,11 @@
         <div class="mb-20">
             <h2 class="category-header text-[10px] font-bold uppercase tracking-[0.4em]">05. Structural Integrity</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-4">
-                <a href="mobility-lab.html" class="lab-card p-6 rounded-2xl border-l-teal-400 hover:border-l-teal-300">
+                <a href="mobility-lab.html" class="lab-card p-6 rounded-2xl border-l-teal-400">
                     <h3 class="font-bold text-lg mb-1 uppercase italic text-white font-inter">Mobility Lab</h3>
                     <p class="text-neutral-500 text-xs font-mono uppercase tracking-tighter">Joint Integrity & ROM</p>
                 </a>
-                <a href="recovery-lab.html" class="lab-card p-6 rounded-2xl border-l-teal-400 hover:border-l-teal-300">
+                <a href="recovery-lab.html" class="lab-card p-6 rounded-2xl border-l-teal-400">
                     <h3 class="font-bold text-lg mb-1 uppercase italic text-white font-inter">Recovery Lab</h3>
                     <p class="text-neutral-500 text-xs font-mono uppercase tracking-tighter">CNS Strain Modeling</p>
                 </a>
