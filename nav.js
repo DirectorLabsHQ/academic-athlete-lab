@@ -63,41 +63,25 @@ document.addEventListener('DOMContentLoaded', function() {
     // Working hover logic from ChatGPT
     const wrapper = document.getElementById('tools-wrapper');
     const menu = document.getElementById('tools-menu-dropdown');
-    const arrow = document.getElementById('tools-arrow');
 
-    if (wrapper && menu && arrow) {
-        let hoverCount = 0;
-
+    if (wrapper && menu) {
         const openMenu = () => {
             menu.style.display = 'block';
-            arrow.classList.add('rotate-180');
         };
 
         const closeMenu = () => {
             menu.style.display = 'none';
-            arrow.classList.remove('rotate-180');
         };
 
-        wrapper.addEventListener('mouseenter', () => {
-            hoverCount++;
-            openMenu();
-        });
+        wrapper.addEventListener('mouseenter', openMenu);
 
         wrapper.addEventListener('mouseleave', (e) => {
-            // If moving INTO the dropdown, do nothing
+            // If moving into the dropdown, keep it open
             if (menu.contains(e.relatedTarget)) return;
-            hoverCount--;
-            if (hoverCount <= 0) closeMenu();
+            closeMenu();
         });
 
-        menu.addEventListener('mouseenter', () => {
-            hoverCount++;
-            openMenu();
-        });
-
-        menu.addEventListener('mouseleave', () => {
-            hoverCount--;
-            if (hoverCount <= 0) closeMenu();
-        });
+        menu.addEventListener('mouseenter', openMenu);
+        menu.addEventListener('mouseleave', closeMenu);
     }
 });
