@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono text-[10px]">
                 <a href="index.html" class="nav-link text-white border-b border-white pb-1">Lab Home</a>
                 
+                <!-- Tools Dropdown -->
                 <div class="relative group">
                     <button class="nav-link text-neutral-500 hover:text-white flex items-center gap-1 focus:outline-none">
                         Tools
@@ -18,12 +19,45 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     <div class="absolute left-0 mt-3 w-72 bg-[#111] border border-[#222] rounded-xl shadow-2xl opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 overflow-hidden z-50">
                         <div class="max-h-[70vh] overflow-y-auto no-scrollbar">
-                            <!-- All the dropdown categories here – copy from the previous nav code -->
-                            <!-- Power & Sarcopenia Defense --> 
-                            <div class="px-4 py-3 border-b border-neutral-800"> ... </div>
-                            <!-- Engine & Power Output --> 
-                            <div class="px-4 py-3 border-b border-neutral-800"> ... </div>
-                            <!-- etc. for all 5 categories -->
+                            <!-- 01. Power & Sarcopenia Defense -->
+                            <div class="px-4 py-3 border-b border-neutral-800">
+                                <p class="text-neutral-600 text-[9px] uppercase tracking-wider mb-2 font-bold">Power & Sarcopenia Defense</p>
+                                <a href="1rm-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">1RM Strength</a>
+                                <a href="ffmi-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">FFMI Lab</a>
+                                <a href="smi-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">SMI Lab</a>
+                            </div>
+                            
+                            <!-- 02. Engine & Power Output -->
+                            <div class="px-4 py-3 border-b border-neutral-800">
+                                <p class="text-neutral-600 text-[9px] uppercase tracking-wider mb-2 font-bold">Engine & Power Output</p>
+                                <a href="vo2-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">VO2 Max</a>
+                                <a href="watts-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Watts/kg</a>
+                                <a href="max-hr.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Max HR</a>
+                                <a href="grip-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Grip Strength</a>
+                            </div>
+                            
+                            <!-- 03. Cellular & Functional Age -->
+                            <div class="px-4 py-3 border-b border-neutral-800">
+                                <p class="text-neutral-600 text-[9px] uppercase tracking-wider mb-2 font-bold">Cellular & Functional Age</p>
+                                <a href="bio-age.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Biological Age</a>
+                                <a href="functional-age.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Functional Age</a>
+                            </div>
+                            
+                            <!-- 04. Metabolic & Recovery -->
+                            <div class="px-4 py-3 border-b border-neutral-800">
+                                <p class="text-neutral-600 text-[9px] uppercase tracking-wider mb-2 font-bold">Metabolic & Recovery</p>
+                                <a href="insulin-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Insulin Lab</a>
+                                <a href="metabolic-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Metabolic</a>
+                                <a href="protein-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Protein Lab</a>
+                                <a href="hydration-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Hydration</a>
+                            </div>
+                            
+                            <!-- 05. Structural Integrity -->
+                            <div class="px-4 py-3">
+                                <p class="text-neutral-600 text-[9px] uppercase tracking-wider mb-2 font-bold">Structural Integrity</p>
+                                <a href="mobility-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Mobility Lab</a>
+                                <a href="recovery-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Recovery Lab</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -36,6 +70,5 @@ document.addEventListener('DOMContentLoaded', function() {
 </nav>
     `;
 
-    // Insert at the beginning of the body
     document.body.insertAdjacentHTML('afterbegin', navHTML);
 });
