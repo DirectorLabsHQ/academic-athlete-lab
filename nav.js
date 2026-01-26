@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </svg>
                     </button>
                     
-                    <div class="absolute left-0 -top-1 pt-5 w-72 bg-transparent pointer-events-none group-hover:pointer-events-auto z-50">
+                    <div class="absolute left-0 -top-1 pt-6 w-72 bg-transparent pointer-events-none group-hover:pointer-events-auto z-50 transition-all duration-200">
                         <div class="bg-[#111] border border-[#222] rounded-xl shadow-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 overflow-hidden">
                             <div class="max-h-[70vh] overflow-y-auto no-scrollbar">
                                 <!-- 01. Power & Sarcopenia Defense -->
