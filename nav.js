@@ -49,43 +49,4 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <a href="insulin-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Insulin Lab</a>
                                 <a href="metabolic-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Metabolic</a>
                                 <a href="protein-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Protein Lab</a>
-                                <a href="hydration-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Hydration</a>
-                            </div>
-                            
-                            <!-- 05. Structural Integrity -->
-                            <div class="px-4 py-3">
-                                <p class="text-neutral-600 text-[9px] uppercase tracking-wider mb-2 font-bold">Structural Integrity</p>
-                                <a href="mobility-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Mobility Lab</a>
-                                <a href="recovery-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition-colors">Recovery Lab</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <a href="recommendations.html" class="nav-link text-neutral-500 hover:text-white">Gear & Recs</a>
-                <a href="athlete-lab.html" class="nav-link text-purple-500 border-l border-neutral-800 pl-6 italic font-bold">The Streak Lab</a>
-            </div>
-        </div>
-    </div>
-</nav>
-    `;
-
-    document.body.insertAdjacentHTML('afterbegin', navHTML);
-
-    // Nuclear Option: JS for menu toggle
-    const toolsBtn = document.getElementById('tools-button');
-    const menu = document.getElementById('tools-menu');
-    const arrow = document.getElementById('tools-arrow');
-    const group = document.getElementById('tools-group');
-
-    if (toolsBtn && menu) {
-        group.addEventListener('mouseenter', () => {
-            menu.style.display = 'block';
-            arrow.classList.add('rotate-180');
-        });
-        group.addEventListener('mouseleave', () => {
-            menu.style.display = 'none';
-            arrow.classList.remove('rotate-180');
-        });
-    }
-});
+                                <a href="hydration-lab.html" class="block text-white hover:text-safety-yellow text-sm py-1.5 transition...
