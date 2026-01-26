@@ -16,9 +16,11 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="relative group">
               <button class="nav-link text-white group-hover:text-purple-400 transition flex items-center gap-1 uppercase tracking-wider">
                 TOOLS
-                <svg class="w-3 h-3 fill-current opacity-70" viewBox="0 0 12 12"><path d="M6 8.586L10.293 4.293l1.414 1.414L6 11.414l-5.707-5.707L1.707 4.293z"/></svg>
+                <svg class="w-3 h-3 fill-current opacity-70" viewBox="0 0 12 12">
+                  <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </button>
-              <div class="absolute right-0 mt-3 w-72 bg-[#111] border border-neutral-800 rounded-xl shadow-2xl py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform scale-95 group-hover:scale-100 origin-top-right max-h-[70vh] overflow-y-auto">
+              <div class="absolute right-0 mt-3 w-72 bg-[#111] border border-neutral-800 rounded-xl shadow-2xl py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform scale-95 group-hover:scale-100 origin-top-right max-h-[70vh] overflow-y-auto pointer-events-auto">
                 <div class="grid grid-cols-1">
                   <a href="1rm-lab.html" class="block px-5 py-2.5 text-sm text-neutral-300 hover:bg-neutral-900 hover:text-white transition">1RM Strength</a>
                   <a href="ffmi-lab.html" class="block px-5 py-2.5 text-sm text-neutral-300 hover:bg-neutral-900 hover:text-white transition">FFMI Lab</a>
@@ -45,23 +47,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
           <!-- Mobile Hamburger -->
           <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
           </button>
         </div>
       </div>
 
       <!-- Mobile Menu (hidden by default) -->
       <div id="mobile-menu" class="hidden md:hidden bg-black border-t border-neutral-800 py-6 px-6">
-        <div class="flex flex-col space-y-4 text-center">
-          <a href="index.html" class="nav-link text-white text-lg">HOME</a>
-          <div class="border-t border-neutral-800 pt-4">
-            <p class="text-neutral-500 text-xs uppercase tracking-widest mb-3">Tools</p>
-            <div class="grid grid-cols-2 gap-3">
+        <div class="flex flex-col space-y-5 text-center">
+          <a href="index.html" class="nav-link text-white text-lg uppercase tracking-wider">HOME</a>
+          
+          <div class="border-t border-neutral-800 pt-5">
+            <p class="text-neutral-500 text-xs uppercase tracking-widest mb-4 font-mono">TOOLS</p>
+            <div class="grid grid-cols-2 gap-4 text-sm">
               <a href="1rm-lab.html" class="text-neutral-300 hover:text-white transition">1RM</a>
-              <!-- Add all other tool links here similarly, abbreviated if needed -->
-              <a href="recommendations.html" class="col-span-2 text-white font-medium mt-4">Gear & Recs →</a>
-              <a href="athlete-lab.html" class="col-span-2 text-purple-400 font-bold">Streak Lab →</a>
+              <a href="ffmi-lab.html" class="text-neutral-300 hover:text-white transition">FFMI</a>
+              <a href="smi-lab.html" class="text-neutral-300 hover:text-white transition">SMI</a>
+              <a href="grip-lab.html" class="text-neutral-300 hover:text-white transition">Grip</a>
+              <a href="vo2-lab.html" class="text-neutral-300 hover:text-white transition">VO2</a>
+              <a href="watts-lab.html" class="text-neutral-300 hover:text-white transition">Watts</a>
+              <a href="max-hr.html" class="text-neutral-300 hover:text-white transition">HR</a>
+              <a href="bio-age.html" class="text-neutral-300 hover:text-white transition">Bio Age</a>
+              <a href="functional-age.html" class="text-neutral-300 hover:text-white transition">Func Age</a>
+              <a href="insulin-lab.html" class="text-neutral-300 hover:text-white transition">Insulin</a>
+              <a href="metabolic-lab.html" class="text-neutral-300 hover:text-white transition">Metabolic</a>
+              <a href="protein-lab.html" class="text-neutral-300 hover:text-white transition">Protein</a>
+              <a href="hydration-lab.html" class="text-neutral-300 hover:text-white transition">Hydration</a>
+              <a href="mobility-lab.html" class="text-neutral-300 hover:text-white transition">Mobility</a>
+              <a href="recovery-lab.html" class="text-neutral-300 hover:text-white transition">Recovery</a>
             </div>
+          </div>
+
+          <div class="border-t border-neutral-800 pt-5 mt-2">
+            <a href="recommendations.html" class="block text-white font-medium text-lg uppercase tracking-wider hover:text-purple-400 transition">GEAR & RECS →</a>
+            <a href="athlete-lab.html" class="block mt-4 text-purple-400 font-bold text-lg uppercase tracking-wider hover:text-purple-300 transition">STREAK LAB →</a>
           </div>
         </div>
       </div>
@@ -70,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.body.insertAdjacentHTML('afterbegin', navHTML);
 
-  // Simple mobile toggle
+  // Mobile toggle
   const btn = document.getElementById('mobile-menu-btn');
   const menu = document.getElementById('mobile-menu');
   if (btn && menu) {
