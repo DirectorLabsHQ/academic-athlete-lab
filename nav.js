@@ -8,15 +8,15 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="flex gap-6 md:gap-8 items-center font-mono text-[10px]">
                 <a href="index.html" class="nav-link text-white border-b border-white pb-1">Lab Home</a>
                 
-                <div class="relative group h-full flex items-center">
-                    <button class="nav-link text-neutral-500 group-hover:text-white flex items-center gap-1 focus:outline-none py-2">
+                <div class="relative group h-full flex items-center" id="tools-container">
+                    <button id="tools-toggle" class="nav-link text-neutral-500 group-hover:text-white flex items-center gap-1 focus:outline-none py-2" aria-expanded="false">
                         Tools
-                        <svg class="w-3 h-3 fill-current transition-transform group-hover:rotate-180" viewBox="0 0 20 20">
+                        <svg id="tools-arrow" class="w-3 h-3 fill-current transition-transform group-hover:rotate-180" viewBox="0 0 20 20">
                             <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
                         </svg>
                     </button>
                     
-                    <div class="absolute left-0 top-full pt-2 w-72 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-200 z-50">
+                    <div id="tools-dropdown" class="absolute left-0 top-full pt-2 w-72 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-200 z-50">
                         <div class="bg-[#111] border border-[#222] rounded-xl shadow-2xl overflow-hidden">
                             <div class="max-h-[70vh] overflow-y-auto no-scrollbar">
                                 <div class="px-4 py-3 border-b border-neutral-800">
@@ -64,6 +64,42 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </div>
 </nav>
+
+<script>
+    // Toggle for mobile/tap + better desktop fallback
+    const toggleBtn = document.getElementById('tools-toggle');
+    const dropdown = document.getElementById('tools-dropdown');
+    const arrow = document.getElementById('tools-arrow');
+    const container = document.getElementById('tools-container');
+
+    if (toggleBtn && dropdown) {
+        toggleBtn.addEventListener('click', function(e) {
+            // Only prevent default if needed; allow links inside dropdown
+            if (window.innerWidth < 768) { // mobile/tablet threshold
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            const isOpen = dropdown.classList.contains('opacity-100');
+            
+            dropdown.classList.toggle('opacity-100');
+            dropdown.classList.toggle('pointer-events-auto');
+            arrow.classList.toggle('rotate-180');
+            
+            // Sync aria for accessibility
+            toggleBtn.setAttribute('aria-expanded', !isOpen);
+        });
+
+        // Close on outside click (mobile/desktop)
+        document.addEventListener('click', function(e) {
+            if (!container.contains(e.target)) {
+                dropdown.classList.remove('opacity-100', 'pointer-events-auto');
+                arrow.classList.remove('rotate-180');
+                toggleBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+</script>
     `;
 
     document.body.insertAdjacentHTML('afterbegin', navHTML);
