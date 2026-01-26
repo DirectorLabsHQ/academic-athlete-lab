@@ -48,14 +48,6 @@
             border-color: #333; 
         }
         
-        .nav-link { 
-            font-family: 'Space Mono', monospace; 
-            font-size: 10px; 
-            font-weight: 900; 
-            text-transform: uppercase; 
-            letter-spacing: 0.2em; 
-        }
-        
         .category-header { 
             font-family: 'Space Mono', monospace; 
             color: #444; 
@@ -67,7 +59,8 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
+
+<body class="min-h-screen flex flex-col" style="padding-top: 72px;">
 
     <header class="bg-black text-white py-24 px-6 text-left relative border-b border-neutral-900">
         <div class="max-w-6xl mx-auto relative z-10">
@@ -81,6 +74,7 @@
     </header>
 
     <main class="max-w-7xl mx-auto py-20 px-6 w-full relative">
+        
         <div class="mb-20">
             <h2 class="category-header text-[10px] font-bold uppercase tracking-[0.4em]">01. Power & Sarcopenia Defense</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -115,7 +109,7 @@
                     <p class="text-neutral-500 text-xs font-mono uppercase tracking-tighter">Cardiac Scaling</p>
                 </a>
                 <a href="grip-lab.html" class="lab-card p-6 rounded-2xl border-l-red-600">
-                    <h3 class="font-bold text-lg mb-1 uppercase italic text-white font-inter">Grip Strength</h3>
+                    <h3 class="font-bold text-lg mb-1 uppercase italic text-white">Grip Strength</h3>
                     <p class="text-neutral-500 text-xs font-mono uppercase tracking-tighter">CNS Readiness Proxy</p>
                 </a>
             </div>
@@ -172,17 +166,20 @@
         </div>
 
         <div class="mb-12 p-8 bg-[#111] border border-[#222] rounded-3xl text-center">
-            <p class="text-neutral-300 text-base mb-4">Support muscle preservation and longevity tracking:</p>
+            <p class="text-neutral-500 text-[10px] mb-4 italic font-mono uppercase tracking-widest">Longevity Hardware Archive:</p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
-                <a href="https://amzn.to/4rfebkU" target="_blank" class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded-lg transition text-sm">Recommended Creatine →</a>
-                <a href="https://amzn.to/45pIqx8" target="_blank" class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded-lg transition text-sm">Fitbit Charge 6 →</a>
-                <a href="https://amzn.to/49OwZjK" target="_blank" class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded-lg transition text-sm">Oura Ring 4 →</a>
+                <a href="https://amzn.to/4rfebkU" target="_blank" class="bg-[#1a1a1a] hover:bg-yellow-600 text-white font-bold py-3 px-6 rounded-lg transition text-[11px] uppercase tracking-widest border border-neutral-800">Recommended Creatine →</a>
+                <a href="https://amzn.to/45pIqx8" target="_blank" class="bg-[#1a1a1a] hover:bg-yellow-600 text-white font-bold py-3 px-6 rounded-lg transition text-[11px] uppercase tracking-widest border border-neutral-800">Fitbit Charge 6 →</a>
+                <a href="https://amzn.to/49OwZjK" target="_blank" class="bg-[#1a1a1a] hover:bg-yellow-600 text-white font-bold py-3 px-6 rounded-lg transition text-[11px] uppercase tracking-widest border border-neutral-800">Oura Ring 4 →</a>
             </div>
         </div>
 
-        <div class="bg-purple-600 rounded-3xl p-12 text-center text-white shadow-2xl">
-            <h2 class="text-4xl font-black uppercase italic mb-4 tracking-tighter">Enter The Streak Lab</h2>
-            <a href="athlete-lab.html" class="inline-block bg-white text-purple-600 font-black px-10 py-4 rounded-full uppercase tracking-widest hover:bg-neutral-100 transition-all italic text-xs">Launch Dashboard →</a>
+        <div class="bg-purple-600 rounded-3xl p-12 text-center text-white shadow-2xl relative overflow-hidden">
+            <div class="relative z-10">
+                <h2 class="text-4xl font-black uppercase italic mb-4 tracking-tighter">Enter The Streak Lab</h2>
+                <a href="athlete-lab.html" class="inline-block bg-white text-purple-600 font-black px-10 py-4 rounded-full uppercase tracking-widest hover:bg-neutral-100 transition-all italic text-xs">Launch Dashboard →</a>
+            </div>
+            <div class="absolute inset-0 opacity-10 font-black text-8xl flex items-center justify-center select-none pointer-events-none italic uppercase">STREAK</div>
         </div>
     </main>
 
