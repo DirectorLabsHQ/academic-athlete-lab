@@ -5,202 +5,212 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Max HR Lab | Academic Athlete Lab</title>
     <meta name="description" content="Precision Maximum Heart Rate calculation for athletes 50+. Utilizing Tanaka and Gulati formulas to optimize Zone 2 and VO2 Max training for masters athletes.">
+    <meta name="keywords" content="max heart rate calculator, Tanaka formula, Gulati formula, masters athlete HR, Zone 2 training, VO2 max optimization">
     
+    <!-- Canonical for SEO -->
+    <link rel="canonical" href="https://academicathletelab.com/max-hr.html">
+
+    <!-- Structured data for better search visibility -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Max HR Lab - Academic Athlete Lab",
+      "description": "Maximum heart rate diagnostic tool for athletes 50+ using Tanaka and Gulati formulas to guide Zone 2 training and cardiovascular longevity.",
+      "url": "https://academicathletelab.com/max-hr.html"
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="nav.js" defer></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap');
-        body { background-color: #050505; color: #fff; font-family: 'Space Mono', monospace; -webkit-font-smoothing: antialiased; }
-        .font-inter { font-family: 'Inter', sans-serif; }
+        
+        body { 
+            background-color: #050505; 
+            color: #fff; 
+            font-family: 'Inter', sans-serif; 
+            -webkit-font-smoothing: antialiased; 
+            margin: 0;
+            padding: 0;
+            padding-top: 80px; 
+        }
+        
+        .font-mono { font-family: 'Space Mono', monospace; }
         .aerobic-blue { color: #3b82f6; }
         .bg-aerobic { background-color: #3b82f6; }
         .glass-card { background: #111; border: 1px solid #222; }
-        .input-field { background: #000; border: 1px solid #333; color: #3b82f6; outline: none; transition: all 0.2s; font-size: 1.1rem; width: 100%; padding: 1rem; border-radius: 0.75rem; }
+        .input-field { 
+            background: #000; 
+            border: 1px solid #333; 
+            color: #3b82f6; 
+            outline: none; 
+            transition: all 0.2s; 
+            font-size: 1.1rem; 
+            width: 100%; 
+            padding: 1rem; 
+            border-radius: 0.75rem; 
+        }
         .input-field:focus { border-color: #3b82f6; background: #0a0a0a; }
-        .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
+        .toggle-active { background-color: #3b82f6 !important; color: #fff !important; }
+        
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%233b82f6'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1rem; }
     </style>
 </head>
+
 <body class="min-h-screen flex flex-col" onload="initPage()">
 
-<header class="p-6 border-b border-neutral-900 bg-black">
-    <div class="max-w-6xl mx-auto flex justify-between items-center text-left">
-        <a href="index.html" class="text-xl font-black tracking-tighter aerobic-blue italic uppercase font-inter">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
-        <div class="hidden md:block">
-            <span class="text-[9px] text-neutral-600 uppercase tracking-widest font-bold font-mono">Module: Cardiac_Ceiling_v2.4</span>
-        </div>
-    </div>
-</header>
+    <!-- Shared nav injected here by nav.js -->
 
-<nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto no-scrollbar">
-    <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono text-[10px]">
-        <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Lab Home</a>
-        <a href="1rm-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM</a>
-        <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">FFMI</a>
-        <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">SMI</a>
-        <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Grip</a>
-        <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">VO2 Max</a>
-        <a href="watts-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Watts/kg</a>
-        <a href="max-hr.html" class="nav-link aerobic-blue border-b border-blue-500 pb-1">Max HR</a>
-        <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Bio-Age</a>
-        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Func-Age</a>
-        <a href="insulin-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Insulin</a>
-        <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Metabolic</a>
-        <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Protein</a>
-        <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Hydration</a>
-        <a href="mobility-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Mobility</a>
-        <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Recovery</a>
-        <a href="athlete-lab.html" class="nav-link text-purple-500 border-l border-neutral-800 pl-6 italic font-bold">The Streak Lab</a>
-    </div>
-</nav>
+    <main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter">
+        <article>
+            <header class="mb-12 text-left">
+                <div class="inline-block bg-aerobic text-white px-4 py-1 font-black italic text-2xl uppercase mb-4 tracking-tighter">Max HR Precision Lab</div>
+                <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono block font-bold">Formula: Tanaka/Gulati Cardiac Adjustment</p>
+            </header>
 
-<main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter">
-    <article>
-        <header class="mb-12 text-left">
-            <div class="inline-block bg-aerobic text-white px-4 py-1 font-black italic text-2xl uppercase mb-4 tracking-tighter">Max HR Precision Lab</div>
-            <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono block font-bold">Formula: Tanaka/Gulati Cardiac Adjustment</p>
-        </header>
-
-        <div class="grid lg:grid-cols-2 gap-10">
-            <section class="glass-card p-8 rounded-3xl border-l-4 border-blue-600 text-left">
-                <h2 class="text-xs font-bold uppercase aerobic-blue mb-6 tracking-widest font-mono italic">Physiological Inputs</h2>
-                <div class="space-y-6">
-                    <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Current Age</label>
-                        <input type="number" id="age" oninput="calculateHR()" class="input-field font-mono text-2xl" placeholder="55">
+            <div class="grid lg:grid-cols-2 gap-10">
+                <section class="glass-card p-8 rounded-3xl border-l-4 border-blue-600 text-left">
+                    <h2 class="text-xs font-bold uppercase aerobic-blue mb-6 tracking-widest font-mono italic">Physiological Inputs</h2>
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Biological Sex</label>
+                            <div class="flex bg-black border border-neutral-800 rounded-xl p-1">
+                                <button id="gen-male" onclick="setGender('male')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">MALE</button>
+                                <button id="gen-female" onclick="setGender('female')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">FEMALE</button>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Current Age</label>
+                            <input type="number" id="age" oninput="calculateHR()" class="input-field font-mono text-2xl" placeholder="55">
+                        </div>
                     </div>
-                    <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Biological Sex</label>
-                        <select id="sex" onchange="calculateHR()" class="input-field font-mono text-xl appearance-none cursor-pointer">
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                    </div>
-                </div>
-            </section>
+                </section>
 
-            <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px] relative overflow-hidden">
-                <div id="hr-result" class="hidden text-left relative z-10">
-                    <h3 class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono italic">Estimated Cardiac Ceiling:</h3>
-                    <div id="hr-val" class="text-7xl font-black aerobic-blue tracking-tighter mb-4 uppercase italic leading-none">--</div>
-                    
-                    <div class="p-6 bg-blue-600/5 border border-blue-600/20 rounded-2xl mb-6">
-                        <p class="text-[9px] font-bold text-blue-500 uppercase mb-2 tracking-widest italic text-left underline font-mono">The "Fit Gap" Analysis:</p>
-                        <p id="hr-comment" class="text-xs text-neutral-400 leading-relaxed italic text-left"></p>
-                    </div>
+                <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px] relative overflow-hidden">
+                    <div id="hr-result" class="hidden text-left relative z-10">
+                        <h3 class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono italic">Estimated Cardiac Ceiling:</h3>
+                        <div id="hr-val" class="text-7xl font-black aerobic-blue tracking-tighter mb-4 uppercase italic leading-none">--</div>
+                        
+                        <div class="p-6 bg-blue-600/5 border border-blue-600/20 rounded-2xl mb-6">
+                            <p class="text-[9px] font-bold text-blue-500 uppercase mb-2 tracking-widest italic text-left underline font-mono">The "Fit Gap" Analysis:</p>
+                            <p id="hr-comment" class="text-xs text-neutral-400 leading-relaxed italic text-left"></p>
+                        </div>
 
-                    <!-- NEW: Amazon affiliate recommendation box (clean, matches your style, exact product wording) -->
-                    <div class="mt-8 p-6 bg-[#111] border border-[#222] rounded-2xl text-center">
-                        <p class="text-neutral-300 text-base mb-4">
-                            Track your max heart rate accurately and support healthy aging with these tools:
-                        </p>
-                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                            <a href="https://amzn.to/45pIqx8" 
-                               target="_blank" rel="noopener noreferrer"
-                               class="inline-block bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-6 rounded-lg transition text-sm">
-                                Fitbit Charge 6 → (Amazon)
-                            </a>
-                            <a href="https://amzn.to/4pUDMyk" 
-                               target="_blank" rel="noopener noreferrer"
-                               class="inline-block bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-6 rounded-lg transition text-sm">
-                                Methylation & Longevity Genetic Test → (Amazon)
+                        <!-- Affiliate Recommendation -->
+                        <div class="mt-8">
+                            <a href="https://amzn.to/461d93G" target="_blank" rel="noopener noreferrer" class="block p-6 bg-[#111] border border-[#222] rounded-2xl text-center hover:border-blue-500 transition">
+                                <p class="text-neutral-300 text-base mb-4">
+                                    Gold-standard chest-strap monitor for accurate max HR testing, Zone 2 training, HRV, and cardiac ceiling validation.
+                                </p>
+                                <span class="inline-block bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-8 rounded-lg transition">
+                                    Polar H10 Heart Rate Monitor → (Amazon)
+                                </span>
                             </a>
                         </div>
-                        <p class="text-neutral-500 text-xs mt-4 italic">
+
+                        <p class="text-neutral-500 text-xs mt-4 italic text-center">
                             As an Amazon Associate, I earn from qualifying purchases at no extra cost to you.
                         </p>
+
+                        <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-blue-600 hover:text-white transition-all italic mt-8">Log Cardiac Baseline →</a>
                     </div>
-
-                    <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-blue-600 hover:text-white transition-all italic mt-6">Log Cardiac Baseline →</a>
-                </div>
-                <div id="hr-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest font-mono px-10 leading-loose">
-                    [ Awaiting age and sex for age-compensated cardiac modeling ]
-                </div>
-                <div class="absolute -right-8 -bottom-8 text-9xl font-black text-white/[0.02] italic pointer-events-none select-none uppercase">Ceiling</div>
-            </section>
-        </div>
-
-        <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
-            <h2 class="text-2xl font-black italic uppercase mb-8 aerobic-blue tracking-tighter">The 220-Age Fallacy</h2>
-
-            <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
-                <div>
-                    <h3 class="text-white font-bold mb-4 uppercase tracking-tighter text-left text-xs font-mono">The Tanaka Formula (All Sexes)</h3>
-                    <p class="mb-6">The standard <em>220 - Age</em> formula was never intended for athletic populations. It significantly underestimates the max HR of fit individuals over 50. This lab utilizes the <strong>Tanaka Formula</strong> ($208 - (0.7 \times \text{Age})$), which is the peer-reviewed gold standard for healthy, aging adults.</p>
-                </div>
-                
-                <div>
-                    <h3 class="text-white font-bold mb-4 uppercase tracking-tighter text-left text-xs font-mono">The Gulati Formula (Female Specific)</h3>
-                    <p class="mb-4">Research by Dr. Martha Gulati found that traditional male-centric formulas often overestimate the cardiac ceiling for women. The <strong>Gulati Formula</strong> ($206 - (0.88 \times \text{Age})$) provides a more accurate, research-backed limit specifically for female athletes.</p>
-                </div>
+                    <div id="hr-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest font-mono px-10 leading-loose">
+                        [ Awaiting age and sex for age-compensated cardiac modeling ]
+                    </div>
+                    <div class="absolute -right-8 -bottom-8 text-9xl font-black text-white/[0.02] italic pointer-events-none select-none uppercase">Ceiling</div>
+                </section>
             </div>
-        </section>
 
-        <section class="mt-12 p-6 bg-neutral-900/30 border border-neutral-800 rounded-2xl text-left font-mono">
-            <p class="text-[10px] text-neutral-500 leading-relaxed italic">
-                <span class="text-neutral-300 font-bold uppercase tracking-widest block mb-2 underline font-inter">Diagnostic Disclaimer:</span>
-                Individual variation can be $\pm 12$ BPM. Medically supervised stress tests are the only way to determine absolute maximum heart rate. Consult a cardiologist before performing high-intensity training.
-            </p>
-        </section>
-    </article>
-</main>
+            <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
+                <h2 class="text-2xl font-black italic uppercase mb-8 aerobic-blue tracking-tighter">The 220-Age Fallacy</h2>
 
-<footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-[0.3em]">
-    Academic Athlete Lab © 2026 | Protocol: Cardiac_Ceiling_v2.4
-</footer>
+                <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
+                    <div>
+                        <h3 class="text-white font-bold mb-4 uppercase tracking-tighter text-left text-xs font-mono">The Tanaka Formula (All Sexes)</h3>
+                        <p class="mb-6">The standard <em>220 - Age</em> formula was never intended for athletic populations. It significantly underestimates the max HR of fit individuals over 50. This lab utilizes the <strong>Tanaka Formula</strong> ($208 - (0.7 \times \text{Age})$), which is the peer-reviewed gold standard for healthy, aging adults.</p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-white font-bold mb-4 uppercase tracking-tighter text-left text-xs font-mono">The Gulati Formula (Female Specific)</h3>
+                        <p class="mb-4">Research by Dr. Martha Gulati found that traditional male-centric formulas often overestimate the cardiac ceiling for women. The <strong>Gulati Formula</strong> ($206 - (0.88 \times \text{Age})$) provides a more accurate, research-backed limit specifically for female athletes.</p>
+                    </div>
+                </div>
+            </section>
 
-<script>
-    function initPage() {
-        const savedAge = localStorage.getItem('athleteAge');
-        const savedSex = localStorage.getItem('athleteGender');
-        if(savedAge) document.getElementById('age').value = savedAge;
-        if(savedSex) document.getElementById('sex').value = savedSex;
-        calculateHR();
-    }
+            <section class="mt-12 p-6 bg-neutral-900/30 border border-neutral-800 rounded-2xl text-left font-mono">
+                <p class="text-[10px] text-neutral-500 leading-relaxed italic">
+                    <span class="text-neutral-300 font-bold uppercase tracking-widest block mb-2 underline font-inter">Diagnostic Disclaimer:</span>
+                    Individual variation can be $\pm 12$ BPM. Medically supervised stress tests are the only way to determine absolute maximum heart rate. Consult a cardiologist before performing high-intensity training.
+                </p>
+            </section>
+        </article>
+    </main>
 
-    function calculateHR() {
-        const age = parseInt(document.getElementById('age').value);
-        const sex = document.getElementById('sex').value;
+    <footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-[0.3em]">
+        Academic Athlete Lab © 2026 | Protocol: Cardiac_Ceiling_v2.4
+    </footer>
 
-        if(!age || age < 1) {
-            document.getElementById('hr-result').classList.add('hidden');
-            document.getElementById('hr-placeholder').classList.remove('hidden');
-            return;
+    <script>
+        let currentGender = localStorage.getItem('athleteGender') || 'male';
+
+        function initPage() {
+            setGender(currentGender);
+            // Fields start blank on every refresh/load
+            calculateHR();
         }
 
-        let maxHR = 0;
-        let oldFormula = 220 - age;
-        let formulaName = "";
-
-        if (sex === 'female') {
-            maxHR = Math.round(206 - (0.88 * age));
-            formulaName = "Gulati Protocol";
-        } else {
-            maxHR = Math.round(208 - (0.7 * age));
-            formulaName = "Tanaka Protocol";
+        function setGender(g) {
+            currentGender = g;
+            localStorage.setItem('athleteGender', g);
+            document.getElementById('gen-male').className = g === 'male' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
+            document.getElementById('gen-female').className = g === 'female' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
+            calculateHR();
         }
 
-        const fitGap = maxHR - oldFormula;
+        function calculateHR() {
+            const age = parseInt(document.getElementById('age').value);
 
-        document.getElementById('hr-result').classList.remove('hidden');
-        document.getElementById('hr-placeholder').classList.add('hidden');
-        document.getElementById('hr-val').innerText = maxHR + " BPM";
-        
-        let gapAnalysis = "";
-        if (fitGap > 0) {
-            gapAnalysis = `Using the ${formulaName}, your max HR is ${fitGap} BPM higher than the legacy '220-Age' formula. This provides a more accurate ceiling for high-intensity training and Zone 2 calculations.`;
-        } else if (fitGap < 0) {
-            gapAnalysis = `The ${formulaName} provides a more calibrated peak heart rate for your profile, suggesting the legacy formula was overestimating your cardiac limit by ${Math.abs(fitGap)} BPM.`;
-        } else {
-            gapAnalysis = `The modern ${formulaName} aligns with legacy models for your specific age, confirming your cardiac ceiling baseline.`;
+            if(!age || age < 1) {
+                document.getElementById('hr-result').classList.add('hidden');
+                document.getElementById('hr-placeholder').classList.remove('hidden');
+                return;
+            }
+
+            let maxHR = 0;
+            let oldFormula = 220 - age;
+            let formulaName = "";
+
+            if (currentGender === 'female') {
+                maxHR = Math.round(206 - (0.88 * age));
+                formulaName = "Gulati Protocol";
+            } else {
+                maxHR = Math.round(208 - (0.7 * age));
+                formulaName = "Tanaka Protocol";
+            }
+
+            const fitGap = maxHR - oldFormula;
+
+            document.getElementById('hr-result').classList.remove('hidden');
+            document.getElementById('hr-placeholder').classList.add('hidden');
+            document.getElementById('hr-val').innerText = maxHR + " BPM";
+            
+            let gapAnalysis = "";
+            if (fitGap > 0) {
+                gapAnalysis = `Using the ${formulaName}, your max HR is ${fitGap} BPM higher than the legacy '220-Age' formula. This provides a more accurate ceiling for high-intensity training and Zone 2 calculations.`;
+            } else if (fitGap < 0) {
+                gapAnalysis = `The ${formulaName} provides a more calibrated peak heart rate for your profile, suggesting the legacy formula was overestimating your cardiac limit by ${Math.abs(fitGap)} BPM.`;
+            } else {
+                gapAnalysis = `The modern ${formulaName} aligns with legacy models for your specific age, confirming your cardiac ceiling baseline.`;
+            }
+            
+            document.getElementById('hr-comment').innerText = gapAnalysis;
+            
+            localStorage.setItem('athleteAge', age);
+            localStorage.setItem('athleteGender', currentGender);
+            localStorage.setItem('athleteMaxHR', maxHR);
         }
-        
-        document.getElementById('hr-comment').innerText = gapAnalysis;
-        
-        localStorage.setItem('athleteAge', age);
-        localStorage.setItem('athleteGender', sex);
-        localStorage.setItem('athleteMaxHR', maxHR);
-    }
-</script>
+    </script>
 </body>
 </html>
