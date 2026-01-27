@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1RM Strength Lab | Academic Athlete Lab</title>
-    <meta name="description" content="Submaximal 1RM calculator + plate loader for bench, squat, deadlift, DB chest press, incline press & more. Safe strength modeling for masters athletes 50+.">
+    <meta name="description" content="Submaximal 1RM calculator + plate loader for bench, squat, deadlift, DB chest press, DB incline press, DB shoulder press & more. Safe strength modeling for masters athletes 50+.">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="nav.js" defer></script>
@@ -99,7 +99,7 @@
                             <option value="db_incline">DB Incline Press</option>
                             <option value="squat">Back Squat</option>
                             <option value="deadlift" selected>Deadlift</option>
-                            <option value="press">Overhead Press</option>
+                            <option value="db_shoulder">DB Shoulder Press</option>
                         </select>
                     </div>
                     <div>
@@ -155,13 +155,17 @@
                         </div>
                     </div>
 
-                    <div class="mb-10 bg-neutral-950 p-6 rounded-2xl border border-neutral-800">
+                    <!-- Plate Loader Section (conditionally shown/hidden) -->
+                    <div id="plate-section" class="mb-10 bg-neutral-950 p-6 rounded-2xl border border-neutral-800">
                         <div class="flex justify-between items-center mb-4">
-                            <h4 class="text-[10px] font-bold uppercase tracking-widest text-neutral-400 font-mono">Plate Loader (Per Side)</h4>
+                            <h4 class="text-[10px] font-bold uppercase tracking-widest text-neutral-400 font-mono">Plate Loader</h4>
                             <span class="text-[9px] text-neutral-600 uppercase">Standard Olympic Bar</span>
                         </div>
                         <div id="plate-display" class="flex flex-wrap gap-2 items-center min-h-[60px]"></div>
-                        <p class="text-[10px] text-neutral-600 mt-4 italic font-mono">
+                        <div id="db-note" class="hidden text-[10px] text-neutral-500 mt-4 italic font-mono">
+                            Dumbbell movement — load each hand separately with half of the calculated weight per side.
+                        </div>
+                        <p id="plate-note" class="text-[10px] text-neutral-600 mt-4 italic font-mono">
                             Assumes standard plates: 45/25/10/5/2.5 lb (or 25/20/15/10/5/2.5/1.25 kg equivalents).
                         </p>
                     </div>
@@ -207,6 +211,8 @@
         let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
         let currentGender = localStorage.getItem('athleteGender') || 'male';
 
+        const barbellMovements = ['bench', 'squat', 'deadlift'];
+
         function initPage() {
             const savedW = localStorage.getItem('athleteWeight');
             const savedR = localStorage.getItem('athleteReps');
@@ -236,6 +242,7 @@
         function calculate1RM() {
             const w = parseFloat(document.getElementById('weight').value) || 0;
             const r = parseFloat(document.getElementById('reps').value) || 0;
+            const movement = document.getElementById('lift-choice').value;
             const resArea = document.getElementById('results-area');
             const placeHolder = document.getElementById('placeholder');
 
@@ -247,11 +254,21 @@
                 const roundedRM = Math.round(oneRM);
                 
                 document.getElementById('result-val').innerText = roundedRM;
-                document.getElementById('pct-85').innerText = Math.round(roundedRM * 0.85) + currentUnit;
-                document.getElementById('pct-75').innerText = Math.round(roundedRM * 0.75) + currentUnit;
-                document.getElementById('pct-65').innerText = Math.round(roundedRM * 0.65) + currentUnit;
+                document.getElementById('pct-85').innerText = Math.round(roundedRM * 0.85) + ' ' + currentUnit;
+                document.getElementById('pct-75').innerText = Math.round(roundedRM * 0.75) + ' ' + currentUnit;
+                document.getElementById('pct-65').innerText = Math.round(roundedRM * 0.65) + ' ' + currentUnit;
 
-                updatePlateLoader(roundedRM);
+                // Conditional plate loader
+                const isBarbell = barbellMovements.includes(movement);
+                document.getElementById('plate-display').innerHTML = '';
+                document.getElementById('db-note').classList.toggle('hidden', isBarbell);
+                document.getElementById('plate-note').classList.toggle('hidden', !isBarbell);
+
+                if (isBarbell) {
+                    updatePlateLoader(roundedRM);
+                } else {
+                    document.getElementById('plate-display').innerHTML = '<span class="text-neutral-500 text-sm italic uppercase">N/A for dumbbell lifts</span>';
+                }
 
                 let advice = "";
                 if (r > 10) advice = "Accuracy best at 3–8 reps for masters athletes. Higher reps may underestimate due to fatigue.";
