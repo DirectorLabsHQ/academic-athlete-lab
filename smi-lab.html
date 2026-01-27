@@ -20,7 +20,7 @@
             -webkit-font-smoothing: antialiased; 
             margin: 0;
             padding: 0;
-            padding-top: 80px;  /* For fixed nav */
+            padding-top: 80px; 
         }
         
         .font-mono { font-family: 'Space Mono', monospace; }
@@ -68,6 +68,20 @@
                 <h2 class="text-xs font-bold uppercase safety-yellow mb-6 tracking-widest font-mono italic">Biometric Data</h2>
                 <div class="space-y-6">
                     <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Biological Sex</label>
+                        <div class="flex bg-neutral-900 rounded-lg p-1">
+                            <button id="gen-male" onclick="setGender('male')" class="flex-1 py-1.5 text-[10px] font-bold rounded-md transition-all">MALE</button>
+                            <button id="gen-female" onclick="setGender('female')" class="flex-1 py-1.5 text-[10px] font-bold rounded-md transition-all">FEMALE</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Weight Unit</label>
+                        <div class="flex bg-neutral-900 rounded-lg p-1 w-fit">
+                            <button id="unit-lbs" onclick="setUnit('LBS')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">LBS</button>
+                            <button id="unit-kg" onclick="setUnit('KG')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">KG</button>
+                        </div>
+                    </div>
+                    <div>
                         <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Weight (<span class="unit-label">LBS</span>)</label>
                         <input type="number" id="weight" oninput="calculateSMI()" class="input-field font-mono text-2xl" placeholder="185">
                     </div>
@@ -76,16 +90,16 @@
                             <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Body Fat %</label>
                             <input type="number" id="bf" oninput="calculateSMI()" class="input-field font-mono text-2xl" placeholder="18">
                         </div>
-                        <div>
-                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Sex</label>
-                            <select id="sex" onchange="calculateSMI()" class="input-field font-mono text-xl cursor-pointer">
-                                <option value="male">MALE</option>
-                                <option value="female">FEMALE</option>
-                            </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Height Unit</label>
+                        <div class="flex bg-neutral-900 rounded-lg p-1 w-fit">
+                            <button id="height-cm" onclick="setHeightUnit('CM')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">CM</button>
+                            <button id="height-in" onclick="setHeightUnit('IN')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">IN</button>
                         </div>
                     </div>
                     <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Height (CM)</label>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Height (<span class="height-label">CM</span>)</label>
                         <input type="number" id="height" oninput="calculateSMI()" class="input-field font-mono text-2xl" placeholder="178">
                     </div>
                     <button onclick="resetLab()" class="text-[9px] text-neutral-600 hover:text-yellow-500 uppercase font-bold tracking-widest pt-2">Clear Data</button>
@@ -198,56 +212,85 @@
 
     <script>
         let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
+        let currentHeightUnit = 'CM';  // Default
+        let currentGender = 'male';  // Default
 
         function initPage() {
+            // Prefill from shared localStorage if available (from other labs)
+            const savedWeight = localStorage.getItem('athleteWeight');
+            const savedBF = localStorage.getItem('athleteBF');
+            const savedHeight = localStorage.getItem('athleteHeight');
+            const savedGender = localStorage.getItem('athleteGender');
+
+            if (savedWeight) document.getElementById('weight').value = savedWeight;
+            if (savedBF) document.getElementById('bf').value = savedBF;
+            if (savedHeight) document.getElementById('height').value = savedHeight;
+            if (savedGender && (savedGender === 'male' || savedGender === 'female')) {
+                setGender(savedGender);
+            }
+
             setUnit(currentUnit);
-            // Start blank on every load/refresh
-            calculateSMI();
+            setHeightUnit(currentHeightUnit);
+            calculateFFMI();  // Auto-calc if prefilled data is complete
+        }
+
+        function setGender(g) {
+            currentGender = g;
+            localStorage.setItem('athleteGender', g);
+            document.getElementById('gen-male').className = g === 'male' ? 'flex-1 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'flex-1 py-1.5 text-[10px] font-bold rounded-md text-neutral-500';
+            document.getElementById('gen-female').className = g === 'female' ? 'flex-1 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'flex-1 py-1.5 text-[10px] font-bold rounded-md text-neutral-500';
+            calculateFFMI();
         }
 
         function setUnit(u) {
             currentUnit = u;
             localStorage.setItem('athleteUnit', u);
             document.querySelectorAll('.unit-label').forEach(el => el.innerText = u);
-            document.getElementById('unit-lbs').className = u==='LBS' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active shadow-sm' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500 hover:text-white';
-            document.getElementById('unit-kg').className = u==='KG' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active shadow-sm' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500 hover:text-white';
-            calculateSMI();
+            document.getElementById('unit-lbs').className = u==='LBS' ? 'flex-1 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'flex-1 py-1.5 text-[10px] font-bold rounded-md text-neutral-500';
+            document.getElementById('unit-kg').className = u==='KG' ? 'flex-1 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'flex-1 py-1.5 text-[10px] font-bold rounded-md text-neutral-500';
+            calculateFFMI();
         }
 
-        function calculateSMI() {
-            const weightVal = parseFloat(document.getElementById('weight').value);
-            const bf = parseFloat(document.getElementById('bf').value);
-            const heightVal = parseFloat(document.getElementById('height').value);
-            const sex = document.getElementById('sex').value;
+        function setHeightUnit(u) {
+            currentHeightUnit = u;
+            document.querySelectorAll('.height-label').forEach(el => el.innerText = u);
+            document.getElementById('height-cm').className = u==='CM' ? 'flex-1 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'flex-1 py-1.5 text-[10px] font-bold rounded-md text-neutral-500';
+            document.getElementById('height-in').className = u==='IN' ? 'flex-1 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'flex-1 py-1.5 text-[10px] font-bold rounded-md text-neutral-500';
+            calculateFFMI();
+        }
 
-            if (weightVal > 0 && bf >= 0 && bf <= 100 && heightVal > 0) {
-                document.getElementById('smi-placeholder').classList.add('hidden');
-                document.getElementById('smi-result').classList.remove('hidden');
+        function calculateFFMI() {
+            const wVal = parseFloat(document.getElementById('weight').value);
+            const bfVal = parseFloat(document.getElementById('bf').value);
+            let hVal = parseFloat(document.getElementById('height').value);
 
-                let weightKg = currentUnit === 'LBS' ? weightVal * 0.453592 : weightVal;
-                let heightM = heightVal / 100;
+            if (wVal > 0 && bfVal >= 0 && bfVal <= 100 && hVal > 0) {
+                document.getElementById('ffmi-placeholder').classList.add('hidden');
+                document.getElementById('ffmi-result-container').classList.remove('hidden');
 
-                const lbm = weightKg * (1 - (bf / 100));
-                const alm = lbm * 0.75;
-                const smi = alm / (heightM * heightM);
+                let weightKg = currentUnit === 'LBS' ? wVal * 0.453592 : wVal;
+                let heightM = currentHeightUnit === 'IN' ? hVal * 0.0254 : hVal / 100;
 
-                document.getElementById('smi-val').innerText = smi.toFixed(2);
+                let leanMassKg = weightKg * (1 - (bfVal / 100));
+                let ffmi = leanMassKg / (heightM * heightM);
                 
-                let comment = "";
-                if (sex === 'male') {
-                    if (smi > 9.0) comment = "Academic Athlete Tier. Exceptional muscle density. You are highly protected against age-related frailty.";
-                    else if (smi > 7.0) comment = "Optimal Baseline. Healthy skeletal muscle index. Focus on protein synthesis and volume to maintain this floor.";
-                    else comment = "Sarcopenia Risk. SMI is below clinical longevity benchmarks. Immediate intervention in resistance load and leucine intake recommended.";
-                } else {
-                    if (smi > 7.5) comment = "Academic Athlete Tier. Exceptional skeletal muscle mass. You possess a significant metabolic buffer for healthy aging.";
-                    else if (smi > 5.7) comment = "Optimal Baseline. Normal muscle-to-height ratio. Aim to maintain this mass to ensure mobility into later decades.";
-                    else comment = "Sarcopenia Risk. Muscle mass is reaching a critical low. Focus on multi-joint resistance training and high-quality protein.";
-                }
+                // Height Normalization (Kouri Formula)
+                let normalizedFFMI = ffmi + 6.1 * (1.8 - heightM);
+                let finalScore = normalizedFFMI.toFixed(1);
+
+                document.getElementById('ffmi-val').innerText = finalScore;
                 
-                document.getElementById('smi-comment').innerText = comment;
+                let category = "";
+                if (normalizedFFMI < 18) category = "Below Average. Focus on hyper-caloric protein intake and high-tension resistance work.";
+                else if (normalizedFFMI < 20) category = "Average. Baseline muscle mass for healthy aging. Ensure protein threshold is met.";
+                else if (normalizedFFMI < 22) category = "High. Excellent lean mass retention. Indicates consistent anabolic stimulus.";
+                else if (normalizedFFMI < 25) category = "Elite. Superior genetic response. Exceptional sarcopenia defense.";
+                else category = "Outlier. Near the upper biological limit for natural lean mass retention.";
+                
+                document.getElementById('ffmi-category').innerText = category;
             } else {
-                document.getElementById('smi-placeholder').classList.remove('hidden');
-                document.getElementById('smi-result').classList.add('hidden');
+                document.getElementById('ffmi-placeholder').classList.remove('hidden');
+                document.getElementById('ffmi-result-container').classList.add('hidden');
             }
         }
 
@@ -255,7 +298,7 @@
             document.getElementById('weight').value = '';
             document.getElementById('bf').value = '';
             document.getElementById('height').value = '';
-            calculateSMI();
+            calculateFFMI();
         }
     </script>
 </body>
