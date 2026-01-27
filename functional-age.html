@@ -163,23 +163,23 @@
         setUnit(currentUnit);
         setGender(currentGender);
         syncData();
-        // Give DOM time to reflect input changes, then re-calculate
+        // Queue a delayed re-sync + calc to let DOM settle
         setTimeout(() => {
             syncData();
-            calculateFuncAge();
+            setTimeout(calculateFuncAge, 0);  // Push calc to next microtask
         }, 100);
     }
 
-    // Re-sync when tab is focused/visible
+    // Re-trigger when tab regains focus/visibility
     document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'visible') {
             syncData();
-            setTimeout(calculateFuncAge, 50);
+            setTimeout(calculateFuncAge, 0);
         }
     });
     window.addEventListener('focus', () => {
         syncData();
-        setTimeout(calculateFuncAge, 50);
+        setTimeout(calculateFuncAge, 0);
     });
 
     function setGender(g) {
@@ -201,22 +201,24 @@
         const savedL = localStorage.getItem('athleteLift');
         const savedAge = localStorage.getItem('athleteAge');
         
-        console.log('[Functional Age] Sync:', {
+        console.log('[Functional Age] Sync data loaded:', {
             oneRM: saved1RM,
             bodyweight: savedW,
             lift: savedL,
             age: savedAge
         });
 
-        if (savedL) document.getElementById('lift-type').value = savedL;
+        if (savedL) {
+            document.getElementById('lift-type').value = savedL;
+        }
         if (saved1RM && !isNaN(parseFloat(saved1RM))) {
             document.getElementById('one-rm').value = Math.round(parseFloat(saved1RM));
         }
         if (savedW && !isNaN(parseFloat(savedW))) {
-            document.getElementById('bodyweight').value = savedW;
+            document.getElementById('bodyweight').value = parseFloat(savedW);
         }
         if (savedAge && !isNaN(parseInt(savedAge))) {
-            document.getElementById('chron-age').value = savedAge;
+            document.getElementById('chron-age').value = parseInt(savedAge);
         }
     }
 
@@ -230,20 +232,30 @@
     }
 
     function calculateFuncAge() {
-        const chronAge = parseInt(document.getElementById('chron-age').value) || 0;
-        const bw = parseFloat(document.getElementById('bodyweight').value) || 0;
-        const max = parseFloat(document.getElementById('one-rm').value) || 0;
+        const chronAgeInput = document.getElementById('chron-age').value;
+        const bwInput = document.getElementById('bodyweight').value;
+        const maxInput = document.getElementById('one-rm').value;
         const lift = document.getElementById('lift-type').value;
-        
-        console.log('[Functional Age] Calc inputs:', { chronAge, bw, max, lift });
 
-        // Only hide if truly no valid data — otherwise attempt calc
-        if (chronAge <= 0 || (bw <= 0 && max <= 0)) {
+        const chronAge = parseInt(chronAgeInput) || 0;
+        const bw = parseFloat(bwInput) || 0;
+        const max = parseFloat(maxInput) || 0;
+
+        console.log('[Functional Age] Calculation attempt:', {
+            chronAge, bw, max, lift,
+            chronAgeRaw: chronAgeInput,
+            bwRaw: bwInput,
+            maxRaw: maxInput
+        });
+
+        // Only block display if literally no usable data at all
+        if (chronAge <= 0 && bw <= 0 && max <= 0) {
             document.getElementById('age-display').classList.add('hidden');
             document.getElementById('age-placeholder').classList.remove('hidden');
             return;
         }
 
+        // Proceed with calc even if partial data (better UX)
         const ratio = bw > 0 ? (max / bw).toFixed(2) : 0;
         
         const standards = {
