@@ -5,167 +5,293 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hydration & Sweat Rate Lab | Academic Athlete Lab</title>
     <meta name="description" content="Precision hydration lab for athletes 50+. Calculate hourly sweat rate and sodium replacement needs based on body mass changes and training duration.">
+    <meta name="keywords" content="sweat rate calculator, hydration test, sodium replacement, masters athlete hydration, fluid loss, electrolyte needs">
     
+    <!-- Canonical for SEO -->
+    <link rel="canonical" href="https://academicathletelab.com/hydration-lab.html">
+
+    <!-- Structured data for better search visibility -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Hydration & Sweat Rate Lab - Academic Athlete Lab",
+      "description": "Sweat rate and hydration calculator for athletes 50+ to optimize fluid and electrolyte replacement during training.",
+      "url": "https://academicathletelab.com/hydration-lab.html"
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="nav.js" defer></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap');
-        body { background-color: #050505; color: #fff; font-family: 'Space Mono', monospace; -webkit-font-smoothing: antialiased; }
-        .font-inter { font-family: 'Inter', sans-serif; }
+        
+        body { 
+            background-color: #050505; 
+            color: #fff; 
+            font-family: 'Inter', sans-serif; 
+            -webkit-font-smoothing: antialiased; 
+            margin: 0;
+            padding: 0;
+            padding-top: 80px; 
+        }
+        
+        .font-mono { font-family: 'Space Mono', monospace; }
         .safety-blue { color: #3b82f6; }
         .bg-blue { background-color: #3b82f6; }
         .glass-card { background: #111; border: 1px solid #222; }
-        .input-field { background: #000; border: 1px solid #333; color: #3b82f6; outline: none; transition: all 0.2s; font-size: 1.1rem; width: 100%; padding: 1rem; border-radius: 0.75rem; }
+        .input-field { 
+            background: #000; 
+            border: 1px solid #333; 
+            color: #3b82f6; 
+            outline: none; 
+            transition: all 0.2s; 
+            font-size: 1.1rem; 
+            width: 100%; 
+            padding: 1rem; 
+            border-radius: 0.75rem; 
+        }
         .input-field:focus { border-color: #3b82f6; background: #0a0a0a; }
-        .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
+        .toggle-active { background-color: #3b82f6 !important; color: #fff !important; }
+        
+        /* Improved affiliate buttons */
+        .affiliate-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            min-width: 220px;
+        }
+        .affiliate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+        }
+        
+        .error-message { color: #ef4444; font-size: 0.875rem; margin-top: 0.25rem; }
+        
         .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
+
 <body class="min-h-screen flex flex-col" onload="initPage()">
 
-<header class="p-6 border-b border-neutral-900 bg-black">
-    <div class="max-w-6xl mx-auto flex justify-between items-center text-left">
-        <a href="index.html" class="text-xl font-black tracking-tighter safety-blue italic uppercase font-inter">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
-        <div class="hidden md:block">
-            <span class="text-[9px] text-neutral-600 uppercase tracking-widest font-bold font-mono">Module: Fluid_Dynamics_v2.1</span>
-        </div>
-    </div>
-</header>
+    <!-- Shared nav injected here by nav.js -->
 
-<nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto no-scrollbar">
-    <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono text-[10px]">
-        <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Lab Home</a>
-        <a href="1rm-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM</a>
-        <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white">FFMI</a>
-        <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white">SMI</a>
-        <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white">Grip</a>
-        <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white">VO2 Max</a>
-        <a href="watts-lab.html" class="nav-link text-neutral-500 hover:text-white">Watts/kg</a>
-        <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white">Max HR</a>
-        <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white">Bio-Age</a>
-        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white">Func-Age</a>
-        <a href="insulin-lab.html" class="nav-link text-neutral-500 hover:text-white">Insulin</a>
-        <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white">Metabolic</a>
-        <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white">Protein</a>
-        <a href="hydration-lab.html" class="nav-link safety-blue border-b border-blue-500 pb-1">Hydration</a>
-        <a href="mobility-lab.html" class="nav-link text-neutral-500 hover:text-white">Mobility</a>
-        <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white">Recovery</a>
-        <a href="athlete-lab.html" class="nav-link text-purple-500 border-l border-neutral-800 pl-6 italic font-bold">The Streak Lab</a>
-    </div>
-</nav>
+    <main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter">
+        <article>
+            <header class="mb-12 text-left">
+                <div class="inline-block bg-blue text-white px-4 py-1 font-black italic text-2xl uppercase mb-4 tracking-tighter">Hydration & Sweat Rate Lab</div>
+                <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono font-bold">Biomarker Analysis: Osmotic Balance & Fluid Decay</p>
+            </header>
 
-<main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter">
-    <article>
-        <header class="mb-12 text-left">
-            <div class="inline-block bg-blue-500 text-black px-4 py-1 font-black italic text-2xl uppercase mb-4 tracking-tighter">Hydration & Sweat Rate Lab</div>
-            <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono block font-bold">Biomarker Analysis: Osmotic Balance & Fluid Decay</p>
-        </header>
-
-        <div class="grid lg:grid-cols-2 gap-10">
-            <section class="glass-card p-8 rounded-3xl border-l-4 border-blue-600 text-left">
-                <h2 class="text-xs font-bold uppercase text-blue-500 mb-6 tracking-widest font-mono italic">Diagnostic Inputs</h2>
-                <div class="space-y-6">
-                    <div class="grid grid-cols-2 gap-4 text-left">
+            <div class="grid lg:grid-cols-2 gap-10">
+                <section class="glass-card p-8 rounded-3xl border-l-4 border-blue-600 text-left">
+                    <h2 class="text-xs font-bold uppercase text-blue-500 mb-6 tracking-widest font-mono italic">Diagnostic Inputs</h2>
+                    <div class="space-y-6">
                         <div>
-                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Pre-Workout (kg)</label>
-                            <input type="number" id="weight-pre" step="0.1" oninput="calculateHydration()" class="input-field font-mono text-2xl" placeholder="85.0">
+                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Biological Sex</label>
+                            <div class="flex bg-black border border-neutral-800 rounded-xl p-1">
+                                <button id="gen-male" onclick="setGender('male')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">MALE</button>
+                                <button id="gen-female" onclick="setGender('female')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">FEMALE</button>
+                            </div>
                         </div>
                         <div>
-                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Post-Workout (kg)</label>
-                            <input type="number" id="weight-post" step="0.1" oninput="calculateHydration()" class="input-field font-mono text-2xl" placeholder="84.2">
+                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Weight Unit</label>
+                            <div class="flex bg-neutral-900 rounded-lg p-1 w-fit">
+                                <button id="unit-lbs" onclick="setUnit('LBS')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">LBS</button>
+                                <button id="unit-kg" onclick="setUnit('KG')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">KG</button>
+                            </div>
                         </div>
+                        <div class="grid grid-cols-2 gap-4 text-left">
+                            <div>
+                                <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Pre-Workout (<span class="unit-label">LBS</span>)</label>
+                                <input type="number" id="weight-pre" step="0.1" oninput="calculateHydration()" class="input-field font-mono text-2xl" placeholder="187">
+                                <div id="pre-error" class="error-message hidden"></div>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Post-Workout (<span class="unit-label">LBS</span>)</label>
+                                <input type="number" id="weight-post" step="0.1" oninput="calculateHydration()" class="input-field font-mono text-2xl" placeholder="185">
+                                <div id="post-error" class="error-message hidden"></div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Fluids In (L)</label>
+                                <input type="number" id="fluid-in" step="0.1" oninput="calculateHydration()" class="input-field font-mono text-2xl" placeholder="0.5">
+                                <div id="fluid-error" class="error-message hidden"></div>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Time (Hours)</label>
+                                <input type="number" id="duration" step="0.1" oninput="calculateHydration()" class="input-field font-mono text-2xl" placeholder="1.0">
+                                <div id="duration-error" class="error-message hidden"></div>
+                            </div>
+                        </div>
+                        <button onclick="resetLab()" class="text-[9px] text-neutral-600 hover:text-blue-500 uppercase font-bold tracking-widest pt-2">Clear Data</button>
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Fluids In (L)</label>
-                            <input type="number" id="fluid-in" step="0.1" oninput="calculateHydration()" class="input-field font-mono text-2xl" placeholder="0.5">
+                </section>
+
+                <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px] relative overflow-hidden">
+                    <div id="hydro-result" class="hidden text-left relative z-10">
+                        <h3 class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono italic">Net Hourly Fluid Loss:</h3>
+                        <div id="sweat-rate" class="text-7xl font-black text-blue-500 tracking-tighter mb-4 uppercase italic leading-none">-- L/HR</div>
+                        
+                        <div class="p-6 bg-blue-600/5 border border-blue-600/20 rounded-2xl mb-6">
+                            <p class="text-[9px] font-bold text-blue-500 uppercase mb-2 tracking-widest italic text-left underline font-mono">Sodium Replacement Protocol:</p>
+                            <p id="sodium-comment" class="text-xs text-neutral-400 leading-relaxed italic text-left"></p>
                         </div>
-                        <div>
-                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Time (Hours)</label>
-                            <input type="number" id="duration" step="0.1" oninput="calculateHydration()" class="input-field font-mono text-2xl" placeholder="1.0">
+
+                        <!-- Improved Affiliate Recommendation -->
+                        <div class="mt-8">
+                            <a href="https://amzn.to/4c0YSaS" target="_blank" rel="noopener noreferrer" class="affiliate-btn bg-blue-600 hover:bg-blue-500 text-white font-bold">
+                                Ultima Replenisher Electrolyte Powder → (Amazon)
+                            </a>
                         </div>
+
+                        <p class="text-neutral-500 text-xs mt-4 italic text-center">
+                            As an Amazon Associate, I earn from qualifying purchases at no extra cost to you.
+                        </p>
+
+                        <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-blue-600 hover:text-white transition-all italic mt-8">Commit to Streak Lab →</a>
                     </div>
-                </div>
-            </section>
-
-            <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px] relative overflow-hidden">
-                <div id="hydro-result" class="hidden text-left relative z-10">
-                    <h3 class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono italic">Net Hourly Fluid Loss:</h3>
-                    <div id="sweat-rate" class="text-7xl font-black text-blue-500 tracking-tighter mb-4 uppercase italic leading-none">-- L/HR</div>
-                    
-                    <div class="p-6 bg-blue-600/5 border border-blue-600/20 rounded-2xl mb-6">
-                        <p class="text-[9px] font-bold text-blue-500 uppercase mb-2 tracking-widest italic text-left underline">Sodium Replacement Protocol:</p>
-                        <p id="sodium-comment" class="text-xs text-neutral-400 leading-relaxed italic text-left"></p>
+                    <div id="hydro-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest font-mono px-10 leading-loose">
+                        [ Awaiting mass-differential data for fluid turnover analysis ]
                     </div>
-
-                    <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-blue-600 hover:text-white transition-all italic">Commit to Streak Lab →</a>
-                </div>
-                <div id="hydro-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest font-mono px-10 leading-loose">
-                    [ Awaiting mass-differential data for fluid turnover analysis ]
-                </div>
-                <div class="absolute -right-8 -bottom-8 text-9xl font-black text-white/[0.02] italic pointer-events-none select-none uppercase">Fluid</div>
-            </section>
-        </div>
-
-        <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
-            <h2 class="text-2xl font-black italic uppercase mb-8 text-blue-500 tracking-tighter">Academic Overview: Hydration & The Aging Athlete</h2>
-            
-            <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
-                <div>
-                    <h3 class="text-white font-bold mb-4 uppercase tracking-tighter text-xs font-mono">The Hypohydration Risk in Masters</h3>
-                    <p class="mb-6">As we age, total body water decreases and the **thirst mechanism** becomes less sensitive. Research indicates that by the time an athlete over 50 feels "thirsty," they have often reached a 2% body mass deficit—the point where <strong>cognitive function and power output</strong> degrade rapidly.</p>
-                    
-                </div>
-                
-                <div>
-                    <h3 class="text-white font-bold mb-4 uppercase tracking-tighter text-xs font-mono">Precision Sodium Replacement</h3>
-                    <p class="mb-4">Sweat is more than water. For masters endurance athletes, replacing water without electrolytes can lead to **Hyponatremia**. A standard athletic baseline for replacement is <strong>~750mg–1000mg of Sodium per liter</strong> of fluid lost.</p>
-                </div>
+                    <div class="absolute -right-8 -bottom-8 text-9xl font-black text-white/[0.02] italic pointer-events-none select-none uppercase">Fluid</div>
+                </section>
             </div>
-        </section>
 
-        <section class="mt-12 p-6 bg-neutral-900/30 border border-neutral-800 rounded-2xl text-left font-mono">
-            <p class="text-[10px] text-neutral-500 leading-relaxed italic">
-                <span class="text-neutral-300 font-bold uppercase tracking-widest block mb-2 underline font-inter">Diagnostic Disclaimer:</span>
-                This tool is for educational self-tracking only. Hydration requirements vary significantly based on humidity, temperature, and personal metabolic rate.
-            </p>
-        </section>
-    </article>
-</main>
+            <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
+                <h2 class="text-2xl font-black italic uppercase mb-8 text-blue-500 tracking-tighter">Academic Overview: Hydration & The Aging Athlete</h2>
+                
+                <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
+                    <div>
+                        <h3 class="text-white font-bold mb-4 uppercase tracking-tighter text-xs font-mono">The Hypohydration Risk in Masters</h3>
+                        <p class="mb-6">As we age, total body water decreases and the **thirst mechanism** becomes less sensitive. Research indicates that by the time an athlete over 50 feels "thirsty," they have often reached a 2% body mass deficit—the point where <strong>cognitive function and power output</strong> degrade rapidly.</p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-white font-bold mb-4 uppercase tracking-tighter text-xs font-mono">Precision Sodium Replacement</h3>
+                        <p class="mb-4">Sweat is more than water. For masters endurance athletes, replacing water without electrolytes can lead to **Hyponatremia**. A standard athletic baseline for replacement is <strong>~750mg–1000mg of Sodium per liter</strong> of fluid lost.</p>
+                    </div>
+                </div>
+            </section>
 
-<footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-[0.3em]">
-    Academic Athlete Lab © 2026 | Protocol: Fluid_Dynamics_v2.1
-</footer>
+            <section class="mt-12 p-6 bg-neutral-900/30 border border-neutral-800 rounded-2xl text-left font-mono">
+                <p class="text-[10px] text-neutral-500 leading-relaxed italic">
+                    <span class="text-neutral-300 font-bold uppercase tracking-widest block mb-2 underline font-inter">Diagnostic Disclaimer:</span>
+                    This tool is for educational self-tracking only. Hydration requirements vary significantly based on humidity, temperature, and personal metabolic rate.
+                </p>
+            </section>
+        </article>
+    </main>
 
-<script>
-    function initPage() {
-        const storedPre = localStorage.getItem('athleteWeight'); // Standardized key
-        if(storedPre) document.getElementById('weight-pre').value = storedPre;
-    }
+    <footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-[0.3em]">
+        Academic Athlete Lab © 2026 | Protocol: Fluid_Dynamics_v2.1
+    </footer>
 
-    function calculateHydration() {
-        const pre = parseFloat(document.getElementById('weight-pre').value);
-        const post = parseFloat(document.getElementById('weight-post').value);
-        const intake = parseFloat(document.getElementById('fluid-in').value || 0);
-        const duration = parseFloat(document.getElementById('duration').value);
+    <script>
+        let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
+        let currentGender = localStorage.getItem('athleteGender') || 'male';
 
-        if(!pre || !post || !duration || duration <= 0) {
-            document.getElementById('hydro-result').classList.add('hidden');
-            document.getElementById('hydro-placeholder').classList.remove('hidden');
-            return;
+        function initPage() {
+            setUnit(currentUnit);
+            setGender(currentGender);
+            // Prefill weight from other labs if available
+            const savedWeight = localStorage.getItem('athleteWeight');
+            if (savedWeight) document.getElementById('weight-pre').value = savedWeight;
+            calculateHydration();
         }
 
-        const totalLoss = (pre - post) + intake;
-        const sweatRate = totalLoss / duration;
-        const sodiumNeeded = Math.round(sweatRate * 850);
+        function setGender(g) {
+            currentGender = g;
+            localStorage.setItem('athleteGender', g);
+            document.getElementById('gen-male').className = g === 'male' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
+            document.getElementById('gen-female').className = g === 'female' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
+            calculateHydration();
+        }
 
-        document.getElementById('hydro-result').classList.remove('hidden');
-        document.getElementById('hydro-placeholder').classList.add('hidden');
-        
-        document.getElementById('sweat-rate').innerText = sweatRate.toFixed(2) + " L/HR";
-        document.getElementById('sodium-comment').innerText = `Data indicates a turnover of ${totalLoss.toFixed(2)} liters. To maintain osmotic pressure, target ~${sodiumNeeded}mg of Sodium per hour of activity. Post-session: Rehydrate with 150% of total mass lost.`;
+        function setUnit(u) {
+            currentUnit = u;
+            localStorage.setItem('athleteUnit', u);
+            document.querySelectorAll('.unit-label').forEach(el => el.innerText = u);
+            document.getElementById('unit-lbs').className = u==='LBS' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'px-4 py-1.5 text-[10px] font-bold rounded-md text-neutral-500';
+            document.getElementById('unit-kg').className = u==='KG' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'px-4 py-1.5 text-[10px] font-bold rounded-md text-neutral-500';
+            calculateHydration();
+        }
 
-        localStorage.setItem('athleteWeight', post); // Update current weight for other labs
-    }
-</script>
+        function calculateHydration() {
+            const pre = parseFloat(document.getElementById('weight-pre').value);
+            const post = parseFloat(document.getElementById('weight-post').value);
+            const intake = parseFloat(document.getElementById('fluid-in').value || 0);
+            const duration = parseFloat(document.getElementById('duration').value);
+
+            const preError = document.getElementById('pre-error');
+            const postError = document.getElementById('post-error');
+            const fluidError = document.getElementById('fluid-error');
+            const durationError = document.getElementById('duration-error');
+
+            preError.classList.add('hidden');
+            postError.classList.add('hidden');
+            fluidError.classList.add('hidden');
+            durationError.classList.add('hidden');
+
+            if (!pre || pre <= 0) {
+                preError.textContent = 'Enter a valid pre-workout weight (> 0)';
+                preError.classList.remove('hidden');
+            }
+            if (!post || post <= 0) {
+                postError.textContent = 'Enter a valid post-workout weight (> 0)';
+                postError.classList.remove('hidden');
+            }
+            if (intake < 0) {
+                fluidError.textContent = 'Fluids in cannot be negative';
+                fluidError.classList.remove('hidden');
+            }
+            if (!duration || duration <= 0) {
+                durationError.textContent = 'Enter a valid duration (> 0 hours)';
+                durationError.classList.remove('hidden');
+            }
+
+            if (!pre || pre <= 0 || !post || post <= 0 || !duration || duration <= 0) {
+                document.getElementById('hydro-result').classList.add('hidden');
+                document.getElementById('hydro-placeholder').classList.remove('hidden');
+                return;
+            }
+
+            // Convert weights to kg if in LBS
+            let preKg = currentUnit === 'LBS' ? pre * 0.453592 : pre;
+            let postKg = currentUnit === 'LBS' ? post * 0.453592 : post;
+
+            const totalLoss = (preKg - postKg) + intake;
+            const sweatRate = totalLoss / duration;
+            const sodiumNeeded = Math.round(sweatRate * (currentGender === 'male' ? 900 : 750)); // Slight sex adjustment
+
+            document.getElementById('hydro-result').classList.remove('hidden');
+            document.getElementById('hydro-placeholder').classList.add('hidden');
+            
+            document.getElementById('sweat-rate').innerText = sweatRate.toFixed(2) + " L/HR";
+            document.getElementById('sodium-comment').innerText = `Data indicates a turnover of ${totalLoss.toFixed(2)} liters. To maintain osmotic pressure, target ~${sodiumNeeded}mg of Sodium per hour of activity. Post-session: Rehydrate with 150% of total mass lost.`;
+
+            localStorage.setItem('athleteWeight', pre); // Update current weight for other labs
+        }
+
+        function resetLab() {
+            document.getElementById('weight-pre').value = '';
+            document.getElementById('weight-post').value = '';
+            document.getElementById('fluid-in').value = '';
+            document.getElementById('duration').value = '';
+            document.getElementById('pre-error').classList.add('hidden');
+            document.getElementById('post-error').classList.add('hidden');
+            document.getElementById('fluid-error').classList.add('hidden');
+            document.getElementById('duration-error').classList.add('hidden');
+            calculateHydration();
+        }
+    </script>
 </body>
 </html>
