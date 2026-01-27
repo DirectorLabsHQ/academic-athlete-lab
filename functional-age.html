@@ -156,130 +156,141 @@
     </footer>
 
     <script>
-        let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
-        let currentGender = localStorage.getItem('athleteGender') || 'male';
+    let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
+    let currentGender = localStorage.getItem('athleteGender') || 'male';
 
-        function initPage() {
-            setUnit(currentUnit);
-            setGender(currentGender);
+    function initPage() {
+        setUnit(currentUnit);
+        setGender(currentGender);
+        syncData();
+        // Give DOM time to reflect input changes, then re-calculate
+        setTimeout(() => {
             syncData();
-            // Initial re-check
-            setTimeout(syncData, 500);
-        }
+            calculateFuncAge();
+        }, 100);
+    }
 
-        // Re-sync when tab becomes visible/active
-        document.addEventListener('visibilitychange', () => {
-            if (document.visibilityState === 'visible') {
-                syncData();
-            }
+    // Re-sync when tab is focused/visible
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+            syncData();
+            setTimeout(calculateFuncAge, 50);
+        }
+    });
+    window.addEventListener('focus', () => {
+        syncData();
+        setTimeout(calculateFuncAge, 50);
+    });
+
+    function setGender(g) {
+        currentGender = g;
+        localStorage.setItem('athleteGender', g);
+        document.getElementById('gen-male').className = g === 'male' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
+        document.getElementById('gen-female').className = g === 'female' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
+        calculateFuncAge();
+    }
+
+    function updateLift() {
+        localStorage.setItem('athleteLift', document.getElementById('lift-type').value);
+        calculateFuncAge();
+    }
+
+    function syncData() {
+        const savedW = localStorage.getItem('athleteWeight');
+        const saved1RM = localStorage.getItem('athlete1RM');
+        const savedL = localStorage.getItem('athleteLift');
+        const savedAge = localStorage.getItem('athleteAge');
+        
+        console.log('[Functional Age] Sync:', {
+            oneRM: saved1RM,
+            bodyweight: savedW,
+            lift: savedL,
+            age: savedAge
         });
 
-        window.addEventListener('focus', syncData);
+        if (savedL) document.getElementById('lift-type').value = savedL;
+        if (saved1RM && !isNaN(parseFloat(saved1RM))) {
+            document.getElementById('one-rm').value = Math.round(parseFloat(saved1RM));
+        }
+        if (savedW && !isNaN(parseFloat(savedW))) {
+            document.getElementById('bodyweight').value = savedW;
+        }
+        if (savedAge && !isNaN(parseInt(savedAge))) {
+            document.getElementById('chron-age').value = savedAge;
+        }
+    }
 
-        function setGender(g) {
-            currentGender = g;
-            localStorage.setItem('athleteGender', g);
-            document.getElementById('gen-male').className = g === 'male' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
-            document.getElementById('gen-female').className = g === 'female' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
-            calculateFuncAge();
+    function setUnit(u) {
+        currentUnit = u;
+        localStorage.setItem('athleteUnit', u);
+        document.querySelectorAll('.unit-label').forEach(el => el.innerText = u);
+        document.getElementById('unit-lbs').className = u==='LBS' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500';
+        document.getElementById('unit-kg').className = u==='KG' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500';
+        calculateFuncAge();
+    }
+
+    function calculateFuncAge() {
+        const chronAge = parseInt(document.getElementById('chron-age').value) || 0;
+        const bw = parseFloat(document.getElementById('bodyweight').value) || 0;
+        const max = parseFloat(document.getElementById('one-rm').value) || 0;
+        const lift = document.getElementById('lift-type').value;
+        
+        console.log('[Functional Age] Calc inputs:', { chronAge, bw, max, lift });
+
+        // Only hide if truly no valid data — otherwise attempt calc
+        if (chronAge <= 0 || (bw <= 0 && max <= 0)) {
+            document.getElementById('age-display').classList.add('hidden');
+            document.getElementById('age-placeholder').classList.remove('hidden');
+            return;
         }
 
-        function updateLift() {
-            localStorage.setItem('athleteLift', document.getElementById('lift-type').value);
-            calculateFuncAge();
-        }
-
-        function syncData() {
-            const savedW = localStorage.getItem('athleteWeight');
-            const saved1RM = localStorage.getItem('athlete1RM');
-            const savedL = localStorage.getItem('athleteLift');
-            const savedAge = localStorage.getItem('athleteAge');
-            
-            console.log('[Functional Age] Sync check:', {
-                oneRM: saved1RM,
-                bodyweight: savedW,
-                lift: savedL,
-                age: savedAge
-            });
-
-            if (savedL) document.getElementById('lift-type').value = savedL;
-            if (saved1RM && !isNaN(parseFloat(saved1RM))) {
-                document.getElementById('one-rm').value = Math.round(parseFloat(saved1RM));
+        const ratio = bw > 0 ? (max / bw).toFixed(2) : 0;
+        
+        const standards = {
+            male: { 
+                bench: { base: 0.85, step: 25 }, 
+                db_chest: { base: 0.70, step: 30 },
+                db_incline: { base: 0.60, step: 35 },
+                squat: { base: 1.10, step: 18 }, 
+                deadlift: { base: 1.25, step: 15 }, 
+                db_shoulder: { base: 0.50, step: 40 } 
+            },
+            female: { 
+                bench: { base: 0.55, step: 35 }, 
+                db_chest: { base: 0.45, step: 40 },
+                db_incline: { base: 0.35, step: 45 },
+                squat: { base: 0.80, step: 25 }, 
+                deadlift: { base: 1.00, step: 20 }, 
+                db_shoulder: { base: 0.35, step: 50 } 
             }
-            if (savedW) document.getElementById('bodyweight').value = savedW;
-            if (savedAge) document.getElementById('chron-age').value = savedAge;
+        };
 
-            calculateFuncAge();
-        }
+        const config = standards[currentGender][lift] || standards[currentGender]['bench'];
+        let funcAge = ratio >= config.base 
+            ? chronAge - ((ratio - config.base) * config.step) 
+            : chronAge + ((config.base - ratio) * 15);
+        funcAge = Math.max(25, Math.round(funcAge));
 
-        function setUnit(u) {
-            currentUnit = u;
-            localStorage.setItem('athleteUnit', u);
-            document.querySelectorAll('.unit-label').forEach(el => el.innerText = u);
-            document.getElementById('unit-lbs').className = u==='LBS' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500';
-            document.getElementById('unit-kg').className = u==='KG' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500';
-            calculateFuncAge();
-        }
+        document.getElementById('age-display').classList.remove('hidden');
+        document.getElementById('age-placeholder').classList.add('hidden');
+        document.getElementById('func-age-val').innerText = funcAge;
 
-        function calculateFuncAge() {
-            const chronAge = parseInt(document.getElementById('chron-age').value) || 0;
-            const bw = parseFloat(document.getElementById('bodyweight').value) || 0;
-            const max = parseFloat(document.getElementById('one-rm').value) || 0;
-            const lift = document.getElementById('lift-type').value;
-            
-            if (bw <= 0 || max <= 0 || chronAge <= 0) {
-                document.getElementById('age-display').classList.add('hidden');
-                document.getElementById('age-placeholder').classList.remove('hidden');
-                return;
-            }
+        localStorage.setItem('athleteFunctionalAge', funcAge);
+        localStorage.setItem('athleteAge', chronAge);
 
-            const ratio = (max / bw).toFixed(2);
-            
-            const standards = {
-                male: { 
-                    bench: { base: 0.85, step: 25 }, 
-                    db_chest: { base: 0.70, step: 30 },
-                    db_incline: { base: 0.60, step: 35 },
-                    squat: { base: 1.10, step: 18 }, 
-                    deadlift: { base: 1.25, step: 15 }, 
-                    db_shoulder: { base: 0.50, step: 40 } 
-                },
-                female: { 
-                    bench: { base: 0.55, step: 35 }, 
-                    db_chest: { base: 0.45, step: 40 },
-                    db_incline: { base: 0.35, step: 45 },
-                    squat: { base: 0.80, step: 25 }, 
-                    deadlift: { base: 1.00, step: 20 }, 
-                    db_shoulder: { base: 0.35, step: 50 } 
-                }
-            };
+        const statusColor = funcAge < chronAge ? "text-green-400" : "text-yellow-500";
+        document.getElementById('age-status').innerHTML = `
+            <div class="${statusColor} text-xs font-bold uppercase tracking-widest mb-2 font-mono italic">
+                ${funcAge < chronAge ? "Structural Outlier" : "Mechanical Maintenance Advised"}
+            </div>
+            <p class="text-[10px] text-neutral-400 tracking-wide uppercase leading-loose font-mono">
+                Demographic Base: <span class="text-white">${config.base} Ratio</span> | Current: <span class="text-cyan-400 font-bold">${ratio}</span>
+            </p>`;
 
-            const config = standards[currentGender][lift] || standards[currentGender]['bench'];
-            let funcAge = ratio >= config.base 
-                ? chronAge - ((ratio - config.base) * config.step) 
-                : chronAge + ((config.base - ratio) * 15);
-            funcAge = Math.max(25, Math.round(funcAge));
-
-            document.getElementById('age-display').classList.remove('hidden');
-            document.getElementById('age-placeholder').classList.add('hidden');
-            document.getElementById('func-age-val').innerText = funcAge;
-
-            localStorage.setItem('athleteFunctionalAge', funcAge);
-            localStorage.setItem('athleteAge', chronAge);
-
-            const statusColor = funcAge < chronAge ? "text-green-400" : "text-yellow-500";
-            document.getElementById('age-status').innerHTML = `
-                <div class="${statusColor} text-xs font-bold uppercase tracking-widest mb-2 font-mono italic">
-                    ${funcAge < chronAge ? "Structural Outlier" : "Mechanical Maintenance Advised"}
-                </div>
-                <p class="text-[10px] text-neutral-400 tracking-wide uppercase leading-loose font-mono">
-                    Demographic Base: <span class="text-white">${config.base} Ratio</span> | Current: <span class="text-cyan-400 font-bold">${ratio}</span>
-                </p>`;
-
-            document.getElementById('func-feedback').innerText = funcAge < chronAge 
-                ? "Subject demonstrates high-tier motor unit recruitment. Relative strength is a significant protective factor for your skeletal frame." 
-                : "Subject is currently trending toward functional sarcopenia. Focus on increasing relative strength to reset the biological clock.";
-        }
-    </script>
+        document.getElementById('func-feedback').innerText = funcAge < chronAge 
+            ? "Subject demonstrates high-tier motor unit recruitment. Relative strength is a significant protective factor for your skeletal frame." 
+            : "Subject is currently trending toward functional sarcopenia. Focus on increasing relative strength to reset the biological clock.";
+    }
+</script>
 </body>
 </html>
