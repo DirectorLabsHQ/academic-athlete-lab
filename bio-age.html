@@ -5,219 +5,259 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bio-Age Lab | Academic Athlete Lab</title>
     <meta name="description" content="Biological age calculator for athletes 50+. Calculate your bio-age offset using Resting Heart Rate (RHR) and HIIT volume markers.">
+    <meta name="keywords" content="biological age calculator, bio age offset, resting heart rate longevity, HIIT volume bio age, masters athlete autonomic health">
     
+    <!-- Canonical for SEO -->
+    <link rel="canonical" href="https://academicathletelab.com/bio-age.html">
+
+    <!-- Structured data for better search visibility -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Bio-Age Lab - Academic Athlete Lab",
+      "description": "Biological age estimator for athletes 50+ using RHR and HIIT volume to assess autonomic health and longevity offset.",
+      "url": "https://academicathletelab.com/bio-age.html"
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="nav.js" defer></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap');
-        body { background-color: #050505; color: #fff; font-family: 'Space Mono', monospace; -webkit-font-smoothing: antialiased; }
-        .font-inter { font-family: 'Inter', sans-serif; }
+        
+        body { 
+            background-color: #050505; 
+            color: #fff; 
+            font-family: 'Inter', sans-serif; 
+            -webkit-font-smoothing: antialiased; 
+            margin: 0;
+            padding: 0;
+            padding-top: 80px; 
+        }
+        
+        .font-mono { font-family: 'Space Mono', monospace; }
         .safety-purple { color: #a855f7; }
         .bg-purple { background-color: #a855f7; }
         .glass-card { background: #111; border: 1px solid #222; }
-        .input-field { background: #000; border: 1px solid #333; color: #a855f7; outline: none; transition: all 0.2s; font-size: 1.1rem; width: 100%; padding: 1rem; border-radius: 0.75rem; }
+        .input-field { 
+            background: #000; 
+            border: 1px solid #333; 
+            color: #a855f7; 
+            outline: none; 
+            transition: all 0.2s; 
+            font-size: 1.1rem; 
+            width: 100%; 
+            padding: 1rem; 
+            border-radius: 0.75rem; 
+        }
         .input-field:focus { border-color: #a855f7; background: #0a0a0a; }
-        .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
+        .toggle-active { background-color: #a855f7 !important; color: #fff !important; }
+        
+        /* Improved affiliate buttons */
+        .affiliate-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            min-width: 220px;
+        }
+        .affiliate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+        }
+        
         .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
+
 <body class="min-h-screen flex flex-col" onload="initPage()">
 
-<header class="p-6 border-b border-neutral-900 bg-black">
-    <div class="max-w-6xl mx-auto flex justify-between items-center text-left">
-        <a href="index.html" class="text-xl font-black tracking-tighter safety-purple italic uppercase font-inter">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
-        <div class="flex bg-neutral-900 rounded-lg p-1">
-            <button class="px-4 py-1.5 text-[10px] font-bold rounded-md bg-purple-500 text-black shadow-sm uppercase font-mono tracking-tighter">Bio-Marker Module</button>
-        </div>
-    </div>
-</header>
+    <!-- Shared nav injected here by nav.js -->
 
-<nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto no-scrollbar">
-    <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono text-[10px]">
-        <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Lab Home</a>
-        <a href="1rm-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM</a>
-        <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">FFMI</a>
-        <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">SMI</a>
-        <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Grip</a>
-        <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">VO2 Max</a>
-        <a href="watts-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Watts/kg</a>
-        <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Max HR</a>
-        <a href="bio-age.html" class="nav-link safety-purple border-b border-purple-400 pb-1">Bio-Age</a>
-        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Func-Age</a>
-        <a href="insulin-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Insulin</a>
-        <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Metabolic</a>
-        <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Protein</a>
-        <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Hydration</a>
-        <a href="mobility-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Mobility</a>
-        <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Recovery</a>
-        <a href="athlete-lab.html" class="nav-link text-purple-500 border-l border-neutral-800 pl-6 italic font-bold">The Streak Lab</a>
-    </div>
-</nav>
-
-<main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter">
-    <header class="mb-12 text-left">
-        <div class="inline-block bg-purple-500 text-black px-4 py-1 font-black italic text-sm uppercase mb-4 tracking-tighter">Diagnostic: Cardiovascular Efficiency</div>
-        <h2 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter mb-4 leading-none">Bio-Age<br>Offset</h2>
-        <p class="text-neutral-500 max-w-xl italic leading-relaxed text-sm">Quantifying the gap between your chronological age and autonomic health via heart rate variability proxies and aerobic intensity volume.</p>
-    </header>
-
-    <div class="grid lg:grid-cols-2 gap-10 items-start text-left">
-        <section class="glass-card p-8 rounded-3xl border-l-4 border-purple-500">
-            <h3 class="text-xs font-bold uppercase safety-purple mb-6 tracking-widest font-mono italic">Vital Markers</h3>
-            <div class="space-y-6">
-                <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Chronological Age</label>
-                    <input type="number" id="chron-age" placeholder="55" oninput="calculateBioAge()" class="input-field font-mono text-2xl">
-                </div>
-                <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Resting Heart Rate (BPM)</label>
-                    <input type="number" id="rhr" placeholder="60" oninput="calculateBioAge()" class="input-field font-mono text-2xl">
-                </div>
-                <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono italic tracking-widest">Weekly HIIT Minutes (Zone 4/5)</label>
-                    <input type="number" id="hiit-mins" placeholder="30" oninput="calculateBioAge()" class="input-field font-mono text-2xl">
-                </div>
+    <main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter">
+        <header class="mb-12 text-left">
+            <div class="inline-block bg-purple text-black px-4 py-1 font-black italic text-2xl uppercase mb-4 tracking-tighter">
+                Bio-Age Offset Lab
             </div>
-            <div class="mt-8">
-                <button onclick="calculateBioAge()" class="w-full py-4 bg-white text-black font-black italic uppercase text-[10px] rounded-xl hover:bg-purple-500 transition-all tracking-widest font-inter">
-                    Run Biological Diagnostic
-                </button>
+            <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono">
+                Autonomic Health & Mitochondrial Age Proxy
+            </p>
+        </header>
+
+        <div class="grid lg:grid-cols-2 gap-10 items-start text-left">
+            <section class="glass-card p-8 rounded-3xl border-l-4 border-purple-500">
+                <h3 class="text-xs font-bold uppercase safety-purple mb-6 tracking-widest font-mono italic">Vital Markers</h3>
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Biological Sex</label>
+                        <div class="flex bg-black border border-neutral-800 rounded-xl p-1">
+                            <button id="gen-male" onclick="setGender('male')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">MALE</button>
+                            <button id="gen-female" onclick="setGender('female')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">FEMALE</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Chronological Age</label>
+                        <input type="number" id="chron-age" placeholder="55" oninput="calculateBioAge()" class="input-field font-mono text-2xl">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Resting Heart Rate (BPM)</label>
+                        <input type="number" id="rhr" placeholder="60" oninput="calculateBioAge()" class="input-field font-mono text-2xl">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono italic tracking-widest">Weekly HIIT Minutes (Zone 4/5)</label>
+                        <input type="number" id="hiit-mins" placeholder="30" oninput="calculateBioAge()" class="input-field font-mono text-2xl">
+                    </div>
+                    <button onclick="resetLab()" class="text-[9px] text-neutral-600 hover:text-purple-500 uppercase font-bold tracking-widest pt-2">Clear Data</button>
+                </div>
+            </section>
+
+            <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[450px] relative overflow-hidden">
+                <div id="result-display" class="hidden relative z-10">
+                    <span class="text-[10px] font-bold uppercase text-purple-500 tracking-[0.3em] font-mono italic">Estimated Biological Age</span>
+                    <div class="text-9xl font-black text-white italic tracking-tighter mb-4 leading-none" id="bio-age-result">--</div>
+                    
+                    <div class="p-6 bg-purple-500/5 border border-purple-500/20 rounded-2xl">
+                        <p class="text-[9px] font-bold text-purple-400 uppercase mb-2 tracking-widest italic text-left underline font-mono">Performance Analysis:</p>
+                        <p id="offset-comment" class="text-xs italic text-neutral-400 leading-relaxed font-inter"></p>
+                    </div>
+
+                    <!-- Improved Affiliate Recommendation -->
+                    <div class="mt-8">
+                        <a href="https://amzn.to/461d93G" target="_blank" rel="noopener noreferrer" class="affiliate-btn bg-purple-600 hover:bg-purple-500 text-white font-bold">
+                            Polar H10 Heart Rate Monitor → (Amazon)
+                        </a>
+                    </div>
+
+                    <p class="text-neutral-500 text-xs mt-4 italic text-center">
+                        As an Amazon Associate, I earn from qualifying purchases at no extra cost to you.
+                    </p>
+
+                    <div class="mt-8 pt-8 border-t border-neutral-900">
+                        <a href="athlete-lab.html" class="block w-full text-center bg-purple-500 text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-white transition-all italic font-inter">Log to Streak Lab →</a>
+                    </div>
+                </div>
+                <div id="idle-display" class="text-neutral-700 italic text-center uppercase text-[10px] tracking-widest font-mono px-12">
+                    [ Awaiting performance data for age-offset calculation ]
+                </div>
+                <div class="absolute -right-8 -bottom-8 text-9xl font-black text-white/[0.02] italic pointer-events-none select-none uppercase">Bio</div>
+            </section>
+        </div>
+
+        <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
+            <h3 class="text-2xl font-black italic uppercase mb-8 safety-purple tracking-tighter font-inter">Research Protocol: Autonomic Age Markers</h3>
+            
+            <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
+                <div class="space-y-6 font-inter">
+                    <h4 class="text-white font-bold uppercase text-xs tracking-widest font-mono">RHR & Vagal Tone</h4>
+                    <p>Resting Heart Rate (RHR) is a critical proxy for parasympathetic nervous system health. For athletes over 50, a lower RHR is correlated with higher <strong>Vagal Tone</strong>. This diagnostic uses a baseline RHR of 65 BPM as the "Chronological Zero" for standard aging populations.</p>
+                </div>
+                <div class="space-y-6 font-inter">
+                    <h4 class="text-white font-bold uppercase text-xs tracking-widest font-mono">The Mitochondrial Multiplier</h4>
+                    <p>High-intensity work (Zone 4/5) drives mitochondrial biogenesis and stroke volume. Research suggests that consistent HIIT volume can effectively reverse age-related declines in cardiovascular capacity, "re-wiring" the heart to a functional age 5–10 years younger than sedentary controls.</p>
+                </div>
             </div>
         </section>
 
-        <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[450px] relative overflow-hidden">
-            <div id="result-display" class="hidden relative z-10">
-                <span class="text-[10px] font-bold uppercase text-purple-500 tracking-[0.3em] font-mono italic">Estimated Biological Age</span>
-                <div class="text-9xl font-black text-white italic tracking-tighter mb-4 leading-none" id="bio-age-result">--</div>
-                
-                <div class="p-6 bg-purple-500/5 border border-purple-500/20 rounded-2xl">
-                    <p class="text-[9px] font-bold text-purple-400 uppercase mb-2 tracking-widest italic text-left underline font-mono">Performance Analysis:</p>
-                    <p id="offset-comment" class="text-xs italic text-neutral-400 leading-relaxed font-inter"></p>
-                </div>
+        <section class="mt-12 p-6 bg-neutral-900/30 border border-neutral-800 rounded-2xl text-left font-mono">
+            <p class="text-[10px] text-neutral-500 leading-relaxed italic">
+                <span class="text-neutral-300 font-bold uppercase tracking-widest block mb-2 underline font-inter">Diagnostic Disclaimer:</span>
+                Bio-age is a performance estimation based on cardiovascular resilience markers. Factors like caffeine intake, sleep deprivation, and overreaching can inflate RHR. Always measure RHR immediately upon waking for diagnostic consistency.
+            </p>
+        </section>
+    </main>
 
-                <!-- Longevity affiliate recommendation (only once, after calculation) -->
-                <div class="mt-8 p-6 bg-[#111] border border-[#222] rounded-2xl text-center">
-                    <p class="text-neutral-300 text-base mb-4">
-                        Want to track your true biological age more accurately and optimize recovery/longevity?
-                    </p>
-                    <a href="https://tidd.ly/4pX1IkE" 
-                       target="_blank" rel="noopener noreferrer nofollow"
-                       class="inline-block bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 px-8 rounded-lg transition text-sm">
-                        Explore Longevity & Recovery Tools →
+    <footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-[0.3em]">
+        Academic Athlete Lab © 2026 | Protocol: Autonomic_Age_v1.8
+    </footer>
+
+    <script>
+        let currentGender = localStorage.getItem('athleteGender') || 'male';
+
+        function initPage() {
+            setGender(currentGender);
+            // Fields start blank on every refresh/load
+            calculateBioAge();
+        }
+
+        function setGender(g) {
+            currentGender = g;
+            localStorage.setItem('athleteGender', g);
+            document.getElementById('gen-male').className = g === 'male' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
+            document.getElementById('gen-female').className = g === 'female' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
+            calculateBioAge();
+        }
+
+        function calculateBioAge() {
+            const chronAge = parseFloat(document.getElementById('chron-age').value);
+            const rhr = parseFloat(document.getElementById('rhr').value);
+            const hiit = parseFloat(document.getElementById('hiit-mins').value);
+
+            if (!chronAge || chronAge < 1 || !rhr || rhr <= 0) {
+                document.getElementById('result-display').classList.add('hidden');
+                document.getElementById('idle-display').classList.remove('hidden');
+                return;
+            }
+
+            // Formula: RHR variance + HIIT volume reduction
+            // Chronological zero set at 65 BPM. 
+            // -0.2 years for every BPM under 65.
+            // -0.5 years for every 10 mins of HIIT per week.
+            let bioAge = chronAge;
+            bioAge += (rhr - 65) * 0.25; 
+            bioAge -= (hiit / 15) * 0.6;  
+
+            const finalAge = Math.max(18, bioAge).toFixed(1);
+            const offset = (chronAge - finalAge).toFixed(1);
+
+            document.getElementById('idle-display').classList.add('hidden');
+            document.getElementById('result-display').classList.remove('hidden');
+            document.getElementById('bio-age-result').innerText = finalAge;
+            
+            localStorage.setItem('athleteBioAge', finalAge);
+            localStorage.setItem('athleteAge', chronAge);
+            localStorage.setItem('athleteRHR', rhr);
+            localStorage.setItem('athleteHIIT', hiit);
+
+            let comment = "";
+            if (offset > 5) {
+                comment = `Elite Tier. You are biologically ${offset} years younger than your chronological peers due to high autonomic efficiency and mitochondrial density.`;
+            } else if (offset > 0) {
+                comment = `Bio-Positive. Your cardiovascular markers are trending ${offset} years younger than your calendar age. Continue high-intensity volume.`;
+            } else {
+                comment = `Metabolic Drift detected. Your markers suggest a biological age slightly higher than your calendar age. Increase Zone 2 volume to lower RHR.`;
+            }
+            document.getElementById('offset-comment').innerText = comment;
+
+            // Improved Affiliate Recommendation
+            if (!document.getElementById('affiliate-box')) {  // Prevent duplicates
+                const affiliateBox = document.createElement('div');
+                affiliateBox.id = 'affiliate-box';
+                affiliateBox.className = 'mt-8';
+                affiliateBox.innerHTML = `
+                    <a href="https://amzn.to/461d93G" target="_blank" rel="noopener noreferrer" class="affiliate-btn bg-purple-600 hover:bg-purple-500 text-white font-bold">
+                        Polar H10 Heart Rate Monitor → (Amazon)
                     </a>
-                    <p class="text-neutral-500 text-xs mt-4 italic">
-                        Affiliate link — we may earn a small commission at no extra cost to you.
+                    <p class="text-neutral-500 text-xs mt-4 italic text-center">
+                        As an Amazon Associate, I earn from qualifying purchases at no extra cost to you.
                     </p>
-                </div>
-
-                <div class="mt-8 pt-8 border-t border-neutral-900">
-                    <a href="athlete-lab.html" class="block w-full text-center bg-purple-500 text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-white transition-all italic font-inter">Log to Streak Lab →</a>
-                </div>
-            </div>
-            <div id="idle-display" class="text-neutral-700 italic text-center uppercase text-[10px] tracking-widest font-mono px-12">
-                [ Awaiting performance data for age-offset calculation ]
-            </div>
-            <div class="absolute -right-8 -bottom-8 text-9xl font-black text-white/[0.02] italic pointer-events-none select-none uppercase">Bio</div>
-        </section>
-    </div>
-
-    <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
-        <h3 class="text-2xl font-black italic uppercase mb-8 safety-purple tracking-tighter font-inter">Research Protocol: Autonomic Age Markers</h3>
-        
-        <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
-            <div class="space-y-6 font-inter">
-                <h4 class="text-white font-bold uppercase text-xs tracking-widest font-mono">RHR & Vagal Tone</h4>
-                <p>Resting Heart Rate (RHR) is a critical proxy for parasympathetic nervous system health. For athletes over 50, a lower RHR is correlated with higher <strong>Vagal Tone</strong>. This diagnostic uses a baseline RHR of 65 BPM as the "Chronological Zero" for standard aging populations.</p>
-            </div>
-            <div class="space-y-6 font-inter">
-                <h4 class="text-white font-bold uppercase text-xs tracking-widest font-mono">The Mitochondrial Multiplier</h4>
-                <p>High-intensity work (Zone 4/5) drives mitochondrial biogenesis and stroke volume. Research suggests that consistent HIIT volume can effectively reverse age-related declines in cardiovascular capacity, "re-wiring" the heart to a functional age 5–10 years younger than sedentary controls.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="mt-12 p-6 bg-neutral-900/30 border border-neutral-800 rounded-2xl text-left font-mono">
-        <p class="text-[10px] text-neutral-500 leading-relaxed italic">
-            <span class="text-neutral-300 font-bold uppercase tracking-widest block mb-2 underline font-inter">Diagnostic Disclaimer:</span>
-            Bio-age is a performance estimation based on cardiovascular resilience markers. Factors like caffeine intake, sleep deprivation, and overreaching can inflate RHR. Always measure RHR immediately upon waking for diagnostic consistency.
-        </p>
-    </section>
-</main>
-
-<footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-[0.3em]">
-    Academic Athlete Lab © 2026 | Protocol: Autonomic_Age_v1.8
-</footer>
-
-<script>
-    function initPage() {
-        const savedAge = localStorage.getItem('athleteAge');
-        const savedRHR = localStorage.getItem('athleteRHR');
-        const savedHIIT = localStorage.getItem('athleteHIIT');
-        
-        if(savedAge) document.getElementById('chron-age').value = savedAge;
-        if(savedRHR) document.getElementById('rhr').value = savedRHR;
-        if(savedHIIT) document.getElementById('hiit-mins').value = savedHIIT;
-        
-        calculateBioAge();
-    }
-
-    function calculateBioAge() {
-        const chronAge = parseFloat(document.getElementById('chron-age').value);
-        const rhr = parseFloat(document.getElementById('rhr').value);
-        const hiit = parseFloat(document.getElementById('hiit-mins').value);
-
-        if(!chronAge || !rhr) return;
-
-        // Formula: RHR variance + HIIT volume reduction
-        // Chronological zero set at 65 BPM. 
-        // -0.2 years for every BPM under 65.
-        // -0.5 years for every 10 mins of HIIT per week.
-        let bioAge = chronAge;
-        bioAge += (rhr - 65) * 0.25; 
-        bioAge -= (hiit / 15) * 0.6;  
-
-        const finalAge = Math.max(18, bioAge).toFixed(1);
-        const offset = (chronAge - finalAge).toFixed(1);
-
-        document.getElementById('idle-display').classList.add('hidden');
-        document.getElementById('result-display').classList.remove('hidden');
-        document.getElementById('bio-age-result').innerText = finalAge;
-        
-        localStorage.setItem('athleteBioAge', finalAge);
-        localStorage.setItem('athleteAge', chronAge);
-        localStorage.setItem('athleteRHR', rhr);
-        localStorage.setItem('athleteHIIT', hiit);
-
-        let comment = "";
-        if (offset > 5) {
-            comment = `Elite Tier. You are biologically ${offset} years younger than your chronological peers due to high autonomic efficiency and mitochondrial density.`;
-        } else if (offset > 0) {
-            comment = `Bio-Positive. Your cardiovascular markers are trending ${offset} years younger than your calendar age. Continue high-intensity volume.`;
-        } else {
-            comment = `Metabolic Drift detected. Your markers suggest a biological age slightly higher than your calendar age. Increase Zone 2 volume to lower RHR.`;
+                `;
+                document.getElementById('result-display').appendChild(affiliateBox);
+            }
         }
-        document.getElementById('offset-comment').innerText = comment;
 
-        // Longevity affiliate recommendation (only once, after calculation)
-        if (!document.getElementById('affiliate-box')) {  // Prevent duplicates
-            const affiliateBox = document.createElement('div');
-            affiliateBox.id = 'affiliate-box';  // ID to check for existence
-            affiliateBox.className = 'mt-8 p-6 bg-[#111] border border-[#222] rounded-2xl text-center';
-            affiliateBox.innerHTML = `
-                <p class="text-neutral-300 text-base mb-4">
-                    Want to track your true biological age more accurately and optimize recovery/longevity?
-                </p>
-                <a href="https://tidd.ly/4pX1IkE" 
-                   target="_blank" rel="noopener noreferrer nofollow"
-                   class="inline-block bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 px-8 rounded-lg transition text-sm">
-                    Explore Longevity & Recovery Tools →
-                </a>
-                <p class="text-neutral-500 text-xs mt-4 italic">
-                    Affiliate link — we may earn a small commission at no extra cost to you.
-                </p>
-            `;
-            document.getElementById('result-display').appendChild(affiliateBox);
+        function resetLab() {
+            document.getElementById('chron-age').value = '';
+            document.getElementById('rhr').value = '';
+            document.getElementById('hiit-mins').value = '';
+            calculateBioAge();
         }
-    }
-</script>
+    </script>
 </body>
 </html>
