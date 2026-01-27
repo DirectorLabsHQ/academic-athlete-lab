@@ -5,241 +5,302 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Protein & Metabolic Fueling Lab | Academic Athlete Lab</title>
     <meta name="description" content="Calculate optimal protein intake for athletes 50+ to combat sarcopenia and anabolic resistance. Specialized metabolic fueling for masters longevity.">
+    <meta name="keywords" content="protein calculator, anabolic resistance, masters athlete protein, sarcopenia prevention, leucine threshold, MPS for 50+">
     
+    <!-- Canonical for SEO -->
+    <link rel="canonical" href="https://academicathletelab.com/protein-lab.html">
+
+    <!-- Structured data for better search visibility -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Protein & Metabolic Fueling Lab - Academic Athlete Lab",
+      "description": "Optimal protein intake calculator for athletes 50+ to overcome anabolic resistance and preserve lean mass.",
+      "url": "https://academicathletelab.com/protein-lab.html"
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="nav.js" defer></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap');
-        body { background-color: #050505; color: #fff; font-family: 'Space Mono', monospace; -webkit-font-smoothing: antialiased; }
-        .font-inter { font-family: 'Inter', sans-serif; }
+        
+        body { 
+            background-color: #050505; 
+            color: #fff; 
+            font-family: 'Inter', sans-serif; 
+            -webkit-font-smoothing: antialiased; 
+            margin: 0;
+            padding: 0;
+            padding-top: 80px; 
+        }
+        
+        .font-mono { font-family: 'Space Mono', monospace; }
         .safety-purple { color: #a855f7; }
         .bg-purple { background-color: #a855f7; }
         .glass-card { background: #111; border: 1px solid #222; }
-        .input-field { background: #000; border: 1px solid #333; color: #a855f7; outline: none; transition: all 0.2s; font-size: 1.1rem; width: 100%; padding: 1rem; border-radius: 0.75rem; }
+        .input-field { 
+            background: #000; 
+            border: 1px solid #333; 
+            color: #a855f7; 
+            outline: none; 
+            transition: all 0.2s; 
+            font-size: 1.1rem; 
+            width: 100%; 
+            padding: 1rem; 
+            border-radius: 0.75rem; 
+        }
         .input-field:focus { border-color: #a855f7; background: #0a0a0a; }
-        .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
-        .toggle-active { background-color: #a855f7 !important; color: #000 !important; }
+        .toggle-active { background-color: #a855f7 !important; color: #fff !important; }
+        
+        /* Improved affiliate buttons */
+        .affiliate-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            min-width: 220px;
+        }
+        .affiliate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+        }
+        
+        .error-message { color: #ef4444; font-size: 0.875rem; margin-top: 0.25rem; }
+        
+        select { 
+            appearance: none; 
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23a855f7'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); 
+            background-repeat: no-repeat; 
+            background-position: right 1rem center; 
+            background-size: 1rem; 
+        }
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23a855f7'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1rem; }
     </style>
 </head>
+
 <body class="min-h-screen flex flex-col" onload="initPage()">
 
-<header class="p-6 border-b border-neutral-900 bg-black">
-    <div class="max-w-6xl mx-auto flex justify-between items-center text-left">
-        <a href="index.html" class="text-xl font-black tracking-tighter safety-purple italic uppercase font-inter">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
-        <div class="flex bg-neutral-900 rounded-lg p-1">
-            <button id="unit-lbs" onclick="setUnit('LBS')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all">LBS</button>
-            <button id="unit-kg" onclick="setUnit('KG')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all">KG</button>
-        </div>
-    </div>
-</header>
+    <!-- Shared nav injected here by nav.js -->
 
-<nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto no-scrollbar">
-    <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono text-[10px]">
-        <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Lab Home</a>
-        <a href="1rm-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM</a>
-        <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white">FFMI</a>
-        <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white">SMI</a>
-        <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white">Grip</a>
-        <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white">VO2 Max</a>
-        <a href="watts-lab.html" class="nav-link text-neutral-500 hover:text-white">Watts/kg</a>
-        <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white">Max HR</a>
-        <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white">Bio-Age</a>
-        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white">Func-Age</a>
-        <a href="insulin-lab.html" class="nav-link text-neutral-500 hover:text-white">Insulin</a>
-        <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white">Metabolic</a>
-        <a href="protein-lab.html" class="nav-link safety-purple border-b border-purple-400 pb-1">Protein</a>
-        <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white">Hydration</a>
-        <a href="mobility-lab.html" class="nav-link text-neutral-500 hover:text-white">Mobility</a>
-        <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white">Recovery</a>
-        <a href="athlete-lab.html" class="nav-link text-purple-500 border-l border-neutral-800 pl-6 italic font-bold">The Streak Lab</a>
-    </div>
-</nav>
+    <main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter text-left">
+        <header class="mb-12">
+            <div class="inline-block bg-purple text-black px-4 py-1 font-black italic text-2xl uppercase mb-4 tracking-tighter">Metabolic Fueling Lab</div>
+            <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono font-bold">Anabolic Resistance Model v1.5</p>
+        </header>
 
-<main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter text-left">
-    <header class="mb-12">
-        <div class="inline-block bg-purple-500 text-black px-4 py-1 font-black italic text-2xl uppercase mb-4 tracking-tighter">Metabolic Fueling Lab</div>
-        <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono font-bold">Anabolic Resistance Model v1.5</p>
-    </header>
-
-    <div class="grid lg:grid-cols-2 gap-10">
-        <section class="glass-card p-8 rounded-3xl border-l-4 border-purple-500 text-left">
-            <h3 class="text-xs font-bold uppercase safety-purple mb-6 tracking-widest font-mono italic">Metabolic Inputs</h3>
-            <div class="space-y-6">
-                <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Gender Profile</label>
-                    <div class="flex bg-black border border-neutral-800 rounded-xl p-1">
-                        <button id="gen-male" onclick="setGender('male')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">MALE</button>
-                        <button id="gen-female" onclick="setGender('female')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">FEMALE</button>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-4">
+        <div class="grid lg:grid-cols-2 gap-10">
+            <section class="glass-card p-8 rounded-3xl border-l-4 border-purple-500 text-left">
+                <h3 class="text-xs font-bold uppercase safety-purple mb-6 tracking-widest font-mono italic">Metabolic Inputs</h3>
+                <div class="space-y-6">
                     <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Weight (<span class="unit-label">LBS</span>)</label>
-                        <input type="number" id="weight" oninput="calculateMacros()" class="input-field font-mono text-2xl" placeholder="180">
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Biological Sex</label>
+                        <div class="flex bg-black border border-neutral-800 rounded-xl p-1">
+                            <button id="gen-male" onclick="setGender('male')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">MALE</button>
+                            <button id="gen-female" onclick="setGender('female')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">FEMALE</button>
+                        </div>
                     </div>
-                    <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Height (CM)</label>
-                        <input type="number" id="height" oninput="calculateMacros()" class="input-field font-mono text-2xl" placeholder="175">
-                    </div>
-                </div>
-                
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Age</label>
-                        <input type="number" id="age" oninput="calculateMacros()" class="input-field font-mono text-2xl" placeholder="55">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono italic tracking-widest">Training Load</label>
-                        <select id="activity" onchange="calculateMacros()" class="input-field cursor-pointer font-mono font-bold">
-                            <option value="1.2">Sedentary</option>
-                            <option value="1.375">Light (1-2 days)</option>
-                            <option value="1.55" selected>Moderate (3-5 days)</option>
-                            <option value="1.725">High (6-7 days)</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px] relative overflow-hidden">
-            <div id="macro-result" class="hidden relative z-10">
-                <div class="mb-8">
-                    <span class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono italic">Daily Protein Target:</span>
-                    <div class="flex items-baseline gap-2">
-                        <div id="protein-range" class="text-6xl font-black safety-purple tracking-tighter italic">--</div>
-                        <span class="text-xl font-bold text-neutral-700 uppercase italic font-inter">Grams</span>
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest font-mono">Weight Unit</label>
+                        <div class="flex bg-neutral-900 rounded-lg p-1 w-fit">
+                            <button id="unit-lbs" onclick="setUnit('LBS')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">LBS</button>
+                            <button id="unit-kg" onclick="setUnit('KG')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">KG</button>
+                        </div>
                     </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Weight (<span class="unit-label">LBS</span>)</label>
+                            <input type="number" id="weight" oninput="calculateMacros()" class="input-field font-mono text-2xl" placeholder="180">
+                            <div id="weight-error" class="error-message hidden"></div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Height (CM)</label>
+                            <input type="number" id="height" oninput="calculateMacros()" class="input-field font-mono text-2xl" placeholder="175">
+                            <div id="height-error" class="error-message hidden"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Age</label>
+                            <input type="number" id="age" oninput="calculateMacros()" class="input-field font-mono text-2xl" placeholder="55">
+                            <div id="age-error" class="error-message hidden"></div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono italic tracking-widest">Training Load</label>
+                            <select id="activity" onchange="calculateMacros()" class="input-field cursor-pointer font-mono font-bold">
+                                <option value="1.2">Sedentary</option>
+                                <option value="1.375">Light (1-2 days)</option>
+                                <option value="1.55" selected>Moderate (3-5 days)</option>
+                                <option value="1.725">High (6-7 days)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button onclick="resetLab()" class="text-[9px] text-neutral-600 hover:text-purple-500 uppercase font-bold tracking-widest pt-2">Clear Data</button>
                 </div>
-                <div class="p-6 bg-purple-500/5 border border-purple-500/20 rounded-2xl mb-6">
-                    <p class="text-[9px] font-bold text-purple-500 uppercase mb-3 tracking-widest italic font-mono">Anabolic Threshold Strategy:</p>
-                    <p id="dist-advice" class="text-xs text-neutral-400 leading-relaxed italic"></p>
-                </div>
+            </section>
 
-                <!-- NEW: Amazon affiliate recommendation box (clean, matches your style) -->
-                <div class="mt-6 p-6 bg-[#111] border border-[#222] rounded-2xl text-center">
-                    <p class="text-neutral-300 text-base mb-4">
-                        Optimize muscle preservation and recovery with high-quality protein.
-                    </p>
-                    <a href="https://amzn.to/3LU3k0x" 
-                       target="_blank" rel="noopener noreferrer"
-                       class="inline-block bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 px-8 rounded-lg transition">
-                        Recommended Protein Supplement → (Amazon)
-                    </a>
-                    <p class="text-neutral-500 text-xs mt-4 italic">
+            <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px] relative overflow-hidden">
+                <div id="macro-result" class="hidden relative z-10">
+                    <div class="mb-8">
+                        <span class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono italic">Daily Protein Target:</span>
+                        <div class="flex items-baseline gap-2">
+                            <div id="protein-range" class="text-6xl font-black safety-purple tracking-tighter italic">--</div>
+                            <span class="text-xl font-bold text-neutral-700 uppercase italic font-inter">Grams</span>
+                        </div>
+                    </div>
+                    <div class="p-6 bg-purple-500/5 border border-purple-500/20 rounded-2xl mb-6">
+                        <p class="text-[9px] font-bold text-purple-500 uppercase mb-3 tracking-widest italic font-mono">Anabolic Threshold Strategy:</p>
+                        <p id="dist-advice" class="text-xs text-neutral-400 leading-relaxed italic"></p>
+                    </div>
+
+                    <!-- Affiliate Recommendation -->
+                    <div class="mt-8">
+                        <a href="https://amzn.to/4bUfe5a" target="_blank" rel="noopener noreferrer" class="affiliate-btn bg-purple-600 hover:bg-purple-500 text-white font-bold">
+                            Thorne Amino Complex - Clinically-Validated EAA and BCAA Powder → (Amazon)
+                        </a>
+                    </div>
+
+                    <p class="text-neutral-500 text-xs mt-4 italic text-center">
                         As an Amazon Associate, I earn from qualifying purchases at no extra cost to you.
                     </p>
-                </div>
 
-                <div class="pt-6 border-t border-neutral-900">
-                    <p class="text-[10px] text-neutral-600 uppercase tracking-[0.2em] font-mono">Est. Maintenance (TDEE): <span id="tdee-val" class="text-white font-bold">--</span> Cal</p>
-                    <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest mt-6 hover:bg-purple-500 hover:text-white transition-all italic">Commit to Streak Lab →</a>
+                    <div class="pt-6 border-t border-neutral-900">
+                        <p class="text-[10px] text-neutral-600 uppercase tracking-[0.2em] font-mono">Est. Maintenance (TDEE): <span id="tdee-val" class="text-white font-bold">--</span> Cal</p>
+                        <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest mt-6 hover:bg-purple-500 hover:text-white transition-all italic">Commit to Streak Lab →</a>
+                    </div>
                 </div>
-            </div>
-            <div id="macro-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest font-mono px-12">
-                [ Awaiting metabolic data for fueling calculation ]
-            </div>
-            <div class="absolute -right-8 -bottom-8 text-9xl font-black text-white/[0.02] italic pointer-events-none select-none uppercase">Fueling</div>
-        </section>
-    </div>
-
-    <article class="mt-16 bg-neutral-900/40 p-10 rounded-3xl border border-neutral-800 text-left">
-        <h3 class="text-2xl font-black italic uppercase mb-8 safety-purple tracking-tighter">Combatting Anabolic Resistance (50+)</h3>
-        
-        <div class="grid md:grid-cols-3 gap-8 text-neutral-400 text-sm leading-relaxed">
-            <div class="space-y-4">
-                <h4 class="text-white uppercase tracking-widest text-[10px] font-bold font-mono">01. Halt Sarcopenia</h4>
-                <p>Post-50, muscle loss is the primary driver of frailty. Protein is the structural substrate for longevity. Our model uses a $1.8\text{g}–2.2\text{g}/kg$ coefficient to offset decreased tissue sensitivity.</p>
-                
-            </div>
-            <div class="space-y-4">
-                <h4 class="text-white uppercase tracking-widest text-[10px] font-bold font-mono">02. The Leucine Trigger</h4>
-                <p>To stimulate <strong>Muscle Protein Synthesis (MPS)</strong> in masters athletes, you must hit a "threshold" of ~3g of Leucine per meal. This typically requires 40g+ of high-quality protein per bolus.</p>
-            </div>
-            <div class="space-y-4">
-                <h4 class="text-white uppercase tracking-widest text-[10px] font-bold font-mono">03. Glycemic Sinks</h4>
-                <p>Muscle is your largest metabolic organ. By protecting lean mass, you maintain a "glucose sink," keeping insulin sensitivity high and preventing systemic "inflammaging."</p>
-            </div>
+                <div id="macro-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest font-mono px-12">
+                    [ Awaiting metabolic data for fueling calculation ]
+                </div>
+                <div class="absolute -right-8 -bottom-8 text-9xl font-black text-white/[0.02] italic pointer-events-none select-none uppercase">Fueling</div>
+            </section>
         </div>
-        
-        <p class="text-[8px] text-neutral-700 mt-12 uppercase tracking-[0.3em] italic font-mono text-center">Reference: Clinical Protein Thresholds for Masters Athletes (2026).</p>
-    </article>
-</main>
 
-<footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-[0.3em]">
-    Academic Athlete Lab © 2026 | Protocol: Metabolic_Fueling_v1.5
-</footer>
+        <article class="mt-16 bg-neutral-900/40 p-10 rounded-3xl border border-neutral-800 text-left">
+            <h3 class="text-2xl font-black italic uppercase mb-8 safety-purple tracking-tighter">Combatting Anabolic Resistance (50+)</h3>
+            
+            <div class="grid md:grid-cols-3 gap-8 text-neutral-400 text-sm leading-relaxed">
+                <div class="space-y-4">
+                    <h4 class="text-white uppercase tracking-widest text-[10px] font-bold font-mono">01. Halt Sarcopenia</h4>
+                    <p>Post-50, muscle loss is the primary driver of frailty. Protein is the structural substrate for longevity. Our model uses a $1.8\text{g}–2.2\text{g}/kg$ coefficient to offset decreased tissue sensitivity.</p>
+                    
+                </div>
+                <div class="space-y-4">
+                    <h4 class="text-white uppercase tracking-widest text-[10px] font-bold font-mono">02. The Leucine Trigger</h4>
+                    <p>To stimulate <strong>Muscle Protein Synthesis (MPS)</strong> in masters athletes, you must hit a "threshold" of ~3g of Leucine per meal. This typically requires 40g+ of high-quality protein per bolus.</p>
+                </div>
+                <div class="space-y-4">
+                    <h4 class="text-white uppercase tracking-widest text-[10px] font-bold font-mono">03. Glycemic Sinks</h4>
+                    <p>Muscle is your largest metabolic organ. By protecting lean mass, you maintain a "glucose sink," keeping insulin sensitivity high and preventing systemic "inflammaging."</p>
+                </div>
+            </div>
+            
+            <p class="text-[8px] text-neutral-700 mt-12 uppercase tracking-[0.3em] italic font-mono text-center">Reference: Clinical Protein Thresholds for Masters Athletes (2026).</p>
+        </article>
+    </main>
 
-<script>
-    let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
-    let currentGender = localStorage.getItem('athleteGender') || 'male';
+    <footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-[0.3em]">
+        Academic Athlete Lab © 2026 | Protocol: Metabolic_Fueling_v1.5
+    </footer>
 
-    function initPage() {
-        setUnit(currentUnit);
-        setGender(currentGender);
-        const savedW = localStorage.getItem('athleteWeight');
-        const savedH = localStorage.getItem('athleteHeight');
-        const savedAge = localStorage.getItem('athleteAge');
-        if(savedW) document.getElementById('weight').value = savedW;
-        if(savedH) document.getElementById('height').value = savedH;
-        if(savedAge) document.getElementById('age').value = savedAge;
-        calculateMacros();
-    }
+    <script>
+        let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
+        let currentGender = localStorage.getItem('athleteGender') || 'male';
 
-    function setGender(g) {
-        currentGender = g;
-        localStorage.setItem('athleteGender', g);
-        document.getElementById('gen-male').className = g === 'male' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
-        document.getElementById('gen-female').className = g === 'female' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
-        calculateMacros();
-    }
-
-    function setUnit(u) {
-        currentUnit = u;
-        localStorage.setItem('athleteUnit', u);
-        document.querySelectorAll('.unit-label').forEach(el => el.innerText = u);
-        document.getElementById('unit-lbs').className = u==='LBS' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500';
-        document.getElementById('unit-kg').className = u==='KG' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500';
-        calculateMacros();
-    }
-
-    function calculateMacros() {
-        const w = parseFloat(document.getElementById('weight').value);
-        const h = parseFloat(document.getElementById('height').value);
-        const age = parseFloat(document.getElementById('age').value);
-        const activity = parseFloat(document.getElementById('activity').value);
-
-        if(!w || !h || !age) {
-            document.getElementById('macro-result').classList.add('hidden');
-            document.getElementById('macro-placeholder').classList.remove('hidden');
-            return;
+        function initPage() {
+            setUnit(currentUnit);
+            setGender(currentGender);
+            // Fields start blank on every refresh/load
+            calculateMacros();
         }
 
-        let weightKg = currentUnit === 'LBS' ? w * 0.453592 : w;
-        
-        // Mifflin-St Jeor Equation
-        let bmr = (10 * weightKg) + (6.25 * h) - (5 * age);
-        bmr = (currentGender === 'male') ? bmr + 5 : bmr - 161;
-        
-        let tdee = Math.round(bmr * activity);
-        
-        // Masters-Specific Protein Logic (1.8g - 2.2g per kg to overcome anabolic resistance)
-        let pLow = Math.round(weightKg * 1.8); 
-        let pHigh = Math.round(weightKg * 2.2);
+        function setGender(g) {
+            currentGender = g;
+            localStorage.setItem('athleteGender', g);
+            document.getElementById('gen-male').className = g === 'male' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
+            document.getElementById('gen-female').className = g === 'female' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
+            calculateMacros();
+        }
 
-        localStorage.setItem('athleteWeight', w);
-        localStorage.setItem('athleteHeight', h);
-        localStorage.setItem('athleteAge', age);
-        localStorage.setItem('athleteProteinLow', pLow);
-        localStorage.setItem('athleteProteinHigh', pHigh);
+        function setUnit(u) {
+            currentUnit = u;
+            localStorage.setItem('athleteUnit', u);
+            document.querySelectorAll('.unit-label').forEach(el => el.innerText = u);
+            document.getElementById('unit-lbs').className = u==='LBS' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'px-4 py-1.5 text-[10px] font-bold rounded-md text-neutral-500';
+            document.getElementById('unit-kg').className = u==='KG' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'px-4 py-1.5 text-[10px] font-bold rounded-md text-neutral-500';
+            calculateMacros();
+        }
 
-        document.getElementById('macro-result').classList.remove('hidden');
-        document.getElementById('macro-placeholder').classList.add('hidden');
-        document.getElementById('protein-range').innerText = `${pLow}–${pHigh}`;
-        document.getElementById('tdee-val').innerText = tdee.toLocaleString();
-        document.getElementById('dist-advice').innerText = `To overcome anabolic resistance, do not graze. Target 3–4 "bolus" meals of ~${Math.round(pLow/4)}–${Math.round(pHigh/4)}g of protein to trigger muscle protein synthesis.`;
-    }
-</script>
+        function calculateMacros() {
+            const w = parseFloat(document.getElementById('weight').value);
+            const h = parseFloat(document.getElementById('height').value);
+            const age = parseFloat(document.getElementById('age').value);
+            const activity = parseFloat(document.getElementById('activity').value);
+
+            const weightError = document.getElementById('weight-error');
+            const heightError = document.getElementById('height-error');
+            const ageError = document.getElementById('age-error');
+
+            weightError.classList.add('hidden');
+            heightError.classList.add('hidden');
+            ageError.classList.add('hidden');
+
+            if (!w || w <= 0) {
+                weightError.textContent = 'Enter a valid weight (> 0)';
+                weightError.classList.remove('hidden');
+            }
+            if (!h || h <= 0) {
+                heightError.textContent = 'Enter a valid height (> 0)';
+                heightError.classList.remove('hidden');
+            }
+            if (!age || age < 1) {
+                ageError.textContent = 'Enter a valid age (> 0)';
+                ageError.classList.remove('hidden');
+            }
+
+            if (!w || w <= 0 || !h || h <= 0 || !age || age < 1) {
+                document.getElementById('macro-result').classList.add('hidden');
+                document.getElementById('macro-placeholder').classList.remove('hidden');
+                return;
+            }
+
+            let weightKg = currentUnit === 'LBS' ? w * 0.453592 : w;
+            
+            // Mifflin-St Jeor Equation
+            let bmr = (10 * weightKg) + (6.25 * h) - (5 * age);
+            bmr = (currentGender === 'male') ? bmr + 5 : bmr - 161;
+            
+            let tdee = Math.round(bmr * activity);
+            
+            // Masters-Specific Protein Logic (1.8g - 2.2g per kg to overcome anabolic resistance)
+            let pLow = Math.round(weightKg * 1.8); 
+            let pHigh = Math.round(weightKg * 2.2);
+
+            document.getElementById('macro-result').classList.remove('hidden');
+            document.getElementById('macro-placeholder').classList.add('hidden');
+            document.getElementById('protein-range').innerText = `${pLow}–${pHigh}`;
+            document.getElementById('tdee-val').innerText = tdee.toLocaleString();
+            document.getElementById('dist-advice').innerText = `To overcome anabolic resistance, do not graze. Target 3–4 "bolus" meals of ~${Math.round(pLow/4)}–${Math.round(pHigh/4)}g of protein to trigger muscle protein synthesis.`;
+        }
+
+        function resetLab() {
+            document.getElementById('weight').value = '';
+            document.getElementById('height').value = '';
+            document.getElementById('age').value = '';
+            document.getElementById('weight-error').classList.add('hidden');
+            document.getElementById('height-error').classList.add('hidden');
+            document.getElementById('age-error').classList.add('hidden');
+            calculateMacros();
+        }
+    </script>
 </body>
 </html>
