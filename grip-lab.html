@@ -115,7 +115,24 @@
                         <p class="text-[9px] font-bold text-yellow-500 uppercase mb-2 tracking-widest italic font-mono">Clinical Interpretation:</p>
                         <p id="grip-comment" class="text-xs text-neutral-400 leading-relaxed italic"></p>
                     </div>
-                    <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-yellow-500 transition-all italic shadow-xl">Log to Streak Lab →</a>
+
+                    <!-- Affiliate Recommendation -->
+                    <div class="mt-8">
+                        <a href="https://amzn.to/4sXPUS5" target="_blank" rel="noopener noreferrer" class="block p-6 bg-[#111] border border-[#222] rounded-2xl text-center hover:border-yellow-500 transition">
+                            <p class="text-neutral-300 text-base mb-4">
+                                Precise electronic dynamometer (198 lbs / 90 kg capacity) for accurate grip strength tracking — ideal for Grip Lab progress, recovery monitoring, and sarcopenia screening over 50.
+                            </p>
+                            <span class="inline-block bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-8 rounded-lg transition">
+                                Handeful Grip Strength Tester → (Amazon)
+                            </span>
+                        </a>
+                    </div>
+
+                    <p class="text-neutral-500 text-xs mt-4 italic text-center">
+                        As an Amazon Associate, I earn from qualifying purchases at no extra cost to you.
+                    </p>
+
+                    <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-yellow-500 transition-all italic shadow-xl mt-8">Log to Streak Lab →</a>
                 </div>
                 <div id="grip-placeholder" class="text-neutral-700 italic text-center uppercase text-[10px] tracking-widest font-mono px-10">
                     Awaiting handgrip dynamometer data for peer decile comparison...
@@ -181,7 +198,7 @@
 
         function calculateGrip() {
             const age = parseInt(document.getElementById('age').value);
-            const sex = currentGender;  // Use button state, not select
+            const sex = currentGender;
             let rawGrip = parseFloat(document.getElementById('grip-input').value);
 
             if (!age || !rawGrip || rawGrip <= 0) {
