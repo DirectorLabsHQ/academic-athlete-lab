@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1RM Strength Lab | Academic Athlete Lab</title>
-    <meta name="description" content="Submaximal one-rep max calculator and plate loader for masters athletes. Safe strength modeling for athletes 50+.">
+    <meta name="description" content="Submaximal 1RM calculator + plate loader for bench, squat, deadlift, DB chest press, incline press & more. Safe strength modeling for masters athletes 50+.">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="nav.js" defer></script>
@@ -56,7 +56,7 @@
             box-shadow: 0 2px 6px rgba(0,0,0,0.5);
             border: 2px solid #333;
         }
-        .plate-45 { background: #444; color: #facc15; } /* large black/red in reality */
+        .plate-45 { background: #444; color: #facc15; }
         .plate-25 { background: #555; color: white; }
         .plate-10 { background: #666; color: white; }
         .plate-5  { background: #777; color: white; }
@@ -95,6 +95,8 @@
                         <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Movement Type</label>
                         <select id="lift-choice" onchange="updateLift()" class="input-field cursor-pointer font-mono">
                             <option value="bench">Bench Press</option>
+                            <option value="db_chest">DB Chest Press</option>
+                            <option value="db_incline">DB Incline Press</option>
                             <option value="squat">Back Squat</option>
                             <option value="deadlift" selected>Deadlift</option>
                             <option value="press">Overhead Press</option>
@@ -237,7 +239,7 @@
             const resArea = document.getElementById('results-area');
             const placeHolder = document.getElementById('placeholder');
 
-            if (w > 0 && r > 0 && r <= 20) {  // reasonable rep cap for Brzycki accuracy
+            if (w > 0 && r > 0 && r <= 20) {
                 resArea.classList.remove('hidden');
                 placeHolder.classList.add('hidden');
                 
@@ -281,7 +283,7 @@
 
             let remaining = sideWeight;
             plates.forEach(plate => {
-                while (remaining >= plate - 0.01) {  // small tolerance for rounding
+                while (remaining >= plate - 0.01) {
                     const plateEl = document.createElement('div');
                     plateEl.className = `plate plate-${plate.toString().replace('.', 'p')}`;
                     if (plate <= 5 || plate <= 2.5) plateEl.classList.add('plate-small');
