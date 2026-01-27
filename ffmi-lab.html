@@ -42,6 +42,15 @@
         .input-field:focus { border-color: #facc15; background: #0a0a0a; }
         .toggle-active { background-color: #facc15 !important; color: #000 !important; }
         
+        /* Larger, bolder toggles */
+        .unit-toggle-btn {
+            padding: 0.5rem 1.25rem !important;
+            font-size: 0.875rem !important;
+            font-weight: 700 !important;
+            min-width: 80px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+        
         .pct-row { border-bottom: 1px solid #1a1a1a; transition: background 0.2s; }
         .pct-row:hover { background: #161616; }
 
@@ -77,15 +86,15 @@
                     <div>
                         <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Biological Sex</label>
                         <div class="flex bg-neutral-900 rounded-lg p-1">
-                            <button id="gen-male" onclick="setGender('male')" class="flex-1 py-1.5 text-[10px] font-bold rounded-md transition-all">MALE</button>
-                            <button id="gen-female" onclick="setGender('female')" class="flex-1 py-1.5 text-[10px] font-bold rounded-md transition-all">FEMALE</button>
+                            <button id="gen-male" onclick="setGender('male')" class="unit-toggle-btn flex-1 font-bold rounded-md transition-all">MALE</button>
+                            <button id="gen-female" onclick="setGender('female')" class="unit-toggle-btn flex-1 font-bold rounded-md transition-all">FEMALE</button>
                         </div>
                     </div>
                     <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Unit</label>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Weight Unit</label>
                         <div class="flex bg-neutral-900 rounded-lg p-1 w-fit">
-                            <button id="unit-lbs" onclick="setUnit('LBS')" class="flex-1 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">LBS</button>
-                            <button id="unit-kg" onclick="setUnit('KG')" class="flex-1 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">KG</button>
+                            <button id="unit-lbs" onclick="setUnit('LBS')" class="unit-toggle-btn px-6 font-bold rounded-md transition-all uppercase">LBS</button>
+                            <button id="unit-kg" onclick="setUnit('KG')" class="unit-toggle-btn px-6 font-bold rounded-md transition-all uppercase">KG</button>
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
@@ -99,8 +108,12 @@
                         </div>
                     </div>
                     <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Height (CM)</label>
-                        <input type="number" id="height" oninput="calculateFFMI()" class="input-field font-mono text-2xl" placeholder="178">
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Height Unit</label>
+                        <div class="flex bg-neutral-900 rounded-lg p-1 w-fit">
+                            <button id="height-cm" onclick="setHeightUnit('CM')" class="unit-toggle-btn px-6 font-bold rounded-md transition-all uppercase">CM</button>
+                            <button id="height-in" onclick="setHeightUnit('IN')" class="unit-toggle-btn px-6 font-bold rounded-md transition-all uppercase">IN</button>
+                        </div>
+                        <input type="number" id="height" oninput="calculateFFMI()" class="input-field font-mono text-2xl mt-2" placeholder="178">
                     </div>
                     <button onclick="resetLab()" class="text-[9px] text-neutral-600 hover:text-yellow-500 uppercase font-bold tracking-widest pt-2">Clear Data</button>
                 </div>
@@ -199,11 +212,12 @@
     </footer>
 
     <script>
-        let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
-        let currentGender = localStorage.getItem('athleteGender') || 'male';
+        let currentUnit = 'LBS';  // Default
+        let currentHeightUnit = 'CM';  // Default
+        let currentGender = 'male';  // Default
 
         function initPage() {
-            // Prefill from shared localStorage keys if they exist (from other labs)
+            // Prefill from shared localStorage if available (from other labs)
             const savedWeight = localStorage.getItem('athleteWeight');
             const savedHeight = localStorage.getItem('athleteHeight');
             const savedGender = localStorage.getItem('athleteGender');
@@ -215,7 +229,8 @@
             }
 
             setUnit(currentUnit);
-            calculateFFMI();  // Auto-calculate if prefilled data is complete
+            setHeightUnit(currentHeightUnit);
+            calculateFFMI();
         }
 
         function setGender(g) {
@@ -235,21 +250,28 @@
             calculateFFMI();
         }
 
+        function setHeightUnit(u) {
+            currentHeightUnit = u;
+            document.getElementById('height-cm').className = u==='CM' ? 'flex-1 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'flex-1 py-1.5 text-[10px] font-bold rounded-md text-neutral-500';
+            document.getElementById('height-in').className = u==='IN' ? 'flex-1 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'flex-1 py-1.5 text-[10px] font-bold rounded-md text-neutral-500';
+            calculateFFMI();
+        }
+
         function calculateFFMI() {
             const wVal = parseFloat(document.getElementById('weight').value);
             const bfVal = parseFloat(document.getElementById('bf').value);
-            const hVal = parseFloat(document.getElementById('height').value); 
+            let hVal = parseFloat(document.getElementById('height').value);
 
             if (wVal > 0 && bfVal >= 0 && bfVal <= 100 && hVal > 0) {
                 document.getElementById('ffmi-placeholder').classList.add('hidden');
                 document.getElementById('ffmi-result-container').classList.remove('hidden');
 
                 let weightKg = currentUnit === 'LBS' ? wVal * 0.453592 : wVal;
-                let heightM = hVal / 100;
+                let heightM = currentHeightUnit === 'IN' ? hVal * 0.0254 : hVal / 100;
+
                 let leanMassKg = weightKg * (1 - (bfVal / 100));
                 let ffmi = leanMassKg / (heightM * heightM);
                 
-                // Height Normalization (Kouri Formula)
                 let normalizedFFMI = ffmi + 6.1 * (1.8 - heightM);
                 let finalScore = normalizedFFMI.toFixed(1);
 
