@@ -210,12 +210,12 @@
         const barbellMovements = ['bench', 'squat', 'deadlift'];
 
         function initPage() {
-            // Fields start blank on every load/refresh - no saved values loaded
+            // Start blank on every load/refresh - no saved weight/reps
             setUnit(currentUnit);
             setGender(currentGender);
-            // Default lift selection (optional - remove if you want blank)
+            // Reset lift to default (Deadlift) - remove 'selected' below if you want blank
             document.getElementById('lift-choice').value = 'deadlift';
-            calculate1RM(); // run once to set initial blank state
+            calculate1RM(); // initial blank state
         }
 
         function setGender(g) {
