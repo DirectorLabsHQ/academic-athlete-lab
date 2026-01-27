@@ -18,7 +18,7 @@
             -webkit-font-smoothing: antialiased; 
             margin: 0;
             padding: 0;
-            padding-top: 80px;  /* Matches 1RM page - prevents nav overlap */
+            padding-top: 80px; 
         }
         
         .font-mono { font-family: 'Space Mono', monospace; }
@@ -51,7 +51,7 @@
 
 <body class="min-h-screen flex flex-col" onload="initPage()">
 
-    <!-- Shared nav injected here by nav.js -->
+    <!-- Shared nav injected here -->
 
     <main class="max-w-6xl mx-auto p-6 md:p-12 w-full font-inter">
         <header class="mb-12 text-left">
@@ -163,9 +163,18 @@
             setUnit(currentUnit);
             setGender(currentGender);
             syncData();
-            // Extra sync delay for cross-tab reliability
-            setTimeout(syncData, 300);
+            // Initial re-check
+            setTimeout(syncData, 500);
         }
+
+        // Re-sync when tab becomes visible/active
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') {
+                syncData();
+            }
+        });
+
+        window.addEventListener('focus', syncData);
 
         function setGender(g) {
             currentGender = g;
@@ -186,11 +195,16 @@
             const savedL = localStorage.getItem('athleteLift');
             const savedAge = localStorage.getItem('athleteAge');
             
-            console.log('[Functional Age] Sync check - 1RM:', saved1RM);
+            console.log('[Functional Age] Sync check:', {
+                oneRM: saved1RM,
+                bodyweight: savedW,
+                lift: savedL,
+                age: savedAge
+            });
 
             if (savedL) document.getElementById('lift-type').value = savedL;
-            if (saved1RM && !isNaN(saved1RM)) {
-                document.getElementById('one-rm').value = Math.round(saved1RM);
+            if (saved1RM && !isNaN(parseFloat(saved1RM))) {
+                document.getElementById('one-rm').value = Math.round(parseFloat(saved1RM));
             }
             if (savedW) document.getElementById('bodyweight').value = savedW;
             if (savedAge) document.getElementById('chron-age').value = savedAge;
