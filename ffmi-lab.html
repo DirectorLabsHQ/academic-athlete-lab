@@ -84,8 +84,8 @@
                     <div>
                         <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Unit</label>
                         <div class="flex bg-neutral-900 rounded-lg p-1 w-fit">
-                            <button id="unit-lbs" onclick="setUnit('LBS')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">LBS</button>
-                            <button id="unit-kg" onclick="setUnit('KG')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">KG</button>
+                            <button id="unit-lbs" onclick="setUnit('LBS')" class="flex-1 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">LBS</button>
+                            <button id="unit-kg" onclick="setUnit('KG')" class="flex-1 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">KG</button>
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
@@ -199,14 +199,23 @@
     </footer>
 
     <script>
-        let currentUnit = 'LBS';  // Default, no load from storage
-        let currentGender = 'male';  // Default
+        let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
+        let currentGender = localStorage.getItem('athleteGender') || 'male';
 
         function initPage() {
+            // Prefill from shared localStorage keys if they exist (from other labs)
+            const savedWeight = localStorage.getItem('athleteWeight');
+            const savedHeight = localStorage.getItem('athleteHeight');
+            const savedGender = localStorage.getItem('athleteGender');
+
+            if (savedWeight) document.getElementById('weight').value = savedWeight;
+            if (savedHeight) document.getElementById('height').value = savedHeight;
+            if (savedGender && (savedGender === 'male' || savedGender === 'female')) {
+                setGender(savedGender);
+            }
+
             setUnit(currentUnit);
-            setGender(currentGender);
-            // Fields start blank - no saved data loaded
-            calculateFFMI();
+            calculateFFMI();  // Auto-calculate if prefilled data is complete
         }
 
         function setGender(g) {
