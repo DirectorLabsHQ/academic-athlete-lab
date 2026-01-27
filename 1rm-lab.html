@@ -163,7 +163,7 @@
                         </div>
                         <div id="plate-display" class="flex flex-wrap gap-2 items-center min-h-[60px]"></div>
                         <div id="db-note" class="hidden text-[10px] text-neutral-500 mt-4 italic font-mono">
-                            Dumbbell movement — load each hand separately with half of the calculated weight per side.
+                            Dumbbell movement — load each hand separately with the calculated weight per side.
                         </div>
                         <p id="plate-note" class="text-[10px] text-neutral-600 mt-4 italic font-mono">
                             Assumes standard plates: 45/25/10/5/2.5 lb (or 25/20/15/10/5/2.5/1.25 kg equivalents).
@@ -257,6 +257,9 @@
                 document.getElementById('pct-85').innerText = Math.round(roundedRM * 0.85) + ' ' + currentUnit;
                 document.getElementById('pct-75').innerText = Math.round(roundedRM * 0.75) + ' ' + currentUnit;
                 document.getElementById('pct-65').innerText = Math.round(roundedRM * 0.65) + ' ' + currentUnit;
+
+                // Save 1RM so Functional Age page can read it
+                localStorage.setItem('athlete1RM', roundedRM);
 
                 // Conditional plate loader
                 const isBarbell = barbellMovements.includes(movement);
