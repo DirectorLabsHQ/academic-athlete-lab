@@ -248,14 +248,122 @@
             maxRaw: maxInput
         });
 
-        // Only block display if literally no usable data at all
+        // Only block d<script>
+    let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
+    let currentGender = localStorage.getItem('athleteGender') || 'male';
+
+    function initPage() {
+        setUnit(currentUnit);
+        setGender(currentGender);
+        syncData();
+        // Delayed full sync + recalc to ensure DOM updates
+        setTimeout(() => {
+            syncData();
+            setTimeout(calculateFuncAge, 0);
+        }, 200);
+    }
+
+    // Re-sync on tab focus/visibility
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+            syncData();
+            setTimeout(calculateFuncAge, 0);
+        }
+    });
+    window.addEventListener('focus', () => {
+        syncData();
+        setTimeout(calculateFuncAge, 0);
+    });
+
+    function setGender(g) {
+        currentGender = g;
+        localStorage.setItem('athleteGender', g);
+        const maleBtn = document.getElementById('gen-male');
+        const femaleBtn = document.getElementById('gen-female');
+        if (maleBtn && femaleBtn) {
+            maleBtn.className = g === 'male' 
+                ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' 
+                : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
+            femaleBtn.className = g === 'female' 
+                ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' 
+                : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
+        }
+        calculateFuncAge();
+    }
+
+    function updateLift() {
+        localStorage.setItem('athleteLift', document.getElementById('lift-type').value);
+        calculateFuncAge();
+    }
+
+    function syncData() {
+        const savedW = localStorage.getItem('athleteWeight');
+        const saved1RM = localStorage.getItem('athlete1RM');
+        const savedL = localStorage.getItem('athleteLift');
+        const savedGender = localStorage.getItem('athleteGender');
+        const savedAge = localStorage.getItem('athleteAge');
+        
+        console.log('[Functional Age] Full sync:', {
+            gender: savedGender,
+            lift: savedL,
+            oneRM: saved1RM,
+            weight: savedW,
+            age: savedAge
+        });
+
+        // Gender (buttons)
+        if (savedGender && (savedGender === 'male' || savedGender === 'female')) {
+            setGender(savedGender);
+        }
+
+        // Lift type (select)
+        if (savedL) {
+            const liftSelect = document.getElementById('lift-type');
+            if (liftSelect) {
+                liftSelect.value = savedL;
+            }
+        }
+
+        // 1RM
+        if (saved1RM && !isNaN(parseFloat(saved1RM))) {
+            document.getElementById('one-rm').value = Math.round(parseFloat(saved1RM));
+        }
+
+        // Bodyweight
+        if (savedW && !isNaN(parseFloat(savedW))) {
+            document.getElementById('bodyweight').value = parseFloat(savedW);
+        }
+
+        // Chronological Age
+        if (savedAge && !isNaN(parseInt(savedAge))) {
+            document.getElementById('chron-age').value = parseInt(savedAge);
+        }
+    }
+
+    function setUnit(u) {
+        currentUnit = u;
+        localStorage.setItem('athleteUnit', u);
+        document.querySelectorAll('.unit-label').forEach(el => el.innerText = u);
+        document.getElementById('unit-lbs').className = u==='LBS' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500';
+        document.getElementById('unit-kg').className = u==='KG' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500';
+        calculateFuncAge();
+    }
+
+    function calculateFuncAge() {
+        const chronAge = parseInt(document.getElementById('chron-age').value) || 0;
+        const bw = parseFloat(document.getElementById('bodyweight').value) || 0;
+        const max = parseFloat(document.getElementById('one-rm').value) || 0;
+        const lift = document.getElementById('lift-type').value;
+        
+        console.log('[Functional Age] Calc inputs:', { chronAge, bw, max, lift });
+
+        // Allow calc with partial data (only hide if truly unusable)
         if (chronAge <= 0 && bw <= 0 && max <= 0) {
             document.getElementById('age-display').classList.add('hidden');
             document.getElementById('age-placeholder').classList.remove('hidden');
             return;
         }
 
-        // Proceed with calc even if partial data (better UX)
         const ratio = bw > 0 ? (max / bw).toFixed(2) : 0;
         
         const standards = {
