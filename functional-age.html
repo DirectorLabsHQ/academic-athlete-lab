@@ -6,263 +6,266 @@
     <title>Functional Age Diagnostic | Academic Athlete Lab</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="nav.js" defer></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap');
-        body { background-color: #050505; color: #fff; font-family: 'Space Mono', monospace; -webkit-font-smoothing: antialiased; }
-        .font-inter { font-family: 'Inter', sans-serif; }
-        .glass-card { background: #111; border: 1px solid #222; }
+        
+        body { 
+            background-color: #050505; 
+            color: #fff; 
+            font-family: 'Inter', sans-serif; 
+            -webkit-font-smoothing: antialiased; 
+            margin: 0;
+            padding: 0;
+            padding-top: 80px;  /* Matches 1RM page - prevents nav overlap */
+        }
+        
+        .font-mono { font-family: 'Space Mono', monospace; }
         .safety-cyan { color: #22d3ee; }
         .bg-cyan { background-color: #22d3ee; }
-        .input-field { background: #000; border: 1px solid #333; color: #22d3ee; outline: none; transition: all 0.2s; font-size: 1.1rem; width: 100%; padding: 1rem; border-radius: 0.75rem; }
+        .glass-card { background: #111; border: 1px solid #222; }
+        .input-field { 
+            background: #000; 
+            border: 1px solid #333; 
+            color: #22d3ee; 
+            outline: none; 
+            transition: all 0.2s; 
+            font-size: 1.1rem; 
+            width: 100%; 
+            padding: 1rem; 
+            border-radius: 0.75rem; 
+        }
         .input-field:focus { border-color: #22d3ee; background: #0a0a0a; }
-        .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
         .toggle-active { background-color: #22d3ee !important; color: #000 !important; }
-        select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2322d3ee'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1rem; }
+        select { 
+            appearance: none; 
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2322d3ee'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); 
+            background-repeat: no-repeat; 
+            background-position: right 1rem center; 
+            background-size: 1rem; 
+        }
         .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
+
 <body class="min-h-screen flex flex-col" onload="initPage()">
 
-<header class="p-6 border-b border-neutral-900 bg-black">
-    <div class="max-w-6xl mx-auto flex justify-between items-center text-left">
-        <a href="index.html" class="text-xl font-black tracking-tighter safety-cyan italic uppercase font-inter">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
-        <div class="flex bg-neutral-900 rounded-lg p-1">
-            <button id="unit-lbs" onclick="setUnit('LBS')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all">LBS</button>
-            <button id="unit-kg" onclick="setUnit('KG')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all">KG</button>
-        </div>
-    </div>
-</header>
+    <!-- Shared nav injected here by nav.js -->
 
-<nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto no-scrollbar">
-    <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono text-[10px]">
-        <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Lab Home</a>
-        <a href="1rm-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM</a>
-        <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">FFMI</a>
-        <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">SMI</a>
-        <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Grip</a>
-        <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">VO2 Max</a>
-        <a href="watts-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Watts/kg</a>
-        <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Max HR</a>
-        <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Bio-Age</a>
-        <a href="functional-age.html" class="nav-link safety-cyan border-b border-cyan-400 pb-1">Func-Age</a>
-        <a href="insulin-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Insulin</a>
-        <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Metabolic</a>
-        <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Protein</a>
-        <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Hydration</a>
-        <a href="mobility-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Mobility</a>
-        <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Recovery</a>
-        <a href="athlete-lab.html" class="nav-link text-purple-500 border-l border-neutral-800 pl-6 italic font-bold">The Streak Lab</a>
-    </div>
-</nav>
+    <main class="max-w-6xl mx-auto p-6 md:p-12 w-full font-inter">
+        <header class="mb-12 text-left">
+            <div class="inline-block bg-cyan text-black px-4 py-1 font-black italic text-2xl uppercase mb-4 tracking-tighter">Functional Age Diagnostic</div>
+            <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono font-bold italic">Relative Strength Normalization v2.2</p>
+        </header>
 
-<main class="max-w-6xl mx-auto p-6 md:p-12 w-full font-inter">
-    <header class="mb-12 text-left">
-        <div class="inline-block bg-cyan text-black px-4 py-1 font-black italic text-2xl uppercase mb-4 tracking-tighter">Functional Age Diagnostic</div>
-        <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono font-bold italic">Relative Strength Normalization v2.2</p>
-    </header>
-
-    <div class="grid lg:grid-cols-2 gap-10 items-start text-left">
-        <section class="glass-card p-8 rounded-3xl border-l-4 border-cyan-500">
-            <h3 class="text-xs font-bold uppercase safety-cyan mb-6 tracking-widest font-mono italic">Subject Profile</h3>
-            <div class="space-y-6">
-                <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Biological Sex</label>
-                    <div class="flex bg-black border border-neutral-800 rounded-xl p-1">
-                        <button id="gen-male" onclick="setGender('male')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">MALE</button>
-                        <button id="gen-female" onclick="setGender('female')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">FEMALE</button>
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Diagnostic Movement</label>
-                    <select id="lift-type" onchange="updateLift()" class="input-field font-mono font-bold">
-                        <option value="bench">Barbell Bench Press</option>
-                        <option value="db_flat">DB Chest Press (Flat)</option>
-                        <option value="db_incline">DB Chest Press (Incline)</option>
-                        <option value="squat">Back Squat</option>
-                        <option value="deadlift">Deadlift</option>
-                        <option value="db_press">DB Shoulder Press</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Chronological Age</label>
-                    <input type="number" id="chron-age" value="55" oninput="calculateFuncAge()" class="input-field font-mono text-2xl">
-                </div>
-                <div class="grid grid-cols-2 gap-4">
+        <div class="grid lg:grid-cols-2 gap-10 items-start text-left">
+            <section class="glass-card p-8 rounded-3xl border-l-4 border-cyan-500">
+                <h3 class="text-xs font-bold uppercase safety-cyan mb-6 tracking-widest font-mono italic">Subject Profile</h3>
+                <div class="space-y-6">
                     <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Weight (<span class="unit-label">LBS</span>)</label>
-                        <input type="number" id="bodyweight" oninput="calculateFuncAge()" placeholder="0" class="input-field font-mono text-2xl">
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Biological Sex</label>
+                        <div class="flex bg-black border border-neutral-800 rounded-xl p-1">
+                            <button id="gen-male" onclick="setGender('male')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">MALE</button>
+                            <button id="gen-female" onclick="setGender('female')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">FEMALE</button>
+                        </div>
                     </div>
                     <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Total 1RM (<span class="unit-label">LBS</span>)*</label>
-                        <input type="number" id="one-rm" oninput="calculateFuncAge()" placeholder="0" class="input-field font-mono text-2xl">
-                        <span class="text-[8px] text-neutral-600 uppercase mt-1 block">*For DB, combine both dumbbells</span>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Diagnostic Movement</label>
+                        <select id="lift-type" onchange="updateLift()" class="input-field font-mono font-bold">
+                            <option value="bench">Bench Press</option>
+                            <option value="db_chest">DB Chest Press</option>
+                            <option value="db_incline">DB Incline Press</option>
+                            <option value="squat">Back Squat</option>
+                            <option value="deadlift">Deadlift</option>
+                            <option value="db_shoulder">DB Shoulder Press</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Chronological Age</label>
+                        <input type="number" id="chron-age" value="55" oninput="calculateFuncAge()" class="input-field font-mono text-2xl">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Weight (<span class="unit-label">LBS</span>)</label>
+                            <input type="number" id="bodyweight" oninput="calculateFuncAge()" placeholder="0" class="input-field font-mono text-2xl">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Total 1RM (<span class="unit-label">LBS</span>)*</label>
+                            <input type="number" id="one-rm" oninput="calculateFuncAge()" placeholder="0" class="input-field font-mono text-2xl">
+                            <span class="text-[8px] text-neutral-600 uppercase mt-1 block">*For DB, combine both dumbbells</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[500px] relative overflow-hidden">
-            <div id="age-display" class="hidden relative z-10">
-                <span class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono italic">Calculated Functional Age:</span>
-                <div id="func-age-val" class="text-9xl font-black safety-cyan tracking-tighter mb-4 italic">--</div>
-                <div id="age-status" class="mb-4"></div>
-                <div class="mt-8 pt-8 border-t border-neutral-900">
-                    <p id="func-feedback" class="text-sm text-neutral-400 italic leading-relaxed"></p>
-                </div>
-
-                <!-- NEW: Amazon affiliate recommendation box (clean, matches your style, exact product wording) -->
-                <div class="mt-8 p-6 bg-[#111] border border-[#222] rounded-2xl text-center">
-                    <p class="text-neutral-300 text-base mb-4">
-                        Explore your biological age and healthy aging strategies with these tools:
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href="https://amzn.to/4jTVsc2" 
-                           target="_blank" rel="noopener noreferrer"
-                           class="inline-block bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded-lg transition text-sm">
-                            NAD+ Supplement for Anti Aging and Cell Regeneration → (Amazon)
-                        </a>
-                        <a href="https://amzn.to/4r6lawf" 
-                           target="_blank" rel="noopener noreferrer"
-                           class="inline-block bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded-lg transition text-sm">
-                            Methylation & Longevity Genetic Test → (Amazon)
-                        </a>
+            <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[500px] relative overflow-hidden">
+                <div id="age-display" class="hidden relative z-10">
+                    <span class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono italic">Calculated Functional Age:</span>
+                    <div id="func-age-val" class="text-9xl font-black safety-cyan tracking-tighter mb-4 italic">--</div>
+                    <div id="age-status" class="mb-4"></div>
+                    <div class="mt-8 pt-8 border-t border-neutral-900">
+                        <p id="func-feedback" class="text-sm text-neutral-400 italic leading-relaxed"></p>
                     </div>
-                    <p class="text-neutral-500 text-xs mt-4 italic">
-                        As an Amazon Associate, I earn from qualifying purchases at no extra cost to you.
-                    </p>
-                </div>
 
-                <div class="mt-8">
-                    <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-cyan-500 hover:text-white transition-all italic">Commit to Streak Lab →</a>
-                </div>
-            </div>
-            <div id="age-placeholder" class="text-neutral-700 italic text-center uppercase text-[10px] tracking-widest font-mono px-12 leading-loose">
-                Input strength metrics for mechanical functional age analysis...
-            </div>
-            <div class="absolute -right-8 -bottom-8 text-9xl font-black text-white/[0.02] italic pointer-events-none select-none uppercase">Integrity</div>
-        </section>
-    </div>
+                    <div class="mt-8 p-6 bg-[#111] border border-[#222] rounded-2xl text-center">
+                        <p class="text-neutral-300 text-base mb-4">
+                            Explore your biological age and healthy aging strategies with these tools:
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <a href="https://amzn.to/4jTVsc2" target="_blank" rel="noopener noreferrer" class="inline-block bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded-lg transition text-sm">
+                                NAD+ Supplement for Anti Aging and Cell Regeneration → (Amazon)
+                            </a>
+                            <a href="https://amzn.to/4r6lawf" target="_blank" rel="noopener noreferrer" class="inline-block bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded-lg transition text-sm">
+                                Methylation & Longevity Genetic Test → (Amazon)
+                            </a>
+                        </div>
+                        <p class="text-neutral-500 text-xs mt-4 italic">
+                            As an Amazon Associate, I earn from qualifying purchases at no extra cost to you.
+                        </p>
+                    </div>
 
-    <article class="mt-20 border-t border-neutral-900 pt-16 text-left">
-        <h3 class="text-2xl font-black italic uppercase mb-8 safety-cyan tracking-tighter font-inter">Functional Strength & Longevity</h3>
-        <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
-            <div class="space-y-6">
-                <h4 class="text-white font-bold uppercase text-xs tracking-widest font-mono">Dumbbell vs. Barbell</h4>
-                <p>Dumbbell pressing requires significantly higher **neuromuscular recruitment** and stability. For the athlete 50+, using dumbbells allows for a "neutral grip" variation that protects the rotator cuff while still providing the mechanical tension needed to maintain bone density in the ribcage and upper humerus.</p>
-            </div>
-            <div class="space-y-6">
-                <h4 class="text-white font-bold uppercase text-xs tracking-widest font-mono">Neural Integrity</h4>
-                <p>A functional age lower than your chronological age indicates your Central Nervous System is efficiently recruiting Type II fibers. This is the primary defense against the "slow down" of movement associated with biological aging and sarcopenia.</p>
-            </div>
+                    <div class="mt-8">
+                        <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-cyan-500 hover:text-white transition-all italic">Commit to Streak Lab →</a>
+                    </div>
+                </div>
+                <div id="age-placeholder" class="text-neutral-700 italic text-center uppercase text-[10px] tracking-widest font-mono px-12 leading-loose">
+                    Input strength metrics for mechanical functional age analysis...
+                </div>
+                <div class="absolute -right-8 -bottom-8 text-9xl font-black text-white/[0.02] italic pointer-events-none select-none uppercase">Integrity</div>
+            </section>
         </div>
-    </article>
-</main>
 
-<footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-[0.3em]">
-    Academic Athlete Lab © 2026 | Protocol: Functional_Age_v2.2
-</footer>
+        <article class="mt-20 border-t border-neutral-900 pt-16 text-left">
+            <h3 class="text-2xl font-black italic uppercase mb-8 safety-cyan tracking-tighter font-inter">Functional Strength & Longevity</h3>
+            <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
+                <div class="space-y-6">
+                    <h4 class="text-white font-bold uppercase text-xs tracking-widest font-mono">Dumbbell vs. Barbell</h4>
+                    <p>Dumbbell pressing requires significantly higher **neuromuscular recruitment** and stability. For the athlete 50+, using dumbbells allows for a "neutral grip" variation that protects the rotator cuff while still providing the mechanical tension needed to maintain bone density in the ribcage and upper humerus.</p>
+                </div>
+                <div class="space-y-6">
+                    <h4 class="text-white font-bold uppercase text-xs tracking-widest font-mono">Neural Integrity</h4>
+                    <p>A functional age lower than your chronological age indicates your Central Nervous System is efficiently recruiting Type II fibers. This is the primary defense against the "slow down" of movement associated with biological aging and sarcopenia.</p>
+                </div>
+            </div>
+        </article>
+    </main>
 
-<script>
-    let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
-    let currentGender = localStorage.getItem('athleteGender') || 'male';
+    <footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-[0.3em]">
+        Academic Athlete Lab © 2026 | Protocol: Functional_Age_v2.2
+    </footer>
 
-    function initPage() {
-        setUnit(currentUnit);
-        setGender(currentGender);
-        syncData();
-    }
+    <script>
+        let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
+        let currentGender = localStorage.getItem('athleteGender') || 'male';
 
-    function setGender(g) {
-        currentGender = g;
-        localStorage.setItem('athleteGender', g);
-        document.getElementById('gen-male').className = g === 'male' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
-        document.getElementById('gen-female').className = g === 'female' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
-        calculateFuncAge();
-    }
-
-    function updateLift() {
-        localStorage.setItem('athleteLift', document.getElementById('lift-type').value);
-        calculateFuncAge();
-    }
-
-    function syncData() {
-        const savedW = localStorage.getItem('athleteWeight');
-        const saved1RM = localStorage.getItem('athlete1RM'); 
-        const savedL = localStorage.getItem('athleteLift');
-        const savedAge = localStorage.getItem('athleteAge');
-        
-        if(savedL) document.getElementById('lift-type').value = savedL;
-        if(saved1RM) document.getElementById('one-rm').value = Math.round(saved1RM);
-        if(savedW) document.getElementById('bodyweight').value = savedW;
-        if(savedAge) document.getElementById('chron-age').value = savedAge;
-        calculateFuncAge();
-    }
-
-    function setUnit(u) {
-        currentUnit = u;
-        localStorage.setItem('athleteUnit', u);
-        document.querySelectorAll('.unit-label').forEach(el => el.innerText = u);
-        document.getElementById('unit-lbs').className = u==='LBS' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500';
-        document.getElementById('unit-kg').className = u==='KG' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500';
-        calculateFuncAge();
-    }
-
-    function calculateFuncAge() {
-        const chronAge = parseInt(document.getElementById('chron-age').value);
-        const bw = parseFloat(document.getElementById('bodyweight').value);
-        const max = parseFloat(document.getElementById('one-rm').value);
-        const lift = document.getElementById('lift-type').value;
-        
-        if(!bw || !max || isNaN(chronAge)) {
-            document.getElementById('age-display').classList.add('hidden');
-            document.getElementById('age-placeholder').classList.remove('hidden');
-            return;
+        function initPage() {
+            setUnit(currentUnit);
+            setGender(currentGender);
+            syncData();
+            // Extra sync delay for cross-tab reliability
+            setTimeout(syncData, 300);
         }
 
-        const ratio = (max / bw).toFixed(2);
-        
-        // Standards tuned for masters athletes
-        const standards = {
-            male: { 
-                bench: { base: 0.85, step: 25 }, 
-                db_flat: { base: 0.70, step: 30 },
-                db_incline: { base: 0.60, step: 35 },
-                squat: { base: 1.10, step: 18 }, 
-                deadlift: { base: 1.25, step: 15 }, 
-                db_press: { base: 0.50, step: 40 } 
-            },
-            female: { 
-                bench: { base: 0.55, step: 35 }, 
-                db_flat: { base: 0.45, step: 40 },
-                db_incline: { base: 0.35, step: 45 },
-                squat: { base: 0.80, step: 25 }, 
-                deadlift: { base: 1.00, step: 20 }, 
-                db_press: { base: 0.35, step: 50 } 
-            }
-        };
+        function setGender(g) {
+            currentGender = g;
+            localStorage.setItem('athleteGender', g);
+            document.getElementById('gen-male').className = g === 'male' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
+            document.getElementById('gen-female').className = g === 'female' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
+            calculateFuncAge();
+        }
 
-        const config = standards[currentGender][lift];
-        let funcAge = ratio >= config.base ? chronAge - ((ratio - config.base) * config.step) : chronAge + ((config.base - ratio) * 15);
-        funcAge = Math.max(25, Math.round(funcAge));
+        function updateLift() {
+            localStorage.setItem('athleteLift', document.getElementById('lift-type').value);
+            calculateFuncAge();
+        }
 
-        document.getElementById('age-display').classList.remove('hidden');
-        document.getElementById('age-placeholder').classList.add('hidden');
-        document.getElementById('func-age-val').innerText = funcAge;
-
-        localStorage.setItem('athleteFunctionalAge', funcAge);
-        localStorage.setItem('athleteAge', chronAge);
-
-        const statusColor = funcAge < chronAge ? "text-green-400" : "text-yellow-500";
-        document.getElementById('age-status').innerHTML = `
-            <div class="${statusColor} text-xs font-bold uppercase tracking-widest mb-2 font-mono italic">${funcAge < chronAge ? "Structural Outlier" : "Mechanical Maintenance Advised"}</div>
-            <p class="text-[10px] text-neutral-400 tracking-wide uppercase leading-loose font-mono">
-                Demographic Base: <span class="text-white">${config.base} Ratio</span> | Current: <span class="text-cyan-400 font-bold">${ratio}</span>
-            </p>`;
+        function syncData() {
+            const savedW = localStorage.getItem('athleteWeight');
+            const saved1RM = localStorage.getItem('athlete1RM');
+            const savedL = localStorage.getItem('athleteLift');
+            const savedAge = localStorage.getItem('athleteAge');
             
-        document.getElementById('func-feedback').innerText = funcAge < chronAge ? 
-            "Subject demonstrates high-tier motor unit recruitment. Relative strength is a significant protective factor for your skeletal frame." : 
-            "Subject is currently trending toward functional sarcopenia. Focus on increasing relative strength to reset the biological clock.";
-    }
-</script>
+            console.log('[Functional Age] Sync check - 1RM:', saved1RM);
+
+            if (savedL) document.getElementById('lift-type').value = savedL;
+            if (saved1RM && !isNaN(saved1RM)) {
+                document.getElementById('one-rm').value = Math.round(saved1RM);
+            }
+            if (savedW) document.getElementById('bodyweight').value = savedW;
+            if (savedAge) document.getElementById('chron-age').value = savedAge;
+
+            calculateFuncAge();
+        }
+
+        function setUnit(u) {
+            currentUnit = u;
+            localStorage.setItem('athleteUnit', u);
+            document.querySelectorAll('.unit-label').forEach(el => el.innerText = u);
+            document.getElementById('unit-lbs').className = u==='LBS' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500';
+            document.getElementById('unit-kg').className = u==='KG' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500';
+            calculateFuncAge();
+        }
+
+        function calculateFuncAge() {
+            const chronAge = parseInt(document.getElementById('chron-age').value) || 0;
+            const bw = parseFloat(document.getElementById('bodyweight').value) || 0;
+            const max = parseFloat(document.getElementById('one-rm').value) || 0;
+            const lift = document.getElementById('lift-type').value;
+            
+            if (bw <= 0 || max <= 0 || chronAge <= 0) {
+                document.getElementById('age-display').classList.add('hidden');
+                document.getElementById('age-placeholder').classList.remove('hidden');
+                return;
+            }
+
+            const ratio = (max / bw).toFixed(2);
+            
+            const standards = {
+                male: { 
+                    bench: { base: 0.85, step: 25 }, 
+                    db_chest: { base: 0.70, step: 30 },
+                    db_incline: { base: 0.60, step: 35 },
+                    squat: { base: 1.10, step: 18 }, 
+                    deadlift: { base: 1.25, step: 15 }, 
+                    db_shoulder: { base: 0.50, step: 40 } 
+                },
+                female: { 
+                    bench: { base: 0.55, step: 35 }, 
+                    db_chest: { base: 0.45, step: 40 },
+                    db_incline: { base: 0.35, step: 45 },
+                    squat: { base: 0.80, step: 25 }, 
+                    deadlift: { base: 1.00, step: 20 }, 
+                    db_shoulder: { base: 0.35, step: 50 } 
+                }
+            };
+
+            const config = standards[currentGender][lift] || standards[currentGender]['bench'];
+            let funcAge = ratio >= config.base 
+                ? chronAge - ((ratio - config.base) * config.step) 
+                : chronAge + ((config.base - ratio) * 15);
+            funcAge = Math.max(25, Math.round(funcAge));
+
+            document.getElementById('age-display').classList.remove('hidden');
+            document.getElementById('age-placeholder').classList.add('hidden');
+            document.getElementById('func-age-val').innerText = funcAge;
+
+            localStorage.setItem('athleteFunctionalAge', funcAge);
+            localStorage.setItem('athleteAge', chronAge);
+
+            const statusColor = funcAge < chronAge ? "text-green-400" : "text-yellow-500";
+            document.getElementById('age-status').innerHTML = `
+                <div class="${statusColor} text-xs font-bold uppercase tracking-widest mb-2 font-mono italic">
+                    ${funcAge < chronAge ? "Structural Outlier" : "Mechanical Maintenance Advised"}
+                </div>
+                <p class="text-[10px] text-neutral-400 tracking-wide uppercase leading-loose font-mono">
+                    Demographic Base: <span class="text-white">${config.base} Ratio</span> | Current: <span class="text-cyan-400 font-bold">${ratio}</span>
+                </p>`;
+
+            document.getElementById('func-feedback').innerText = funcAge < chronAge 
+                ? "Subject demonstrates high-tier motor unit recruitment. Relative strength is a significant protective factor for your skeletal frame." 
+                : "Subject is currently trending toward functional sarcopenia. Focus on increasing relative strength to reset the biological clock.";
+        }
+    </script>
 </body>
 </html>
