@@ -43,6 +43,26 @@
         .pct-row { border-bottom: 1px solid #1a1a1a; transition: background 0.2s; }
         .pct-row:hover { background: #161616; }
 
+        /* Plate loader visual improvements */
+        .plate {
+            min-width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+            border: 2px solid #333;
+        }
+        .plate-45 { background: #444; color: #facc15; } /* large black/red in reality */
+        .plate-25 { background: #555; color: white; }
+        .plate-10 { background: #666; color: white; }
+        .plate-5  { background: #777; color: white; }
+        .plate-2p5{ background: #888; color: white; }
+        .plate-small { min-width: 36px; height: 36px; font-size: 12px; }
+
         /* Custom Dropdown Arrow */
         select { 
             appearance: none; 
@@ -136,11 +156,12 @@
                     <div class="mb-10 bg-neutral-950 p-6 rounded-2xl border border-neutral-800">
                         <div class="flex justify-between items-center mb-4">
                             <h4 class="text-[10px] font-bold uppercase tracking-widest text-neutral-400 font-mono">Plate Loader (Per Side)</h4>
-                            <span class="text-[9px] text-neutral-600 uppercase">Standard 45lb Bar</span>
+                            <span class="text-[9px] text-neutral-600 uppercase">Standard Olympic Bar</span>
                         </div>
-                        <div id="plate-display" class="flex flex-wrap gap-2 items-center min-h-[50px]">
-                            </div>
-                        <p class="text-[10px] text-neutral-600 mt-4 italic">Note: Based on standard 45, 25, 10, 5, 2.5 lb plates.</p>
+                        <div id="plate-display" class="flex flex-wrap gap-2 items-center min-h-[60px]"></div>
+                        <p class="text-[10px] text-neutral-600 mt-4 italic font-mono">
+                            Assumes standard plates: 45/25/10/5/2.5 lb (or 25/20/15/10/5/2.5/1.25 kg equivalents).
+                        </p>
                     </div>
 
                     <div class="bg-[#161616] border-2 border-dashed border-neutral-800 p-6 rounded-2xl mb-8">
@@ -187,8 +208,8 @@
         function initPage() {
             const savedW = localStorage.getItem('athleteWeight');
             const savedR = localStorage.getItem('athleteReps');
-            if(savedW) document.getElementById('weight').value = savedW;
-            if(savedR) document.getElementById('reps').value = savedR;
+            if (savedW) document.getElementById('weight').value = savedW;
+            if (savedR) document.getElementById('reps').value = savedR;
             setUnit(currentUnit);
             setGender(currentGender);
         }
@@ -211,12 +232,12 @@
         }
 
         function calculate1RM() {
-            const w = parseFloat(document.getElementById('weight').value);
-            const r = parseFloat(document.getElementById('reps').value);
+            const w = parseFloat(document.getElementById('weight').value) || 0;
+            const r = parseFloat(document.getElementById('reps').value) || 0;
             const resArea = document.getElementById('results-area');
             const placeHolder = document.getElementById('placeholder');
 
-            if (w > 0 && r > 0) {
+            if (w > 0 && r > 0 && r <= 20) {  // reasonable rep cap for Brzycki accuracy
                 resArea.classList.remove('hidden');
                 placeHolder.classList.add('hidden');
                 
@@ -224,13 +245,16 @@
                 const roundedRM = Math.round(oneRM);
                 
                 document.getElementById('result-val').innerText = roundedRM;
-                document.getElementById('pct-85').innerText = Math.round(roundedRM * 0.85);
-                document.getElementById('pct-75').innerText = Math.round(roundedRM * 0.75);
-                document.getElementById('pct-65').innerText = Math.round(roundedRM * 0.65);
+                document.getElementById('pct-85').innerText = Math.round(roundedRM * 0.85) + currentUnit;
+                document.getElementById('pct-75').innerText = Math.round(roundedRM * 0.75) + currentUnit;
+                document.getElementById('pct-65').innerText = Math.round(roundedRM * 0.65) + currentUnit;
 
                 updatePlateLoader(roundedRM);
 
-                let advice = r > 8 ? "Submaximal precision is higher at lower reps (3-5). High reps may underestimate true capacity." : "Optimal data point. Use 75% for volume blocks.";
+                let advice = "";
+                if (r > 10) advice = "Accuracy best at 3–8 reps for masters athletes. Higher reps may underestimate due to fatigue.";
+                else if (r < 3) advice = "Low reps are fine but CNS-taxing — prefer submax modeling for longevity.";
+                else advice = "Solid data point. Use 75–85% for most hypertrophy/strength blocks.";
                 document.getElementById('safety-text').innerText = advice;
             } else {
                 resArea.classList.add('hidden');
@@ -239,32 +263,48 @@
         }
 
         function updatePlateLoader(targetWeight) {
-            const bar = currentUnit === 'LBS' ? 45 : 20;
-            let sideWeight = (targetWeight - bar) / 2;
-            const plates = currentUnit === 'LBS' ? [45, 25, 10, 5, 2.5] : [25, 20, 15, 10, 5, 2.5, 1.25];
+            const barWeight = currentUnit === 'LBS' ? 45 : 20;
+            let sideWeight = (targetWeight - barWeight) / 2;
+            if (sideWeight < 0) sideWeight = 0;
+
+            const platesLbs = [45, 25, 10, 5, 2.5];
+            const platesKg  = [25, 20, 15, 10, 5, 2.5, 1.25];
+            const plates = currentUnit === 'LBS' ? platesLbs : platesKg;
+
             const container = document.getElementById('plate-display');
             container.innerHTML = '';
 
-            if (sideWeight <= 0) {
-                container.innerHTML = '<span class="text-neutral-700 text-xs italic uppercase">Bar Only</span>';
+            if (sideWeight <= 0.1) {
+                container.innerHTML = '<span class="text-neutral-500 text-sm italic uppercase">Bar only (no plates needed)</span>';
                 return;
             }
 
+            let remaining = sideWeight;
             plates.forEach(plate => {
-                while (sideWeight >= plate) {
-                    const el = document.createElement('div');
-                    el.className = "bg-neutral-800 border border-neutral-700 text-white text-[10px] px-3 py-4 rounded-md font-bold flex items-center justify-center min-w-[40px]";
-                    el.innerText = plate;
-                    container.appendChild(el);
-                    sideWeight -= plate;
+                while (remaining >= plate - 0.01) {  // small tolerance for rounding
+                    const plateEl = document.createElement('div');
+                    plateEl.className = `plate plate-${plate.toString().replace('.', 'p')}`;
+                    if (plate <= 5 || plate <= 2.5) plateEl.classList.add('plate-small');
+                    plateEl.innerText = plate;
+                    container.appendChild(plateEl);
+                    remaining -= plate;
                 }
             });
+
+            if (remaining > 0.1) {
+                const leftover = document.createElement('span');
+                leftover.className = 'text-neutral-500 text-xs italic ml-2';
+                leftover.innerText = `+${remaining.toFixed(1)} ${currentUnit} leftover`;
+                container.appendChild(leftover);
+            }
         }
 
         function updateLift() { calculate1RM(); }
+
         function resetLab() {
             document.getElementById('weight').value = '';
             document.getElementById('reps').value = '';
+            document.getElementById('plate-display').innerHTML = '';
             calculate1RM();
         }
     </script>
