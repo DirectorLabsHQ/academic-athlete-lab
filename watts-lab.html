@@ -5,165 +5,244 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Watts/kg Power Lab | Academic Athlete Lab</title>
     <meta name="description" content="Calculate your power-to-weight ratio. Precision diagnostic for masters cyclists and endurance athletes to assess climbing efficiency and metabolic output.">
+    <meta name="keywords" content="watts per kg calculator, power to weight ratio, FTP test, masters cyclist power, climbing efficiency, endurance athlete diagnostics">
     
+    <!-- Canonical for SEO -->
+    <link rel="canonical" href="https://academicathletelab.com/watts-lab.html">
+
+    <!-- Structured data for better search visibility -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Watts/kg Power Lab - Academic Athlete Lab",
+      "description": "Power-to-weight ratio calculator for masters endurance athletes 50+ to optimize climbing performance and metabolic efficiency.",
+      "url": "https://academicathletelab.com/watts-lab.html"
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="nav.js" defer></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap');
-        body { background-color: #050505; color: #fff; font-family: 'Space Mono', monospace; -webkit-font-smoothing: antialiased; }
-        .font-inter { font-family: 'Inter', sans-serif; }
+        
+        body { 
+            background-color: #050505; 
+            color: #fff; 
+            font-family: 'Inter', sans-serif; 
+            -webkit-font-smoothing: antialiased; 
+            margin: 0;
+            padding: 0;
+            padding-top: 80px; 
+        }
+        
+        .font-mono { font-family: 'Space Mono', monospace; }
         .safety-purple { color: #a855f7; }
         .bg-purple { background-color: #a855f7; }
         .glass-card { background: #111; border: 1px solid #222; }
-        .input-field { background: #000; border: 1px solid #333; color: #a855f7; outline: none; transition: all 0.2s; font-size: 1.1rem; width: 100%; padding: 1rem; border-radius: 0.75rem; }
+        .input-field { 
+            background: #000; 
+            border: 1px solid #333; 
+            color: #a855f7; 
+            outline: none; 
+            transition: all 0.2s; 
+            font-size: 1.1rem; 
+            width: 100%; 
+            padding: 1rem; 
+            border-radius: 0.75rem; 
+        }
         .input-field:focus { border-color: #a855f7; background: #0a0a0a; }
-        .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
+        .toggle-active { background-color: #a855f7 !important; color: #fff !important; }
+        
+        .error-message { color: #ef4444; font-size: 0.875rem; margin-top: 0.25rem; }
+        
+        select { 
+            appearance: none; 
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23a855f7'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); 
+            background-repeat: no-repeat; 
+            background-position: right 1rem center; 
+            background-size: 1rem; 
+        }
         .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col" onload="initPage()">
 
-<header class="p-6 border-b border-neutral-900 bg-black">
-    <div class="max-w-6xl mx-auto flex justify-between items-center text-left">
-        <a href="index.html" class="text-xl font-black tracking-tighter safety-purple italic uppercase font-inter">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
-        <div class="hidden md:block">
-            <span class="text-[9px] text-neutral-600 uppercase tracking-widest font-bold font-mono">Module: Power_Output_v3.2</span>
-        </div>
-    </div>
-</header>
+<body class="min-h-screen flex flex-col">
 
-<nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto no-scrollbar">
-    <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono text-[10px]">
-        <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Lab Home</a>
-        <a href="1rm-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM</a>
-        <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white">FFMI</a>
-        <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white">SMI</a>
-        <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white">Grip</a>
-        <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white">VO2 Max</a>
-        <a href="watts-lab.html" class="nav-link safety-purple border-b border-purple-500 pb-1">Watts/kg</a>
-        <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white">Max HR</a>
-        <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white">Bio-Age</a>
-        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white">Func-Age</a>
-        <a href="insulin-lab.html" class="nav-link text-neutral-500 hover:text-white">Insulin</a>
-        <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white">Metabolic</a>
-        <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white">Protein</a>
-        <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white">Hydration</a>
-        <a href="mobility-lab.html" class="nav-link text-neutral-500 hover:text-white">Mobility</a>
-        <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white">Recovery</a>
-        <a href="athlete-lab.html" class="nav-link text-purple-500 border-l border-neutral-800 pl-6 italic font-bold">The Streak Lab</a>
-    </div>
-</nav>
+    <!-- Shared nav injected here by nav.js -->
 
-<main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter">
-    <header class="mb-12 text-left">
-        <div class="inline-block bg-purple-600 text-white px-4 py-1 font-black italic text-sm uppercase mb-4 tracking-tighter">Diagnostic: Relative Power</div>
-        <h2 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter mb-4 leading-none">Watts/kg<br>Dynamics</h2>
-        <p class="text-neutral-500 max-w-xl italic leading-relaxed text-sm">For the masters endurance athlete, raw power is secondary to relative power. This ratio determines climbing velocity and metabolic economy.</p>
-    </header>
-
-    <div class="grid lg:grid-cols-2 gap-10 items-start">
-        <section class="glass-card p-8 rounded-3xl border-l-4 border-purple-600 text-left">
-            <h3 class="text-xs font-bold uppercase safety-purple mb-6 tracking-widest font-mono italic">Functional Inputs</h3>
-            <div class="space-y-6">
-                <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">FTP / Max Sustained Power (Watts)</label>
-                    <input type="number" id="watts" placeholder="250" oninput="calculateWattsKg()" class="input-field font-mono text-2xl">
-                </div>
-                <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 font-mono tracking-widest">Current Body Mass (kg)</label>
-                    <input type="number" id="weight" step="0.1" placeholder="75.0" oninput="calculateWattsKg()" class="input-field font-mono text-2xl">
-                </div>
+    <main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter">
+        <header class="mb-12 text-left">
+            <div class="inline-block bg-purple text-white px-4 py-1 font-black italic text-2xl uppercase mb-4 tracking-tighter">
+                Watts/kg Power Lab
             </div>
+            <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono">
+                Relative Power Diagnostics for Masters Endurance Athletes
+            </p>
+        </header>
+
+        <div class="grid lg:grid-cols-2 gap-10 items-start">
+            <section class="glass-card p-8 rounded-3xl border-l-4 border-purple-600 text-left">
+                <h3 class="text-xs font-bold uppercase safety-purple mb-6 tracking-widest font-mono italic">Functional Inputs</h3>
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest font-mono">Weight Unit</label>
+                        <div class="flex bg-neutral-900 rounded-lg p-1 w-fit">
+                            <button id="unit-lbs" onclick="setUnit('LBS')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">LBS</button>
+                            <button id="unit-kg" onclick="setUnit('KG')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">KG</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Current Body Mass (<span class="unit-label">LBS</span>)</label>
+                        <input type="number" id="weight" step="0.1" placeholder="165" oninput="calculateWattsKg()" class="input-field font-mono text-2xl">
+                        <div id="weight-error" class="error-message hidden"></div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">FTP / Max Sustained Power (Watts)</label>
+                        <input type="number" id="watts" placeholder="250" oninput="calculateWattsKg()" class="input-field font-mono text-2xl">
+                        <div id="watts-error" class="error-message hidden"></div>
+                    </div>
+                    <button onclick="resetLab()" class="text-[9px] text-neutral-600 hover:text-purple-500 uppercase font-bold tracking-widest pt-2">Clear Data</button>
+                </div>
+
+                <!-- FTP Measurement Guidance -->
+                <div class="mt-8 p-6 bg-neutral-900/50 border border-neutral-800 rounded-2xl">
+                    <h4 class="text-[10px] font-bold uppercase tracking-widest text-neutral-400 font-mono mb-3">How to Estimate Your FTP</h4>
+                    <p class="text-[11px] text-neutral-400 leading-relaxed">
+                        <strong>20-Minute Test (Gold Standard):</strong> Warm up 10–15 min, then ride as hard as possible for 20 min. Take 95% of average power as FTP.<br>
+                        <strong>Ramp Test:</strong> Use a smart trainer app (Zwift, TrainerRoad) — follow ramp protocol until failure.<br>
+                        <strong>Field Test:</strong> Hill climb or flat time trial — use best-effort sustained power for 20–60 min.
+                    </p>
+                </div>
+            </section>
+
+            <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[350px] relative overflow-hidden">
+                <div id="result-display" class="hidden relative z-10 text-left">
+                    <span class="text-[10px] font-bold uppercase text-purple-400 tracking-[0.3em] font-mono italic block">Power-to-Weight Ratio</span>
+                    <div class="text-7xl md:text-8xl font-black text-white italic tracking-tighter mb-4 leading-none uppercase" id="ratio-val">--</div>
+                    
+                    <div class="p-6 bg-purple-600/5 border border-purple-600/20 rounded-2xl mb-6">
+                        <p class="text-[9px] font-bold text-purple-400 uppercase mb-2 tracking-widest italic underline font-mono">Performance Tier (Masters):</p>
+                        <p id="tier-comment" class="text-xs italic text-neutral-400 leading-relaxed font-inter"></p>
+                    </div>
+                    
+                    <a href="athlete-lab.html" class="block w-full text-center bg-purple-600 text-white font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-white hover:text-black transition-all italic">Commit to Streak Lab →</a>
+                </div>
+                <div id="idle-display" class="text-neutral-700 italic text-center uppercase text-[10px] tracking-widest font-mono px-12 leading-loose">
+                    [ Awaiting power and mass metrics for relative efficiency analysis ]
+                </div>
+                <div class="absolute -right-8 -bottom-8 text-9xl font-black text-white/[0.02] italic pointer-events-none select-none uppercase">Power</div>
+            </section>
+        </div>
+
+        <section class="mt-12 p-6 bg-neutral-900/30 border border-neutral-800 rounded-2xl text-left font-mono">
+            <p class="text-[10px] text-neutral-500 leading-relaxed italic">
+                <span class="text-neutral-300 font-bold uppercase tracking-widest block mb-2 underline">Diagnostic Disclaimer:</span>
+                Calculations are based on 20-minute FTP testing or sustained 60-minute power. Tier rankings are adjusted for the 50+ age bracket.
+            </p>
         </section>
 
-        <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[350px] relative overflow-hidden">
-            <div id="result-display" class="hidden relative z-10 text-left">
-                <span class="text-[10px] font-bold uppercase text-purple-400 tracking-[0.3em] font-mono italic block">Power-to-Weight Ratio</span>
-                <div class="text-7xl md:text-8xl font-black text-white italic tracking-tighter mb-4 leading-none uppercase" id="ratio-val">--</div>
-                
-                <div class="p-6 bg-purple-600/5 border border-purple-600/20 rounded-2xl mb-6">
-                    <p class="text-[9px] font-bold text-purple-400 uppercase mb-2 tracking-widest italic underline font-mono">Performance Tier (Masters):</p>
-                    <p id="tier-comment" class="text-xs italic text-neutral-400 leading-relaxed font-inter"></p>
-                </div>
-                
-                <a href="athlete-lab.html" class="block w-full text-center bg-purple-600 text-white font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-white hover:text-black transition-all italic font-inter">Commit to Streak Lab →</a>
+        <!-- Affiliate Recommendations -->
+        <section class="mt-20">
+            <h2 class="text-xl font-black italic uppercase mb-6 safety-purple tracking-tighter">Recommended Equipment</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <a href="https://amzn.to/3YXOjhk" target="_blank" rel="noopener noreferrer" class="glass-card p-6 rounded-2xl border-l-purple-500 hover:border-l-purple-400">
+                    <h3 class="font-bold text-lg mb-2 uppercase italic text-white">Light Commercial Recumbent Bike</h3>
+                    <p class="text-neutral-400 text-sm mb-3">High-end magnetic recumbent bike with smart Bluetooth app, LCD display, and heart rate handles — ideal for seniors and masters athletes seeking joint-friendly Zone 2 training, VO2 improvement, and recovery-focused cardio.</p>
+                    <span class="text-safety-yellow text-xs font-mono uppercase tracking-wider">Amazon →</span>
+                </a>
             </div>
-            <div id="idle-display" class="text-neutral-700 italic text-center uppercase text-[10px] tracking-widest font-mono px-12 leading-loose">
-                [ Awaiting power and mass metrics for relative efficiency analysis ]
-            </div>
-            <div class="absolute -right-8 -bottom-8 text-9xl font-black text-white/[0.02] italic pointer-events-none select-none uppercase">Power</div>
         </section>
-    </div>
+    </main>
 
-    <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
-        <h3 class="text-2xl font-black italic uppercase mb-8 safety-purple tracking-tighter">Academic Overview: The Gravity Tax</h3>
-        
-        <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
-            <div class="space-y-6 font-inter">
-                <h4 class="text-white font-bold uppercase text-xs tracking-widest font-mono">Climbing Physics</h4>
-                <p>On flat terrain, raw wattage (aero) wins. However, once the gradient exceeds 6%, <strong>Watts per Kilogram</strong> becomes the primary determinant of speed. For athletes 50+, maintaining a lean body mass (SMI) while preserving power is the "Holy Grail" of performance longevity.</p>
-            </div>
-            <div class="space-y-6 font-inter">
-                <h4 class="text-white font-bold uppercase text-xs tracking-widest font-mono">The Masters Curve</h4>
-                <p>Research suggests that while absolute $VO_2$ max and power output decline with age (~1% per year), the **Power-to-Weight Ratio** can be stabilized through specific resistance training and optimized protein intake, allowing masters athletes to outperform younger peers on steep ascents.</p>
-            </div>
-        </div>
-    </section>
+    <footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-[0.3em]">
+        Academic Athlete Lab © 2026 | Protocol: Power_Output_v3.2
+    </footer>
 
-    <section class="mt-12 p-6 bg-neutral-900/30 border border-neutral-800 rounded-2xl text-left font-mono">
-        <p class="text-[10px] text-neutral-500 leading-relaxed italic">
-            <span class="text-neutral-300 font-bold uppercase tracking-widest block mb-2 underline font-inter">Diagnostic Disclaimer:</span>
-            Calculations are based on 20-minute FTP testing or sustained 60-minute power. Tier rankings are adjusted for the 50+ age bracket.
-        </p>
-    </section>
-</main>
+    <script>
+        let currentUnit = 'LBS';
 
-<footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-[0.3em]">
-    Academic Athlete Lab © 2026 | Protocol: Power_Output_v3.2
-</footer>
-
-<script>
-    function initPage() {
-        const savedWeight = localStorage.getItem('athleteWeight');
-        if(savedWeight) document.getElementById('weight').value = savedWeight;
-    }
-
-    function calculateWattsKg() {
-        const watts = parseFloat(document.getElementById('watts').value);
-        const weight = parseFloat(document.getElementById('weight').value);
-
-        if(!watts || !weight) {
-            document.getElementById('result-display').classList.add('hidden');
-            document.getElementById('idle-display').classList.remove('hidden');
-            return;
+        function initPage() {
+            setUnit(currentUnit);
+            // Prefill weight from other labs if available
+            const savedWeight = localStorage.getItem('athleteWeight');
+            if (savedWeight) document.getElementById('weight').value = savedWeight;
+            calculateWattsKg();
         }
 
-        const ratio = (watts / weight).toFixed(2);
-        let tier = "";
-        let comment = "";
-
-        // Masters-Adjusted Performance Tiers
-        if (ratio >= 4.0) {
-            tier = "Elite Academic";
-            comment = "Top 1% of masters endurance athletes. This ratio indicates professional-level climbing efficiency and superior metabolic conditioning.";
-        } else if (ratio >= 3.2) {
-            tier = "Advanced";
-            comment = "Highly competitive. You possess the power-to-weight ratio required for front-of-pack performance in age-group racing.";
-        } else if (ratio >= 2.5) {
-            tier = "Functional";
-            comment = "Solid performance baseline. Focus on maintaining lean muscle mass to improve the ratio without sacrificing absolute power.";
-        } else {
-            tier = "Baseline";
-            comment = "Initial threshold. Improving this ratio through body composition optimization will yield significant speed gains on inclines.";
+        function setUnit(u) {
+            currentUnit = u;
+            localStorage.setItem('athleteUnit', u);
+            document.querySelectorAll('.unit-label').forEach(el => el.innerText = u);
+            document.getElementById('unit-lbs').className = u==='LBS' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'px-4 py-1.5 text-[10px] font-bold rounded-md text-neutral-500';
+            document.getElementById('unit-kg').className = u==='KG' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'px-4 py-1.5 text-[10px] font-bold rounded-md text-neutral-500';
+            calculateWattsKg();
         }
 
-        document.getElementById('idle-display').classList.add('hidden');
-        document.getElementById('result-display').classList.remove('hidden');
-        document.getElementById('ratio-val').innerText = ratio;
-        document.getElementById('tier-comment').innerText = `${tier}: ${comment}`;
-        
-        localStorage.setItem('athleteWattsKg', ratio);
-        localStorage.setItem('athleteWeight', weight);
-    }
-</script>
+        function calculateWattsKg() {
+            const watts = parseFloat(document.getElementById('watts').value);
+            let weight = parseFloat(document.getElementById('weight').value);
+
+            const wattsError = document.getElementById('watts-error');
+            const weightError = document.getElementById('weight-error');
+
+            wattsError.classList.add('hidden');
+            weightError.classList.add('hidden');
+
+            if (!watts || watts <= 0) {
+                wattsError.textContent = 'Enter a valid power value (watts > 0)';
+                wattsError.classList.remove('hidden');
+            }
+            if (!weight || weight <= 0) {
+                weightError.textContent = 'Enter a valid weight (> 0)';
+                weightError.classList.remove('hidden');
+            }
+
+            if (!watts || !weight || watts <= 0 || weight <= 0) {
+                document.getElementById('result-display').classList.add('hidden');
+                document.getElementById('idle-display').classList.remove('hidden');
+                return;
+            }
+
+            // Convert weight to kg if in LBS
+            let weightKg = currentUnit === 'LBS' ? weight * 0.453592 : weight;
+
+            const ratio = (watts / weightKg).toFixed(2);
+            let tier = "";
+            let comment = "";
+
+            if (ratio >= 4.0) {
+                tier = "Elite Academic";
+                comment = "Top 1% of masters endurance athletes. This ratio indicates professional-level climbing efficiency and superior metabolic conditioning.";
+            } else if (ratio >= 3.2) {
+                tier = "Advanced";
+                comment = "Highly competitive. You possess the power-to-weight ratio required for front-of-pack performance in age-group racing.";
+            } else if (ratio >= 2.5) {
+                tier = "Functional";
+                comment = "Solid performance baseline. Focus on maintaining lean muscle mass to improve the ratio without sacrificing absolute power.";
+            } else {
+                tier = "Baseline";
+                comment = "Initial threshold. Improving this ratio through body composition optimization will yield significant speed gains on inclines.";
+            }
+
+            document.getElementById('idle-display').classList.add('hidden');
+            document.getElementById('result-display').classList.remove('hidden');
+            document.getElementById('ratio-val').innerText = ratio;
+            document.getElementById('tier-comment').innerText = `${tier}: ${comment}`;
+            
+            // Save for Streak Lab (optional - comment out if not wanted)
+            localStorage.setItem('athleteWattsKg', ratio);
+            localStorage.setItem('athleteWeight', weight);
+        }
+
+        function resetLab() {
+            document.getElementById('watts').value = '';
+            document.getElementById('weight').value = '';
+            document.getElementById('watts-error').classList.add('hidden');
+            document.getElementById('weight-error').classList.add('hidden');
+            calculateWattsKg();
+        }
+    </script>
 </body>
 </html>
