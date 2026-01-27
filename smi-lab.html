@@ -8,224 +8,255 @@
     <meta name="keywords" content="SMI calculator, Skeletal Muscle Index, ALM, Appendicular Lean Mass, Sarcopenia screening, masters athlete muscle">
     
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="nav.js" defer></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap');
-        body { background-color: #050505; color: #fff; font-family: 'Space Mono', monospace; -webkit-font-smoothing: antialiased; }
-        .font-inter { font-family: 'Inter', sans-serif; }
+        
+        body { 
+            background-color: #050505; 
+            color: #fff; 
+            font-family: 'Inter', sans-serif; 
+            -webkit-font-smoothing: antialiased; 
+            margin: 0;
+            padding: 0;
+            padding-top: 80px;  /* For fixed nav */
+        }
+        
+        .font-mono { font-family: 'Space Mono', monospace; }
         .safety-yellow { color: #facc15; }
         .bg-safety { background-color: #facc15; }
         .glass-card { background: #111; border: 1px solid #222; }
-        .input-field { background: #000; border: 1px solid #333; color: #facc15; outline: none; transition: all 0.2s; font-size: 1.1rem; width: 100%; padding: 1rem; border-radius: 0.75rem; }
+        
+        .input-field { 
+            background: #000; 
+            border: 1px solid #333; 
+            color: #facc15; 
+            outline: none; 
+            transition: all 0.2s; 
+            font-size: 1.1rem; 
+            width: 100%; 
+            padding: 1rem; 
+            border-radius: 0.75rem; 
+        }
         .input-field:focus { border-color: #facc15; background: #0a0a0a; }
-        .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
         .toggle-active { background-color: #facc15 !important; color: #000 !important; }
-        select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23facc15'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1rem; }
+        
+        select { 
+            appearance: none; 
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23facc15'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); 
+            background-repeat: no-repeat; 
+            background-position: right 1rem center; 
+            background-size: 1rem; 
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col" onload="initPage()">
 
-<header class="p-6 border-b border-neutral-900 bg-black">
-    <div class="max-w-6xl mx-auto flex justify-between items-center text-left">
-        <a href="index.html" class="text-xl font-black tracking-tighter safety-yellow italic uppercase font-inter">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
-        <div class="flex bg-neutral-900 rounded-lg p-1">
-            <button id="unit-lbs" onclick="setUnit('LBS')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">Lbs</button>
-            <button id="unit-kg" onclick="setUnit('KG')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">Kg</button>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Shared nav injected here by nav.js -->
+
+    <main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter text-left">
+        <header class="mb-12">
+            <div class="inline-block bg-safety text-black px-4 py-1 font-black italic text-2xl md:text-4xl uppercase mb-4 leading-tight tracking-tighter">Skeletal Muscle Index (SMI)</div>
+            <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono block">Appendicular Lean Mass & Sarcopenia Screening</p>
+        </header>
+
+        <div class="grid lg:grid-cols-2 gap-10">
+            <section class="glass-card p-8 rounded-3xl border-l-4 border-yellow-500">
+                <h2 class="text-xs font-bold uppercase safety-yellow mb-6 tracking-widest font-mono italic">Biometric Data</h2>
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Weight (<span class="unit-label">LBS</span>)</label>
+                        <input type="number" id="weight" oninput="calculateSMI()" class="input-field font-mono text-2xl" placeholder="185">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Body Fat %</label>
+                            <input type="number" id="bf" oninput="calculateSMI()" class="input-field font-mono text-2xl" placeholder="18">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Sex</label>
+                            <select id="sex" onchange="calculateSMI()" class="input-field font-mono text-xl cursor-pointer">
+                                <option value="male">MALE</option>
+                                <option value="female">FEMALE</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Height (CM)</label>
+                        <input type="number" id="height" oninput="calculateSMI()" class="input-field font-mono text-2xl" placeholder="178">
+                    </div>
+                    <button onclick="resetLab()" class="text-[9px] text-neutral-600 hover:text-yellow-500 uppercase font-bold tracking-widest pt-2">Clear Data</button>
+                </div>
+            </section>
+
+            <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px] relative overflow-hidden">
+                <div id="smi-result" class="hidden relative z-10">
+                    <h3 class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono italic">Your SMI Score (kg/m²):</h3>
+                    <div id="smi-val" class="text-7xl font-black safety-yellow tracking-tighter mb-4 italic uppercase">--</div>
+                    
+                    <div class="p-6 bg-yellow-500/5 border border-yellow-500/20 rounded-2xl mb-8">
+                        <p class="text-[9px] font-bold text-yellow-500 uppercase mb-2 tracking-widest italic font-mono underline">Clinical Classification:</p>
+                        <p id="smi-comment" class="text-xs text-neutral-400 leading-relaxed italic"></p>
+                    </div>
+
+                    <!-- SMI Norms Table for 50+ Athletes -->
+                    <div class="mt-6 bg-neutral-950 p-6 rounded-2xl border border-neutral-800">
+                        <h4 class="text-[10px] font-bold uppercase tracking-widest text-neutral-400 font-mono mb-4">SMI Norms for Masters Athletes (50+)</h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between py-2 border-b border-neutral-800">
+                                <span class="text-neutral-300">Sarcopenia Risk (Low Muscle Mass)</span>
+                                <span class="text-red-400">Men: <7.0 | Women: <5.7</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-neutral-800">
+                                <span class="text-neutral-300">Average (Healthy Baseline)</span>
+                                <span class="text-yellow-400">Men: 7.0–8.5 | Women: 5.7–7.0</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-neutral-800">
+                                <span class="text-neutral-300">High (Strong Sarcopenia Defense)</span>
+                                <span class="text-green-400">Men: 8.5–9.5 | Women: 7.0–8.0</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-neutral-800">
+                                <span class="text-neutral-300">Elite (Academic Athlete Tier)</span>
+                                <span class="text-cyan-400">Men: >9.5 | Women: >8.0</span>
+                            </div>
+                        </div>
+                        <p class="text-[10px] text-neutral-600 mt-4 italic font-mono">
+                            Higher SMI correlates with better mobility, metabolic health, and reduced frailty risk in later decades.
+                        </p>
+                    </div>
+
+                    <!-- Affiliate Recommendations -->
+                    <div class="mt-8 grid md:grid-cols-2 gap-6">
+                        <div class="p-6 bg-[#111] border border-[#222] rounded-2xl text-center">
+                            <p class="text-neutral-300 text-base mb-4">
+                                Support lean muscle mass preservation with high-quality creatine.
+                            </p>
+                            <a href="https://amzn.to/4rfebkU" target="_blank" rel="noopener noreferrer" class="inline-block bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-8 rounded-lg transition">
+                                Recommended Creatine → (Amazon)
+                            </a>
+                        </div>
+                        <div class="p-6 bg-[#111] border border-[#222] rounded-2xl text-center">
+                            <p class="text-neutral-300 text-base mb-4">
+                                Track body fat, muscle mass & SMI progress with this smart scale (FSA/HSA eligible).
+                            </p>
+                            <a href="https://amzn.to/4pWTNnr" target="_blank" rel="noopener noreferrer" class="inline-block bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-8 rounded-lg transition">
+                                Etekcity Smart Scale → (Amazon)
+                            </a>
+                        </div>
+                    </div>
+
+                    <p class="text-neutral-500 text-xs mt-4 italic text-center">
+                        As an Amazon Associate, I earn from qualifying purchases at no extra cost to you.
+                    </p>
+
+                    <div class="mt-8">
+                        <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-yellow-500 transition-all shadow-xl font-inter italic">Log to Streak Lab →</a>
+                    </div>
+                </div>
+                <div id="smi-placeholder" class="text-neutral-700 italic text-center uppercase text-[10px] tracking-widest font-mono px-10 leading-loose">
+                    [ Awaiting biometric data for sarcopenia risk calculation ]
+                </div>
+            </section>
         </div>
-    </div>
-</header>
 
-<nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto no-scrollbar">
-    <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono text-[10px]">
-        <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Lab Home</a>
-        <a href="1rm-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM</a>
-        <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">FFMI</a>
-        <a href="smi-lab.html" class="nav-link safety-yellow border-b border-yellow-500 pb-1">SMI</a>
-        <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Grip</a>
-        <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">VO2 Max</a>
-        <a href="watts-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Watts/kg</a>
-        <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Max HR</a>
-        <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Bio-Age</a>
-        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Func-Age</a>
-        <a href="insulin-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Insulin</a>
-        <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Metabolic</a>
-        <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Protein</a>
-        <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Hydration</a>
-        <a href="mobility-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Mobility</a>
-        <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Recovery</a>
-        <a href="athlete-lab.html" class="nav-link text-purple-500 border-l border-neutral-800 pl-6 italic font-bold">The Streak Lab</a>
-    </div>
-</nav>
-
-<main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter text-left">
-    <header class="mb-12">
-        <div class="inline-block bg-safety text-black px-4 py-1 font-black italic text-2xl md:text-4xl uppercase mb-4 leading-tight tracking-tighter">Skeletal Muscle Index (SMI)</div>
-        <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono block">Appendicular Lean Mass & Sarcopenia Screening</p>
-    </header>
-
-    <div class="grid lg:grid-cols-2 gap-10">
-        <section class="glass-card p-8 rounded-3xl border-l-4 border-yellow-500">
-            <h2 class="text-xs font-bold uppercase safety-yellow mb-6 tracking-widest font-mono italic">Biometric Data</h2>
-            <div class="space-y-6">
-                <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Weight (<span class="unit-label">LBS</span>)</label>
-                    <input type="number" id="weight" oninput="calculateSMI()" class="input-field font-mono text-2xl" placeholder="185">
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Body Fat %</label>
-                        <input type="number" id="bf" oninput="calculateSMI()" class="input-field font-mono text-2xl" placeholder="18">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Sex</label>
-                        <select id="sex" onchange="calculateSMI()" class="input-field font-mono text-xl cursor-pointer">
-                            <option value="male">MALE</option>
-                            <option value="female">FEMALE</option>
-                        </select>
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Height (CM)</label>
-                    <input type="number" id="height" oninput="calculateSMI()" class="input-field font-mono text-2xl" placeholder="178">
-                </div>
-                <button onclick="resetLab()" class="text-[9px] text-neutral-600 hover:text-yellow-500 uppercase font-bold tracking-widest pt-2">Clear Data</button>
-            </div>
-        </section>
-
-        <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px] relative overflow-hidden">
-            <div id="smi-result" class="hidden relative z-10">
-                <h3 class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono italic">Your SMI Score ($kg/m^2$):</h3>
-                <div id="smi-val" class="text-7xl font-black safety-yellow tracking-tighter mb-4 italic uppercase">--</div>
-                
-                <div class="p-6 bg-yellow-500/5 border border-yellow-500/20 rounded-2xl mb-8">
-                    <p class="text-[9px] font-bold text-yellow-500 uppercase mb-2 tracking-widest italic font-mono underline">Clinical Classification:</p>
-                    <p id="smi-comment" class="text-xs text-neutral-400 leading-relaxed italic"></p>
-                </div>
-
-                <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-yellow-500 transition-all italic shadow-xl">Log to Streak Lab →</a>
-            </div>
-            <div id="smi-placeholder" class="text-neutral-700 italic text-center uppercase text-[10px] tracking-widest font-mono px-10 leading-loose">
-                [ Awaiting biometric data for sarcopenia risk calculation ]
-            </div>
-            <div class="absolute -right-8 -bottom-8 text-9xl font-black text-white/[0.02] italic pointer-events-none select-none">MASS</div>
-        </section>
-    </div>
-
-    <section class="mt-20 border-t border-neutral-900 pt-16">
-        <h2 class="text-2xl font-black italic uppercase mb-8 safety-yellow tracking-tighter">Research: SMI vs Functional Aging</h2>
-        
-        <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
-            <div class="font-mono text-xs uppercase tracking-tight">
-                <h3 class="text-white font-bold mb-4 uppercase tracking-widest text-[10px] border-b border-neutral-800 pb-2">The Formula</h3>
-                <p class="mb-6">The Skeletal Muscle Index (SMI) measures **Appendicular Lean Soft Tissue (ALST)** relative to the square of your height. Unlike BMI, which aggregates fat and bone, SMI isolates the functional engine. For the athlete 50+, this is the primary biomarker for mobility preservation.</p>
-            </div>
+        <section class="mt-20 border-t border-neutral-900 pt-16">
+            <h2 class="text-2xl font-black italic uppercase mb-8 safety-yellow tracking-tighter">Research: SMI vs Functional Aging</h2>
             
-            <div class="font-mono text-xs uppercase tracking-tight">
-                <h3 class="text-white font-bold mb-4 uppercase tracking-widest text-[10px] border-b border-neutral-800 pb-2">Sarcopenia Prevention</h3>
-                <p class="mb-4">Clinical thresholds (< 7.0 for men, < 5.7 for women) represent the "disability zone." Academic Athletes target the performance tier to buffer against the 1-2% annual muscle loss typically seen after age 50.</p>
-                <div class="bg-neutral-900/50 rounded-xl p-6 border border-neutral-800">
-                    <ul class="space-y-3 font-mono text-[11px]">
-                        <li class="flex justify-between border-b border-neutral-800 pb-1"><span>Male Elite:</span> <span class="text-yellow-500 font-bold">> 9.0</span></li>
-                        <li class="flex justify-between border-b border-neutral-800 pb-1"><span>Female Elite:</span> <span class="text-yellow-500 font-bold">> 7.5</span></li>
-                    </ul>
+            <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
+                <div class="font-mono text-xs uppercase tracking-tight">
+                    <h3 class="text-white font-bold mb-4 uppercase tracking-widest text-[10px] border-b border-neutral-800 pb-2">The Formula</h3>
+                    <p class="mb-6">The Skeletal Muscle Index (SMI) measures **Appendicular Lean Soft Tissue (ALST)** relative to the square of your height. Unlike BMI, which aggregates fat and bone, SMI isolates the functional engine. For the athlete 50+, this is the primary biomarker for mobility preservation.</p>
+                </div>
+                
+                <div class="font-mono text-xs uppercase tracking-tight">
+                    <h3 class="text-white font-bold mb-4 uppercase tracking-widest text-[10px] border-b border-neutral-800 pb-2">Sarcopenia Prevention</h3>
+                    <p class="mb-4">Clinical thresholds (< 7.0 for men, < 5.7 for women) represent the "disability zone." Academic Athletes target the performance tier to buffer against the 1-2% annual muscle loss typically seen after age 50.</p>
+                    <div class="bg-neutral-900/50 rounded-xl p-6 border border-neutral-800">
+                        <ul class="space-y-3 font-mono text-[11px]">
+                            <li class="flex justify-between border-b border-neutral-800 pb-1"><span>Male Elite:</span> <span class="text-yellow-500 font-bold">> 9.0</span></li>
+                            <li class="flex justify-between border-b border-neutral-800 pb-1"><span>Female Elite:</span> <span class="text-yellow-500 font-bold">> 7.5</span></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="mt-12 p-6 bg-neutral-900/30 border border-neutral-800 rounded-2xl font-mono">
-        <p class="text-[10px] text-neutral-500 leading-relaxed italic">
-            <span class="text-neutral-300 font-bold uppercase tracking-widest block mb-2 underline">Diagnostic Disclaimer:</span>
-            This calculation uses an ALST estimation based on total lean body mass. For clinical precision, a DEXA scan (Appendicular Lean Mass) is required.
-        </p>
-    </section>
-</main>
+        <section class="mt-12 p-6 bg-neutral-900/30 border border-neutral-800 rounded-2xl font-mono">
+            <p class="text-[10px] text-neutral-500 leading-relaxed italic">
+                <span class="text-neutral-300 font-bold uppercase tracking-widest block mb-2 underline">Diagnostic Disclaimer:</span>
+                This calculation uses an ALST estimation based on total lean body mass. For clinical precision, a DEXA scan (Appendicular Lean Mass) is required.
+            </p>
+        </section>
+    </main>
 
-<footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-[0.3em]">
-    Academic Athlete Lab © 2026 | Protocol: Sarcopenia_Defense_v3.2
-</footer>
+    <footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-[0.3em]">
+        Academic Athlete Lab © 2026 | Protocol: Sarcopenia_Defense_v3.2
+    </footer>
 
-<script>
-    let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
+    <script>
+        let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
 
-    function initPage() {
-        const savedWeight = localStorage.getItem('athleteWeight');
-        const savedHeight = localStorage.getItem('athleteHeight');
-        const savedBF = localStorage.getItem('athleteBF');
-        const savedSex = localStorage.getItem('athleteGender');
-
-        if(savedWeight) document.getElementById('weight').value = savedWeight;
-        if(savedHeight) document.getElementById('height').value = savedHeight;
-        if(savedBF) document.getElementById('bf').value = savedBF;
-        if(savedSex) document.getElementById('sex').value = savedSex;
-
-        setUnit(currentUnit);
-    }
-
-    function setUnit(u) {
-        currentUnit = u;
-        localStorage.setItem('athleteUnit', u);
-        document.querySelectorAll('.unit-label').forEach(el => el.innerText = u);
-        document.getElementById('unit-lbs').className = u==='LBS' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active shadow-sm' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500 hover:text-white';
-        document.getElementById('unit-kg').className = u==='KG' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active shadow-sm' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500 hover:text-white';
-        calculateSMI();
-    }
-
-    function calculateSMI() {
-        const weightVal = parseFloat(document.getElementById('weight').value);
-        const bf = parseFloat(document.getElementById('bf').value);
-        const heightVal = parseFloat(document.getElementById('height').value);
-        const sex = document.getElementById('sex').value;
-
-        if(!weightVal || !bf || !heightVal) {
-            document.getElementById('smi-result').classList.add('hidden');
-            document.getElementById('smi-placeholder').classList.remove('hidden');
-            return;
+        function initPage() {
+            setUnit(currentUnit);
+            // Start blank on every load/refresh
+            calculateSMI();
         }
 
-        // Convert to Metric for calculation
-        let weightKg = currentUnit === 'LBS' ? weightVal * 0.453592 : weightVal;
-        let heightM = heightVal / 100;
-
-        // Estimate Lean Body Mass (LBM)
-        const lbm = weightKg * (1 - (bf / 100));
-        // ALM estimation (75% of LBM is common research proxy for appendicular mass)
-        const alm = lbm * 0.75;
-        // SMI Formula: ALM (kg) / Height^2 (m)
-        const smi = alm / (heightM * heightM);
-
-        localStorage.setItem('athleteWeight', weightVal);
-        localStorage.setItem('athleteHeight', heightVal);
-        localStorage.setItem('athleteBF', bf);
-        localStorage.setItem('athleteGender', sex);
-
-        document.getElementById('smi-result').classList.remove('hidden');
-        document.getElementById('smi-placeholder').classList.add('hidden');
-        document.getElementById('smi-val').innerText = smi.toFixed(2);
-        
-        let comment = "";
-        if (sex === 'male') {
-            if (smi > 9.0) comment = "Academic Athlete Tier. Exceptional muscle density. You are highly protected against age-related frailty.";
-            else if (smi > 7.0) comment = "Optimal Baseline. Healthy skeletal muscle index. Focus on protein synthesis and volume to maintain this floor.";
-            else comment = "Sarcopenia Risk. SMI is below clinical longevity benchmarks. Immediate intervention in resistance load and leucine intake recommended.";
-        } else {
-            if (smi > 7.5) comment = "Academic Athlete Tier. Exceptional skeletal muscle mass. You possess a significant metabolic buffer for healthy aging.";
-            else if (smi > 5.7) comment = "Optimal Baseline. Normal muscle-to-height ratio. Aim to maintain this mass to ensure mobility into later decades.";
-            else comment = "Sarcopenia Risk. Muscle mass is reaching a critical low. Focus on multi-joint resistance training and high-quality protein.";
+        function setUnit(u) {
+            currentUnit = u;
+            localStorage.setItem('athleteUnit', u);
+            document.querySelectorAll('.unit-label').forEach(el => el.innerText = u);
+            document.getElementById('unit-lbs').className = u==='LBS' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active shadow-sm' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500 hover:text-white';
+            document.getElementById('unit-kg').className = u==='KG' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active shadow-sm' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500 hover:text-white';
+            calculateSMI();
         }
-        
-        document.getElementById('smi-comment').innerText = comment;
-    }
 
-    function resetLab() {
-        document.getElementById('weight').value = '';
-        document.getElementById('bf').value = '';
-        document.getElementById('height').value = '';
-        localStorage.removeItem('athleteWeight');
-        localStorage.removeItem('athleteBF');
-        localStorage.removeItem('athleteHeight');
-        calculateSMI();
-    }
-</script>
+        function calculateSMI() {
+            const weightVal = parseFloat(document.getElementById('weight').value);
+            const bf = parseFloat(document.getElementById('bf').value);
+            const heightVal = parseFloat(document.getElementById('height').value);
+            const sex = document.getElementById('sex').value;
+
+            if (weightVal > 0 && bf >= 0 && bf <= 100 && heightVal > 0) {
+                document.getElementById('smi-placeholder').classList.add('hidden');
+                document.getElementById('smi-result').classList.remove('hidden');
+
+                let weightKg = currentUnit === 'LBS' ? weightVal * 0.453592 : weightVal;
+                let heightM = heightVal / 100;
+
+                const lbm = weightKg * (1 - (bf / 100));
+                const alm = lbm * 0.75;
+                const smi = alm / (heightM * heightM);
+
+                document.getElementById('smi-val').innerText = smi.toFixed(2);
+                
+                let comment = "";
+                if (sex === 'male') {
+                    if (smi > 9.0) comment = "Academic Athlete Tier. Exceptional muscle density. You are highly protected against age-related frailty.";
+                    else if (smi > 7.0) comment = "Optimal Baseline. Healthy skeletal muscle index. Focus on protein synthesis and volume to maintain this floor.";
+                    else comment = "Sarcopenia Risk. SMI is below clinical longevity benchmarks. Immediate intervention in resistance load and leucine intake recommended.";
+                } else {
+                    if (smi > 7.5) comment = "Academic Athlete Tier. Exceptional skeletal muscle mass. You possess a significant metabolic buffer for healthy aging.";
+                    else if (smi > 5.7) comment = "Optimal Baseline. Normal muscle-to-height ratio. Aim to maintain this mass to ensure mobility into later decades.";
+                    else comment = "Sarcopenia Risk. Muscle mass is reaching a critical low. Focus on multi-joint resistance training and high-quality protein.";
+                }
+                
+                document.getElementById('smi-comment').innerText = comment;
+            } else {
+                document.getElementById('smi-placeholder').classList.remove('hidden');
+                document.getElementById('smi-result').classList.add('hidden');
+            }
+        }
+
+        function resetLab() {
+            document.getElementById('weight').value = '';
+            document.getElementById('bf').value = '';
+            document.getElementById('height').value = '';
+            calculateSMI();
+        }
+    </script>
 </body>
 </html>
