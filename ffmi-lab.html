@@ -20,7 +20,7 @@
             -webkit-font-smoothing: antialiased; 
             margin: 0;
             padding: 0;
-            padding-top: 80px;  /* For fixed nav */
+            padding-top: 80px; 
         }
         
         .font-mono { font-family: 'Space Mono', monospace; }
@@ -74,6 +74,20 @@
             <section class="glass-card p-8 rounded-3xl border-l-4 border-yellow-500 text-left">
                 <h3 class="text-xs font-bold uppercase safety-yellow mb-6 tracking-widest font-mono italic">Subject Biometrics</h3>
                 <div class="space-y-6">
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Biological Sex</label>
+                        <div class="flex bg-neutral-900 rounded-lg p-1">
+                            <button id="gen-male" onclick="setGender('male')" class="flex-1 py-1.5 text-[10px] font-bold rounded-md transition-all">MALE</button>
+                            <button id="gen-female" onclick="setGender('female')" class="flex-1 py-1.5 text-[10px] font-bold rounded-md transition-all">FEMALE</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Unit</label>
+                        <div class="flex bg-neutral-900 rounded-lg p-1 w-fit">
+                            <button id="unit-lbs" onclick="setUnit('LBS')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">LBS</button>
+                            <button id="unit-kg" onclick="setUnit('KG')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">KG</button>
+                        </div>
+                    </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Weight (<span class="unit-label">LBS</span>)</label>
@@ -185,11 +199,21 @@
     </footer>
 
     <script>
-        let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
+        let currentUnit = 'LBS';  // Default, no load from storage
+        let currentGender = 'male';  // Default
 
         function initPage() {
             setUnit(currentUnit);
-            // Start with blank fields on every load/refresh
+            setGender(currentGender);
+            // Fields start blank - no saved data loaded
+            calculateFFMI();
+        }
+
+        function setGender(g) {
+            currentGender = g;
+            localStorage.setItem('athleteGender', g);
+            document.getElementById('gen-male').className = g === 'male' ? 'flex-1 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'flex-1 py-1.5 text-[10px] font-bold rounded-md text-neutral-500';
+            document.getElementById('gen-female').className = g === 'female' ? 'flex-1 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'flex-1 py-1.5 text-[10px] font-bold rounded-md text-neutral-500';
             calculateFFMI();
         }
 
@@ -197,8 +221,8 @@
             currentUnit = u;
             localStorage.setItem('athleteUnit', u);
             document.querySelectorAll('.unit-label').forEach(el => el.innerText = u);
-            document.getElementById('unit-lbs').className = u === 'LBS' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active shadow-sm' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500 hover:text-white';
-            document.getElementById('unit-kg').className = u === 'KG' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active shadow-sm' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500 hover:text-white';
+            document.getElementById('unit-lbs').className = u==='LBS' ? 'flex-1 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'flex-1 py-1.5 text-[10px] font-bold rounded-md text-neutral-500';
+            document.getElementById('unit-kg').className = u==='KG' ? 'flex-1 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'flex-1 py-1.5 text-[10px] font-bold rounded-md text-neutral-500';
             calculateFFMI();
         }
 
@@ -222,12 +246,6 @@
 
                 document.getElementById('ffmi-val').innerText = finalScore;
                 
-                // Optional: Save for other labs (comment out if you want blank on refresh)
-                // localStorage.setItem('athleteFFMI', finalScore);
-                // localStorage.setItem('athleteWeightForFFMI', wVal);
-                // localStorage.setItem('athleteBF', bfVal);
-                // localStorage.setItem('athleteHeight', hVal);
-
                 let category = "";
                 if (normalizedFFMI < 18) category = "Below Average. Focus on hyper-caloric protein intake and high-tension resistance work.";
                 else if (normalizedFFMI < 20) category = "Average. Baseline muscle mass for healthy aging. Ensure protein threshold is met.";
