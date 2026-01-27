@@ -163,22 +163,23 @@
             setUnit(currentUnit);
             setGender(currentGender);
             syncData();
-            // Extra delay for DOM to reflect input changes before calc
+            // Force recalc after sync (with delay for DOM to update)
             setTimeout(() => {
                 syncData();
-                setTimeout(calculateFuncAge, 0);
-            }, 200);
+                calculateFuncAge();
+            }, 150);
         }
 
+        // Re-sync & recalc on tab focus/visibility
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'visible') {
                 syncData();
-                setTimeout(calculateFuncAge, 0);
+                setTimeout(calculateFuncAge, 50);
             }
         });
         window.addEventListener('focus', () => {
             syncData();
-            setTimeout(calculateFuncAge, 0);
+            setTimeout(calculateFuncAge, 50);
         });
 
         function setGender(g) {
@@ -218,6 +219,9 @@
             if (savedAge && !isNaN(parseInt(savedAge))) {
                 document.getElementById('chron-age').value = parseInt(savedAge);
             }
+
+            // Manually trigger calculation after setting values
+            calculateFuncAge();
         }
 
         function setUnit(u) {
