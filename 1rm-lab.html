@@ -3,234 +3,239 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1RM Strength Lab | Masters Athlete Performance Diagnostics</title>
+    <title>1RM Strength Lab | Academic Athlete Lab</title>
     <meta name="description" content="Submaximal one-rep max calculator for masters athletes using the Brzycki Algorithm. Safe strength modeling for athletes 50+ to prevent CNS fatigue.">
     <meta name="keywords" content="1RM calculator, masters strength training, 50 plus lifting, Brzycki formula, strength modeling, skeletal muscle preservation">
     
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="nav.js" defer></script>  <!-- ← This loads the shared nav -->
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap');
-        body { background-color: #050505; color: #fff; font-family: 'Space Mono', monospace; -webkit-font-smoothing: antialiased; }
-        .font-inter { font-family: 'Inter', sans-serif; }
+        
+        body { 
+            background-color: #050505; 
+            color: #fff; 
+            font-family: 'Inter', sans-serif; 
+            -webkit-font-smoothing: antialiased; 
+            margin: 0;
+            padding: 0;
+            padding-top: 80px;  /* ← Prevents fixed nav from covering content */
+        }
+        
+        .font-mono { font-family: 'Space Mono', monospace; }
         .safety-yellow { color: #facc15; }
         .bg-safety { background-color: #facc15; }
         .glass-card { background: #111; border: 1px solid #222; }
-        .input-field { background: #000; border: 1px solid #333; color: #facc15; outline: none; transition: all 0.2s; font-size: 1.1rem; width: 100%; padding: 1rem; border-radius: 0.75rem; }
+        .input-field { 
+            background: #000; 
+            border: 1px solid #333; 
+            color: #facc15; 
+            outline: none; 
+            transition: all 0.2s; 
+            font-size: 1.1rem; 
+            width: 100%; 
+            padding: 1rem; 
+            border-radius: 0.75rem; 
+        }
         .input-field:focus { border-color: #facc15; background: #0a0a0a; }
         .toggle-active { background-color: #facc15 !important; color: #000 !important; }
-        .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23facc15'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1rem; }
+        select { 
+            appearance: none; 
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23facc15'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); 
+            background-repeat: no-repeat; 
+            background-position: right 1rem center; 
+            background-size: 1rem; 
+        }
     </style>
 </head>
+
 <body class="min-h-screen flex flex-col" onload="initPage()">
 
-<header class="p-6 border-b border-neutral-900 bg-black">
-    <div class="max-w-6xl mx-auto flex justify-between items-center text-left">
-        <a href="index.html" class="text-xl font-black tracking-tighter safety-yellow italic uppercase font-inter">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
-        <div class="flex bg-neutral-900 rounded-lg p-1">
-            <button id="unit-lbs" onclick="setUnit('LBS')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">Lbs</button>
-            <button id="unit-kg" onclick="setUnit('KG')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">Kg</button>
-        </div>
-    </div>
-</header>
+    <!-- The shared nav will be inserted here automatically by nav.js -->
 
-<nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto no-scrollbar">
-    <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono text-[10px]">
-        <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Lab Home</a>
-        <a href="1rm-lab.html" class="nav-link safety-yellow border-b border-yellow-500 pb-1">1RM</a>
-        <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white">FFMI</a>
-        <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white">SMI</a>
-        <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white">Grip</a>
-        <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white">VO2 Max</a>
-        <a href="watts-lab.html" class="nav-link text-neutral-500 hover:text-white">Watts/kg</a>
-        <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white">Max HR</a>
-        <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white">Bio-Age</a>
-        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white">Func-Age</a>
-        <a href="insulin-lab.html" class="nav-link text-neutral-500 hover:text-white">Insulin</a>
-        <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white">Metabolic</a>
-        <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white">Protein</a>
-        <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white">Hydration</a>
-        <a href="mobility-lab.html" class="nav-link text-neutral-500 hover:text-white">Mobility</a>
-        <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white">Recovery</a>
-        <a href="athlete-lab.html" class="nav-link text-purple-500 border-l border-neutral-800 pl-6 italic font-bold">The Streak Lab</a>
-    </div>
-</nav>
+    <main class="flex-grow max-w-5xl mx-auto p-6 md:p-12 w-full font-inter">
+        <header class="mb-12 text-left">
+            <div class="inline-block bg-safety text-black px-4 py-1 font-black italic text-2xl uppercase mb-4">
+                1RM Strength Modeling
+            </div>
+            <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono">
+                Submaximal Protocol for Athletes 50+
+            </p>
+        </header>
 
-<main class="flex-grow max-w-5xl mx-auto p-6 md:p-12 w-full font-inter">
-    <header class="mb-12 text-left">
-        <div class="inline-block bg-safety text-black px-4 py-1 font-black italic text-2xl uppercase mb-4">
-            1RM Strength Modeling
-        </div>
-        <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono">
-            Submaximal Protocol for Athletes 50+
-        </p>
-    </header>
-
-    <div class="grid lg:grid-cols-2 gap-10 items-start">
-        <section class="glass-card p-8 rounded-3xl border-l-4 border-yellow-500 text-left">
-            <h3 class="text-xs font-bold uppercase safety-yellow mb-6 tracking-widest font-mono italic">Input Recent Set</h3>
-            <div class="space-y-6">
-                <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Gender Profile</label>
-                    <div class="flex bg-black border border-neutral-800 rounded-xl p-1">
-                        <button id="gen-male" onclick="setGender('male')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">MALE</button>
-                        <button id="gen-female" onclick="setGender('female')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">FEMALE</button>
+        <div class="grid lg:grid-cols-2 gap-10 items-start">
+            <section class="glass-card p-8 rounded-3xl border-l-4 border-yellow-500 text-left">
+                <h3 class="text-xs font-bold uppercase safety-yellow mb-6 tracking-widest font-mono italic">Input Recent Set</h3>
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Gender Profile</label>
+                        <div class="flex bg-black border border-neutral-800 rounded-xl p-1">
+                            <button id="gen-male" onclick="setGender('male')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">MALE</button>
+                            <button id="gen-female" onclick="setGender('female')" class="flex-1 py-3 text-[10px] font-bold rounded-lg transition-all">FEMALE</button>
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Movement Type</label>
-                    <select id="lift-choice" onchange="updateLift()" class="input-field cursor-pointer font-mono">
-                        <option value="bench">Bench Press</option>
-                        <option value="squat">Back Squat</option>
-                        <option value="deadlift" selected>Deadlift</option>
-                        <option value="db_press">DB Shoulder Press</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Weight Lifted (<span class="unit-label">LBS</span>)</label>
-                    <input type="number" id="weight" oninput="calculate1RM()" placeholder="0" class="input-field font-mono text-2xl">
-                </div>
-                <div>
-                    <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Reps Performed</label>
-                    <input type="number" id="reps" oninput="calculate1RM()" placeholder="0" class="input-field font-mono text-2xl">
-                </div>
-                <button onclick="resetLab()" class="text-[9px] text-neutral-600 hover:text-yellow-500 uppercase font-bold tracking-widest pt-2">Clear Calculator</button>
-            </div>
-        </section>
-
-        <section class="glass-card p-8 rounded-3xl min-h-[400px] flex flex-col text-left">
-            <span class="text-[10px] text-neutral-500 uppercase tracking-widest border-b border-neutral-900 pb-4 mb-8 font-mono">Calculated Load Model</span>
-            
-            <div id="placeholder" class="text-neutral-600 italic text-sm py-10 text-center">Enter data to generate strength model...</div>
-
-            <div id="results-area" class="hidden">
-                <div class="mb-10 text-left">
-                    <span class="text-[9px] text-neutral-600 uppercase tracking-widest block mb-1">Estimated One-Rep Max</span>
-                    <div class="flex items-baseline gap-2">
-                        <div id="result-val" class="text-7xl font-black safety-yellow tracking-tighter">--</div>
-                        <span class="text-xl font-bold text-neutral-700 unit-label">LBS</span>
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Movement Type</label>
+                        <select id="lift-choice" onchange="updateLift()" class="input-field cursor-pointer font-mono">
+                            <option value="bench">Bench Press</option>
+                            <option value="squat">Back Squat</option>
+                            <option value="deadlift" selected>Deadlift</option>
+                            <option value="db_press">DB Shoulder Press</option>
+                        </select>
                     </div>
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Unit</label>
+                        <div class="flex bg-neutral-900 rounded-lg p-1">
+                            <button id="unit-lbs" onclick="setUnit('LBS')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">Lbs</button>
+                            <button id="unit-kg" onclick="setUnit('KG')" class="px-4 py-1.5 text-[10px] font-bold rounded-md transition-all uppercase">Kg</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Weight Lifted (<span class="unit-label">LBS</span>)</label>
+                        <input type="number" id="weight" oninput="calculate1RM()" placeholder="0" class="input-field font-mono text-2xl">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Reps Performed</label>
+                        <input type="number" id="reps" oninput="calculate1RM()" placeholder="0" class="input-field font-mono text-2xl">
+                    </div>
+                    <button onclick="resetLab()" class="text-[9px] text-neutral-600 hover:text-yellow-500 uppercase font-bold tracking-widest pt-2">Clear Calculator</button>
                 </div>
+            </section>
 
-                <div id="safety-box" class="p-6 bg-yellow-500/5 border border-yellow-500/20 rounded-2xl mb-8">
-                    <p class="text-[9px] font-bold text-yellow-500 uppercase mb-3 tracking-widest italic font-mono">Safety Protocol Advice:</p>
-                    <p id="safety-text" class="text-xs text-neutral-400 leading-relaxed italic"></p>
+            <section class="glass-card p-8 rounded-3xl min-h-[400px] flex flex-col text-left">
+                <span class="text-[10px] text-neutral-500 uppercase tracking-widest border-b border-neutral-900 pb-4 mb-8 font-mono">Calculated Load Model</span>
+                
+                <div id="placeholder" class="text-neutral-600 italic text-sm py-10 text-center">Enter data to generate strength model...</div>
+
+                <div id="results-area" class="hidden">
+                    <div class="mb-10 text-left">
+                        <span class="text-[9px] text-neutral-600 uppercase tracking-widest block mb-1">Estimated One-Rep Max</span>
+                        <div class="flex items-baseline gap-2">
+                            <div id="result-val" class="text-7xl font-black safety-yellow tracking-tighter">--</div>
+                            <span class="text-xl font-bold text-neutral-700 unit-label">LBS</span>
+                        </div>
+                    </div>
+
+                    <div id="safety-box" class="p-6 bg-yellow-500/5 border border-yellow-500/20 rounded-2xl mb-8">
+                        <p class="text-[9px] font-bold text-yellow-500 uppercase mb-3 tracking-widest italic font-mono">Safety Protocol Advice:</p>
+                        <p id="safety-text" class="text-xs text-neutral-400 leading-relaxed italic"></p>
+                    </div>
+
+                    <!-- Amazon affiliate box -->
+                    <div class="mt-6 p-6 bg-[#111] border border-[#222] rounded-2xl text-center">
+                        <p class="text-neutral-300 text-base mb-4">
+                            Support strength gains and recovery with high-quality creatine supplementation.
+                        </p>
+                        <a href="https://amzn.to/4rfebkU" 
+                           target="_blank" rel="noopener noreferrer"
+                           class="inline-block bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-8 rounded-lg transition">
+                            Recommended Creatine → (Amazon)
+                        </a>
+                        <p class="text-neutral-500 text-xs mt-4 italic">
+                            As an Amazon Associate, I earn from qualifying purchases at no extra cost to you.
+                        </p>
+                    </div>
+
+                    <a href="functional-age.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest mt-6 hover:bg-yellow-500 transition-all shadow-xl font-inter">Analyze Strength Age →</a>
                 </div>
-
-                <!-- NEW: Amazon affiliate recommendation box (clean, matches your style) -->
-                <div class="mt-6 p-6 bg-[#111] border border-[#222] rounded-2xl text-center">
-                    <p class="text-neutral-300 text-base mb-4">
-                        Support strength gains and recovery with high-quality creatine supplementation.
-                    </p>
-                    <a href="https://amzn.to/4rfebkU" 
-                       target="_blank" rel="noopener noreferrer"
-                       class="inline-block bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-8 rounded-lg transition">
-                        Recommended Creatine → (Amazon)
-                    </a>
-                    <p class="text-neutral-500 text-xs mt-4 italic">
-                        As an Amazon Associate, I earn from qualifying purchases at no extra cost to you.
-                    </p>
-                </div>
-
-                <a href="functional-age.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest mt-6 hover:bg-yellow-500 transition-all shadow-xl font-inter">Analyze Strength Age →</a>
-            </div>
-        </section>
-    </div>
-
-    <article class="mt-20 border-t border-neutral-900 pt-16 text-left">
-        <h3 class="text-2xl font-black italic uppercase mb-8 safety-yellow tracking-tighter">Operational Protocol: Submaximal Testing</h3>
-        <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
-            <div class="space-y-6 font-mono text-xs uppercase tracking-tight">
-                <h4 class="text-white font-bold uppercase text-[10px] tracking-widest border-b border-neutral-800 pb-2">The Brzycki Algorithm</h4>
-                <p>Testing a true 1-rep max (1RM) involves significant orthopedic risk for athletes 50+. This lab utilizes the <strong>Brzycki Formula</strong>, allowing for high-precision strength modeling using submaximal sets (3-8 reps) to establish accurate intensity zones without joint trauma.</p>
-            </div>
-            <div class="space-y-6 font-mono text-xs uppercase tracking-tight">
-                <h4 class="text-white font-bold uppercase text-[10px] tracking-widest border-b border-neutral-800 pb-2">CNS Preservation</h4>
-                <p>For the masters athlete, recovery is the bottleneck. Maximal attempts tax the central nervous system far more than submaximal modeling. Consistent tracking identifies <strong>Anabolic Resistance</strong> early, allowing for adjustments in protein and volume to protect lean mass.</p>
-            </div>
+            </section>
         </div>
-    </article>
-</main>
 
-<footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-[0.3em]">
-    Academic Athlete Lab © 2026 | Protocol: Strength_v2.6
-</footer>
+        <article class="mt-20 border-t border-neutral-900 pt-16 text-left">
+            <h3 class="text-2xl font-black italic uppercase mb-8 safety-yellow tracking-tighter">Operational Protocol: Submaximal Testing</h3>
+            <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
+                <div class="space-y-6 font-mono text-xs uppercase tracking-tight">
+                    <h4 class="text-white font-bold uppercase text-[10px] tracking-widest border-b border-neutral-800 pb-2">The Brzycki Algorithm</h4>
+                    <p>Testing a true 1-rep max (1RM) involves significant orthopedic risk for athletes 50+. This lab utilizes the <strong>Brzycki Formula</strong>, allowing for high-precision strength modeling using submaximal sets (3-8 reps) to establish accurate intensity zones without joint trauma.</p>
+                </div>
+                <div class="space-y-6 font-mono text-xs uppercase tracking-tight">
+                    <h4 class="text-white font-bold uppercase text-[10px] tracking-widest border-b border-neutral-800 pb-2">CNS Preservation</h4>
+                    <p>For the masters athlete, recovery is the bottleneck. Maximal attempts tax the central nervous system far more than submaximal modeling. Consistent tracking identifies <strong>Anabolic Resistance</strong> early, allowing for adjustments in protein and volume to protect lean mass.</p>
+                </div>
+            </div>
+        </article>
+    </main>
 
-<script>
-    let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
-    let currentGender = localStorage.getItem('athleteGender') || 'male';
+    <footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-[0.3em]">
+        Academic Athlete Lab © 2026 | Protocol: Strength_v2.6
+    </footer>
 
-    function initPage() {
-        const savedW = localStorage.getItem('athleteWeight');
-        const savedR = localStorage.getItem('athleteReps');
-        const savedL = localStorage.getItem('athleteLift');
-        if(savedW) document.getElementById('weight').value = savedW;
-        if(savedR) document.getElementById('reps').value = savedR;
-        if(savedL) document.getElementById('lift-choice').value = savedL;
-        setUnit(currentUnit);
-        setGender(currentGender);
-    }
+    <script>
+        let currentUnit = localStorage.getItem('athleteUnit') || 'LBS';
+        let currentGender = localStorage.getItem('athleteGender') || 'male';
 
-    function setGender(g) {
-        currentGender = g;
-        localStorage.setItem('athleteGender', g);
-        document.getElementById('gen-male').className = g === 'male' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active shadow-sm' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500 hover:text-white';
-        document.getElementById('gen-female').className = g === 'female' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active shadow-sm' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500 hover:text-white';
-        calculate1RM();
-    }
-
-    function updateLift() {
-        localStorage.setItem('athleteLift', document.getElementById('lift-choice').value);
-        calculate1RM();
-    }
-
-    function setUnit(u) {
-        currentUnit = u;
-        localStorage.setItem('athleteUnit', u);
-        document.querySelectorAll('.unit-label').forEach(el => el.innerText = u);
-        document.getElementById('unit-lbs').className = u==='LBS' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active shadow-sm' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500 hover:text-white';
-        document.getElementById('unit-kg').className = u==='KG' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active shadow-sm' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500 hover:text-white';
-        calculate1RM();
-    }
-
-    function calculate1RM() {
-        const w = parseFloat(document.getElementById('weight').value);
-        const r = parseFloat(document.getElementById('reps').value);
-        const lift = document.getElementById('lift-choice').value;
-        const resArea = document.getElementById('results-area');
-        const placeHolder = document.getElementById('placeholder');
-
-        if (w > 0 && r > 0) {
-            resArea.classList.remove('hidden');
-            placeHolder.classList.add('hidden');
-            const oneRM = w / (1.0278 - (0.0278 * r));
-            const roundedRM = Math.round(oneRM);
-            document.getElementById('result-val').innerText = roundedRM;
-            
-            localStorage.setItem('athlete1RM', roundedRM);
-            localStorage.setItem('athleteWeight', w);
-            localStorage.setItem('athleteReps', r);
-
-            let advice = "";
-            if (r > 10) advice = "For athletes 50+, accuracy is higher on sets of 5-8 reps. High-rep sets often lead to technical breakdown before muscular failure.";
-            else if (lift === 'deadlift' && r < 3) advice = "Caution: Low-rep deadlifts tax the CNS heavily. Stick to submaximal modeling for spinal longevity.";
-            else if (lift === 'db_press') advice = "Stability focus: If the weights are shaking, the load exceeds your current rotator cuff capacity.";
-            else advice = "Model established. Program your primary strength work at 75-80% of this figure for optimal retention.";
-            document.getElementById('safety-text').innerText = advice;
-        } else {
-            resArea.classList.add('hidden');
-            placeHolder.classList.remove('hidden');
+        function initPage() {
+            const savedW = localStorage.getItem('athleteWeight');
+            const savedR = localStorage.getItem('athleteReps');
+            const savedL = localStorage.getItem('athleteLift');
+            if(savedW) document.getElementById('weight').value = savedW;
+            if(savedR) document.getElementById('reps').value = savedR;
+            if(savedL) document.getElementById('lift-choice').value = savedL;
+            setUnit(currentUnit);
+            setGender(currentGender);
         }
-    }
 
-    function resetLab() {
-        document.getElementById('weight').value = '';
-        document.getElementById('reps').value = '';
-        localStorage.removeItem('athleteWeight');
-        localStorage.removeItem('athleteReps');
-        calculate1RM();
-    }
-</script>
+        function setGender(g) {
+            currentGender = g;
+            localStorage.setItem('athleteGender', g);
+            document.getElementById('gen-male').className = g === 'male' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active shadow-sm' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500 hover:text-white';
+            document.getElementById('gen-female').className = g === 'female' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active shadow-sm' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500 hover:text-white';
+            calculate1RM();
+        }
+
+        function updateLift() {
+            localStorage.setItem('athleteLift', document.getElementById('lift-choice').value);
+            calculate1RM();
+        }
+
+        function setUnit(u) {
+            currentUnit = u;
+            localStorage.setItem('athleteUnit', u);
+            document.querySelectorAll('.unit-label').forEach(el => el.innerText = u);
+            document.getElementById('unit-lbs').className = u==='LBS' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active shadow-sm' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500 hover:text-white';
+            document.getElementById('unit-kg').className = u==='KG' ? 'px-4 py-1.5 text-[10px] font-bold rounded-md toggle-active shadow-sm' : 'px-4 py-1.5 text-[10px] font-bold rounded-md bg-neutral-900 text-neutral-500 hover:text-white';
+            calculate1RM();
+        }
+
+        function calculate1RM() {
+            const w = parseFloat(document.getElementById('weight').value);
+            const r = parseFloat(document.getElementById('reps').value);
+            const lift = document.getElementById('lift-choice').value;
+            const resArea = document.getElementById('results-area');
+            const placeHolder = document.getElementById('placeholder');
+
+            if (w > 0 && r > 0) {
+                resArea.classList.remove('hidden');
+                placeHolder.classList.add('hidden');
+                const oneRM = w / (1.0278 - (0.0278 * r));
+                const roundedRM = Math.round(oneRM);
+                document.getElementById('result-val').innerText = roundedRM;
+                
+                localStorage.setItem('athlete1RM', roundedRM);
+                localStorage.setItem('athleteWeight', w);
+                localStorage.setItem('athleteReps', r);
+
+                let advice = "";
+                if (r > 10) advice = "For athletes 50+, accuracy is higher on sets of 5-8 reps. High-rep sets often lead to technical breakdown before muscular failure.";
+                else if (lift === 'deadlift' && r < 3) advice = "Caution: Low-rep deadlifts tax the CNS heavily. Stick to submaximal modeling for spinal longevity.";
+                else if (lift === 'db_press') advice = "Stability focus: If the weights are shaking, the load exceeds your current rotator cuff capacity.";
+                else advice = "Model established. Program your primary strength work at 75-80% of this figure for optimal retention.";
+                document.getElementById('safety-text').innerText = advice;
+            } else {
+                resArea.classList.add('hidden');
+                placeHolder.classList.remove('hidden');
+            }
+        }
+
+        function resetLab() {
+            document.getElementById('weight').value = '';
+            document.getElementById('reps').value = '';
+            localStorage.removeItem('athleteWeight');
+            localStorage.removeItem('athleteReps');
+            calculate1RM();
+        }
+    </script>
 </body>
 </html>
