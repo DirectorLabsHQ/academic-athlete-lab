@@ -39,11 +39,9 @@
         .input-field:focus { border-color: #facc15; background: #0a0a0a; }
         .toggle-active { background-color: #facc15 !important; color: #000 !important; }
         
-        /* Training Table Styling */
         .pct-row { border-bottom: 1px solid #1a1a1a; transition: background 0.2s; }
         .pct-row:hover { background: #161616; }
 
-        /* Plate loader visual improvements */
         .plate {
             min-width: 48px;
             height: 48px;
@@ -63,7 +61,6 @@
         .plate-2p5{ background: #888; color: white; }
         .plate-small { min-width: 36px; height: 36px; font-size: 12px; }
 
-        /* Custom Dropdown Arrow */
         select { 
             appearance: none; 
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23facc15'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); 
@@ -74,7 +71,7 @@
     </style>
 </head>
 
-<body class="min-h-screen flex flex-col" onload="initPage()">
+<body class="min-h-screen flex flex-col">
 
     <main class="flex-grow max-w-6xl mx-auto p-6 md:p-12 w-full font-inter">
         <header class="mb-12 text-left">
@@ -93,12 +90,12 @@
                 <div class="space-y-6">
                     <div>
                         <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Movement Type</label>
-                        <select id="lift-choice" onchange="saveLiftAndRecalc()" class="input-field cursor-pointer font-mono">
+                        <select id="lift-choice" onchange="localStorage.setItem('athleteLift', this.value); calculate1RM();" class="input-field cursor-pointer font-mono">
                             <option value="bench">Bench Press</option>
                             <option value="db_chest">DB Chest Press</option>
                             <option value="db_incline">DB Incline Press</option>
                             <option value="squat">Back Squat</option>
-                            <option value="deadlift" selected>Deadlift</option>
+                            <option value="deadlift">Deadlift</option>
                             <option value="db_shoulder">DB Shoulder Press</option>
                         </select>
                     </div>
@@ -155,7 +152,6 @@
                         </div>
                     </div>
 
-                    <!-- Plate Loader Section -->
                     <div id="plate-section" class="mb-10 bg-neutral-950 p-6 rounded-2xl border border-neutral-800">
                         <div class="flex justify-between items-center mb-4">
                             <h4 class="text-[10px] font-bold uppercase tracking-widest text-neutral-400 font-mono">Plate Loader</h4>
@@ -214,12 +210,12 @@
         const barbellMovements = ['bench', 'squat', 'deadlift'];
 
         function initPage() {
-            // Do NOT load saved weight/reps on refresh - start blank
+            // Fields start blank on every load/refresh - no saved values loaded
             setUnit(currentUnit);
             setGender(currentGender);
-            // Optional: reset lift to default if you want (e.g., Deadlift)
+            // Default lift selection (optional - remove if you want blank)
             document.getElementById('lift-choice').value = 'deadlift';
-            calculate1RM(); // initial blank state
+            calculate1RM(); // run once to set initial blank state
         }
 
         function setGender(g) {
@@ -236,12 +232,6 @@
             document.querySelectorAll('.unit-label').forEach(el => el.innerText = u);
             document.getElementById('unit-lbs').className = u==='LBS' ? 'flex-1 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'flex-1 py-1.5 text-[10px] font-bold rounded-md text-neutral-500';
             document.getElementById('unit-kg').className = u==='KG' ? 'flex-1 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'flex-1 py-1.5 text-[10px] font-bold rounded-md text-neutral-500';
-            calculate1RM();
-        }
-
-        function saveLiftAndRecalc() {
-            const selectedLift = document.getElementById('lift-choice').value;
-            localStorage.setItem('athleteLift', selectedLift);
             calculate1RM();
         }
 
