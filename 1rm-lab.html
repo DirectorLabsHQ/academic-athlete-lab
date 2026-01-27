@@ -93,7 +93,7 @@
                 <div class="space-y-6">
                     <div>
                         <label class="block text-[10px] uppercase text-neutral-500 font-bold mb-2 tracking-widest">Movement Type</label>
-                        <select id="lift-choice" onchange="updateLift()" class="input-field cursor-pointer font-mono">
+                        <select id="lift-choice" onchange="saveLiftAndRecalc()" class="input-field cursor-pointer font-mono">
                             <option value="bench">Bench Press</option>
                             <option value="db_chest">DB Chest Press</option>
                             <option value="db_incline">DB Incline Press</option>
@@ -155,7 +155,7 @@
                         </div>
                     </div>
 
-                    <!-- Plate Loader Section (conditionally shown/hidden) -->
+                    <!-- Plate Loader Section -->
                     <div id="plate-section" class="mb-10 bg-neutral-950 p-6 rounded-2xl border border-neutral-800">
                         <div class="flex justify-between items-center mb-4">
                             <h4 class="text-[10px] font-bold uppercase tracking-widest text-neutral-400 font-mono">Plate Loader</h4>
@@ -214,12 +214,12 @@
         const barbellMovements = ['bench', 'squat', 'deadlift'];
 
         function initPage() {
-            const savedW = localStorage.getItem('athleteWeight');
-            const savedR = localStorage.getItem('athleteReps');
-            if (savedW) document.getElementById('weight').value = savedW;
-            if (savedR) document.getElementById('reps').value = savedR;
+            // Do NOT load saved weight/reps on refresh - start blank
             setUnit(currentUnit);
             setGender(currentGender);
+            // Optional: reset lift to default if you want (e.g., Deadlift)
+            document.getElementById('lift-choice').value = 'deadlift';
+            calculate1RM(); // initial blank state
         }
 
         function setGender(g) {
@@ -236,6 +236,12 @@
             document.querySelectorAll('.unit-label').forEach(el => el.innerText = u);
             document.getElementById('unit-lbs').className = u==='LBS' ? 'flex-1 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'flex-1 py-1.5 text-[10px] font-bold rounded-md text-neutral-500';
             document.getElementById('unit-kg').className = u==='KG' ? 'flex-1 py-1.5 text-[10px] font-bold rounded-md toggle-active' : 'flex-1 py-1.5 text-[10px] font-bold rounded-md text-neutral-500';
+            calculate1RM();
+        }
+
+        function saveLiftAndRecalc() {
+            const selectedLift = document.getElementById('lift-choice').value;
+            localStorage.setItem('athleteLift', selectedLift);
             calculate1RM();
         }
 
@@ -258,10 +264,8 @@
                 document.getElementById('pct-75').innerText = Math.round(roundedRM * 0.75) + ' ' + currentUnit;
                 document.getElementById('pct-65').innerText = Math.round(roundedRM * 0.65) + ' ' + currentUnit;
 
-                // Save 1RM so Functional Age page can read it
                 localStorage.setItem('athlete1RM', roundedRM);
 
-                // Conditional plate loader
                 const isBarbell = barbellMovements.includes(movement);
                 document.getElementById('plate-display').innerHTML = '';
                 document.getElementById('db-note').classList.toggle('hidden', isBarbell);
@@ -320,8 +324,6 @@
                 container.appendChild(leftover);
             }
         }
-
-        function updateLift() { calculate1RM(); }
 
         function resetLab() {
             document.getElementById('weight').value = '';
