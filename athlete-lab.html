@@ -4,272 +4,302 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Streak Lab | Academic Athlete Performance Dashboard</title>
-    
     <meta name="description" content="Centralized performance dashboard for athletes 50+. Track longevity momentum, muscle mass defense (SMI), and CNS readiness protocols.">
     
+    <!-- Canonical for SEO -->
+    <link rel="canonical" href="https://academicathletelab.com/athlete-lab.html">
+
+    <!-- Structured data for better search visibility -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "The Streak Lab - Academic Athlete Lab",
+      "description": "Performance dashboard for masters athletes 50+ to track longevity streak, lab history, and daily defense protocols.",
+      "url": "https://academicathletelab.com/athlete-lab.html"
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="nav.js" defer></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap');
-        body { background-color: #050505; color: #fff; font-family: 'Space Mono', monospace; -webkit-font-smoothing: antialiased; }
-        .font-inter { font-family: 'Inter', sans-serif; }
+        
+        body { 
+            background-color: #050505; 
+            color: #fff; 
+            font-family: 'Inter', sans-serif; 
+            -webkit-font-smoothing: antialiased; 
+            margin: 0;
+            padding: 0;
+            padding-top: 80px; 
+        }
+        
+        .font-mono { font-family: 'Space Mono', monospace; }
         .safety-purple { color: #a855f7; }
         .bg-purple { background-color: #a855f7; }
         .glass-card { background: #111; border: 1px solid #222; }
         .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
         .stat-label { font-size: 8px; color: #444; text-transform: uppercase; letter-spacing: 0.1em; font-weight: bold; }
         .stat-value { font-family: 'Inter', sans-serif; font-weight: 900; font-style: italic; }
+        
+        /* Improved affiliate buttons */
+        .affiliate-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            min-width: 220px;
+        }
+        .affiliate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+        }
+        
         .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
+
 <body class="min-h-screen flex flex-col" onload="initLog()">
 
-<header class="p-6 border-b border-neutral-900 bg-black text-left">
-    <div class="max-w-6xl mx-auto flex justify-between items-center">
-        <a href="index.html" class="text-xl font-black tracking-tighter safety-purple italic uppercase font-inter">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
-        <div class="hidden md:block">
-            <span class="text-[9px] text-neutral-600 uppercase tracking-widest font-bold">Subject Status: <span class="text-green-500">Active_Protocol</span></span>
-        </div>
-    </div>
-</header>
+    <!-- Shared nav injected here by nav.js -->
 
-<nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto no-scrollbar">
-    <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono text-[10px]">
-        <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Lab Home</a>
-        <a href="1rm-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM</a>
-        <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white">FFMI</a>
-        <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white">SMI</a>
-        <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white">Grip</a>
-        <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white">VO2 Max</a>
-        <a href="watts-lab.html" class="nav-link text-neutral-500 hover:text-white">Watts/kg</a>
-        <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white">Max HR</a>
-        <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white">Bio-Age</a>
-        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white">Func-Age</a>
-        <a href="insulin-lab.html" class="nav-link text-neutral-500 hover:text-white">Insulin</a>
-        <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white">Metabolic</a>
-        <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white">Protein</a>
-        <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white">Hydration</a>
-        <a href="mobility-lab.html" class="nav-link text-neutral-500 hover:text-white">Mobility</a>
-        <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white">Recovery</a>
-        <a href="athlete-lab.html" class="nav-link text-purple-500 border-l border-neutral-800 pl-6 italic font-bold">The Streak Lab</a>
-    </div>
-</nav>
-
-<main class="max-w-6xl mx-auto p-6 md:p-12 w-full">
-    
-    <section class="mb-12 text-left">
-        <div class="inline-block bg-purple-600 text-white px-4 py-1 font-black italic text-2xl md:text-3xl uppercase mb-6 font-inter shadow-[4px_4px_0px_#000]">Longevity Momentum</div>
-        <div class="flex items-baseline gap-4">
-            <span id="streak-count-display" class="stat-value text-8xl md:text-9xl text-white tracking-tighter">0</span>
-            <span class="text-2xl md:text-4xl font-black italic safety-purple uppercase font-inter">Days Protected</span>
-        </div>
-    </section>
-
-    <div class="grid lg:grid-cols-3 gap-10">
+    <main class="max-w-6xl mx-auto p-6 md:p-12 w-full">
         
-        <div class="lg:col-span-2 space-y-8">
-            <section class="glass-card p-8 rounded-3xl border-l-4 border-green-500 text-left">
-                <h3 class="text-xs font-bold uppercase text-green-500 mb-6 tracking-widest font-mono italic">Daily Defense Protocol</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <label class="flex items-start gap-4 cursor-pointer group p-4 bg-neutral-900/50 rounded-2xl border border-transparent hover:border-green-500/30 transition-all">
-                        <input type="checkbox" id="check-protein" class="mt-1 w-6 h-6 rounded border-neutral-800 bg-black accent-green-500">
-                        <div>
-                            <span class="block text-[11px] font-black uppercase text-white group-hover:text-green-500 font-inter">Protein Threshold</span>
-                            <span class="block text-[9px] text-neutral-500 italic mt-1">Sufficient leucine intake reached to trigger MPS.</span>
-                        </div>
-                    </label>
-                    <label class="flex items-start gap-4 cursor-pointer group p-4 bg-neutral-900/50 rounded-2xl border border-transparent hover:border-green-500/30 transition-all">
-                        <input type="checkbox" id="check-train" class="mt-1 w-6 h-6 rounded border-neutral-800 bg-black accent-green-500">
-                        <div>
-                            <span class="block text-[11px] font-black uppercase text-white group-hover:text-green-500 font-inter">Structural Strain</span>
-                            <span class="block text-[9px] text-neutral-500 italic mt-1">Mechanical loading session completed.</span>
-                        </div>
-                    </label>
-                </div>
-                <button onclick="commitDailyCheckIn()" id="checkin-btn" class="mt-8 w-full py-5 bg-green-600 hover:bg-green-500 text-black font-black italic uppercase text-[11px] rounded-xl transition-all tracking-widest font-inter">
-                    COMMIT DATA TO STREAK
-                </button>
-            </section>
+        <section class="mb-12 text-left">
+            <div class="inline-block bg-purple text-white px-4 py-1 font-black italic text-2xl md:text-3xl uppercase mb-6 font-inter shadow-[4px_4px_0px_#000]">Longevity Momentum</div>
+            <div class="flex items-baseline gap-4">
+                <span id="streak-count-display" class="stat-value text-8xl md:text-9xl text-white tracking-tighter">0</span>
+                <span class="text-2xl md:text-4xl font-black italic safety-purple uppercase font-inter">Days Protected</span>
+            </div>
+        </section>
 
-            <section id="streak-status-card" class="glass-card p-8 rounded-3xl border-l-4 border-purple-500 text-left">
-                <div class="flex justify-between items-start mb-6">
+        <div class="grid lg:grid-cols-3 gap-10">
+            
+            <div class="lg:col-span-2 space-y-8">
+                <section class="glass-card p-8 rounded-3xl border-l-4 border-green-500 text-left">
+                    <h3 class="text-xs font-bold uppercase text-green-500 mb-6 tracking-widest font-mono italic">Daily Defense Protocol</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <label class="flex items-start gap-4 cursor-pointer group p-4 bg-neutral-900/50 rounded-2xl border border-transparent hover:border-green-500/30 transition-all">
+                            <input type="checkbox" id="check-protein" class="mt-1 w-6 h-6 rounded border-neutral-800 bg-black accent-green-500">
+                            <div>
+                                <span class="block text-[11px] font-black uppercase text-white group-hover:text-green-500 font-inter">Protein Threshold</span>
+                                <span class="block text-[9px] text-neutral-500 italic mt-1">Sufficient leucine intake reached to trigger MPS.</span>
+                            </div>
+                        </label>
+                        <label class="flex items-start gap-4 cursor-pointer group p-4 bg-neutral-900/50 rounded-2xl border border-transparent hover:border-green-500/30 transition-all">
+                            <input type="checkbox" id="check-train" class="mt-1 w-6 h-6 rounded border-neutral-800 bg-black accent-green-500">
+                            <div>
+                                <span class="block text-[11px] font-black uppercase text-white group-hover:text-green-500 font-inter">Structural Strain</span>
+                                <span class="block text-[9px] text-neutral-500 italic mt-1">Mechanical loading session completed.</span>
+                            </div>
+                        </label>
+                    </div>
+                    <button onclick="commitDailyCheckIn()" id="checkin-btn" class="mt-8 w-full py-5 bg-green-600 hover:bg-green-500 text-black font-black italic uppercase text-[11px] rounded-xl transition-all tracking-widest font-inter">
+                        COMMIT DATA TO STREAK
+                    </button>
+                </section>
+
+                <section id="streak-status-card" class="glass-card p-8 rounded-3xl border-l-4 border-purple-500 text-left">
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <h4 id="phase-title" class="text-white font-black italic uppercase tracking-tighter text-2xl font-inter">System Idle</h4>
+                            <p id="phase-subtitle" class="text-purple-500 text-[10px] font-bold uppercase tracking-widest mt-1 font-mono">Biological Momentum Modeling</p>
+                        </div>
+                        <div class="bg-purple-500/10 text-purple-500 px-4 py-1 rounded-full text-[10px] font-black border border-purple-500/20 uppercase font-mono italic">
+                            Phase <span id="phase-number">0</span>
+                        </div>
+                    </div>
+                    <p id="phase-description" class="text-neutral-400 text-xs leading-relaxed italic mb-8 font-inter">Awaiting input. Consistency is the only variable that reverses age-related decay.</p>
+                    <div class="h-4 w-full bg-neutral-900 rounded-full overflow-hidden border border-neutral-800">
+                        <div id="phase-progress" class="h-full bg-purple-500 transition-all duration-1000 shadow-[0_0_20px_rgba(168,85,247,0.4)]" style="width: 0%"></div>
+                    </div>
+
+                    <!-- Improved Affiliate Recommendations -->
+                    <div class="mt-8 grid md:grid-cols-2 gap-6">
+                        <a href="https://amzn.to/4c0YSaS" target="_blank" rel="noopener noreferrer" class="affiliate-btn bg-purple-600 hover:bg-purple-500 text-white font-bold">
+                            Ultima Replenisher Electrolyte Powder → (Amazon)
+                        </a>
+                        <a href="https://amzn.to/49OwZjK" target="_blank" rel="noopener noreferrer" class="affiliate-btn bg-purple-600 hover:bg-purple-500 text-white font-bold">
+                            Oura Ring 4 → (Amazon)
+                        </a>
+                    </div>
+
+                    <p class="text-neutral-500 text-xs mt-4 italic text-center">
+                        As an Amazon Associate, I earn from qualifying purchases at no extra cost to you.
+                    </p>
+                </section>
+
+                <section class="border-t border-neutral-900 pt-12 text-left">
+                    <header class="mb-8">
+                        <h3 class="text-xl font-black italic uppercase text-white tracking-tighter">Operational Protocol</h3>
+                        <p class="text-[10px] text-neutral-600 font-mono uppercase tracking-widest mt-1">Guide for the 50+ High-Performance Athlete</p>
+                    </header>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="space-y-4">
+                            <h4 class="text-[10px] font-bold text-purple-500 uppercase tracking-widest">1. The Habit Anchor</h4>
+                            <p class="text-neutral-500 text-xs leading-relaxed">Sustaining lean mass requires daily mechanical stimulus and amino acid availability. Missing both creates a decay window.</p>
+                        </div>
+                        <div class="space-y-4">
+                            <h4 class="text-[10px] font-bold text-purple-500 uppercase tracking-widest">2. The 48-Hour Decay</h4>
+                            <p class="text-neutral-500 text-xs leading-relaxed">Metabolic markers begin resetting after 48 hours of inactivity. The streak follows this biological reality.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <aside class="space-y-4 text-left">
+                <h3 class="text-[10px] font-bold uppercase text-neutral-600 tracking-[0.3em] mb-4 font-mono italic">Laboratory History</h3>
+                
+                <div class="glass-card p-5 rounded-2xl border-l-2 border-teal-500 flex justify-between items-center">
                     <div>
-                        <h4 id="phase-title" class="text-white font-black italic uppercase tracking-tighter text-2xl font-inter">System Idle</h4>
-                        <p id="phase-subtitle" class="text-purple-500 text-[10px] font-bold uppercase tracking-widest mt-1 font-mono">Biological Momentum Modeling</p>
+                        <span class="stat-label font-mono">Readiness (HRV)</span>
+                        <div id="stat-readiness" class="stat-value text-xl mt-1 text-teal-400 uppercase">--</div>
                     </div>
-                    <div class="bg-purple-500/10 text-purple-500 px-4 py-1 rounded-full text-[10px] font-black border border-purple-500/20 uppercase font-mono italic">
-                        Phase <span id="phase-number">0</span>
-                    </div>
+                    <a href="recovery-lab.html" class="text-[8px] bg-neutral-900 p-2 rounded hover:text-teal-400 font-bold">LAB</a>
                 </div>
-                <p id="phase-description" class="text-neutral-400 text-xs leading-relaxed italic mb-8 font-inter">Awaiting input. Consistency is the only variable that reverses age-related decay.</p>
-                <div class="h-4 w-full bg-neutral-900 rounded-full overflow-hidden border border-neutral-800">
-                    <div id="phase-progress" class="h-full bg-purple-500 transition-all duration-1000 shadow-[0_0_20px_rgba(168,85,247,0.4)]" style="width: 0%"></div>
-                </div>
-            </section>
 
-            <section class="border-t border-neutral-900 pt-12 text-left">
-                <header class="mb-8">
-                    <h3 class="text-xl font-black italic uppercase text-white tracking-tighter">Operational Protocol</h3>
-                    <p class="text-[10px] text-neutral-600 font-mono uppercase tracking-widest mt-1">Guide for the 50+ High-Performance Athlete</p>
-                </header>
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="space-y-4">
-                        <h4 class="text-[10px] font-bold text-purple-500 uppercase tracking-widest">1. The Habit Anchor</h4>
-                        <p class="text-neutral-500 text-xs leading-relaxed">Sustaining lean mass requires daily mechanical stimulus and amino acid availability. Missing both creates a decay window.</p>
+                <div class="glass-card p-5 rounded-2xl border-l-2 border-blue-500 flex justify-between items-center">
+                    <div>
+                        <span class="stat-label font-mono">SMI (Muscle)</span>
+                        <div id="stat-smi" class="stat-value text-xl mt-1 text-blue-400">--</div>
                     </div>
-                    <div class="space-y-4">
-                        <h4 class="text-[10px] font-bold text-purple-500 uppercase tracking-widest">2. The 48-Hour Decay</h4>
-                        <p class="text-neutral-500 text-xs leading-relaxed">Metabolic markers begin resetting after 48 hours of inactivity. The streak follows this biological reality.</p>
-                    </div>
+                    <a href="smi-lab.html" class="text-[8px] bg-neutral-900 p-2 rounded hover:text-blue-400 font-bold">LAB</a>
                 </div>
-            </section>
+
+                <div class="glass-card p-5 rounded-2xl border-l-2 border-purple-500 flex justify-between items-center">
+                    <div>
+                        <span class="stat-label font-mono">Power (Watts/kg)</span>
+                        <div id="stat-watts" class="stat-value text-xl mt-1 text-purple-400">--</div>
+                    </div>
+                    <a href="watts-lab.html" class="text-[8px] bg-neutral-900 p-2 rounded hover:text-purple-400 font-bold">LAB</a>
+                </div>
+
+                <div class="glass-card p-5 rounded-2xl border-l-2 border-red-500 flex justify-between items-center">
+                    <div>
+                        <span class="stat-label font-mono">VO2 Max</span>
+                        <div id="stat-vo2" class="stat-value text-xl mt-1 text-red-500">--</div>
+                    </div>
+                    <a href="vo2-lab.html" class="text-[8px] bg-neutral-900 p-2 rounded hover:text-red-400 font-bold">LAB</a>
+                </div>
+
+                <div class="glass-card p-5 rounded-2xl border-l-2 border-cyan-500 flex justify-between items-center">
+                    <div>
+                        <span class="stat-label font-mono">Func-Age (1RM)</span>
+                        <div id="stat-func-age" class="stat-value text-xl mt-1 text-cyan-400">--</div>
+                    </div>
+                    <a href="functional-age.html" class="text-[8px] bg-neutral-900 p-2 rounded hover:text-cyan-400 font-bold">LAB</a>
+                </div>
+                
+                <button onclick="if(confirm('Erase all laboratory history? This is permanent.')) { localStorage.clear(); location.reload(); }" class="w-full py-4 mt-6 text-[9px] text-neutral-700 hover:text-red-500 font-bold uppercase tracking-[0.2em] transition-colors border border-dashed border-neutral-900 rounded-xl">
+                    [ RESET ARCHIVE ]
+                </button>
+            </aside>
+
         </div>
+    </main>
 
-        <aside class="space-y-4 text-left">
-            <h3 class="text-[10px] font-bold uppercase text-neutral-600 tracking-[0.3em] mb-4 font-mono italic">Laboratory History</h3>
-            
-            <div class="glass-card p-5 rounded-2xl border-l-2 border-teal-500 flex justify-between items-center">
-                <div>
-                    <span class="stat-label font-mono">Readiness (HRV)</span>
-                    <div id="stat-readiness" class="stat-value text-xl mt-1 text-teal-400 uppercase">--</div>
-                </div>
-                <a href="recovery-lab.html" class="text-[8px] bg-neutral-900 p-2 rounded hover:text-teal-400 font-bold">LAB</a>
-            </div>
+    <footer class="mt-auto p-12 text-center text-[9px] text-neutral-600 uppercase tracking-[0.3em] border-t border-neutral-900 font-mono">
+        Academic Athlete Lab : Secure Performance Archive © 2026
+    </footer>
 
-            <div class="glass-card p-5 rounded-2xl border-l-2 border-blue-500 flex justify-between items-center">
-                <div>
-                    <span class="stat-label font-mono">SMI (Muscle)</span>
-                    <div id="stat-smi" class="stat-value text-xl mt-1 text-blue-400">--</div>
-                </div>
-                <a href="smi-lab.html" class="text-[8px] bg-neutral-900 p-2 rounded hover:text-blue-400 font-bold">LAB</a>
-            </div>
+    <script>
+        function initLog() {
+            // Sync Laboratory Results
+            const smi = localStorage.getItem('athleteSMI');
+            const vo2 = localStorage.getItem('athleteVO2');
+            const funcAge = localStorage.getItem('athleteFunctionalAge');
+            const readiness = localStorage.getItem('athleteReadiness');
+            const watts = localStorage.getItem('athleteWattsKg');
 
-            <div class="glass-card p-5 rounded-2xl border-l-2 border-purple-500 flex justify-between items-center">
-                <div>
-                    <span class="stat-label font-mono">Power (Watts/kg)</span>
-                    <div id="stat-watts" class="stat-value text-xl mt-1 text-purple-400">--</div>
-                </div>
-                <a href="watts-lab.html" class="text-[8px] bg-neutral-900 p-2 rounded hover:text-purple-400 font-bold">LAB</a>
-            </div>
+            document.getElementById('stat-smi').innerText = smi ? smi : '--';
+            document.getElementById('stat-vo2').innerText = vo2 ? vo2 : '--';
+            document.getElementById('stat-func-age').innerText = funcAge ? funcAge : '--';
+            document.getElementById('stat-readiness').innerText = readiness ? readiness : '--';
+            document.getElementById('stat-watts').innerText = watts ? watts : '--';
 
-            <div class="glass-card p-5 rounded-2xl border-l-2 border-red-500 flex justify-between items-center">
-                <div>
-                    <span class="stat-label font-mono">VO2 Max</span>
-                    <div id="stat-vo2" class="stat-value text-xl mt-1 text-red-500">--</div>
-                </div>
-                <a href="vo2-lab.html" class="text-[8px] bg-neutral-900 p-2 rounded hover:text-red-400 font-bold">LAB</a>
-            </div>
+            const currentStreak = parseInt(localStorage.getItem('longevityStreak') || 0);
+            document.getElementById('streak-count-display').innerText = currentStreak;
+            updateStreakUI(currentStreak);
 
-            <div class="glass-card p-5 rounded-2xl border-l-2 border-cyan-500 flex justify-between items-center">
-                <div>
-                    <span class="stat-label font-mono">Func-Age (1RM)</span>
-                    <div id="stat-func-age" class="stat-value text-xl mt-1 text-cyan-400">--</div>
-                </div>
-                <a href="functional-age.html" class="text-[8px] bg-neutral-900 p-2 rounded hover:text-cyan-400 font-bold">LAB</a>
-            </div>
-            
-            <button onclick="if(confirm('Erase all laboratory history?')) { localStorage.clear(); location.reload(); }" class="w-full py-4 mt-6 text-[9px] text-neutral-700 hover:text-red-500 font-bold uppercase tracking-[0.2em] transition-colors border border-dashed border-neutral-900 rounded-xl">
-                [ RESET ARCHIVE ]
-            </button>
-        </aside>
-
-    </div>
-</main>
-
-<footer class="mt-auto p-12 text-center text-[9px] text-neutral-600 uppercase tracking-[0.3em] border-t border-neutral-900 font-mono">
-    Academic Athlete Lab : Secure Performance Archive © 2026
-</footer>
-
-<script>
-    function initLog() {
-        // Sync Laboratory Results
-        const smi = localStorage.getItem('athleteSMI');
-        const vo2 = localStorage.getItem('athleteVO2');
-        const funcAge = localStorage.getItem('athleteFunctionalAge');
-        const readiness = localStorage.getItem('athleteReadiness');
-        const watts = localStorage.getItem('athleteWattsKg');
-
-        document.getElementById('stat-smi').innerText = smi ? smi : '--';
-        document.getElementById('stat-vo2').innerText = vo2 ? vo2 : '--';
-        document.getElementById('stat-func-age').innerText = funcAge ? funcAge : '--';
-        document.getElementById('stat-readiness').innerText = readiness ? readiness : '--';
-        document.getElementById('stat-watts').innerText = watts ? watts : '--';
-
-        const currentStreak = parseInt(localStorage.getItem('longevityStreak') || 0);
-        document.getElementById('streak-count-display').innerText = currentStreak;
-        updateStreakUI(currentStreak);
-
-        const today = new Date().toDateString();
-        if (localStorage.getItem('lastCheckInDate') === today) {
-            lockCheckIn();
-        }
-    }
-
-    function lockCheckIn() {
-        const btn = document.getElementById('checkin-btn');
-        btn.innerText = "DEFENSE PROTOCOL ACTIVE";
-        btn.disabled = true;
-        btn.className = "mt-8 w-full py-5 bg-neutral-900 text-neutral-600 font-black italic uppercase text-[10px] rounded-xl cursor-not-allowed border border-neutral-800";
-        
-        document.getElementById('check-protein').checked = true;
-        document.getElementById('check-train').checked = true;
-        document.getElementById('check-protein').disabled = true;
-        document.getElementById('check-train').disabled = true;
-    }
-
-    function commitDailyCheckIn() {
-        if (!document.getElementById('check-protein').checked || !document.getElementById('check-train').checked) {
-            alert("INCOMPLETE PROTOCOL: verify both nutrition and mechanical load.");
-            return;
-        }
-
-        const today = new Date();
-        const todayStr = today.toDateString();
-        let currentStreak = parseInt(localStorage.getItem('longevityStreak') || 0);
-        const lastCheckIn = localStorage.getItem('lastCheckInDate');
-
-        if (lastCheckIn) {
-            const lastDate = new Date(lastCheckIn);
-            const diffHours = Math.floor((today - lastDate) / (1000 * 60 * 60));
-            
-            if (diffHours >= 48) {
-                alert("STREAK DECAYED: System idle > 48h. Resetting momentum.");
-                currentStreak = 0;
+            const today = new Date().toDateString();
+            if (localStorage.getItem('lastCheckInDate') === today) {
+                lockCheckIn();
             }
         }
 
-        currentStreak++;
-        localStorage.setItem('longevityStreak', currentStreak);
-        localStorage.setItem('lastCheckInDate', todayStr);
-        initLog();
-    }
-
-    function updateStreakUI(streak) {
-        const title = document.getElementById('phase-title');
-        const desc = document.getElementById('phase-description');
-        const num = document.getElementById('phase-number');
-        const progress = document.getElementById('phase-progress');
-        
-        if (streak >= 30) {
-            title.innerText = "Biological Apex";
-            desc.innerText = "ELITE CONSISTENCY: Metabolic machinery optimized. Sarcopenia defense at maximum threshold.";
-            num.innerText = "4"; progress.style.width = "100%";
-        } else if (streak >= 14) {
-            title.innerText = "Structural Fortification";
-            desc.innerText = "STABILITY: Lean mass retention is reinforced. Your body has accepted the new mechanical baseline.";
-            num.innerText = "3"; progress.style.width = "75%";
-        } else if (streak >= 7) {
-            title.innerText = "Metabolic Shift";
-            desc.innerText = "ADAPTATION: Enzyme activity peaking. Habit pathways are overriding age-related drift.";
-            num.innerText = "2"; progress.style.width = "50%";
-        } else if (streak > 0) {
-            title.innerText = "Neural Ignition";
-            desc.innerText = "INITIATION: You have triggered the defense cycle. Reach Day 7 to secure metabolic shift.";
-            num.innerText = "1"; progress.style.width = "25%";
-        } else {
-            title.innerText = "System Idle";
-            num.innerText = "0"; progress.style.width = "5%";
+        function lockCheckIn() {
+            const btn = document.getElementById('checkin-btn');
+            btn.innerText = "DEFENSE PROTOCOL ACTIVE";
+            btn.disabled = true;
+            btn.className = "mt-8 w-full py-5 bg-neutral-900 text-neutral-600 font-black italic uppercase text-[10px] rounded-xl cursor-not-allowed border border-neutral-800";
+            
+            document.getElementById('check-protein').checked = true;
+            document.getElementById('check-train').checked = true;
+            document.getElementById('check-protein').disabled = true;
+            document.getElementById('check-train').disabled = true;
         }
-    }
-</script>
+
+        function commitDailyCheckIn() {
+            if (!document.getElementById('check-protein').checked || !document.getElementById('check-train').checked) {
+                alert("INCOMPLETE PROTOCOL: verify both nutrition and mechanical load.");
+                return;
+            }
+
+            const today = new Date();
+            const todayStr = today.toDateString();
+            let currentStreak = parseInt(localStorage.getItem('longevityStreak') || 0);
+            const lastCheckIn = localStorage.getItem('lastCheckInDate');
+
+            if (lastCheckIn) {
+                const lastDate = new Date(lastCheckIn);
+                const diffHours = Math.floor((today - lastDate) / (1000 * 60 * 60));
+                
+                if (diffHours >= 48) {
+                    alert("STREAK DECAYED: System idle > 48h. Resetting momentum.");
+                    currentStreak = 0;
+                }
+            }
+
+            currentStreak++;
+            localStorage.setItem('longevityStreak', currentStreak);
+            localStorage.setItem('lastCheckInDate', todayStr);
+            initLog();
+        }
+
+        function updateStreakUI(streak) {
+            const title = document.getElementById('phase-title');
+            const desc = document.getElementById('phase-description');
+            const num = document.getElementById('phase-number');
+            const progress = document.getElementById('phase-progress');
+            
+            if (streak >= 30) {
+                title.innerText = "Biological Apex";
+                desc.innerText = "ELITE CONSISTENCY: Metabolic machinery optimized. Sarcopenia defense at maximum threshold.";
+                num.innerText = "4"; progress.style.width = "100%";
+            } else if (streak >= 14) {
+                title.innerText = "Structural Fortification";
+                desc.innerText = "STABILITY: Lean mass retention is reinforced. Your body has accepted the new mechanical baseline.";
+                num.innerText = "3"; progress.style.width = "75%";
+            } else if (streak >= 7) {
+                title.innerText = "Metabolic Shift";
+                desc.innerText = "ADAPTATION: Enzyme activity peaking. Habit pathways are overriding age-related drift.";
+                num.innerText = "2"; progress.style.width = "50%";
+            } else if (streak > 0) {
+                title.innerText = "Neural Ignition";
+                desc.innerText = "INITIATION: You have triggered the defense cycle. Reach Day 7 to secure metabolic shift.";
+                num.innerText = "1"; progress.style.width = "25%";
+            } else {
+                title.innerText = "System Idle";
+                num.innerText = "0"; progress.style.width = "5%";
+            }
+        }
+    </script>
 </body>
 </html>
