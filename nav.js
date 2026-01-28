@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
               </div>
             </div>
 
-            <!-- Guides Dropdown (new) -->
+            <!-- Guides Dropdown -->
             <div class="relative group">
               <button class="nav-link text-white group-hover:text-teal-400 transition flex items-center gap-1 uppercase tracking-wider">
                 GUIDES
@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   <a href="mobilitylab-guide.html" class="block px-5 py-2.5 text-sm text-neutral-300 hover:bg-neutral-900 hover:text-white transition">Mobility</a>
                   <a href="proteinlab-guide.html" class="block px-5 py-2.5 text-sm text-neutral-300 hover:bg-neutral-900 hover:text-white transition">Protein & MPS</a>
                   <a href="recoverylab-guide.html" class="block px-5 py-2.5 text-sm text-neutral-300 hover:bg-neutral-900 hover:text-white transition">Recovery</a>
+                  <a href="streaklab-guide.html" class="block px-5 py-2.5 text-sm text-neutral-300 hover:bg-neutral-900 hover:text-white transition">Streak Lab</a>
                   <a href="vo2max-guide.html" class="block px-5 py-2.5 text-sm text-neutral-300 hover:bg-neutral-900 hover:text-white transition">VO2 Max</a>
                   <a href="wattslab-guide.html" class="block px-5 py-2.5 text-sm text-neutral-300 hover:bg-neutral-900 hover:text-white transition">Watts/kg</a>
                 </div>
@@ -109,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
           </div>
 
-          <!-- New GUIDES section in mobile -->
+          <!-- Guides section in mobile -->
           <div class="border-t border-neutral-800 pt-5">
             <p class="text-teal-500 text-xs uppercase tracking-widest mb-4 font-mono">GUIDES</p>
             <div class="grid grid-cols-2 gap-4 text-sm">
@@ -125,6 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
               <a href="mobilitylab-guide.html" class="text-neutral-300 hover:text-white transition">Mobility</a>
               <a href="proteinlab-guide.html" class="text-neutral-300 hover:text-white transition">Protein & MPS</a>
               <a href="recoverylab-guide.html" class="text-neutral-300 hover:text-white transition">Recovery</a>
+              <a href="streaklab-guide.html" class="text-neutral-300 hover:text-white transition">Streak Lab</a>
               <a href="vo2max-guide.html" class="text-neutral-300 hover:text-white transition">VO2 Max</a>
               <a href="wattslab-guide.html" class="text-neutral-300 hover:text-white transition">Watts/kg</a>
             </div>
