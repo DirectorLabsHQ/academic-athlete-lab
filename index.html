@@ -31,7 +31,7 @@
             -webkit-font-smoothing: antialiased; 
             margin: 0;
             padding: 0;
-            padding-top: 72px; /* ← FIXED: prevents header from being hidden under sticky nav */
+            padding-top: 80px;  /* Matches fixed nav height */
         }
         
         .font-mono { font-family: 'Space Mono', monospace; }
@@ -51,10 +51,18 @@
         
         .nav-link { 
             font-family: 'Space Mono', monospace; 
-            font-size: 10px; 
+            font-size: 12px;           /* ← Increased from 10px for consistency */
             font-weight: 900; 
             text-transform: uppercase; 
-            letter-spacing: 0.2em; 
+            letter-spacing: 0.25em;     /* ← Slightly wider for readability */
+            padding: 0.5rem 1rem;       /* ← Better spacing */
+            transition: all 0.2s;
+        }
+        
+        .nav-link:hover {
+            color: white;
+            text-decoration: underline;
+            text-underline-offset: 4px;
         }
         
         .category-header { 
@@ -70,6 +78,8 @@
 </head>
 
 <body class="min-h-screen flex flex-col">
+
+    <!-- Shared nav injected here by nav.js -->
 
     <header class="bg-black text-white py-24 px-6 text-left relative border-b border-neutral-900">
         <div class="max-w-6xl mx-auto relative z-10">
