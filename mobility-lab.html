@@ -5,185 +5,276 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Functional Mobility & Joint Integrity Lab | Academic Athlete Lab</title>
     <meta name="description" content="Assess your functional range of motion and joint integrity. Specialized mobility diagnostic for athletes 50+ to identify injury risk and movement gaps.">
+    <meta name="keywords" content="mobility assessment, functional range of motion, joint integrity test, masters athlete mobility, sarcopenia prevention, kinetic chain">
     
+    <!-- Canonical for SEO -->
+    <link rel="canonical" href="https://academicathletelab.com/mobility-lab.html">
+
+    <!-- Structured data for better search visibility -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Functional Mobility & Joint Integrity Lab - Academic Athlete Lab",
+      "description": "Mobility diagnostic tool for athletes 50+ to assess functional range of motion, joint integrity, and injury risk.",
+      "url": "https://academicathletelab.com/mobility-lab.html"
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="nav.js" defer></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap');
-        body { background-color: #050505; color: #fff; font-family: 'Space Mono', monospace; -webkit-font-smoothing: antialiased; }
-        .font-inter { font-family: 'Inter', sans-serif; }
+        
+        body { 
+            background-color: #050505; 
+            color: #fff; 
+            font-family: 'Inter', sans-serif; 
+            -webkit-font-smoothing: antialiased; 
+            margin: 0;
+            padding: 0;
+            padding-top: 80px; 
+        }
+        
+        .font-mono { font-family: 'Space Mono', monospace; }
         .safety-yellow { color: #facc15; }
         .bg-yellow { background-color: #facc15; }
         .glass-card { background: #111; border: 1px solid #222; }
-        .input-field { background: #000; border: 1px solid #333; color: #facc15; outline: none; transition: all 0.2s; font-size: 1.1rem; width: 100%; padding: 1rem; border-radius: 0.75rem; }
+        .input-field { 
+            background: #000; 
+            border: 1px solid #333; 
+            color: #facc15; 
+            outline: none; 
+            transition: all 0.2s; 
+            font-size: 1.1rem; 
+            width: 100%; 
+            padding: 1rem; 
+            border-radius: 0.75rem; 
+        }
         .input-field:focus { border-color: #facc15; background: #0a0a0a; }
-        .nav-link { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
-        .score-btn { border: 1px solid #333; transition: all 0.2s; color: #666; }
-        .score-btn.active { background: #facc15; color: #000; border-color: #facc15; font-weight: 900; }
+        .toggle-active { background-color: #facc15 !important; color: #000 !important; }
+        
+        /* Improved affiliate buttons */
+        .affiliate-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            min-width: 220px;
+        }
+        .affiliate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+        }
+        
+        .score-btn { 
+            border: 1px solid #333; 
+            transition: all 0.2s; 
+            color: #666; 
+        }
+        .score-btn.active { 
+            background: #facc15; 
+            color: #000; 
+            border-color: #facc15; 
+            font-weight: 900; 
+        }
+        
         .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
+
 <body class="min-h-screen flex flex-col" onload="initPage()">
 
-<header class="p-6 border-b border-neutral-900 bg-black text-left">
-    <div class="max-w-6xl mx-auto flex justify-between items-center">
-        <a href="index.html" class="text-xl font-black tracking-tighter safety-yellow italic uppercase font-inter text-left">ACADEMIC<span class="text-white">ATHLETE</span>LAB</a>
-        <div class="hidden md:block">
-            <span class="text-[9px] text-neutral-600 uppercase tracking-widest font-bold font-mono">Module: Biomechanical_Symmetry_v1.9</span>
+    <!-- Shared nav injected here by nav.js -->
+
+    <main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter">
+        <header class="mb-12 text-left">
+            <div class="inline-block bg-yellow text-black px-4 py-1 font-black italic text-2xl uppercase mb-4 tracking-tighter">Functional Mobility Lab</div>
+            <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono font-bold">Diagnostic: Kinetic Chain Integrity & Joint Clearance</p>
+        </header>
+
+        <div class="grid lg:grid-cols-2 gap-10">
+            <section class="glass-card p-8 rounded-3xl border-l-4 border-yellow-400 text-left">
+                <h2 class="text-xs font-bold uppercase safety-yellow mb-6 tracking-widest font-mono italic">Self-Assessment Protocol</h2>
+                <p class="text-[10px] text-neutral-500 mb-8 uppercase font-bold tracking-tighter">Scale: 1 (Blocked/Pain) | 2 (Limited) | 3 (Optimal/Academic)</p>
+                
+                <div class="space-y-8">
+                    <div>
+                        <label class="block text-[11px] uppercase text-white font-bold mb-3 tracking-widest font-mono italic">Ankle Dorsiflexion (Knee to Wall)</label>
+                        <div class="flex gap-4">
+                            <button onclick="setScore('ankle', 1)" id="ankle-1" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">1</button>
+                            <button onclick="setScore('ankle', 2)" id="ankle-2" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">2</button>
+                            <button onclick="setScore('ankle', 3)" id="ankle-3" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">3</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] uppercase text-white font-bold mb-3 tracking-widest font-mono italic">Hip Internal/External Rotation</label>
+                        <div class="flex gap-4">
+                            <button onclick="setScore('hip', 1)" id="hip-1" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">1</button>
+                            <button onclick="setScore('hip', 2)" id="hip-2" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">2</button>
+                            <button onclick="setScore('hip', 3)" id="hip-3" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">3</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] uppercase text-white font-bold mb-3 tracking-widest font-mono italic">Shoulder Overhead Clearance</label>
+                        <div class="flex gap-4">
+                            <button onclick="setScore('shoulder', 1)" id="shoulder-1" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">1</button>
+                            <button onclick="setScore('shoulder', 2)" id="shoulder-2" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">2</button>
+                            <button onclick="setScore('shoulder', 3)" id="shoulder-3" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">3</button>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="resetLab()" class="mt-8 w-full py-4 bg-white text-black font-black italic uppercase text-[10px] rounded-xl hover:bg-yellow-400 transition-all tracking-widest font-inter">
+                    Reset Scores
+                </button>
+            </section>
+
+            <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px] relative overflow-hidden">
+                <div id="mobility-result" class="hidden text-left relative z-10">
+                    <h3 class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono italic">Movement Readiness Score:</h3>
+                    <div id="mobility-val" class="text-7xl font-black safety-yellow tracking-tighter mb-4 uppercase italic leading-none">--%</div>
+                    
+                    <div class="p-6 bg-yellow-400/5 border border-yellow-400/20 rounded-2xl mb-6">
+                        <p class="text-[9px] font-bold text-yellow-400 uppercase mb-2 tracking-widest italic text-left underline font-mono">Kinetic Analysis:</p>
+                        <p id="mobility-comment" class="text-xs text-neutral-400 leading-relaxed italic text-left"></p>
+                    </div>
+
+                    <!-- Improved Affiliate Recommendation -->
+                    <div class="mt-8">
+                        <a href="https://amzn.to/4aj33xu" target="_blank" rel="noopener noreferrer" class="affiliate-btn bg-yellow-600 hover:bg-yellow-500 text-white font-bold">
+                            Theragun Mini → (Amazon)
+                        </a>
+                    </div>
+
+                    <p class="text-neutral-500 text-xs mt-4 italic text-center">
+                        As an Amazon Associate, I earn from qualifying purchases at no extra cost to you.
+                    </p>
+
+                    <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-yellow-400 transition-all italic mt-8">Commit to Streak Lab →</a>
+                </div>
+                <div id="mobility-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest font-mono px-10 leading-loose">
+                    [ Awaiting biomechanical assessment scores for joint analysis ]
+                </div>
+                <div class="absolute -right-8 -bottom-8 text-9xl font-black text-white/[0.02] italic pointer-events-none select-none uppercase">Kinetic</div>
+            </section>
         </div>
-    </div>
-</header>
 
-<nav class="bg-black border-b border-neutral-900 py-4 px-6 sticky top-0 z-[100] backdrop-blur-md bg-black/80 overflow-x-auto no-scrollbar">
-    <div class="max-w-6xl mx-auto flex gap-6 md:gap-8 whitespace-nowrap items-center font-mono text-[10px]">
-        <a href="index.html" class="nav-link text-neutral-500 hover:text-white transition-colors">Lab Home</a>
-        <a href="1rm-lab.html" class="nav-link text-neutral-500 hover:text-white transition-colors">1RM</a>
-        <a href="ffmi-lab.html" class="nav-link text-neutral-500 hover:text-white">FFMI</a>
-        <a href="smi-lab.html" class="nav-link text-neutral-500 hover:text-white">SMI</a>
-        <a href="grip-lab.html" class="nav-link text-neutral-500 hover:text-white">Grip</a>
-        <a href="vo2-lab.html" class="nav-link text-neutral-500 hover:text-white">VO2 Max</a>
-        <a href="watts-lab.html" class="nav-link text-neutral-500 hover:text-white">Watts/kg</a>
-        <a href="max-hr.html" class="nav-link text-neutral-500 hover:text-white">Max HR</a>
-        <a href="bio-age.html" class="nav-link text-neutral-500 hover:text-white">Bio-Age</a>
-        <a href="functional-age.html" class="nav-link text-neutral-500 hover:text-white">Func-Age</a>
-        <a href="insulin-lab.html" class="nav-link text-neutral-500 hover:text-white">Insulin</a>
-        <a href="metabolic-lab.html" class="nav-link text-neutral-500 hover:text-white">Metabolic</a>
-        <a href="protein-lab.html" class="nav-link text-neutral-500 hover:text-white">Protein</a>
-        <a href="hydration-lab.html" class="nav-link text-neutral-500 hover:text-white">Hydration</a>
-        <a href="mobility-lab.html" class="nav-link safety-yellow border-b border-yellow-400 pb-1">Mobility</a>
-        <a href="recovery-lab.html" class="nav-link text-neutral-500 hover:text-white">Recovery</a>
-        <a href="athlete-lab.html" class="nav-link text-purple-500 border-l border-neutral-800 pl-6 italic font-bold">The Streak Lab</a>
-    </div>
-</nav>
-
-<main class="max-w-5xl mx-auto p-6 md:p-12 w-full font-inter">
-    <header class="mb-12 text-left">
-        <div class="inline-block bg-yellow-400 text-black px-4 py-1 font-black italic text-2xl uppercase mb-4 tracking-tighter">Functional Mobility Lab</div>
-        <p class="text-neutral-500 text-[10px] tracking-[0.4em] uppercase font-mono block font-bold">Diagnostic: Kinetic Chain Integrity & Joint Clearance</p>
-    </header>
-
-    <div class="grid lg:grid-cols-2 gap-10">
-        <section class="glass-card p-8 rounded-3xl border-l-4 border-yellow-400 text-left">
-            <h2 class="text-xs font-bold uppercase safety-yellow mb-6 tracking-widest font-mono italic">Self-Assessment Protocol</h2>
-            <p class="text-[10px] text-neutral-500 mb-8 uppercase font-bold tracking-tighter">Scale: 1 (Blocked/Pain) | 2 (Limited) | 3 (Optimal/Academic)</p>
+        <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
+            <h2 class="text-2xl font-black italic uppercase mb-8 safety-yellow tracking-tighter">Academic Research: Mobility vs Flexibility</h2>
             
-            <div class="space-y-8">
+            <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
                 <div>
-                    <label class="block text-[11px] uppercase text-white font-bold mb-3 tracking-widest font-mono italic">Ankle Dorsiflexion (Knee to Wall)</label>
-                    <div class="flex gap-4">
-                        <button onclick="setScore('ankle', 1)" id="ankle-1" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">1</button>
-                        <button onclick="setScore('ankle', 2)" id="ankle-2" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">2</button>
-                        <button onclick="setScore('ankle', 3)" id="ankle-3" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">3</button>
-                    </div>
+                    <h3 class="text-white font-bold mb-4 uppercase tracking-tighter text-xs font-mono">The Joint-By-Joint Approach</h3>
+                    <p class="mt-6 mb-6">For the athlete over 50, a loss of ankle mobility forces the knee (a stability joint) to compensate, leading to chronic inflammation and tissue failure. We prioritize <strong>functional Range of Motion (fROM)</strong> over simple static stretching.</p>
                 </div>
+                
                 <div>
-                    <label class="block text-[11px] uppercase text-white font-bold mb-3 tracking-widest font-mono italic">Hip Internal/External Rotation</label>
-                    <div class="flex gap-4">
-                        <button onclick="setScore('hip', 1)" id="hip-1" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">1</button>
-                        <button onclick="setScore('hip', 2)" id="hip-2" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">2</button>
-                        <button onclick="setScore('hip', 3)" id="hip-3" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">3</button>
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-[11px] uppercase text-white font-bold mb-3 tracking-widest font-mono italic">Shoulder Overhead Clearance</label>
-                    <div class="flex gap-4">
-                        <button onclick="setScore('shoulder', 1)" id="shoulder-1" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">1</button>
-                        <button onclick="setScore('shoulder', 2)" id="shoulder-2" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">2</button>
-                        <button onclick="setScore('shoulder', 3)" id="shoulder-3" class="score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800">3</button>
-                    </div>
+                    <h3 class="text-white font-bold mb-4 uppercase tracking-tighter text-xs font-mono">Connective Tissue Aging</h3>
+                    <p class="mb-4">With age, tendons and ligaments lose elastic properties (collagen cross-linking). Mobility training provides the <strong>mechanical loading</strong> necessary to stimulate tenocyte activity and maintain the integrity of the extracellular matrix.</p>
                 </div>
             </div>
         </section>
 
-        <section class="glass-card p-8 rounded-3xl flex flex-col justify-center min-h-[400px] relative overflow-hidden">
-            <div id="mobility-result" class="hidden text-left relative z-10">
-                <h3 class="text-[10px] text-neutral-500 uppercase tracking-widest block mb-2 font-mono italic">Movement Readiness Score:</h3>
-                <div id="mobility-val" class="text-7xl font-black safety-yellow tracking-tighter mb-4 uppercase italic leading-none">--%</div>
-                
-                <div class="p-6 bg-yellow-400/5 border border-yellow-400/20 rounded-2xl mb-6">
-                    <p class="text-[9px] font-bold text-yellow-400 uppercase mb-2 tracking-widest italic text-left underline">Kinetic Analysis:</p>
-                    <p id="mobility-comment" class="text-xs text-neutral-400 leading-relaxed italic text-left"></p>
-                </div>
-
-                <a href="athlete-lab.html" class="block w-full text-center bg-white text-black font-black py-4 rounded-xl uppercase text-[10px] tracking-widest hover:bg-yellow-400 transition-all italic font-inter">Commit to Streak Lab →</a>
-            </div>
-            <div id="mobility-placeholder" class="text-neutral-600 italic text-center uppercase text-[10px] tracking-widest font-mono px-10 leading-loose">
-                [ Awaiting biomechanical assessment scores for joint analysis ]
-            </div>
-            <div class="absolute -right-8 -bottom-8 text-9xl font-black text-white/[0.02] italic pointer-events-none select-none uppercase">Kinetic</div>
+        <section class="mt-12 p-6 bg-neutral-900/30 border border-neutral-800 rounded-2xl text-left font-mono">
+            <p class="text-[10px] text-neutral-500 leading-relaxed italic">
+                <span class="text-neutral-300 font-bold uppercase tracking-widest block mb-2 underline font-inter">Diagnostic Disclaimer:</span>
+                This tool is for educational purposes. If you experience sharp pain (Level 1) during any movement, cease activity and consult a specialist. Mobility scores do not replace clinical imaging.
+            </p>
         </section>
-    </div>
+    </main>
 
-    <section class="mt-20 border-t border-neutral-900 pt-16 text-left">
-        <h2 class="text-2xl font-black italic uppercase mb-8 safety-yellow tracking-tighter">Academic Research: Mobility vs Flexibility</h2>
-        
-        <div class="grid md:grid-cols-2 gap-12 text-neutral-400 text-sm leading-relaxed">
-            <div>
-                <h3 class="text-white font-bold mb-4 uppercase tracking-tighter text-xs font-mono">The Joint-By-Joint Approach</h3>
-                
-                <p class="mt-6 mb-6">For the athlete over 50, a loss of ankle mobility forces the knee (a stability joint) to compensate, leading to chronic inflammation and tissue failure. We prioritize <strong>functional Range of Motion (fROM)</strong> over simple static stretching.</p>
-            </div>
+    <footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-[0.3em]">
+        Academic Athlete Lab © 2026 | Protocol: Biomechanical_Symmetry_v1.9
+    </footer>
+
+    <script>
+        let scores = { ankle: 0, hip: 0, shoulder: 0 };
+        let currentGender = localStorage.getItem('athleteGender') || 'male';
+
+        function initPage() {
+            setGender(currentGender);
+            // Scores start at 0 (blank) on every refresh/load
+            calculateMobility();
+        }
+
+        function setGender(g) {
+            currentGender = g;
+            localStorage.setItem('athleteGender', g);
+            document.getElementById('gen-male').className = g === 'male' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
+            document.getElementById('gen-female').className = g === 'female' ? 'flex-1 py-3 text-[10px] font-bold rounded-lg toggle-active' : 'flex-1 py-3 text-[10px] font-bold rounded-lg text-neutral-500';
+            calculateMobility();
+        }
+
+        function setScore(joint, val) {
+            scores[joint] = val;
             
-            <div>
-                <h3 class="text-white font-bold mb-4 uppercase tracking-tighter text-xs font-mono">Connective Tissue Aging</h3>
-                <p class="mb-4">With age, tendons and ligaments lose elastic properties (collagen cross-linking). Mobility training provides the <strong>mechanical loading</strong> necessary to stimulate tenocyte activity and maintain the integrity of the extracellular matrix.</p>
-                
-            </div>
-        </div>
-    </section>
+            // Update UI buttons
+            for (let i = 1; i <= 3; i++) {
+                document.getElementById(`${joint}-${i}`).className = 'score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800';
+            }
+            document.getElementById(`${joint}-${val}`).classList.add('active');
 
-    <section class="mt-12 p-6 bg-neutral-900/30 border border-neutral-800 rounded-2xl text-left font-mono">
-        <p class="text-[10px] text-neutral-500 leading-relaxed italic">
-            <span class="text-neutral-300 font-bold uppercase tracking-widest block mb-2 underline font-inter">Diagnostic Disclaimer:</span>
-            This tool is for educational purposes. If you experience sharp pain (Level 1) during any movement, cease activity and consult a specialist. Mobility scores do not replace clinical imaging.
-        </p>
-    </section>
-</main>
-
-<footer class="p-12 border-t border-neutral-900 mt-20 bg-black text-center font-mono text-[9px] text-neutral-600 uppercase tracking-[0.3em]">
-    Academic Athlete Lab © 2026 | Protocol: Biomechanical_Symmetry_v1.9
-</footer>
-
-<script>
-    let scores = { ankle: 0, hip: 0, shoulder: 0 };
-
-    function initPage() {
-        // Recall any previous session scores if needed
-    }
-
-    function setScore(joint, val) {
-        scores[joint] = val;
-        
-        // Update UI buttons
-        for (let i = 1; i <= 3; i++) {
-            document.getElementById(`${joint}-${i}`).className = 'score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800';
+            calculateMobility();
         }
-        document.getElementById(`${joint}-${val}`).classList.add('active');
 
-        calculateMobility();
-    }
+        function calculateMobility() {
+            if (scores.ankle === 0 || scores.hip === 0 || scores.shoulder === 0) {
+                document.getElementById('mobility-result').classList.add('hidden');
+                document.getElementById('mobility-placeholder').classList.remove('hidden');
+                return;
+            }
 
-    function calculateMobility() {
-        if(scores.ankle === 0 || scores.hip === 0 || scores.shoulder === 0) return;
+            const total = scores.ankle + scores.hip + scores.shoulder;
+            const percentage = Math.round((total / 9) * 100);
 
-        const total = scores.ankle + scores.hip + scores.shoulder;
-        const percentage = Math.round((total / 9) * 100);
+            document.getElementById('mobility-result').classList.remove('hidden');
+            document.getElementById('mobility-placeholder').classList.add('hidden');
+            document.getElementById('mobility-val').innerText = percentage + "%";
+            
+            let comment = "";
+            if (percentage >= 88) {
+                comment = "Academic Standard. Joint ranges are optimized for high-intensity recruitment. Maintain with daily end-range loading.";
+            } else if (percentage >= 66) {
+                comment = "Functional Level. Minor movement leaks detected. Priority: Focus on specific joints scored at Level 2 to prevent compensation.";
+            } else {
+                comment = "Injury Risk High. Significant deficits detected. Recommend corrective fROM protocols before increasing external load.";
+            }
+            
+            document.getElementById('mobility-comment').innerText = comment;
+            localStorage.setItem('athleteMobilityScore', percentage);
 
-        document.getElementById('mobility-result').classList.remove('hidden');
-        document.getElementById('mobility-placeholder').classList.add('hidden');
-        document.getElementById('mobility-val').innerText = percentage + "%";
-        
-        let comment = "";
-        if (percentage >= 88) {
-            comment = "Academic Standard. Joint ranges are optimized for high-intensity recruitment. Maintain with daily end-range loading.";
-        } else if (percentage >= 66) {
-            comment = "Functional Level. Minor movement leaks detected. Priority: Focus on specific joints scored at Level 2 to prevent compensation.";
-        } else {
-            comment = "Injury Risk High. Significant deficits detected. Recommend corrective fROM protocols before increasing external load.";
+            // Improved Affiliate Recommendation
+            if (!document.getElementById('affiliate-box')) {  // Prevent duplicates
+                const affiliateBox = document.createElement('div');
+                affiliateBox.id = 'affiliate-box';
+                affiliateBox.className = 'mt-8';
+                affiliateBox.innerHTML = `
+                    <a href="https://amzn.to/4aj33xu" target="_blank" rel="noopener noreferrer" class="affiliate-btn bg-yellow-600 hover:bg-yellow-500 text-white font-bold">
+                        Theragun Mini → (Amazon)
+                    </a>
+                    <p class="text-neutral-500 text-xs mt-4 italic text-center">
+                        As an Amazon Associate, I earn from qualifying purchases at no extra cost to you.
+                    </p>
+                `;
+                document.getElementById('mobility-result').appendChild(affiliateBox);
+            }
         }
-        
-        document.getElementById('mobility-comment').innerText = comment;
-        localStorage.setItem('athleteMobilityScore', percentage);
-    }
-</script>
+
+        function resetLab() {
+            scores = { ankle: 0, hip: 0, shoulder: 0 };
+            for (let joint of ['ankle', 'hip', 'shoulder']) {
+                for (let i = 1; i <= 3; i++) {
+                    document.getElementById(`${joint}-${i}`).className = 'score-btn flex-1 py-3 rounded-xl text-xs font-mono bg-black border border-neutral-800';
+                }
+            }
+            calculateMobility();
+        }
+    </script>
 </body>
 </html>
